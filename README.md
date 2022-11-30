@@ -5,4 +5,4 @@
 <div style="background-color: #A66B56; height: 100px;">color: #A66B56; 또는 color: rgba(165, 107, 86, 1);</div>
 <div style="background-color: #734338; height: 100px;">color: #734338; 또는 color: rgba(114, 66, 56, 1);</div>
 
-<a href="https://color.adobe.com/ko/trends/Architecture">참고링크</a>
+<a href="https://github.com/hwanhing/FinalProject1/blob/cart_hye/ref/AdobeColor-Fuzzy%20boundaries.jpeg">참고</a>
