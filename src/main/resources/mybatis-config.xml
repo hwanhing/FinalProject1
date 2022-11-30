@@ -12,6 +12,7 @@
   
 <configuration>
 
+
 	<typeAliases>
 		<typeAlias type="com.spring.model.FinalAdminDTO" alias="finalAdminDTO" />
 		<typeAlias type="com.spring.model.FinalMemberDTO" alias="finalMemberDTO" />
