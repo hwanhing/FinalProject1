@@ -19,3 +19,5 @@ public class FinalMemberDTO {
 	private int member_use;
 	
 }
+
+

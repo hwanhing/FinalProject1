@@ -12,3 +12,5 @@ public class CoffeeWriteDTO {
 	private String member_id;
 	private int beans_num;
 }
+
+

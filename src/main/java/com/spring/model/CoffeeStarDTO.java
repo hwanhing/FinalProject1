@@ -10,3 +10,5 @@ public class CoffeeStarDTO {
 	private double coffee_star;
 	private int coffee_heart;
 }
+
+

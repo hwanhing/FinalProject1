@@ -18,3 +18,5 @@ public class CoffeeTestResultDTO {
 	private int decaf_num;
 	
 }
+
+

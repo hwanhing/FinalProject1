@@ -11,3 +11,5 @@ public class BoardReplyDTO {
 	private int admin_num;
 	private int board_num;
 }
+
+

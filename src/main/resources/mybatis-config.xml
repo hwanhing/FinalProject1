@@ -29,8 +29,6 @@
 		<typeAlias type="com.spring.model.CoffeeBeanDTO" alias="coffeeBeanDTO" />
 		
 		
-		
-		
 	</typeAliases>
 
 

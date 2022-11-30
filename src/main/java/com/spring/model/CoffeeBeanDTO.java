@@ -15,3 +15,5 @@ public class CoffeeBeanDTO {
 	private String beans_url;
 	
 }
+
+

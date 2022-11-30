@@ -13,3 +13,5 @@ public class BoardMemberDTO {
 	private int board_reply;
 	private int member_num;
 }
+
+
