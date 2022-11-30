@@ -1,22 +1,62 @@
-drop table final_member;
-drop table final_admin;
+-- coffee_test --
 drop table coffee_brew;
-drop table coffee_decaff;
-drop table coffee_taste;
-drop table coffee_taste_acid;
-drop table test_result;
-drop table coffee_test;
-drop table coffee_match;
-drop table coffee_grind;
 drop table coffee_add;
-drop table coffee_beans;
-drop table coffee_write;
-drop table member_board;
-drop table member_b_board;
+drop table coffee_decaff;
+drop table coffee_taste_acid;
+drop table coffee_taste;
+drop table coffee_grind;
+
+-- cart_order --
 drop table coffee_cart;
 drop table coffee_order;
 
+-- product --
+drop table member_star;
+drop table coffee_write;
+drop table coffee_beans;
 
+-- board_write --
+drop table admin_reply;
+drop table member_board;
+
+-- member --
+drop table final_admin;
+drop table final_member;
+
+-- coffee_result -- 
+drop table coffee_test;
+drop table coffee_match;
+drop table coffee_test_result;
+
+---------------- test_result(테스트 결과_경우의 수)----------------
+create table coffee_test_result(
+    test_rs_brew number(5) ,
+    test_rs_add number(5), 
+    test_rs_decaff number(5), 
+    test_rs_taste_acid number(5), 
+    test_rs_taste  number(5), 
+    test_num number(10), 
+    test_name varchar2(100)
+);
+
+---------------- coffee_match(테스트 결과에 맞는 커피)----------------
+create table coffee_match(
+    match_num number(5) PRIMARY Key,
+    match_name varchar2(100),
+    match_info varchar2(1000)
+);
+
+---------------- coffee_test(테스트결과)----------------
+create table coffee_test(
+    test_num number(5) PRIMARY Key,
+    test_name varchar2(100),
+    test_full_name varchar2(300),
+    test_info varchar2(1000),
+    match_num number(5),
+    test_match_coffee varchar2(1000),
+    test_mate varchar2(1000),
+    test_img varchar2(1000)
+);
 
 ---------------- final_member(사용자) ----------------
 create table final_member(
@@ -30,13 +70,12 @@ create table final_member(
     member_date date,
     member_img varchar2(1000),
     member_point number(10) DEFAULT 0,
-    type_num number REFERENCES member_test(type_num) on delete cascade
+    test_num number REFERENCES coffee_test(test_num) on delete cascade
 );
 
-insert into final_member values(1, 'test1', '1234', '일길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지1', 0, 1);
-insert into final_member values(2, 'test2', '1234', '이길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지2', 0, 2);
-insert into final_member values(3, 'test3', '1234', '삼길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지3', 0, 3);
-
+insert into final_member values(1, 'test1', '1234', '일길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지1', 0, '');
+insert into final_member values(2, 'test2', '1234', '이길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지2', 0, '');
+insert into final_member values(3, 'test3', '1234', '삼길동', '2011-11-11', 'hong@naver.com','010-1111-1111',sysdate,'이미지3', 0, '');
 
 ---------------- final_admin(관리자) ----------------
 create table final_admin(
@@ -51,124 +90,6 @@ create table final_admin(
 
 insert into final_admin values(1, 'admin', 'admin1234', '관리자', 'hwan_hing@naver.com','010-1111-1111',sysdate);
 
----------------- coffee_brew(드립) ----------------
-create table coffee_brew(
-    brew_num number(10),
-    brew_type varchar2(100),
-    brew_img varchar2(4000)
-);
-
-insert into coffee_brew values(1, '핸드드립', 'path핸드드립');
-insert into coffee_brew values(2, '에스프레소머신', 'path머신');
-insert into coffee_brew values(3, '모카모트', 'path모카모트');
-insert into coffee_brew values(4, '콜드브루', 'path콜드브루');
-
----------------- coffee_decaff(디카페인) ----------------
-create table coffee_decaff(
-    decaf number(5),
-    decaf_type varchar2(100)
-);
-
-insert into coffee_decaff values(0, '디카페인');
-insert into coffee_decaff values(1, '카페인');
-
----------------- coffee_taste(커피맛 1 - 산미) ----------------
-create table coffee_taste_acid(
-    acid_num number(10),
-    acid_type varchar2(1000),
-    acid_info varchar2(1000)
-);
-insert into coffee_taste_acid values(1, '원두 본연 특색', '과일, 꽃, 허브등의 향미를 즐기고 싶어요. 다채롭고 산미가 있는 경우가 일반적이에요');
-insert into coffee_taste_acid values(2, '커피스런 커피','우리가 잘 알고있는 전형적인 그 커피에요. 산미가 적고 고소 쌉싸름 해요.');
-insert into coffee_taste_acid values(3, '조화로운 맛','익숙한 커피맛과 원두 본연의 다채로운 향미를 조화롭게 느낄수 있어요.');
-
----------------- coffee_taste(커피맛 2 - 풍미) ----------------
-create table coffee_taste(
-    taste_num number(10),
-    taste_info varchar2(1000)
-);
-insert into coffee_taste values(1, '상큼한 과일과 꽃향기의 깔끔한 느낌');
-insert into coffee_taste values(2, '달콤한 과일과 농후한 느낌');
-insert into coffee_taste values(3, '고소하고 달콤하고 향긋한 균형잡힌 느낌');
-insert into coffee_taste values(4, '다크초콜릿 같은 쌉쌉함이 묵직한 느낌');
-
----------------- coffee_test(테스트결과)----------------
-create table coffee_test(
-    test_num number(5) PRIMARY Key,
-    test_name varchar2(100),
-    test_full_name varchar2(300),
-    test_info varchar2(1000),
-    test_match_coffee varchar2(1000),
-    test_mate varchar2(1000),
-    test_img varchar2(1000)
-);
-
-
----------------- coffee_match(테스트 결과에 맞는 커피)----------------
-create table coffee_match(
-    match_num number(5) PRIMARY Key,
-    match_name varchar2(100),
-    match_info varchar2(1000)
-);
-
----------------- test_result(테스트 결과_경우의 수)----------------
-create table test_result(
-    test_rs_brew number ,
-    test_rs_add number, 
-    test_rs_decaff number, 
-    test_rs_taste_acid number, 
-    test_rs_taste  number, 
-    test_num number, 
-    test_name varchar2(100)
-);
-
----------------- coffee_grind(원두 갈기) ----------------
-create table coffee_grind(
-    grind number(5),
-    grind_type varchar2(100)
-);
-
-insert into coffee_grind values(0, '갈지 않고 그대로');
-insert into coffee_grind values(1, '내 도구에 맞게 갈아주세요.');
-
----------------- coffee_add(재료 추가) __ 기본, 우유, 설탕, 시럽 ----------------
-create table coffee_add(
-    add_num number(10),
-    add_type varchar2(100)
-);
-
-insert into coffee_add values(1,'기본 블랙 커피');
-insert into coffee_add values(2,'우유를 더한 라떼');
-insert into coffee_add values(3, '설탕을 넣은 커피');
-insert into coffee_add values(4, '시럽을 넣은 커피');
-
----------------- coffee_beans(원두) ----------------
-create table coffee_beans(
-    beans_num number(10) PRIMARY Key,
-    beans_name varchar2(100),
-    beans_price number(10),
-    beans_weight number(10),
-    beans_taste varchar2(100),
-    beans_intro varchar2(4000),
-    beans_img varchar2(1000),
-    beans_url varchar2(1000)
-);
-
-insert into coffee_beans values(1, '원두1', 10000, 200, '맛1','소개1','이미지1','url_1');
-insert into coffee_beans values(2, '원두2', 15000, 100, '맛2','소개2','이미지2','url_2');
-insert into coffee_beans values(3, '원두3', 20000, 200, '맛3','소개3','이미지3','url_3');
-
----------------- coffee_write(후기글) ----------------
-create table coffee_write(
-    write_num number(10) PRIMARY Key,
-    write_cont varchar2(4000),
-    write_date date,
-    write_img varchar2(1000),
-    member_id varchar2(100) REFERENCES final_member(member_id) on delete cascade,
-    beans_num number(10) REFERENCES coffee_beans(beans_num) on delete cascade
-);
-
-
 ---------------- member_board(고객센터) ----------------
 create table member_board(
     board_num number(10) PRIMARY Key,
@@ -180,39 +101,115 @@ create table member_board(
     member_num number(10) REFERENCES final_member(member_num) on delete cascade
 );
 
----------------- member_b_board(고객센터 답변) ----------------
-create table member_b_board(
-    b_board_num number(10) PRIMARY Key,
-    b_board_cont varchar2(4000),
-    b_board_date date,
-    member_num number(10) REFERENCES final_member(member_num) on delete cascade,
+---------------- admin_reply(고객센터 답변) ----------------
+create table admin_reply(
+    reply_num number(10) PRIMARY Key,
+    reply_cont varchar2(4000),
+    reply_date date,
+    admin_num number(10) REFERENCES final_admin(admin_num) on delete cascade,
     board_num number(10) REFERENCES member_board(board_num) on delete CASCADE
 );
 
----------------- coffee_cart(장바구니) ----------------
-create table coffee_cart(
-                  cart_num number primary key, 
-                  beans_num number, 
-                  cart_cnt number, 
-                  cart_price number, 
-                  member_num number,
-                  constraint beans_num foreign key(beans_num) references coffee_beans(beans_num) on delete set null,
-                  constraint member_num foreign key(member_num) references final_member(member_num) on delete set null
+---------------- coffee_beans(원두 상품) ----------------
+create table coffee_beans(
+    beans_num number(10) PRIMARY Key,
+    beans_name varchar2(100),
+    beans_price number(10),
+    beans_count number(10),
+    beans_weight number(10),
+    beans_taste varchar2(100),
+    beans_intro varchar2(4000),
+    beans_img varchar2(4000),
+    beans_url varchar2(4000)  
+);
+
+insert into coffee_beans values(1, '원두1', 10000, 100, 200, '맛1','소개1','이미지1','url_1');
+insert into coffee_beans values(2, '원두2', 15000, 100, 100, '맛2','소개2','이미지2','url_2');
+insert into coffee_beans values(3, '원두3', 20000, 100, 200, '맛3','소개3','이미지3','url_3');
+
+---------------- coffee_write(후기글) ----------------
+create table coffee_write(
+    write_num number(10) PRIMARY Key,
+    write_cont varchar2(4000),
+    write_date date,
+    write_img varchar2(1000),
+    member_id varchar2(100) REFERENCES final_member(member_id) on delete cascade,
+    beans_num number(10) REFERENCES coffee_beans(beans_num) on delete cascade
+);
+
+---------------- member_star(별점, 찜) ----------------
+create table member_star(
+	coffee_star number,
+	coffee_heart number(5),
+	member_num number(10) REFERENCES final_member(member_num) on delete cascade,
+	beans_num number(10) REFERENCES coffee_beans(beans_num) on delete cascade
 );
 
 ---------------- coffee_order(주문내역) ----------------
 create table coffee_order(
-                     order_num varchar2(200) primary key, 
-                     order_row number,
-                     order_cnt number, 
-                     order_price number,
-                     order_date date,
-                     beans_num number, 
-                     beans_name varchar2(200), 
-                     beans_price number, 
-                     beans_weight number, 
-                     beans_taste varchar2(300), 
-                     constraint member_num foreign key(member_num) references final_member(member_num) on delete set null
+     order_num varchar2(200),
+     order_row number(10),
+     order_cnt number(10), 
+     order_price number(10),
+     order_date date,
+     beans_num number(10), 
+     beans_name varchar2(200), 
+     beans_price number(10), 
+     beans_weight number(10), 
+     beans_taste varchar2(300),
+     member_num number(10),
+     constraint member_num foreign key(member_num) references final_member(member_num) on delete cascade
  );
- 
+
+---------------- coffee_cart(장바구니) ----------------
+create table coffee_cart(
+      cart_num number(10) primary key, 
+      beans_num number(10), 
+      cart_cnt number(10), 
+      cart_price number(10), 
+      member_num number(10),
+      constraint beans_num_order foreign key(beans_num) references coffee_beans(beans_num) on delete cascade,
+      constraint member_num_order foreign key(member_num) references final_member(member_num) on delete cascade
+);
+
+---------------- coffee_brew(드립) ----------------
+create table coffee_brew(
+    brew_num number(10),
+    brew_type varchar2(100),
+    brew_img CLOB
+);
+
+---------------- coffee_add(재료 추가) __ 기본, 우유, 설탕, 시럽 ----------------
+create table coffee_add(
+    add_num number(10),
+    add_type varchar2(100),
+    add_img CLOB
+);
+
+---------------- coffee_decaff(디카페인) ----------------
+create table coffee_decaff(
+    decaf_num number(5),
+    decaf_type varchar2(100)
+);
+
+---------------- coffee_taste_acid(커피맛 1 - 산미) ----------------
+create table coffee_taste_acid(
+    acid_num number(10),
+    acid_type varchar2(1000),
+    acid_info varchar2(1000)
+);
+
+---------------- coffee_taste(커피맛 2 - 풍미) ----------------
+create table coffee_taste(
+    taste_num number(10),
+    taste_info varchar2(1000)
+);
+
+---------------- coffee_grind(원두 갈기) ----------------
+create table coffee_grind(
+    grind_num number(5),
+    grind_type varchar2(100)
+);
+
+
 commit;
