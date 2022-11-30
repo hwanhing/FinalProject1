@@ -1,0 +1,258 @@
+
+@font-face {
+    font-family: 'YESMyoungjo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YESMyoungjo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+/*************************/
+/* Variable
+/*************************/
+:root {
+    --xpadding: 50px;
+    --xpadding2: 25px;
+    --xpadding3: 10px;
+    --color: #cd5c5c;
+}
+
+
+
+
+/*************************/
+/* tag reset
+/*************************/
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td, img {
+    margin: 0;
+    padding: 0;
+}
+html {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+html.noscroll {
+    overflow: hidden !important;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    background: #fff;
+    -webkit-backface-visibility: hidden;
+}
+body,
+code,
+pre {
+    font-size: 14px;
+    font-family: 'Noto Sans KR'; 
+    color: #333;
+    margin: 0;
+    padding: 0;
+    letter-spacing: -0.5px;
+}
+ul,
+ol,
+dl,
+p,
+span
+     {
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+}
+
+div {
+    display: block;
+}
+button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+}
+
+li {
+    font-family: 'Noto Sans KR';    
+    list-style: none;
+    color: #333;
+}
+
+select,
+option,
+input,
+textarea {
+    font-size: 100%;
+    font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif';
+    color: #333;
+    vertical-align: middle;
+}
+select {
+    height: 38px;
+    border: 1px solid #e5e5e5;
+    border-radius: 5px;
+    background: url('../images/select_arrow.png') no-repeat 90% 50%;
+    background-size: 20px 20px;
+    padding: 0 35px 0 10px;
+    appearance: none;
+    font-weight: 400;
+    color: #181818;
+    vertical-align: middle;
+    outline: none;
+}
+select:focus {
+    border-color: var(--color);
+}
+label {
+    cursor: pointer;
+}
+
+
+img {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+audio {
+    display: none;
+}
+
+a, button, input {
+    -webkit-transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    -ms-transition: all .2s ease-in-out;
+    transition:all .2s ease-in-out
+}
+a,
+a:link,
+a:active,
+a:visited {
+    font-size: 14px;
+    font-family: 'Noto Sans KR', '맑은 고딕', 'Malgun Gothic', 'verdana', '굴림', 'Gulim', 'AppleGothic', 'sans-serif';
+    text-decoration: none;
+    letter-spacing: -1px;
+}
+a:hover {
+    text-decoration: none !important;
+    color: var(--color);
+}
+*:focus {
+    outline: none !important;
+}
+
+
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+th,td {
+    margin: 0;
+    padding: 0;
+    vertical-align: middle;
+}
+table th img,
+table td img {
+    vertical-align: middle;
+}
+
+
+h1, h2, h3, h4, h5 {
+    font-weight: 600;
+}
+legend {
+    display: none;
+}
+
+
+@media screen and (-webkit-min-device-pixel-ratio:0){ 
+    div, a, img, li {
+        image-rendering: -webkit-optimize-contrast;
+    }
+}
+@media not all and (min-resolution:.001dpcm) {
+    @supports (-webkit-appearance:none) and (display:flow-root) {
+        div, a, img, li {
+            image-rendering: auto !important;
+        }
+    }
+}
+
+
+
+/******************************/
+/*******  header  *************/
+/******************************/
+
+header {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    max-width: 1440px;
+    height: 100px;
+    box-sizing: border-box;
+    margin: 0 auto;
+    z-index: 20;
+    background-color: #fff;
+    display: block;
+    position: fixed;
+}
+
+.header .h-wrap {
+    width: 100%;
+    margin: auto;
+    padding: 0 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.header .h-wrap .h-logo {
+	margin-top: 10px;
+}
+.header .h-wrap .h-logo img {
+	width: 240px;
+}
+
+.header .h-wrap .h-gnb { 
+    min-width: 300px;
+    padding: 0;
+    align-items: center;
+}
+
+.header .h-wrap .h-nav .h-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+.header .h-wrap .h-nav ul li a {
+	font-size: 20px;
+	font-weight: 500;
+    font-family: 'YESMyoungjo-Regular';
+   	color: #000;
+   	padding: 20px 30px;
+   	align-items: center;
+
+}
+
+.header .h-wrap .menu-etc {
+	font-size: 17px;
+    font-family: 'YESMyoungjo-Regular';
+   	color: #800000;
+
+}
+
+.header .h-wrap .menu-etc a {
+
+}
+
