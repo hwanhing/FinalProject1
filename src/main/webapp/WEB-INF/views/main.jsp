@@ -5,12 +5,14 @@
 	<title>Home</title>
 </head>
 <body>
+	<jsp:include page="./include/user_top.jsp" />
+
 <h1>
 	Hello world!  
 </h1>
 
 <P>  The time on the server is ${serverTime}. 제발되거라,,,,제발...^^^>^>^>^>^>^>^</P>
 
-
+	<jsp:include page="./include/user_botton.jsp" />
 </body>
 </html>
