@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <% long time = System.currentTimeMillis(); %>
 <jsp:include page="header.jsp" />
 
+=======
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page session="false" pageEncoding="UTF-8"%>
+<jsp:include page="header.jsp"/>
+>>>>>>> master
 <html>
 <head>
 	<title>Home</title>
