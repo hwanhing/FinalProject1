@@ -6,6 +6,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Cafe24Danjunghae';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Danjunghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 
 /*************************/
@@ -197,7 +204,7 @@ header {
     right: 0;
     bottom: 0;
     max-width: 1440px;
-    height: 100px;
+    height: 80px;
     box-sizing: border-box;
     margin: 0 auto;
     z-index: 20;
@@ -212,21 +219,34 @@ header {
     padding: 0 20px;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: space-around;
+    box-sizing: border-box;
 }
 
 .header .h-wrap .h-logo {
 	margin-top: 10px;
 }
 .header .h-wrap .h-logo img {
-	width: 240px;
+	width: 180px;
+	height: 80px;
 }
 
 .header .h-wrap .h-gnb { 
-    min-width: 300px;
-    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     align-items: center;
 }
+
+
+.header .h-wrap .h-gnb .h-nav { 
+    padding: 0;
+    padding-right: 10px;
+    align-items: center;
+}
+
+
 
 .header .h-wrap .h-nav .h-menu {
     display: flex;
@@ -238,21 +258,33 @@ header {
 .header .h-wrap .h-nav ul li a {
 	font-size: 20px;
 	font-weight: 500;
-    font-family: 'YESMyoungjo-Regular';
+    font-family: 'Cafe24Danjunghae';
    	color: #000;
    	padding: 20px 30px;
    	align-items: center;
 
 }
 
+.header .h-wrap .h-nav ul li a:hover {
+	color: #8b0000;
+
+}
+
+
 .header .h-wrap .menu-etc {
-	font-size: 17px;
-    font-family: 'YESMyoungjo-Regular';
-   	color: #800000;
+	display: flex;
+	align-items: center; 
+	margin-bottom: 20px;
 
 }
 
 .header .h-wrap .menu-etc a {
+	font-size: 16px;
+    font-family: 'Cafe24Danjunghae';
+   	color: #800000;
+	margin: 25px 0 25px 25px;
+	display: block;
+    letter-spacing: 1px;
 
 }
 
