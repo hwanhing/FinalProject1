@@ -17,8 +17,10 @@
 
 			<div class="main-visual">
 				<div class="video-container">
-					<iframe width="560" height="315" src="https://www.youtube.com/embed/HCNL1XinQBA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen autoplay muted></iframe>
-
+					<video muted autoplay loop>
+						<source src="<%=request.getContextPath()/resources/video/coffee_video.mp4" type="video/mp4">
+						<strong>내 입맛에 맞는 나만의 커피</strong>
+					  </video>
 				</div>
 
 
