@@ -11,7 +11,7 @@
 		
 		<div class="main-container">
 			<div class="main-banner">
-				<p>내가 고른 커피 나를 위해 골랐지</p>
+				<p>내가 내린 커피 나를 위해 골랐지</p>
 				<p><a href="">나만의 커피</a></p>
 			</div>
 
