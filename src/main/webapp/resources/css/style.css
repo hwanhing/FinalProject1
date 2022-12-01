@@ -219,7 +219,7 @@ header {
     padding: 0 20px;
     position: relative;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     justify-content: space-around;
     box-sizing: border-box;
 }
@@ -238,7 +238,7 @@ header {
     justify-content: center;
     align-items: center;
 }
-
+s
 
 .header .h-wrap .h-gnb .h-nav { 
     padding: 0;
@@ -266,7 +266,8 @@ header {
 }
 
 .header .h-wrap .h-nav ul li a:hover {
-	color: #8b0000;
+	color:  #734338;
+    transition: .3s;
 
 }
 
@@ -274,17 +275,114 @@ header {
 .header .h-wrap .menu-etc {
 	display: flex;
 	align-items: center; 
-	margin-bottom: 20px;
+    margin-left: 20px;
 
 }
 
 .header .h-wrap .menu-etc a {
-	font-size: 16px;
+	font-size: 14px;
     font-family: 'Cafe24Danjunghae';
-   	color: #800000;
-	margin: 25px 0 25px 25px;
+   	color: #734338;
+	margin: 25px 25px 25px 25px;
 	display: block;
     letter-spacing: 1px;
+	
 
 }
 
+.header .h-wrap .menu-etc a:after {
+	  display: block;
+	  content: '';
+	  border-bottom: solid 1px #734338;
+	  padding-bottom: 5px;
+	  transform: scaleX(0);  
+	  transition: transform 250ms ease-in-out;
+
+}
+
+.header .h-wrap .menu-etc a:hover::after {
+	transform-origin:  0% 50%;
+	transform: scaleX(1);
+}
+
+
+
+/******************************/
+/*******  footer  *************/
+/******************************/
+
+footer{
+     position: relative;
+     width: 100%;
+     box-sizing: border-box;
+     background-color: #fff;
+     margin-top: 100px;
+     padding: 40px 0;
+
+}
+
+.footer .f-wrap { 
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin: auto;
+    justify-content: center;
+}
+
+.footer .f-wrap .f-logo {
+    min-width: 150px;
+    
+}
+
+.footer .f-wrap .f-logo img {
+    width: 150px;
+}
+
+.footer .f-wrap .ft-cs { 
+    width: 350px;
+    border-right: 1px solid #734338;
+    padding-right: 10px;
+
+}
+
+.footer .f-wrap .ft-cs p {
+    font-family: 'YESMyoungjo-Regular';
+    font-size: 14px;
+}
+.footer .f-wrap .ft-cs p small {
+    font-size: 12px;
+    padding-left: 5px;
+    color: #696969;
+}
+
+.footer .f-wrap .cs-title {
+    font-family: 'Cafe24Danjunghae';
+    font-weight: bold;
+    letter-spacing: 3px;
+    padding-bottom: 10px;
+
+}
+
+.footer .f-wrap .ft-info {
+    position: relative;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.footer .f-wrap .ft-info .ft-text {
+    display: inline-block;
+    font-family: 'YESMyoungjo-Regular';
+    font-size: 8px;
+    padding-right: 10px;
+    margin: 5px 0 0 10px;
+}
+
+.footer .f-wrap .ft-info .fwi-copy {
+    position: relative;
+    margin-top: 30px;
+    margin-left: 10px;
+    padding-top: 5px;
+    width: 100%;
+    font-family: 'YESMyoungjo-Regular';
+
+}
