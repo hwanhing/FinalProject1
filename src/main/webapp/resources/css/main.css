@@ -1,3 +1,21 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'YESMyoungjo-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YESMyoungjo-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Danjunghae';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Danjunghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+
+
 /*************************/
 /* 메인 페이지 기본
 /************************/
@@ -25,9 +43,18 @@
     } 
 }
 
-.main-contents iframe {
+.main-contents .main-visual .main-title h2 {
+    font-family: 'Cafe24Danjunghae';
+    z-index: 100;
+    color: #fff;
+}
+
+
+.main-contents .main-visual video {
     width: 100%;
     height: 100vh;
     object-fit: cover;
     z-index: -999;
 }
+
+

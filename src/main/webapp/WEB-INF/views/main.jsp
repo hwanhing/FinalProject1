@@ -17,11 +17,14 @@
 
 			<div class="main-visual">
 				<div class="video-container">
-					<video muted autoplay loop>
-						<source src="<%=request.getContextPath()/resources/video/coffee_video.mp4" type="video/mp4">
-						<strong>내 입맛에 맞는 나만의 커피</strong>
-					  </video>
+					<video src="<%=request.getContextPath()%>/resources/video/coffee_video.mp4" alt="커피 동영상" muted autoplay loop>
+					</video>
+					<div class="visual-title">
+						<h2>내 입맛에 딱 맞춰서</h2>
+					</div>
 				</div>
+
+
 
 
 
