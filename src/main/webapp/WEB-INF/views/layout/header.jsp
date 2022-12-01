@@ -32,15 +32,15 @@
                     <nav class="h-nav">
                         <ul class="h-menu">
                             <li><a href="">나만의 커피</a></li>
-                            <li><a href="">모든 커피</a></li>
+                            <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 커피</a></li>
                             <li><a href="">추천 커피</a></li>
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
 
                     <div class="menu-etc">
-                        <a href="">Log-in</a>
-                        <a href="">Join</a>
+                        <a href="<%=request.getContextPath()%>/member_login.do">Log-in</a>
+                        <a href="">Join${member_name }님</a>
                     </div>
                 </div>
 

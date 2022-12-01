@@ -10,8 +10,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dto">
+<mapper namespace="beanDAO">
+	
+	<select id="list" resultType="coffeeBeanDTO">
+		select * from coffee_beans
+	</select>
+
+	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
+		select * from final_member where member_id=#{member_id} and member_pwd=#{member_pwd}
+	</select>
 
 
 </mapper>  
+
+
+
   

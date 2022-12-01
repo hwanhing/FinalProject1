@@ -2,9 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% long time = System.currentTimeMillis(); %>
-<link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet" />
 
-<jsp:include page="layout/header.jsp" />
+<html>
+<head>
+	<title>Home</title>
+<link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet" />
+</head>
+<body>
+
+<jsp:include page="./layout/header.jsp" />
 
 <div class="main-contents" id="main-contents">
 	<div class="container-wide">
@@ -18,7 +24,7 @@
 			<div class="main-visual">
 				<div class="video-container">
 					<video muted autoplay loop>
-						<source src="<%=request.getContextPath()/resources/video/coffee_video.mp4" type="video/mp4">
+						<source src="<%=request.getContextPath()%>/resources/video/coffee_video.mp4" type="video/mp4">
 						<strong>내 입맛에 맞는 나만의 커피</strong>
 					  </video>
 				</div>
@@ -31,5 +37,6 @@
 
 	</div>
 </div>
-<jsp:include page="layout/footer.jsp" />
+<jsp:include page="./layout/footer.jsp" />
+
 
