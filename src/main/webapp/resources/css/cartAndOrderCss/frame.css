@@ -15,14 +15,6 @@
     --small-text : 15px;
 }
 
-.header{
-    background-color: aliceblue;
-    height: 100px;
-}
-.footer{
-    background-color: gray;
-    height: 100px;
-}
 
 .content{ 
     width: 90%;

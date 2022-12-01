@@ -95,7 +95,7 @@ input::-webkit-inner-spin-button {
 .total_price_area1{
     width: 30%;
     position: sticky;
-    top: 0px;
+    top: 80px;
 }
 
 .total_price_area2{

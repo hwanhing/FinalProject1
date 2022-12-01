@@ -13,12 +13,17 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/cart.css">
         <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+        <style>
+        	.blank{
+        		height: 120px;
+        		
+        	}
+        </style>
     </head>
       <body>
-        <!-- 해더 -->
-        <header class="header">
-            header
-        </header>
+        <%-- 해더 --%>
+        <jsp:include page="../layout/header.jsp" />
+        <div class="blank"></div>
         <!-- 컨텐츠 부분 -->
         <section class="content">
             <section class="order_wrap">
@@ -415,9 +420,7 @@
             </section>
         </section>
          <!-- 푸터 -->
-        <footer class="footer">
-            footer
-        </footer>
+        <jsp:include page="../layout/footer.jsp" />
         <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/cart.js"></script>
     </body>
 </html>
