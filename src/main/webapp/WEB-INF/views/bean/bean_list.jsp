@@ -123,11 +123,9 @@
 </style>
 </head>
 <body>
-    <div class="top" align="center">
-        <span class="top_text">top</span>
-    </div>
+	<jsp:include page="../layout/header.jsp" />
 
-    <div style="height: 4em;">
+    <div style="height: 15em;">
 
     </div>
 

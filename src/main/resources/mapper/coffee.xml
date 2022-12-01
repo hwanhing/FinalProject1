@@ -16,5 +16,13 @@
 		select * from coffee_beans
 	</select>
 
+	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
+		select * from final_member where member_id=#{member_id} and member_pwd=#{member_pwd}
+	</select>
+
+
 </mapper>  
+
+
+
   
