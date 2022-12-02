@@ -24,7 +24,7 @@
         <%-- 해더 --%>
         <jsp:include page="../layout/header.jsp" />
         <div class="blank"></div>
-        <!-- 컨텐츠 부분 -->
+         <!-- 컨텐츠 부분 -->
         <section class="content">
             <section class="order_wrap">
                 <section class="order_top">
@@ -52,11 +52,11 @@
                 <!-- 장바구니 목록 컨텐츠 -->
                 <section class="order_main cart_row_section">
                     <!-- 장바구니 담겨져있는 상품 row -->
-                    <div class="rows_area">
-                        <form method="post" action="">
+                    <div class="order_main_left rows_area">
+                        <form method="post" action="02_order_2format.html">
                             <!-- ----------------------------------- -->
                             <!-- for each 로 돌아갈 예정  -->
-                            <div class="order_main_left row_area">
+                            <div class="row_area">
                                 <!-- 상품 이미지 -->
                                 <div class="row_img_area">
                                     <div class="row_img">
@@ -193,7 +193,7 @@
                     <h3>추천제품</h3>
                     <div class="recommend_products_section2">
                         <div id="slider" class="recommend_products">
-                            <!-- 추후 foreach 로 계속 돌 예정 : 추천 상품 8가지/ 10가지 고민중..-->
+                            <!-- 추후 foreach 로 계속 돌 예정 : 추천 상품 8가지-->
                             <!-- ------------------------------ -->
                             <!-- 추천상품 -->
                             <div class="recommend_product">
@@ -411,7 +411,6 @@
                                 </div>
                             </div>   
                         </div>
-                        <!-- indicator 바 확인 필요 -->
                         <!-- <div id="indicator">
                             <div id="indi_bar"></div>
                         </div> -->
