@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.FinalMemberDTO;
 import com.spring.model.MemberDAO;
@@ -49,4 +50,13 @@ public class MemberController {
 			}
 			 return "main"; 
 			}
+	
+	
+	@RequestMapping("member_logout.do")
+	public ModelAndView logout(HttpSession session, ModelAndView mav) {
+		this.dao.logout(session); 
+		 mav.setViewName("main"); 
+		 mav.addObject("message", "logout"); 
+		  return mav;
+		  }
 }
