@@ -29,7 +29,7 @@
 			</div>
 
 			<div class="main-visual">
-				<div class="video-container">
+				<div class="video-container" align="center">
 					<video muted autoplay loop>
 						<source src="<%=request.getContextPath()%>/resources/video/coffee_video.mp4" type="video/mp4">
 						<strong>내 입맛에 맞는 나만의 커피</strong>

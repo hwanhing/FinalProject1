@@ -38,10 +38,22 @@
                         </ul>
                     </nav>
 
+				<c:if test="${member_name ne null }">
+					<div>
+						<b><a href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}">${member_name }님</a></b>
+						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+					</div>
+				</c:if>
+				<c:if test="${member_name eq null }">	
                     <div class="menu-etc">
                         <a href="<%=request.getContextPath()%>/member_login.do">Log-in</a>
-                        <a href="<%=request.getContextPath()%>/member_mypage.do?id=${member_id}">Join${member_name }님</a>
+
+                        <a href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}">Join</a>
+
+                       
+
                     </div>
+                </c:if>    
                 </div>
 
             </div>

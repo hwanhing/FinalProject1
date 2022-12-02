@@ -27,4 +27,6 @@ public class CoffeeBeanController {
 		return "./bean/bean_list";
 	}
 	
+	
+	
 }

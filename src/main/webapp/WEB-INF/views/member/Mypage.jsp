@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
+	
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/resources/js/addressapi.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
 <style>
@@ -63,8 +66,14 @@ color: yellow;
 
 
 </style>
+
+
 </head>
 <body>
+<jsp:include page="../layout/header.jsp" />
+
+
+<c:set var="dto" value="${Mypage }" />
 
 <div>
 <div class="zero">
@@ -126,14 +135,14 @@ color: yellow;
 <a href="#" style="margin-left:1090px;">수정</a>
 </div>
 <div>
-	<span>김홍기</span>
+	<span>${dto.getMember_name() }</span>
 </div>
 <div>
 <br>
-	<span>1996년 01월 14일</span>
+	<span>${dto.getMember_birth().substring(0,10) }</span>
 </div>
 <br>
-	<span>남성</span>
+	
 </div>
 
 <hr width="1280px" color="gray">
@@ -145,7 +154,7 @@ color: yellow;
 </div>
 <div>
 <br>
-	<span>+82 10 9131 6130</span>
+	<span>${dto.getMember_phone() }</span>
 </div>
 </div>
 
@@ -161,7 +170,7 @@ color: yellow;
 </div>
 <div>
 <br>
-	<span>imnestea38@gmail.com</span>
+	<span>${dto.getMember_email() }</span>
 </div>
 </div>
 
@@ -174,7 +183,12 @@ color: yellow;
 </div>
 <div>
 <br>
-	<span >••••••••</span>
+	<span ><c:if test="${dto.getMember_pwd().length() != 0 }">
+                     <c:forEach begin="1" end="${dto.getMember_pwd().length() }">
+                        *
+                     </c:forEach>
+                  </c:if>
+                  </span>
 </div>
 </div>
 
@@ -188,38 +202,94 @@ color: yellow;
   
   <!-- 2번째 탭 -->
   <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">
-  
   <div>
-<div>
-<span>주소</span>
-<a href="#" style="margin-left:1197px;">수정</a>
-</div>
-<div>
-<span>서울특별시 성동구 청계천로 10나길 27-30</span>
-</div>
-</div>
-<hr width="1280px" color="gray">  
+		<div>	
+		<span>주소1</span>
+		
+		</div>
 
+		<div>
+		<span>${dto.getMember_addr() }</span>
+		</div>
+		<c:if test="${dto.getMember_addr() ne '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		</c:if>
+		
+		<c:if test="${dto.getMember_addr() == '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		</c:if>
+		</div>	
+		<hr width="1280px" color="gray">  
+		
+	
+	
+	
+		<div>
+		<div>	
+		<span>주소2</span>
+		
+		</div>
 
-  <div>
-    <div>
-		<span>주소추가</span>
-	</div>
-	<div>
-	<span></span>
+		<div>
+		<span>${dto.getMember_addr2() }</span>
+		</div>
+		<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		</c:if>
+		
+		<c:if test="${dto.getMember_addr2() == '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		</c:if>
+		</div>	
+		<hr width="1280px" color="gray">  
+		
 
-	</div>
-	<hr width="1280px" color="gray">  
-	<a href="">새 주소 추가</a>
- 	</div>
+		 <div>
+		<div>
+		<span>주소3</span>
+		
+		</div>
 
-  </div>
+		<div>
+		<span>${dto.getMember_addr3() }</span>
+		</div>
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+		</div>
+		<hr width="1280px" color="gray">  
+		
+		 <div>
+		<div>
+		<span>주소4</span>
+		
+		</div>
+
+		<div>
+		<span>${dto.getMember_addr4() }</span>
+		</div>
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+		</div>
+		<hr width="1280px" color="gray">  
+		
+		 <div>
+		<div>
+		<span>주소5</span>
+		
+		</div>
+
+		<div>
+		<span>${dto.getMember_addr5() }</span>
+		</div>
+		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+		</div>
+		<hr width="1280px" color="gray">  
+
  
+ </div>
  
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
     
- <div >
- <div >
+ <div>
+ <div>
  <h2>회원탈퇴</h2>
  <span class="profile__text-block">를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.
 </span><a rel="noopener noreferrer" href="#" >계정을 삭제하시겠어요?
@@ -227,8 +297,8 @@ color: yellow;
 </div>
 </div>
 
-
  </div>
+
 </div>
 </body>
 </html>

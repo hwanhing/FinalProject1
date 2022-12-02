@@ -14,6 +14,11 @@ public class FinalMemberDTO {
 	private String member_phone;
 	private String member_date;
 	private String member_img;
+	private String member_addr;
+	private String member_addr2;
+	private String member_addr3;
+	private String member_addr4;
+	private String member_addr5;
 	private int member_point;		// 주문금액의 5%
 	private int test_num;
 	private int member_use;
