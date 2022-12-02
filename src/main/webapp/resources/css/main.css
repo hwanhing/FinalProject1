@@ -1,0 +1,33 @@
+/*************************/
+/* 메인 페이지 기본
+/************************/
+.container {
+    padding: 0 20px;
+    position: relative;
+    margin: 0 auto;
+}
+
+#main-contents {
+    min-width: 1000px;
+    min-height: 800px;
+    display: block;
+    position: relative;
+    clear: both;
+}
+ 
+.main-contents {
+    min-height: 800px;
+}
+
+ @media(min-width:1200px) {
+    .container {
+    min-width: 1200px;
+    } 
+}
+
+.main-contents iframe {
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -999;
+}
