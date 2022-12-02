@@ -82,25 +82,7 @@ input::-webkit-inner-spin-button {
      ㄴ total_price_area1    장바구니에 담겨져있는 상품 row들의 총 금액
         ㄴ total_price_area2
 */
-.cart_row_section{
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 40px;
-}
-
-.rows_area{
-    width: 70%;
-}
-
-.total_price_area1{
-    width: 30%;
-    position: sticky;
-    top: 80px;
-}
-
 .total_price_area2{
-    width: 90%;
-    margin: auto;
     padding-bottom: 20px;
     box-shadow: var(--box_shadow);
 }

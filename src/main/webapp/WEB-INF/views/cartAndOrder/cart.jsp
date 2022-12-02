@@ -56,7 +56,7 @@
                         <form method="post" action="">
                             <!-- ----------------------------------- -->
                             <!-- for each 로 돌아갈 예정  -->
-                            <div class="row_area">
+                            <div class="order_main_left row_area">
                                 <!-- 상품 이미지 -->
                                 <div class="row_img_area">
                                     <div class="row_img">
@@ -142,8 +142,8 @@
                             </div>
                     </div>
                     <!-- 총 금액 -->
-                    <div class="total_price_area1">
-                        <div class="total_price_area2">
+                    <div class="order_main_right total_price_area1">
+                        <div class="order_main_right_in total_price_area2">
                             <!-- 총 주문가격 -->
                             <div class="total_price_txt_area">
                                 <h3>주문내역</h3>
