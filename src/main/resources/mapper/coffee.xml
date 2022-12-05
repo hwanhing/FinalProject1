@@ -19,7 +19,10 @@
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select * from final_member where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
-
+	
+	<insert id="Add" parameterType="map">
+		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
+	</insert>
 
 </mapper>  
 

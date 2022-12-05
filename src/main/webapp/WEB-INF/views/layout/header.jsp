@@ -25,7 +25,7 @@
         <header class="header">
             <div class="h-wrap" style="height: 80px">
                 <div class="h-logo">
-                    <a href=""><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
+                    <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
                 </div>
         
                 <div class="h-gnb">
