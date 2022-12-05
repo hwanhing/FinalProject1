@@ -28,6 +28,22 @@
 		update final_member set member_addr =#{member_addr} where member_num=#{member_num}
 	</update>
 	
+	<update id="addrmodify2" parameterType="finalMemberDTO">
+		update final_member set member_addr2 =#{member_addr2} where member_num=#{member_num}
+	</update>
+	
+	<update id="addrmodify3" parameterType="finalMemberDTO">
+		update final_member set member_addr3 =#{member_addr3} where member_num=#{member_num}
+	</update>
+	
+	<update id="addrmodify4" parameterType="finalMemberDTO">
+		update final_member set member_addr4 =#{member_addr4} where member_num=#{member_num}
+	</update>
+	
+	<update id="addrmodify5" parameterType="finalMemberDTO">
+		update final_member set member_addr5 =#{member_addr5} where member_num=#{member_num}
+	</update>
+	
 </mapper>  
 
 

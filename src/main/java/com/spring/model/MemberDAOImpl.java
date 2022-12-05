@@ -40,6 +40,28 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.update("addrmodify",dto);
 	}
 
+	@Override
+	public int addrModify2(FinalMemberDTO dto) {
+		return this.sqlSession.update("addrmodify2",dto);
+	}
+
+	@Override
+	public int addrModify3(FinalMemberDTO dto) {
+		return this.sqlSession.update("addrmodify3",dto);
+	}
+
+	@Override
+	public int addrModify4(FinalMemberDTO dto) {
+		return this.sqlSession.update("addrmodify4",dto);
+	}
+
+	@Override
+	public int addrModify5(FinalMemberDTO dto) {
+		return this.sqlSession.update("addrmodify5",dto);
+	}
+
+	
+
 
 
 	

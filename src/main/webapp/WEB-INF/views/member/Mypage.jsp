@@ -59,11 +59,16 @@ color: yellow;
 	
 }
 
+#memberDelete {
+	width : 800px;
+	position: relative;
 
-
-
-
-
+	
+	}
+	
+	#deleteMemBtn {
+	width: 400px;
+	}
 
 </style>
 
@@ -196,7 +201,7 @@ color: yellow;
 </div>
 </div>
 
-</div><!-- 부트스트랩 div 끝 -->
+<!-- 부트스트랩 div 끝 -->
   
   <!--첫탭 끝 -->
   
@@ -234,11 +239,11 @@ color: yellow;
 		<span>${dto.getMember_addr2() }</span>
 		</div>
 		<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
-		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 		</c:if>
 		
 		<c:if test="${dto.getMember_addr2() == '주소를 넣어주세요' }">
-		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 		</c:if>
 		</div>	
 		<hr width="1280px" color="gray">  
@@ -253,7 +258,13 @@ color: yellow;
 		<div>
 		<span>${dto.getMember_addr3() }</span>
 		</div>
-		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+		<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		</c:if>
+		
+		<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		</c:if>
 		</div>
 		<hr width="1280px" color="gray">  
 		
@@ -266,7 +277,13 @@ color: yellow;
 		<div>
 		<span>${dto.getMember_addr4() }</span>
 		</div>
-		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+	<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		</c:if>
+		
+		<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		</c:if>
 		</div>
 		<hr width="1280px" color="gray">  
 		
@@ -279,26 +296,32 @@ color: yellow;
 		<div>
 		<span>${dto.getMember_addr5() }</span>
 		</div>
-		<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">🛠</a>
+		<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
+		</c:if>
+		
+		<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
+		<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
+		</c:if>
 		</div>
 		<hr width="1280px" color="gray">  
 
  
  </div>
- 
+</div>
+
   <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
-    
- <div>
- <div>
+ 
+  <div>
+  <div>
  <h2>회원탈퇴</h2>
- <span class="profile__text-block">를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.
-</span><a rel="noopener noreferrer" href="#" >계정을 삭제하시겠어요?
+<span class="profile__text-block">커퍼 커피 를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.
+</span><a rel="noopener noreferrer" href="<%=request.getContextPath()%>/user_delete.do?num=${dto.getMember_num()}">계정을 삭제하시겠어요?
 </a>
-</div>
-</div>
 
- </div>
-
+	</div><!-- 부트스트랩 div 끝 -->
+  		</div>
+	</div>
 </div>
 </body>
 </html>
