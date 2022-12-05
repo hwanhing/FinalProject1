@@ -43,83 +43,207 @@
     } 
 }
 
-.main-contents .container-wide .main-visual .visual-title {
+.main-visual .main-title .visual-title{
+    top: 200px;
+    left: 38.5%;
+    font-size: 54px;
+    position: absolute;
     font-family: 'Cafe24Danjunghae';
-    font-size: 3em;
+    z-index: 2;
     color: #fff;
-    line-height: 1.5;
-    position: relative;
-    z-index: 1;
     text-align: center;
-    top: 40%;
 }
 
 
+.main-visual .main-title .btn-outline-light {
+    position: absolute;
+    top: 420px;
+    left: 39%;
+    z-index: 2;
+    font-size: 24px;
+    width: 300px;
+    height: 60px;
+    font-family: 'Cafe24Danjunghae';
+    color: #Fff;
+}
+
+.main-visual .main-title .btn-outline-light:hover{
+    color: #734338;
+    transition: all .5s;
+}
+
 .main-contents .main-visual video {
+    position: relative;
     width: 100%;
-    height: 100vh;
+    max-height: 800px;
     object-fit: cover;
     z-index: -999;
 }
 
-.main-contents .main-visual .btn {
-    position :absolute;
-    width: 200px;
-    height: 50px;
-    z-index: 2;
-    font-size: 20px;
-    color: #Fff;
 
-}
+@media(max-width:1440px) {
+    .main-visual {
+    height: auto;
+    }
+    video {
+    height: 100%;
+    }
+    .btn {
+    transition: .5s ease-in-out;
+    font-size: 30px;
+    }
+  }
+
 
 .main-recom {
     margin-top: 110px;
     position: relative;
     height: 100%;
+    width: 100%;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .main-recom .recom-title {
-    font-size: 30px;
-    word-break: break-all;
-    text-align: center;
-    padding-top: 30px;
-    letter-spacing: 5px;
-    font-weight: 500;
-    line-height: 50px;
-}
-
-.main-contents .recom-txt {
     font-size: 17px;
-    line-height: 28px;
+    width: 100%;
+    height: 360px;
     letter-spacing: 3px;
     padding: 15px 0 40px;
+    text-align: center;
+    font-family: 'YESMyoungjo-Regular';
+    background-color: #D9CEC1;
 
 }
-.main-contents .main-recom .recom-wrapper {
-    position: relative;
-    display: block;
-    box-sizing: border-box;
+
+
+.main-recom .recom-title .recom-h2 {
+    margin: 50px 0 50px 0;
+    font-family: 'YESMyoungjo-Regular';
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 5px;
 }
 
-.main-contents .main-recom .recom-wrapper .recom-box {
-    display: inline-block;
-    width: 35%;
-    padding: 0;
-    text-align: left;
-    padding: 0 30px 80px 0;
-    cursor: pointer;
+.main-recom .recom-title .recom-txt {
+    margin: 50px;
 }
 
-
-.main-contents .main-recom .recom-wrapper .recom-box img {
-    width: 380px;
-    height: 380px;
-    background-size: cover;
-    background-position: center center;
+.main-recom .recom-wrap {
+    margin-top: 50px;
+    height: 360px;
     overflow: hidden;
-    position: relative;
-    display: block;
-    margin: auto;
+    display: flex;
+    box-sizing: border-box;
+    background-color: #fff;
 }
 
+.main-recom .recom-wrap .swiper-wrapper {
+    box-sizing: content-box;
+    padding-right: 20px;
+    background: transparent !important;
+}
+
+.main-recom .recom-wrap .swiper-slide {
+    width: 360px;
+    object-fit: cover;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: top;
+    -ms-flex-align: top;
+    -webkit-align-items: top;
+    align-items: top;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    transition:all .3s ease-in-out;
+}
+
+.main-recom .recom-wrap .swiper-slide a {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.main-recom .recom-wrap .swiper-slide a:hover #slide-txt {
+    -webkit-transition:all .5s ease;
+    transition: all .5s ease;
+    opacity: .85;
+    bottom: 20px;
+}
+
+#slide-txt {
+    opacity: 0;
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    font-size: 15px;
+    font-weight: 500;
+    font-family: 'YESMyoungjo-Regular';
+    letter-spacing: 3px;
+    color:#fff;
+    background:#734338;
+    position: absolute;
+    bottom: 0px;
+  }
+
+.main-recom .recom-wrap .swiper-slide a img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    object-fit: cover;
+}
+
+.main-shop {
+    background-color: #fff;
+}
+
+.main-shop .shop-title {
+    margin-top: 110px;
+    width: 100%;
+
+}
+
+.main-shop .shop-title .shop-h2{
+    color: #734338;
+    text-align: center;    
+    margin: 50px 0 50px 0;
+    font-family: 'YESMyoungjo-Regular';
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 5px;
+
+}
+
+.main-shop .shop-wrapper {
+    display: flex;
+    
+}
+
+.main-shop .shop-wrapper .shop-box {
+
+}
+
+.main-shop .shop-wrapper .shop-box a {
+
+}
+
+.main-shop .shop-wrapper .shop-box a img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    border-radius: 50%;
+    object-fit: cover;
+
+}
