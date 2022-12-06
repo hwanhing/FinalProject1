@@ -13,6 +13,12 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
 
 
 
@@ -96,11 +102,9 @@
 
 
 .main-recom {
-    margin-top: 110px;
     position: relative;
     height: 100%;
     width: 100%;
-    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -111,12 +115,21 @@
     width: 100%;
     height: 360px;
     letter-spacing: 3px;
-    padding: 15px 0 40px;
+    padding: 50px 0 0px;
     text-align: center;
     font-family: 'YESMyoungjo-Regular';
     background-color: #D9CEC1;
 
 }
+
+
+.main-recom .title:nth-child(2) {
+    transition-delay: 200ms;
+}
+.main-recom .title-box:nth-child(3) {
+    transition-delay: 400ms;
+}
+
 
 
 .main-recom .recom-title .recom-h2 {
@@ -177,7 +190,7 @@
 .main-recom .recom-wrap .swiper-slide a:hover #slide-txt {
     -webkit-transition:all .5s ease;
     transition: all .5s ease;
-    opacity: .85;
+    opacity: .9;
     bottom: 20px;
 }
 
@@ -186,7 +199,7 @@
     width: 100%;
     height: 80px;
     padding: 10px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 500;
     font-family: 'YESMyoungjo-Regular';
     letter-spacing: 3px;
@@ -222,28 +235,201 @@
     font-size: 30px;
     text-align: center;
     letter-spacing: 5px;
-
 }
 
-.main-shop .shop-wrapper {
+
+.main-shop .shop-wrap {
+    margin-top: 50px;
     display: flex;
-    
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 360px;
 }
 
-.main-shop .shop-wrapper .shop-box {
+.main-shop .shop-wrap .swiper-wrapper {
+    box-sizing: content-box;
+    background: transparent !important;
+    margin-top: 100px;
+    margin-left: 50px;
 
 }
 
-.main-shop .shop-wrapper .shop-box a {
+.main-shop .shop-wrap .swiper-slide {
+    display: inline-block;
+    position: relative;
+    width: 310px;
+    height: 310px;
 
 }
 
-.main-shop .shop-wrapper .shop-box a img {
+/* .main-shop .shop-wrap .swiper-slide a:hover #shop-txt {
+    -webkit-transition:all .5s ease;
+    transition: all .5s ease;
+} */
+
+.main-shop .shop-wrap .swiper-slide a {
+    filter: brightness(.7);
+	-webkit-transition: .4s ease-in-out;
+	transition: .4s ease-in-out;
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.main-shop .shop-wrap .swiper-slide a:hover {
+    filter: brightness(1);
+    text-shadow: 3px solid rgb(0, 1, 4);
+}
+
+.main-shop .shop-wrap .swiper-slide a img {
     display: block;
     width: 100%;
     height: 100%;
-    padding: 20px;
+    padding: 10px;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.main-shop .shop-wrap .swiper-slide .shop-info {
+    position: absolute;
+    display: flex;
+    left: 0;
+    right: 0;
+    bottom: 35px;
+    font-family: 'LINESeedKR-Bd';
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 
 }
+
+.main-shop .shop-all {
+    text-align: center;
+    width: 100%;
+}
+
+.main-shop .shop-all .shop-btn {
+    margin-top: 50px;
+    display: inline-flex;
+    width: 280px;
+    height: 60px;
+    font-size: 15px;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    color: #D9CEC1;
+    background-color: #734338;
+    font-family: 'YESMyoungjo-Regular';
+    border-radius: 5px;
+}
+
+.main-shop .shop-all .shop-btn:hover {
+    border: 1px solid #D9CEC1;
+    background-color: #fff;
+    transition: all .35 ease-in-out;
+    color: #734338;
+}
+
+.taste-title {
+    width: 100%;
+}
+
+.shop-info .shop-name {
+    display: block;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+    letter-spacing: -.3px;
+    color: #fffdf9;
+    text-shadow: rgb(0, 1, 4);
+
+}
+
+.shop-info .shop-loc {
+    display: block;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: -.3px;
+    color: #fffdf9;
+    text-shadow: rgb(0, 1, 4);
+
+}
+
+.main-taste .taste-wrap {
+    margin-top: 110px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-taste .taste-wrap section {
+    display: grid;
+    place-items: center;
+    align-content: center;
+}
+
+.main-taste .taste-wrap .logos {
+    display: flex;
+    background: transparent;
+    width: 100%;
+}
+
+.main-taste .taste-wrap .logos img {
+    width: 240px;
+    height: auto;
+}
+
+.logos .taste-box:nth-child(2) {
+    transition-delay: 200ms;
+}
+.logos .taste-box:nth-child(3) {
+    transition-delay: 400ms;
+}
+.logos .taste-box:nth-child(4) {
+    transition-delay: 600ms;
+}
+
+
+.hidden {
+    opacity: 0;
+    filter: blur(5px);
+    transform: translateY(100%);
+    transition: all .5s;
+}
+
+.show {
+    opacity: 1;
+    filter: blur(0);
+    filter: drop-shadow();
+    transform: translateY(0);
+}
+
+@media(prefers-reduced-motion) {
+    .hidden {
+        transition: none;
+    }
+}
+
+
+.taste-wrap .taste-title {
+    text-align: center;
+    width: 100%;
+}
+
+.taste-wrap .taste-title h2 { 
+    font-size: 36px;
+    font-family: 'YESMyoungjo-Regular';
+}
+
+.taste-wrap .taste-title p { 
+    margin: 50px 0 50px 0;
+    font-size: 17px;
+    font-family: 'YESMyoungjo-Regular';
+}
+
+
+
