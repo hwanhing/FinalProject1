@@ -22,6 +22,10 @@
     height: 100px;
 } */
 
+.blank{
+     height: 120px;
+}
+
 .content{ 
     width: 90%;
     /* height: 1400px; */
@@ -114,7 +118,7 @@
 .order_main_right{
     width: 30%;
     position: sticky;
-    top: 0px;
+    top: 90px;
 }
 
 .order_main_right_in{
@@ -195,6 +199,10 @@
 .hr_content{
     margin-left: 40px;
     margin-right: 40px;
+}
+
+.hr_content:last-child{
+    display: none;
 }
 
 /* 총 금액에 있는 div */

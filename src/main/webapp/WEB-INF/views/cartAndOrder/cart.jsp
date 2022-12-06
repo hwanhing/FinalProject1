@@ -13,12 +13,6 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/cart.css">
         <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
-        <style>
-        	.blank{
-        		height: 120px;
-        		
-        	}
-        </style>
     </head>
       <body>
         <%-- 해더 --%>
@@ -55,13 +49,11 @@
                     <div class="order_main_left rows_area">
                     	
                     	
-                        <form method="post" action="02_order_2format.html">
-                            <!-- ----------------------------------- -->
-                            <!-- for each 로 돌아갈 예정  -->
+                        <form method="post" action="">
                             <c:choose>
 	                    		<c:when test="${!empty cartList }">
 	                    			<c:forEach items="${cartList }" var="list">
-	                    				 <div class="row_area">
+	                    				 <div class="row_area num_${list.getCart_num()}_row">
 			                                <!-- 상품 이미지 -->
 			                                <div class="row_img_area">
 			                                    <div class="row_img">
@@ -75,25 +67,21 @@
 			                                    <div class="product_name">
 			                                        <h3>${list.getBeans_name() }</h3>
 			                                        <p>${list.getBeans_taste() }</p>
-			                                        <p><span>${list.getCart_weight() }</span>g</p>
-			                                        <p>
-			                                        	<span class="row_price">
-			                                        		<fmt:formatNumber value="${list.getBeans_price() }"/>
-			                                        	</span> 원
-			                                        </p>
+			                                        <p><span class="row_gram num_${list.getCart_num()}_gram }">${list.getCart_weight() }</span>g</p>
+			                                        <input type="hidden" class="row_price num_${list.getCart_num()}_Rprice" value="${list.getBeans_price() }">
 			                                    </div>
 			                                    <div class="product_cnt_delete">
 			                                        <div class="cnt_updown">
-			                                            <input type="number" min="1" max="20" class="input input_cnt" value="1" name="cart_cnt" readonly>
+			                                            <input type="number" min="1" max="20" class="input input_cnt num_${list.getCart_num()}_cnt" value="${list.getCart_cnt() }" name="cart_cnt" readonly>
 			                                            <div class="btn_area">
-			                                                <button type="button" class="btn btn_up"><i class="fa-solid fa-caret-up"></i></button>
-			                                                <button type="button" class="btn btn_down"><i class="fa-solid fa-caret-down"></i></button>
+			                                                <button type="button" class="btn btn_up num_${list.getCart_num()}_Ubtn" onclick="upCnt(${list.getCart_num()})"><i class="fa-solid fa-caret-up"></i></button>
+			                                                <button type="button" class="btn btn_down num_${list.getCart_num()}_Dbtn" onclick="downCnt(${list.getCart_num()})"><i class="fa-solid fa-caret-down"></i></button>
 			                                            </div>
 			                                        </div>
-			                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(0)">
+			                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(${list.getCart_num() })">
 			                                            <i class="fa-solid fa-trash"></i>
 			                                        </button>
-			                                        <button type="button" class="btn btn_dh btn_coffee_heart">
+			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() })">
 			                                            <i class="fa-solid fa-heart heart_active"></i>
 			                                        </button>
 			                                    </div>
@@ -101,12 +89,12 @@
 			                                <!-- 상품가격 -->
 			                                <div class="row_price_area">
 			                                    <div class="price_txt row_price_txt">
-			                                        <h3><span class="row_total">10000</span> 원</h3>
+			                                        <h3><span class="row_total num_${list.getCart_num()}_Rtotal">0</span> 원</h3>
 			                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
 			                                    </div>
 			                                </div>
 			                            </div>
-			                            <div class="hr_div hr_content"></div>
+			                            <div class="hr_div hr_content num_${list.getCart_num()}_hrdiv"></div>
 	                    			
 	                    			</c:forEach>
 	                    		</c:when>
@@ -124,7 +112,7 @@
                                 <div class="total total_price_txt">
                                     <h4>상품가격</h4> 
                                     <div class="price_txt">
-                                        <h3><span class="total_price">10000</span> 원</h3>
+                                        <h3><span class="total_price">0</span> 원</h3>
                                         <input type="hidden" class="total_price_hidden" name="total_price_hidden">
                                     </div>
                                 </div>
@@ -137,13 +125,13 @@
                                 <div class="total all_price">
                                     <h4>총 주문금액</h4> 
                                     <div class="price_txt">
-                                        <h3><span class="all_total_price">10000</span> 원</h3>
+                                        <h3><span class="all_total_price">0</span> 원</h3>
                                     </div>
                                 </div>
                                 <div class="total all_t_point">
                                     <h5>적립 포인트</h5> 
                                     <div class="price_txt">
-                                        <h5><span class="all_point">10000</span> 원</h5>
+                                        <h5><span class="all_point">0</span> 원</h5>
                                         <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                     </div>
                                 </div>
@@ -395,5 +383,6 @@
          <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />
         <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/cart.js"></script>
+       
     </body>
 </html>

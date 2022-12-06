@@ -120,7 +120,7 @@ public class CoffeeCartController {
 			}
 			
 			out.println("<script>");
-			out.println("if(confirm('이미 장바구니에 있는 상품입니다. 상품 추가나 수정을 원하실까요?'))"
+			out.println("if(confirm('이미 장바구니에 있는 상품입니다. 상품 추가를 원하실까요?'))"
 					        + "{ location.href='bean_cart_update.do?no="+cartDto.getCart_num()+"&cnt="+cartDto.getCart_cnt()+"&weight="+cartDto.getCart_weight()+"'"
 							+ "} else{location.href='bean_cart.do'}");
 			out.println("</script>");
@@ -160,7 +160,9 @@ public class CoffeeCartController {
 	public String goCart(HttpSession session, Model model) {
 		int member_num = (Integer) session.getAttribute("member_num");
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);
+		model.addAttribute("memNum", member_num);
 		model.addAttribute("cartList", cartList);
+
 		
 		return "./cartAndOrder/cart";
 	}
