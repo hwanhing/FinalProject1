@@ -30,7 +30,7 @@
 		<typeAlias type="com.spring.model.CoffeeBeanDTO" alias="coffeeBeanDTO" />
 		<typeAlias type="com.spring.model.BeanDAO" alias="beanDAO" />
 		<typeAlias type="com.spring.model.MemberDAO" alias="memberDAO" />
-		
+		<typeAlias type="com.spring.model.CoffeeCartDAO" alias="cartDAO" />
 		
 		
 	</typeAliases>

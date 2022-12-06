@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cartDAO">
+
+	<select id="product" parameterType="int" resultType="coffeeBeanDTO">
+		select * from coffee_beans where beans_num = #{beans_num}
+	</select>
+	
+	<select id="findCart" parameterType="hashmap" resultType="coffeeCartDTO">
+		select nvl(max(cart_num),0) as cart_num
+		     , nvl(max(cart_cnt),0) as cart_cnt
+		     , nvl(max(cart_weight),0) as cart_weight
+		     , nvl(max(cart_grind),0) as cart_grind
+		  from coffee_cart
+		 where member_num = #{member_num}
+		   and beans_num = #{beans_num}
+		   and cart_grind = #{select_grind}
+	</select>
+	
+	<insert id="insertCart" parameterType="coffeeCartDTO">
+		
+		<selectKey resultType="int" keyProperty="cart_num" order="BEFORE">
+			select max(cart_num) from coffee_cart
+		</selectKey>
+		
+		insert into coffee_cart 
+		values(#{cart_num} +1 , #{beans_num}, '', #{cart_cnt}, #{cart_weight}, #{cart_grind}, #{member_num})
+	
+	</insert>
+	
+	<update id="updateCart" parameterType="coffeeCartDTO">
+		update coffee_cart 
+		   set cart_cnt = #{cart_cnt}
+		     , cart_weight = #{cart_weight}
+		 where cart_num = #{cart_num}
+	</update> 
+	
+	<select id="getCartList" parameterType="int" resultType="coffeeCartDTO">
+		select ca.cart_num
+		     , ca.beans_num
+		     , ca.cart_cnt
+		     , ca.cart_weight
+		     , ca.cart_grind
+		     , be.beans_name
+		     , be.beans_price
+		     , be.beans_taste
+		     , be.beans_img
+		     , be.beans_url
+		  from coffee_cart ca
+		  join coffee_beans be
+		    on ca.beans_num = be.beans_num
+		 where ca.member_num = #{member_num}
+		 order by ca.cart_num desc
+	</select>
+	
+	
+</mapper>

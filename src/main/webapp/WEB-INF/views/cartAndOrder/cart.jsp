@@ -53,93 +53,67 @@
                 <section class="order_main cart_row_section">
                     <!-- 장바구니 담겨져있는 상품 row -->
                     <div class="order_main_left rows_area">
+                    	
+                    	
                         <form method="post" action="02_order_2format.html">
                             <!-- ----------------------------------- -->
                             <!-- for each 로 돌아갈 예정  -->
-                            <div class="row_area">
-                                <!-- 상품 이미지 -->
-                                <div class="row_img_area">
-                                    <div class="row_img">
-                                        <a href="#" class="img_a">
-                                            <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- 상품정보 -->
-                                <div class="row_cont_area">
-                                    <div class="product_name">
-                                        <h3>가나 원두</h3>
-                                        <p>다크 / 200g</p>
-                                        <p><span class="row_price">13000</span> 원</p>
-                                    </div>
-                                    <div class="product_cnt_delete">
-                                        <div class="cnt_updown">
-                                            <input type="number" min="1" max="20" class="input input_cnt" value="1" name="cart_cnt" readonly>
-                                            <div class="btn_area">
-                                                <button type="button" class="btn btn_up"><i class="fa-solid fa-caret-up"></i></button>
-                                                <button type="button" class="btn btn_down"><i class="fa-solid fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(0)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                        <button type="button" class="btn btn_dh btn_coffee_heart">
-                                            <i class="fa-solid fa-heart heart_active"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- 상품가격 -->
-                                <div class="row_price_area">
-                                    <div class="price_txt row_price_txt">
-                                        <h3><span class="row_total">10000</span> 원</h3>
-                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="hr_div hr_content"></div>
-
-                            <!-- ----------------------------------- -->
-                            <!-- for each 로 돌아갈 예정  -->
-                            <div class="row_area">
-                                <!-- 상품 이미지 -->
-                                <div class="row_img_area">
-                                    <div class="row_img">
-                                        <a href="#" class="img_a">
-                                            <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                        </a>
-                                    </div>
-                                </div>
-                                <!-- 상품정보 -->
-                                <div class="row_cont_area">
-                                    <div class="product_name">
-                                        <h3>브라질 원두</h3>
-                                        <p>다크 / 200g</p>
-                                        <p><span class="row_price">10000</span> 원</p>
-                                    </div>
-                                    <div class="product_cnt_delete">
-                                        <div class="cnt_updown">
-                                            <input type="number" min="1" max="20" class="input input_cnt" value="1" name="cart_cnt" readonly>
-                                            <div class="btn_area">
-                                                <button type="button" class="btn btn_up"><i class="fa-solid fa-caret-up"></i></button>
-                                                <button type="button" class="btn btn_down"><i class="fa-solid fa-caret-down"></i></button>
-                                            </div>
-                                        </div>
-                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(1)">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
-                                        <button type="button" class="btn btn_dh btn_coffee_heart">
-                                            <i class="fa-solid fa-heart heart_active"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                                <!-- 상품가격 -->
-                                <div class="row_price_area">
-                                    <div class="price_txt row_price_txt">
-                                        <h3><span class="row_total">10000</span> 원</h3>
-                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
-                                    </div>
-                                </div>
-                            </div>
+                            <c:choose>
+	                    		<c:when test="${!empty cartList }">
+	                    			<c:forEach items="${cartList }" var="list">
+	                    				 <div class="row_area">
+			                                <!-- 상품 이미지 -->
+			                                <div class="row_img_area">
+			                                    <div class="row_img">
+			                                        <a href="#" class="img_a">
+			                                            <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+			                                        </a>
+			                                    </div>
+			                                </div>
+			                                <!-- 상품정보 -->
+			                                <div class="row_cont_area">
+			                                    <div class="product_name">
+			                                        <h3>${list.getBeans_name() }</h3>
+			                                        <p>${list.getBeans_taste() }</p>
+			                                        <p><span>${list.getCart_weight() }</span>g</p>
+			                                        <p>
+			                                        	<span class="row_price">
+			                                        		<fmt:formatNumber value="${list.getBeans_price() }"/>
+			                                        	</span> 원
+			                                        </p>
+			                                    </div>
+			                                    <div class="product_cnt_delete">
+			                                        <div class="cnt_updown">
+			                                            <input type="number" min="1" max="20" class="input input_cnt" value="1" name="cart_cnt" readonly>
+			                                            <div class="btn_area">
+			                                                <button type="button" class="btn btn_up"><i class="fa-solid fa-caret-up"></i></button>
+			                                                <button type="button" class="btn btn_down"><i class="fa-solid fa-caret-down"></i></button>
+			                                            </div>
+			                                        </div>
+			                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(0)">
+			                                            <i class="fa-solid fa-trash"></i>
+			                                        </button>
+			                                        <button type="button" class="btn btn_dh btn_coffee_heart">
+			                                            <i class="fa-solid fa-heart heart_active"></i>
+			                                        </button>
+			                                    </div>
+			                                </div>
+			                                <!-- 상품가격 -->
+			                                <div class="row_price_area">
+			                                    <div class="price_txt row_price_txt">
+			                                        <h3><span class="row_total">10000</span> 원</h3>
+			                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
+			                                    </div>
+			                                </div>
+			                            </div>
+			                            <div class="hr_div hr_content"></div>
+	                    			
+	                    			</c:forEach>
+	                    		</c:when>
+	                    		<c:otherwise>
+	                    		</c:otherwise>
+	                    	</c:choose>
+                          
                     </div>
                     <!-- 총 금액 -->
                     <div class="order_main_right total_price_area1">
