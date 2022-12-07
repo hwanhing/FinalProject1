@@ -208,28 +208,6 @@
 
 <script>
 
-	// 원두 추천 타이틀 
-
-	const options = {
-		root: null,
-		rootMargin: "0px",
-		threhold: .5,
-	}
-
-	const observer_title = new IntersectionObserver((entries)=> {
-		entries.forEach((entry)=> {
-			console.log(entry.isIntersecting);
-			if(entry.isIntersecting) {
-				entry.target.classList.add('active');
-			} else {
-				entry.target.classList.remove('active');
-			}
-
-		});
-	}, options);
-
-	const titleList = document.querySelectorAll('recom-h2');
-	titleList.forEach(el => observer_title.observe(el));
 
     //원두 추천 
 
@@ -248,7 +226,7 @@
 
 	// 내 취향 ^^ 
 
-	const observer_logo = new IntersectionObserver((entries)=>{
+	const observer = new IntersectionObserver((entries)=>{
 		entries.forEach((entry)=> {
 			console.log(entry)
 			if(entry.isIntersecting) {
