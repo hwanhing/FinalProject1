@@ -32,16 +32,24 @@
                     <nav class="h-nav">
                         <ul class="h-menu">
                             <li><a href="">나만의 커피</a></li>
-                            <li><a href="">모든 커피</a></li>
+                            <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 커피</a></li>
                             <li><a href="">추천 커피</a></li>
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
 
+				<c:if test="${member_name ne null }">
+					<div>
+						<b>${member_name }님</b>
+						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+					</div>
+				</c:if>
+				<c:if test="${member_name eq null }">	
                     <div class="menu-etc">
-                        <a href="">Log-in</a>
+                        <a href="<%=request.getContextPath()%>/member_login.do">Log-in</a>
                         <a href="">Join</a>
                     </div>
+                </c:if>    
                 </div>
 
             </div>

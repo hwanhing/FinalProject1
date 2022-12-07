@@ -13,7 +13,7 @@
 <configuration>
 
 	<typeAliases>
-		<typeAlias type="com.spring.model.FinalAdminDTO" alias="finalAdminDTO" />
+	 	<typeAlias type="com.spring.model.FinalAdminDTO" alias="finalAdminDTO" />
 		<typeAlias type="com.spring.model.FinalMemberDTO" alias="finalMemberDTO" />
 		
 		<typeAlias type="com.spring.model.BoardMemberDTO" alias="boardMemberDTO" />
@@ -26,7 +26,11 @@
 		<typeAlias type="com.spring.model.CoffeeTestDTO" alias="coffeeTestDTO" />
 		<typeAlias type="com.spring.model.CoffeeTestResultDTO" alias="coffeeTestResultDTO" />
 		<typeAlias type="com.spring.model.CoffeeWriteDTO" alias="coffeeWriteDTO" />
+
 		<typeAlias type="com.spring.model.CoffeeBeanDTO" alias="coffeeBeanDTO" />
+		<typeAlias type="com.spring.model.BeanDAO" alias="beanDAO" />
+		<typeAlias type="com.spring.model.MemberDAO" alias="memberDAO" />
+		
 		
 		
 	</typeAliases>

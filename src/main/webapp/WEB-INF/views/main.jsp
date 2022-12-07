@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <% long time = System.currentTimeMillis(); %>
+
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/swiper.min.css">
@@ -10,8 +11,15 @@
 <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/swiper.min.js"></script>
 
 
+<html>
+<head>
+	<title>Home</title>
+<link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet" />
+</head>
+<body>
 
-<jsp:include page="layout/header.jsp" />
+
+<jsp:include page="./layout/header.jsp" />
 
 <!--------------메인 비주얼 START---------------->
 
@@ -28,6 +36,7 @@
 			</div>
 		</div>
 	</div>
+
 
 <!----------메인 비주얼 END---------------->
 
@@ -115,6 +124,15 @@
 
 					</a>
 				</li>
+
+			<div class="main-visual">
+				<div class="video-container" align="center">
+					<video muted autoplay loop>
+						<source src="<%=request.getContextPath()%>/resources/video/coffee_video.mp4" type="video/mp4">
+						<strong>내 입맛에 맞는 나만의 커피</strong>
+					  </video>
+				</div>
+
 
 
 				<li class="swiper-slide">
@@ -205,6 +223,7 @@
 	.
 
 </div>
+
 
 <script>
 
