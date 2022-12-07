@@ -13,6 +13,33 @@
     font-style: normal;
 }
 
+/*************************/
+/* Container
+/*************************/
+#container {
+    padding-top: 80px;
+    min-height: 500px;
+}
+.container {
+    max-width: 1330px;
+    padding: 0;
+}
+.container-full {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+.container-wide {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+@media(max-width:1840px) {
+    .container-wide {
+        width: 100%;
+    } 
+}
 
 
 /*************************/
@@ -360,6 +387,7 @@ footer{
     font-weight: bold;
     letter-spacing: 3px;
     padding-bottom: 10px;
+    font-size: 15px;
 
 }
 
