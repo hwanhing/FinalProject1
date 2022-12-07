@@ -19,6 +19,7 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 		return this.sqlSession.selectOne("product", beans_num);
 	}
 	
+	// 장바구니 페이지 전 >> 장바구니 페이지 : 장바구니 추가 또는 수정 ---------------------------------------------
 	@Override
 	public CoffeeCartDTO getCart(Map<String, Integer> cartMap) {
 		return this.sqlSession.selectOne("findCart", cartMap);
@@ -26,44 +27,50 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 
 	@Override
 	public int insertCart(CoffeeCartDTO cartDTO) {
-		System.out.println("-------------cartDAOImpl insertCart-----------");
-		System.out.println(this.sqlSession.insert("insertCart", cartDTO ));
 		return this.sqlSession.insert("insertCart", cartDTO );
 	}
 	
 	@Override
 	public int updateCart(Map<String, Integer> cartMap) {
-		System.out.println("-------------cartDAOImpl updateCart-----------");
-		System.out.println(this.sqlSession.update("updateCart", cartMap));
 		return this.sqlSession.update("updateCart", cartMap);
 	}
-	
 	
 	@Override
 	public List<CoffeeCartDTO> getCartList(int member_num) {
 		return this.sqlSession.selectList("getCartList", member_num);
 	}
 
+	
+	
+	// 장바구니 페이지 : 찜 --------------------------------------------------------------------------------
 	@Override
-	public int inHeart(Map<String, Integer> heartMap) {
-		
+	public CoffeeCartDTO inHeart(Map<String, Integer> heartMap) {
 		return this.sqlSession.selectOne("heartMap",heartMap);
 	}
 
 	@Override
 	public void insertHeart(Map<String, Integer> heartMap) {
-		System.out.println("-------------cartDAOImpl insertHeart-----------");
-		System.out.println(this.sqlSession.selectOne("insertHeart",heartMap));
 		this.sqlSession.selectOne("insertHeart",heartMap);
 	}
 
 	@Override
 	public void updateHeart(Map<String, Integer> heartMap) {
-		System.out.println("-------------cartDAOImpl updateHeart-----------");
-		System.out.println(this.sqlSession.selectOne("updateHeart",heartMap));
 		this.sqlSession.selectOne("updateHeart",heartMap);
-		//return this.sqlSession.selectOne("updateHeart",heartMap);
 	}
+	
+	// 장바구니 페이지 : 장바구니 row 삭제 -------------------------------------------------------------------
+	@Override
+	public int deleteCartRow(int cartNum) {
+		return this.sqlSession.delete("deleteCartNum",cartNum);
+	}
+	
+	// 장바구니 페이지 : 수량 ------------------------------------------------------------------------------
+	@Override
+	public int updateCartCnt(Map<String, Integer> cartCntMap) {
+		return this.sqlSession.update("updateCartCnt",cartCntMap);
+	}
+
+	
 	
 
 	

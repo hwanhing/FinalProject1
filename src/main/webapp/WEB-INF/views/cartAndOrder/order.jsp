@@ -235,7 +235,7 @@
                             </div>
                            <!-- ----------------------------------- -->
                            <!-- 주문상세 -->
-                           <div class="offCanvas">
+                           <div class="slider">
                                 <div class="detail_order_btn">
                                     <h3>주문 정보</h3>
                                     <button class="btn detail_btn" onclick="hideDetail()">

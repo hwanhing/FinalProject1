@@ -65,13 +65,12 @@
 	</select>
 	
 	<!-- 찜 리스트(없으면 0, 있을경우 beans_num) -->
-	<select id="heartMap" parameterType="hashmap" resultType="int">
-		
+	<select id="heartMap" parameterType="hashmap" resultType="coffeeCartDTO">
 		select nvl(max(beans_num),0) as beans_num
+			 , nvl(max(coffee_heart),0) as coffee_heart
 		  from member_star
 		 where member_num = #{memNum}
 		   and beans_num = #{beansNum}
-		   
 	</select>
 	
 	<!-- 찜 등록 -->
@@ -86,5 +85,19 @@
 		 where member_num = #{memNum}
 		   and beans_num = #{beansNum}
 	</update>
+	
+	<!-- 장바구니에서 행 삭제 -->
+	<delete id="deleteCartNum">
+		delete from coffee_cart where cart_num = #{cartNum}
+	</delete>
+	
+	<!-- 장바구니에서 수량 수정 -->
+	<update id="updateCartCnt" parameterType="hashmap">
+		update coffee_cart 
+		   set cart_cnt = #{cartCnt}
+		 where cart_num = #{cartNum}
+	</update>
+	
+	
 	
 </mapper>

@@ -89,8 +89,8 @@
 			                                            <i class="fa-solid fa-trash"></i>
 			                                        </button>
 			                                        
-			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() }, ${list.getCoffee_heart() })">
-			                                            <i class="fa-solid fa-heart heart_${list.getCoffee_heart()}"></i>
+			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() }, ${list.getCart_num() })">
+			                                            <i class="fa-solid fa-heart heart_${list.getCoffee_heart()} num_${list.getCart_num()}_heart"></i>
 			                                        </button>
 			                                    </div>
 			                                </div>
@@ -109,6 +109,9 @@
 	                    			</c:forEach>
 	                    		</c:when>
 	                    		<c:otherwise>
+	                    			<div class="row_area empty_cart">
+	                    				<h2>담아둔 상품이 없습니다.</h2>
+	                    			</div>
 	                    		</c:otherwise>
 	                    	</c:choose>
                           
@@ -118,7 +121,7 @@
                         <div class="order_main_right_in total_price_area2">
                             <!-- 총 주문가격 -->
                             <div class="total_price_txt_area">
-                                <h3>주문내역</h3>
+                                <h3>장바구니 내역</h3>
                                 <div class="total total_price_txt">
                                     <h4>상품가격</h4> 
                                     <div class="price_txt">
@@ -148,12 +151,14 @@
                             </div>
                             <!-- 결제하기 버튼 구역 -->
                             <div class="total_price_button_area">
-                                <button type="submit" class="btn total_price_button">
-                                    <h2 class="total_price_button_in">결제하기</h2>
-                                    <div class="total_price_button_in">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </div>
-                                </button>
+                               <c:if test="${!empty cartList  }">
+                               		<button type="submit" class="btn total_price_button">
+	                                    <h2 class="total_price_button_in">결제하기</h2>
+	                                    <div class="total_price_button_in">
+	                                        <i class="fa-solid fa-arrow-right"></i>
+	                                    </div>
+	                                </button>
+                               </c:if>
                             </div>
                         </div>
                     </div>
@@ -179,9 +184,6 @@
                                     <!-- 추천상품가격 -->
                                     <div class="recommend_price_heart">
                                         <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
                                     </div>
                                     <!-- 별점 -->
                                     <div class="recommend_star">
@@ -194,194 +196,6 @@
                                 </div>
                             </div>
                             <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- ------------------------------ -->
-                            <!-- 추천상품 -->
-                            <div class="recommend_product">
-                                <div class="recommend_product_area">
-                                    <!-- 추천상품이미지 -->
-                                    <div class="recommend_img_area">   
-                                        <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
-                                        </div>
-                                    </div>
-                                    <!-- 추천상품가격 -->
-                                    <div class="recommend_price_heart">
-                                        <h3><span>10000</span>원</h3>
-                                        <button class="btn btn_coffee_heart">
-                                            <i class="fa-solid fa-heart"></i>
-                                        </button>
-                                    </div>
-                                    <!-- 별점 -->
-                                    <div class="recommend_star">
-                                        <i class="fa-solid fa-star star"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                        <i class="fa-solid fa-star star_empty"></i>
-                                    </div>
-                                </div>
-                            </div>   
                         </div>
                         <!-- <div id="indicator">
                             <div id="indi_bar"></div>
@@ -394,29 +208,5 @@
         <jsp:include page="../layout/footer.jsp" />
         <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/cart.js"></script>
        
-       <script>
-	       // 하트 버튼 클릭시 
-	       function heartRow(memNum, beansNum, heart){
-	       		console.log('하트 클릭함!')
-	       		
-	       		$.ajaxSetup({
-	       			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
-					type: "post"
-	       		})
-	       		
-	       		$.ajax({
-	       			url : "<%=request.getContextPath()%>/heart.do",
-	       			data : {memNum : memNum , beansNum : beansNum, heart : heart},
-	       			datatype : "text",
-	       			success : function(result){
-	       				console.log('성공!')
-	       			},
-	       			error : function(result){
-	       				console.log('실패!')
-	       			}
-	       		})
-	       		
-	       }
-       </script>
     </body>
 </html>

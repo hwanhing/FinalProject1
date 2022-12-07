@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -172,33 +173,34 @@ public class CoffeeCartController {
 		return "./cartAndOrder/order";
 	}
 	
+	// ajax -----------------------------------------------------------------------
+	// 찜 수정 또는 등록
 	@RequestMapping("heart.do")
 	public void updateHeart(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
-		int heart = Integer.valueOf(request.getParameter("heart"));
 		int memNum = Integer.valueOf(request.getParameter("memNum")); 
 		int beansNum = Integer.valueOf(request.getParameter("beansNum"));
-		int result = 1;
-		
-		if(heart==0) {
-			heart=1;
-		}else {
-			heart=0;
-		}
 		
 		Map<String, Integer> heartMap = new HashMap<String, Integer>();
 		heartMap.put("memNum", memNum);
 		heartMap.put("beansNum", beansNum);
-		heartMap.put("heart", heart);
 		
-		System.out.println("CoffeeCartController memNum : " + memNum);
-		System.out.println("CoffeeCartController beansNum : " + beansNum);
-		System.out.println("CoffeeCartController heart : " + heart);
-
 		// 이미 데이터가 있다면 DB 수정, 없을 경우 DB 추가 (0일때는 데이터 없음)
-		int inHeartTorF = cartDao.inHeart(heartMap);
+		CoffeeCartDTO inHeartDto = cartDao.inHeart(heartMap);
+		int inHeart = inHeartDto.getBeans_num();
+		int nowHeart = inHeartDto.getCoffee_heart();
 		
-		if(inHeartTorF==0) {
+		// 찜해져있는 상태라면 찜 해제(0), 아닐경우 찜하기(1)
+		if(nowHeart==0) {
+			nowHeart = 1;
+			
+		}else {
+			nowHeart = 0;
+		}
+		
+		heartMap.put("heart", nowHeart);
+		
+		if(inHeart==0) {
 			// 찜 등록
 			cartDao.insertHeart(heartMap);
 			
@@ -208,8 +210,38 @@ public class CoffeeCartController {
 		}
 		
 		PrintWriter out = response.getWriter();
-		out.println("뭐야??");
-		
+		out.println("1");
 		
 	}
+	// 장바구니 삭제
+	@RequestMapping("deleteCartRow.do")
+	public void deleteCartRow(@RequestParam("cartNum") int cartNum, HttpServletResponse response) throws IOException{
+		
+		int res = cartDao.deleteCartRow(cartNum);
+		System.out.println("coffeeCartController 장바구니 행 삭제 결과 : " + res);
+		
+		PrintWriter out = response.getWriter();
+		out.println("1");
+	}
+	
+	// 장바구니 수량 수정
+	@RequestMapping("updateCartCnt.do")
+	public void updateCartCnt(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		int cartNum = Integer.valueOf(request.getParameter("cartNum").trim());
+		int cartCnt = Integer.valueOf(request.getParameter("cartCnt").trim());
+		
+		Map<String, Integer> cartCntMap = new HashMap<String, Integer>();
+		cartCntMap.put("cartNum", cartNum);
+		cartCntMap.put("cartCnt", cartCnt);
+		int res = cartDao.updateCartCnt(cartCntMap);
+		System.out.println("coffeeCartController 수량 수정 결과 : " + res);
+		
+		PrintWriter out = response.getWriter();
+		out.println("1");
+	}
+	
+	
+	
+	
 }

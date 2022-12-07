@@ -108,6 +108,8 @@ console.log('js')
           clickedUBtn.classList.add('disabled_btn')
       }
       
+      // DB 수정 함수
+      cartReCntDB(cartNum, clickedCntValue)
    }
    
    // Down 버튼 클릭시 실행하는 함수 안 실행 함수
@@ -131,6 +133,8 @@ console.log('js')
           clickedUBtn.classList.remove('disabled_btn')
       }
       
+      // DB 수정 함수
+      cartReCntDB(cartNum, clickedCntValue)
    }
    
    // 수량. 그람수 변화에 따라 합계 계산 함수
@@ -183,12 +187,11 @@ console.log('js')
    }
 
    // 삭제 클릭시 ---------------------------------------------------------------
-   // 삭제 버튼 변수
-  
    function deleteRow(cartNum){
        
 	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
 	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")
+	   
 	   let rTotalTag = document.querySelector(".num_"+cartNum+"_Rtotal")
 	   let rTotal = parseInt(rTotalTag.textContent.replace(',',''))
 	  
@@ -204,42 +207,71 @@ console.log('js')
        allTotalPrice.textContent = totalPrice.textContent
 
        point(finSum) 
+       deleteRowDB(cartNum)
    }
    
-   // 하트 버튼 클릭시 
-   function heartRow(memNum, beansNum, heart, cartNum){
-   		console.log('하트 클릭함!???')
-   		console.log('?????????????')
-   		
-   		let clikedHeart = document.querySelector(".num_"+cartNum+"_heart")
-   		console.log(clikedHeart)
-   		clikedHeart.classList.toggle('heart_active')
-   		
-   		heartFun(memNum, beansNum, heart, cartNum)
-   		
-   }
-   
-   function heartFun(memNum, beansNum, heart, cartNum){
-   	
-   		$.ajaxSetup({
+   // ajax ----------------------------------------------------------
+  	$.ajaxSetup({	
    			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
 			type: "post"
-   		})
+	})
+  
+   // 하트 버튼 클릭시 찜 수정 또는 등록 ajax 
+   function heartRowDB(memNum, beansNum, cartNum){
+   		
+   		let clikedHeart = document.querySelector(".num_"+cartNum+"_heart")
+   		clikedHeart.classList.toggle('heart_active')
    		
    		$.ajax({
-   			url : "<%=request.getContextPath()%>/heart.do",
-   			data : {memNum : memNum , beansNum : beansNum, heart : heart},
+   			url : "/coffee/heart.do",
+   			data : {memNum : memNum , beansNum : beansNum},
    			datatype : "text",
    			success : function(data){
-   				console.log(data);
+   				console.log("찜 성공");
    			},
    			error : function(){
-   				console.log('실패!');
+   				console.log('찜 실패!');
    			}
    		})
-   	
    }
    
+   // 삭제 버튼 클릭시 장바구니 삭제 ajax
+   function deleteRowDB(cartNum){
+   		console.log("cartNum : " + cartNum)
+   	
+   		$.ajax({
+   			url : "/coffee/deleteCartRow.do",
+   			data : { cartNum : cartNum },
+   			datatype : "text",
+   			success : function(data){
+   				console.log("장바구니 행(row) 삭제 성공");
+   			},
+   			error : function(){
+   				console.log("장바구니 행(row) 삭제 실패");
+   			}
+   		})
+   }
+   
+   // 수량 버튼 클릭시 장바구니 수량 수정하는 ajax
+   function cartReCntDB(cartNum, reCntValue){
+   	
+   		console.log("cartNum : " + cartNum)
+   		console.log("reCntValue : " + reCntValue)
+   		
+   		$.ajax({
+   			url : "/coffee/updateCartCnt.do",
+   			data : { cartNum : cartNum, cartCnt : reCntValue},
+   			datatype : "text",
+   			success : function(data){
+   				console.log("수량 수정 성공");
+   			},
+   			error : function(){
+   				console.log('수량 수정 실패!');
+   			}
+   		})
+   }
+   
+ 
    
    
    // -------------- 주문서 작성시 사용 

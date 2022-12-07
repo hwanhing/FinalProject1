@@ -67,7 +67,14 @@
      ㄴ row_img_area        : 상품 
      ㄴ row_cont_area       : 상품정보 (수량, 삭제, 찜 포함)
      ㄴ row_price_area      : 상품가격 (상품 단가 * 수량)
+	empty_cart 장바구니에 담겨져있는 상품 없을때
 */
+
+.empty_cart{
+	display: flex;
+	justify-content: center;
+	align-items: center
+}
 
 .row_area{
     height: 300px;
