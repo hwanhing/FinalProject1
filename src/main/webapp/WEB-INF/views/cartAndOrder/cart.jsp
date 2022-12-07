@@ -4,19 +4,31 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
- <head>
+ 	<head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+	    <meta http-equiv="Content-Style-Type" content="text/css" />
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	    <meta name="robots" content="noindex">
+	   	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+        
+        
         <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="./resources/orderimg/coffeebean04.png">
         <title>장바구니</title>
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/cart.css">
         <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
     </head>
       <body>
         <%-- 해더 --%>
         <jsp:include page="../layout/header.jsp" />
+        
         <div class="blank"></div>
          <!-- 컨텐츠 부분 -->
         <section class="content">
@@ -26,20 +38,11 @@
                     <section class="order_path">
                         <ul class="list order_path_list">
                             <li>
-                                <a href="#" class="a order_path_a">홈</a>
+                                <a href="<%=request.getContextPath() %>" class="a order_path_a">홈</a>
                             </li>
                             <li>
-                                <a href="./01_cart.html" class="a last order_path_a"><b>장바구니</b></a>
+                                <a href="<%=request.getContextPath() %>/bean_cart.do" class="a last order_path_a"><b>장바구니</b></a>
                             </li>
-                            <!-- <li>
-                                <a href="#" class="a order_path_a">주문서작성</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a order_path_a">결제완료</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a order_path_a">주문완료</a>
-                            </li> -->
                         </ul>
                     </section>
                 </section>
@@ -49,11 +52,12 @@
                     <div class="order_main_left rows_area">
                     	
                     	
-                        <form method="post" action="">
+                        <form method="post" action="<%=request.getContextPath() %>/bean_order.do">
                             <c:choose>
 	                    		<c:when test="${!empty cartList }">
 	                    			<c:forEach items="${cartList }" var="list">
 	                    				 <div class="row_area num_${list.getCart_num()}_row">
+			                                
 			                                <!-- 상품 이미지 -->
 			                                <div class="row_img_area">
 			                                    <div class="row_img">
@@ -62,6 +66,7 @@
 			                                        </a>
 			                                    </div>
 			                                </div>
+			                               
 			                                <!-- 상품정보 -->
 			                                <div class="row_cont_area">
 			                                    <div class="product_name">
@@ -78,14 +83,18 @@
 			                                                <button type="button" class="btn btn_down num_${list.getCart_num()}_Dbtn" onclick="downCnt(${list.getCart_num()})"><i class="fa-solid fa-caret-down"></i></button>
 			                                            </div>
 			                                        </div>
+			                                        
+			                                        <!-- 삭제 & 찜 -->
 			                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(${list.getCart_num() })">
 			                                            <i class="fa-solid fa-trash"></i>
 			                                        </button>
-			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() })">
-			                                            <i class="fa-solid fa-heart heart_active"></i>
+			                                        
+			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() }, ${list.getCoffee_heart() })">
+			                                            <i class="fa-solid fa-heart heart_${list.getCoffee_heart()}"></i>
 			                                        </button>
 			                                    </div>
 			                                </div>
+			                               
 			                                <!-- 상품가격 -->
 			                                <div class="row_price_area">
 			                                    <div class="price_txt row_price_txt">
@@ -93,6 +102,7 @@
 			                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
 			                                    </div>
 			                                </div>
+			                           
 			                            </div>
 			                            <div class="hr_div hr_content num_${list.getCart_num()}_hrdiv"></div>
 	                    			
@@ -163,7 +173,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -190,7 +200,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -217,7 +227,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -244,7 +254,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -271,7 +281,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -298,7 +308,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -325,7 +335,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -352,7 +362,7 @@
                                     <!-- 추천상품이미지 -->
                                     <div class="recommend_img_area">   
                                         <div class="recommend_img">
-                                            <a href="#" class="img_a"><img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file"></a>
+                                            <a href="#" class="img_a"><img src="" alt="상품1" class="product_img_file"></a>
                                         </div>
                                     </div>
                                     <!-- 추천상품가격 -->
@@ -384,5 +394,29 @@
         <jsp:include page="../layout/footer.jsp" />
         <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/cart.js"></script>
        
+       <script>
+	       // 하트 버튼 클릭시 
+	       function heartRow(memNum, beansNum, heart){
+	       		console.log('하트 클릭함!')
+	       		
+	       		$.ajaxSetup({
+	       			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+					type: "post"
+	       		})
+	       		
+	       		$.ajax({
+	       			url : "<%=request.getContextPath()%>/heart.do",
+	       			data : {memNum : memNum , beansNum : beansNum, heart : heart},
+	       			datatype : "text",
+	       			success : function(result){
+	       				console.log('성공!')
+	       			},
+	       			error : function(result){
+	       				console.log('실패!')
+	       			}
+	       		})
+	       		
+	       }
+       </script>
     </body>
 </html>

@@ -24,7 +24,6 @@ console.log('js')
    let rowGram = document.querySelectorAll(".row_gram")	  // 그람
    let rowTotal = document.querySelectorAll(".row_total") // 수량 * 단가 * (그람/100)
    
-   
    // 총 합계 변수
    let totalPrice = document.querySelector(".total_price")         // 상품가격
    let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
@@ -42,6 +41,8 @@ console.log('js')
    // 윈도우 로드시 row total 함수(단가 * 수량 * (그람수/100))
    function onloadCalc(){
 	   
+	   let heart = document.querySelectorAll('.heart_1')
+	   
    		inputCnt.forEach(function(e,index){
    			
    			// 수량 1일경우 버튼 비활성화
@@ -57,7 +58,13 @@ console.log('js')
    			let rowTotalNum = rowPriceNum * rowInCntNum * rowGramNum  
    			rowTotal[index].textContent = rowTotalNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    			CalcAllTotal()
+   			
    		})  
+   		
+   		heart.forEach(function(e,index){
+   			
+	   		heart[index].classList.add('heart_active')
+   		})
    }
    
     // 수량 up 버튼 클릭시
@@ -169,7 +176,7 @@ console.log('js')
    
    // 포인트 집계 함수
    function point(finSum){
-       let point = finSum * pointRate
+       let point = Math.round(finSum * pointRate)
        let pointText = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
        allPoint.textContent = pointText
        allPointH.value = point
@@ -198,6 +205,42 @@ console.log('js')
 
        point(finSum) 
    }
+   
+   // 하트 버튼 클릭시 
+   function heartRow(memNum, beansNum, heart, cartNum){
+   		console.log('하트 클릭함!???')
+   		console.log('?????????????')
+   		
+   		let clikedHeart = document.querySelector(".num_"+cartNum+"_heart")
+   		console.log(clikedHeart)
+   		clikedHeart.classList.toggle('heart_active')
+   		
+   		heartFun(memNum, beansNum, heart, cartNum)
+   		
+   }
+   
+   function heartFun(memNum, beansNum, heart, cartNum){
+   	
+   		$.ajaxSetup({
+   			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			type: "post"
+   		})
+   		
+   		$.ajax({
+   			url : "<%=request.getContextPath()%>/heart.do",
+   			data : {memNum : memNum , beansNum : beansNum, heart : heart},
+   			datatype : "text",
+   			success : function(data){
+   				console.log(data);
+   			},
+   			error : function(){
+   				console.log('실패!');
+   			}
+   		})
+   	
+   }
+   
+   
    
    // -------------- 주문서 작성시 사용 
    /*

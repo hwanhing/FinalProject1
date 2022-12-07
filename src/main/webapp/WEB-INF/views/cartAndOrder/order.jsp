@@ -31,13 +31,13 @@
                     <section class="order_path">
                         <ul class="list order_path_list">
                             <li>
-                                <a href="#" class="a order_path_a">홈</a>
+                                <a href="<%=request.getContextPath() %>" class="a order_path_a">홈</a>
                             </li>
                             <li>
-                                <a href="./01_cart_2안.html" class="a order_path_a">장바구니</a>
+                                <a href="<%=request.getContextPath() %>/bean_cart.do" class="a order_path_a">장바구니</a>
                             </li>
                             <li>
-                                <a href="./02_order_2format.html" class="a last order_path_a"><b>주문서작성</b></a>
+                                <a href="<%=request.getContextPath() %>/bean_order.do" class="a last order_path_a"><b>주문서작성</b></a>
                             </li>
                             <!--<li>
                                 <a href="#" class="a order_path_a">결제완료</a>

@@ -19,6 +19,7 @@ public class CoffeeCartDTO {
 	private String beans_taste;
 	private String beans_img;
 	private String beans_url;
+	private int coffee_heart;
 	
 }
 

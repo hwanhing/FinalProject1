@@ -166,4 +166,50 @@ public class CoffeeCartController {
 		
 		return "./cartAndOrder/cart";
 	}
+	
+	@RequestMapping("bean_order.do")
+	public String tmp(){
+		return "./cartAndOrder/order";
+	}
+	
+	@RequestMapping("heart.do")
+	public void updateHeart(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		int heart = Integer.valueOf(request.getParameter("heart"));
+		int memNum = Integer.valueOf(request.getParameter("memNum")); 
+		int beansNum = Integer.valueOf(request.getParameter("beansNum"));
+		int result = 1;
+		
+		if(heart==0) {
+			heart=1;
+		}else {
+			heart=0;
+		}
+		
+		Map<String, Integer> heartMap = new HashMap<String, Integer>();
+		heartMap.put("memNum", memNum);
+		heartMap.put("beansNum", beansNum);
+		heartMap.put("heart", heart);
+		
+		System.out.println("CoffeeCartController memNum : " + memNum);
+		System.out.println("CoffeeCartController beansNum : " + beansNum);
+		System.out.println("CoffeeCartController heart : " + heart);
+
+		// 이미 데이터가 있다면 DB 수정, 없을 경우 DB 추가 (0일때는 데이터 없음)
+		int inHeartTorF = cartDao.inHeart(heartMap);
+		
+		if(inHeartTorF==0) {
+			// 찜 등록
+			cartDao.insertHeart(heartMap);
+			
+		}else {
+			// 찜 수정
+			cartDao.updateHeart(heartMap);
+		}
+		
+		PrintWriter out = response.getWriter();
+		out.println("뭐야??");
+		
+		
+	}
 }
