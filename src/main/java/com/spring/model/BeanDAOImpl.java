@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -18,5 +19,20 @@ public class BeanDAOImpl implements BeanDAO{
 		
 		return this.sqlSession.selectList("list");
 	}
+
+	@Override
+	public int insert(Map<String, Object> map) {
+		
+		return this.sqlSession.insert("Add", map);
+	}
+
+
+	
+
+
+
+	
+	
+
 	
 }
