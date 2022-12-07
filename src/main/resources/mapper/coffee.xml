@@ -70,11 +70,7 @@
 	select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
 	</select>
 	
-	<delete id="myheartdelete">
-		
-	</delete>
-	
-	
+
 </mapper>  
 
 
