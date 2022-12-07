@@ -39,9 +39,8 @@
 
 	<div class="main-recom swiper-container">
 		<div class="recom-title">
-			<a href=""></a>
-			<h2 class="recom-h2">다양한 취향에 따라<br>내린 한 잔</h2>
-			<p class="recom-txt">편하게 즐기는 데일리부터<br>밤을 지켜주는 디카페인까지</p>
+			<h2 class="recom-h2 ">다양한 취향에 따라<br>내린 한 잔</h2>
+			<p class="recom-txt ">편하게 즐기는 데일리부터<br>밤을 지켜주는 디카페인까지</p>
 		</div>
 
 		<div class="container recom-wrap">
@@ -170,6 +169,7 @@
 					<div class="taste-box hidden">
 						<a href="">
 							<img src="https://namusairo.com/web/product/big/20200420/00a038a01022758f99674d04c23327b0.jpg" alt="나무사이로 콜드브루 봄의 제전">
+							
 						</a>
 					</div>
 
@@ -200,14 +200,36 @@
 	
 	</div>	
 
+<!----------내 취향 커피 END ---------------->
 
-
-	
-
+	.
 
 </div>
 
 <script>
+
+	// 원두 추천 타이틀 
+
+	const options = {
+		root: null,
+		rootMargin: "0px",
+		threhold: .5,
+	}
+
+	const observer_title = new IntersectionObserver((entries)=> {
+		entries.forEach((entry)=> {
+			console.log(entry.isIntersecting);
+			if(entry.isIntersecting) {
+				entry.target.classList.add('active');
+			} else {
+				entry.target.classList.remove('active');
+			}
+
+		});
+	}, options);
+
+	const titleList = document.querySelectorAll('recom-h2');
+	titleList.forEach(el => observer_title.observe(el));
 
     //원두 추천 
 
@@ -226,7 +248,7 @@
 
 	// 내 취향 ^^ 
 
-	const observer = new IntersectionObserver((entries)=>{
+	const observer_logo = new IntersectionObserver((entries)=>{
 		entries.forEach((entry)=> {
 			console.log(entry)
 			if(entry.isIntersecting) {
@@ -236,7 +258,6 @@
 			}
 		});
 	});
-
 
 	const hiddenElement = document.querySelectorAll('.hidden');
 	hiddenElement.forEach((el)=>observer.observe(el));
