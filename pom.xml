@@ -84,6 +84,12 @@
 			</exclusions>
 			<scope>runtime</scope>
 		</dependency>
+<!-- jackson -->
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.8.11</version>
+</dependency>		
 		<!-- mybatis 프레임워크 라이브러리 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>

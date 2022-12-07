@@ -17,8 +17,9 @@
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
-		select * from final_member where member_id=#{member_id} and member_pwd=#{member_pwd}
+	select fm.*, ct.*from final_member fm join coffee_test ct on fm.test_num = ct.test_num where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
+	
 
 	<select id="MyPage" parameterType="int" resultType="finalMemberDTO">
 		select * from final_member where member_num=#{member_num}
@@ -44,8 +45,37 @@
 		update final_member set member_addr5 =#{member_addr5} where member_num=#{member_num}
 	</update>
 	
-</mapper>  
+	<insert id="Add" parameterType="map">
+		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
+	</insert>
 
+	<update id="member_Delete" parameterType="int">
+		update final_member set member_use = 1 where member_num=#{member_num}
+	</update>
+	
+	<update id="phone_modify" parameterType="finalMemberDTO" > 
+		update final_member set member_phone =#{member_phone} where member_num=#{member_num}
+	</update>
+	
+	<update id="Email_modify" parameterType="finalMemberDTO">
+		update final_member set member_email=#{member_email} where member_num=#{member_num}
+	</update>
+	
+	<update id="pwd_modify" parameterType="finalMemberDTO">
+	update final_member set member_pwd=#{member_pwd} where member_num=#{member_num}
+	</update>
+
+	<select id="heart_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
+	
+	select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
+	</select>
+	
+	<delete id="myheartdelete">
+		
+	</delete>
+	
+	
+</mapper>  
 
 
   

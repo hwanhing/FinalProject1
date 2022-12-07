@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +37,7 @@
 <body>
 
 <jsp:include page="../layout/header.jsp" />
-
+	<c:set var="dto" value="${delete }" />
 	<div class="container">
 		<div id="mySide">
 			
@@ -76,7 +77,7 @@
 			<br>
 
 			<div>
-				<form name="frm" method="post">
+				<form  method="post" action="<%=request.getContextPath()%>/memberDelete.do?num=${dto.getMember_num()}">
 					<h3 align="center">※이용하시면서 불편하셨던 사항을 체크해 주세요</h3>
 					<br>
 					<div>
@@ -135,28 +136,6 @@
 	<script type="text/javascript">
 $("#deleteMemBtn").click(function(){
 	if($("#isAgree").prop("checked")) {
-		
-		$.ajax({
-	         
-	         type:"POST",
-	         url:"memberDelete.do",
-	         data:"json",
-	         
-	         success:function(data){
-	            console.log(data.result);
-	            if(data.result == "complete"){
-	               alert("회원탈퇴가 완료되었습니다.");
-	               location.href=data.URL;
-	            }else{
-	               alert("에러가 발생했습니다.");
-	            }
-
-	            
-	         },
-	         error:function(data){
-	            alert("에러가 발생했습니다.");
-	         }
-	      });
 		} else{
 			alert("탈퇴안내를 확인하고 동의해주세요.");
 		}

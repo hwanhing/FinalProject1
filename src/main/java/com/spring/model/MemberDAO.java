@@ -1,6 +1,8 @@
 package com.spring.model;
 
-import java.util.Map;
+
+
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,8 +24,15 @@ public interface MemberDAO {
 	
 	int addrModify5(FinalMemberDTO dto);
 
+	int deletemember(int num);
 	
-	
+	int phone_modify(FinalMemberDTO dto);
 
-	
+	int email_modify(FinalMemberDTO dto);
+
+	int pwd_modify(FinalMemberDTO dto);
+
+	List<FinalMemberDTO> member_heart(int num);
+
+	int myheartdelete(int num);
 }

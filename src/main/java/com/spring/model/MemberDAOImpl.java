@@ -1,5 +1,6 @@
 package com.spring.model;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -59,6 +60,42 @@ public class MemberDAOImpl implements MemberDAO{
 	public int addrModify5(FinalMemberDTO dto) {
 		return this.sqlSession.update("addrmodify5",dto);
 	}
+
+	@Override
+	public int deletemember(int num) {
+		return this.sqlSession.update("member_Delete",num);
+	}
+
+	@Override
+	public int phone_modify(FinalMemberDTO dto) {
+		return this.sqlSession.update("phone_modify",dto);
+	}
+
+	@Override
+	public int email_modify(FinalMemberDTO dto) {
+		return this.sqlSession.update("Email_modify", dto);
+	}
+
+	@Override
+	public int pwd_modify(FinalMemberDTO dto) {
+		
+		return this.sqlSession.update("pwd_modify" , dto);
+		
+	}
+
+	@Override
+	public List<FinalMemberDTO> member_heart(int num) {
+		return this.sqlSession.selectList("heart_list", num);
+	}
+
+	@Override
+	public int myheartdelete(int num) {
+		return this.sqlSession.delete("myheartdelete",num);
+	}
+
+
+
+
 
 	
 

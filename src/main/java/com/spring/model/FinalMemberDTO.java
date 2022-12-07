@@ -23,6 +23,28 @@ public class FinalMemberDTO {
 	private int test_num;
 	private int member_use;
 	
+	//그외 
+	
+
+	private String test_name;
+	private String test_full_name;
+	private String test_info;
+	private String test_match_coffee;
+	private String test_mate;
+	private String test_img;
+	
+	private int beans_num;
+	private double coffee_star;
+	private int coffee_heart;
+
+	private String beans_name;
+	private int beans_price;
+	private int beans_weight;
+	private String beans_taste;
+	private String beans_intro;
+	private String beans_img;
+	private String beans_url;
+	
 }
 
 
