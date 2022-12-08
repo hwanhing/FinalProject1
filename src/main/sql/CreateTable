@@ -157,20 +157,24 @@ create table coffee_order(
      beans_num number(10), 
      beans_name varchar2(200), 
      beans_price number(10), 
-     beans_weight number(10), 
      beans_taste varchar2(300),
+     cart_weight number(10), 
+     cart_grind number(5),
      member_num number(10),
      constraint member_num foreign key(member_num) references final_member(member_num) on delete cascade
  );
 
+  
 ---------------- coffee_cart(장바구니) ----------------
 create table coffee_cart(
       cart_num number(10) primary key, 
       beans_num number(10), 
+      beans_price number(10),
       cart_cnt number(10), 
-      cart_price number(10), 
+      cart_weight number(10),
+      cart_grind number(5), 
       member_num number(10),
-      constraint beans_num_order foreign key(beans_num) references coffee_beans(beans_num) on delete cascade,
+      constraint beans_num_order foreign key(beans_num) references coffee_beans(beans_num) on delete ,
       constraint member_num_order foreign key(member_num) references final_member(member_num) on delete cascade
 );
 

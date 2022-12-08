@@ -1,0 +1,231 @@
+@charset "UTF-8";
+
+.cart_row_section{
+    min-height: 900px;
+}
+
+/* 왼쪽 ----------------------------------------------------- */
+/* 
+    order_main_left         콘텐츠 메인 왼쪽부분
+     ㄴ order_main_left_in
+      ㄴ deliver_info        배송정보
+*/
+.order_main_left_in{
+    width: 80%;
+    overflow: scroll;
+    margin: auto;
+}
+
+.order_info_text{
+    width: 100%;
+    min-width: 700px;
+    margin-bottom: var(--margin);
+}
+
+.order_info_text tr:not(.except_tr){
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.order_info_text th{
+    width: 170px;
+    min-width:170px;
+}
+
+/* input 태그 */
+.delivery_input{
+    height: 20px;
+    padding: 5px;
+    box-shadow: var(--box_shadow);
+}
+
+.flex_row{
+    display: flex;
+    align-items: center;
+}
+
+.span{
+    display: block;
+    width: 30px;
+    text-align: center;
+}
+
+/* input 태그 중 텍스트 긴 타입 */
+.input_long{
+    width: 650px;
+}
+
+.use_point_txt{
+    margin-left: 170px;
+}
+
+.can_use_point{
+    color: red;
+}
+
+.alertText{
+    color: red;
+    font-weight: bold;
+}
+
+/* 결제하기 버튼 */
+.pay_btn_area{
+    width: 200px;
+    margin: auto;
+}
+
+.pay_btn{
+    width: 100%;
+    height: 50px;
+}
+
+
+/* 오른쪽 --------------------------------------------------- */
+/* 
+    order_main_right
+     ㄴ order_main_right_in     콘텐츠 메인 왼쪽부분
+      ㄴ summary_order          주문 요약
+      ㄴ offCanvas              주문 상세
+ */
+
+/* 주문요약 */
+.summary_order{
+    box-shadow: var(--box_shadow);
+    border-radius: var(--radius);
+}
+/* 주문 이미지 간략 & 버튼 구역 */
+.summary_order_img_btn{
+    display: flex;
+}
+
+/* 주문 이미지 간략 */
+.summary_order_img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.summary_order_img_in{
+    display: grid;
+    grid-template-columns: repeat(4, 80px);
+    place-items: center;
+    overflow: scroll;
+}
+
+.summary_order_img_in .row_img_area{
+    box-shadow: var(--box_shadow);
+    width: 80px;
+    margin: 10px;
+    padding: 2px;
+}
+
+/* 상세보기 버튼 */
+.detail_order_btn{
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.detail_btn{
+    padding: 10px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    background-color:  var(--color_greyish);
+    color: white;
+    transition: 0.3s ease-in-out;
+}
+
+.detail_btn:hover{
+   background-color: var(--color_begie);
+   color: black;
+}
+
+.total_price_txt_area{
+    padding: 10px;
+}
+
+.content{
+    overflow: hidden;
+}
+
+/* 버튼 클릭시 나오는 주문 내역 상세 */
+.slider{
+    width: 500px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: absolute;
+    top: 0px;
+    right: -800px;
+    transition: all .8s ease-in-out;
+    background-color: white;
+    box-shadow: var(--box_shadow);
+}
+
+/* 상세보기 보여주기 */
+.show{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+/* 요약 hidden */
+.hidden{
+    visibility: hidden;
+    transition: visibility .5s ease-in-out;
+    
+}
+  
+/* 상세보기 */
+.detail_order_btn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--margin);
+}
+
+.detail_order_btn h3{
+    padding-left: 10px;
+}
+
+/* 주문 목록 */
+.rows_area{
+    height: 350px;
+    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: var(--margin);
+}
+
+.row_area{
+    margin-bottom: 10px;
+    box-shadow: var(--box_shadow);
+}
+.row_img{
+    width: 50px;
+}
+
+.img_a img{
+    width: 100%
+}
+
+.row_cont_area{
+    width: 70%;
+}   
+
+.product_name{
+    padding-left: 10px;
+}
+
+/* 총 주문 가격 */
+.total_price_area1{
+    width: 90%;
+    margin: auto;
+    margin-bottom: var(--margin);
+}
+.total_price_area2{
+    padding: 10px;
+}
