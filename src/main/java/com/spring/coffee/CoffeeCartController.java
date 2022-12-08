@@ -37,7 +37,7 @@ public class CoffeeCartController {
 		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=UTF-8");
-		
+		 
 		if((Integer) session.getAttribute("member_num")==null) {
 			out.println("<script>");
 			// 창 확인 필요
