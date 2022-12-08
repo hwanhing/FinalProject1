@@ -89,10 +89,11 @@
 			width: 45px;
 			height: 45px;
 			border-radius: 25px;
-			background-color:#fff;
+			background-color: #fff;
 			margin-left: 3%;
 			border: none;	
 		}
+		
 		
 		.con_box{
 			margin-top: 10%;
@@ -215,7 +216,7 @@
 	        		</div>
         		
         			<%-- 장바구니 버튼 --%>
-       				<button type="button" class="cart_btn" onclick="bean_cart_insert.do?no=${i.getBeans_num()}">	
+       				<button type="button" class="cart_btn" onclick="location.href='bean_cart_insert.do?no=${i.getBeans_num()}'">	
 						<svg focusable="false" viewBox="0 0 24 24" class="pip-svg-icon pip-btn__icon" aria-hidden="true">
 							<path id="cart_border" style="fill:rgb(255, 255, 255);" fill-rule="evenodd" clip-rule="evenodd" d="M10.4372 4h3.1244l.2922.4801 3.3574 5.517h5.0694l-.3104 1.2425L21.5303 13h-2.0615l.2506-1.0029H4.2808l1.3106 5.2426a1 1 0 0 0 .9702.7574H15v2H6.5616c-1.3766 0-2.5766-.9369-2.9105-2.2724L2.03 11.2397l-.3107-1.2426H6.788l3.357-5.517L10.4372 4zm2.0003 2L14.87 9.9971H9.1291L11.5614 6h.8761zm5.5586 10v-2h2v2h2v2h-2v2h-2v-2h-2v-2h2z"></path>
 						</svg>  
@@ -223,9 +224,7 @@
         			
         			<%-- 찜 버튼 --%>
        				<button type="button" class="heart_btn" value="${i.getBeans_num() }">
- 						<svg focusable="false" viewBox="0 0 24 24" class="pip-svg-icon pip-btn__icon" aria-hidden="true">
-							<path id="heart_border" style="fill:rgb(0, 0, 0);" fill-rule="evenodd" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0zm-7.2069 12.0516c.6695-.43 1.9102-1.2835 3.1366-2.4096 1.8786-1.7247 3.4884-3.8702 3.4894-6.0264-.0037-.849-.2644-1.6326-.8333-2.2015-1.1036-1.1035-2.9413-1.0999-4.0445.0014l-1.7517 1.7448-1.7461-1.7462c-1.1165-1.1164-2.9267-1.1164-4.0431 0-1.6837 1.6837-.5313 4.4136.6406 6.0156.8996 1.2298 2.0728 2.3207 3.137 3.1722a24.3826 24.3826 0 0 0 2.0151 1.4497z"></path>
-						</svg>				
+						<img>
 					</button> 
 					</div>
 					</div><%-- con1 끝 --%>
@@ -241,48 +240,41 @@
 <script type="text/javascript">
 
  $(function(){
-	
-	// 하트찜 클릭시 member_num 과 beans_num이 있는지 select로 일단 찾아보고
- 	$(document).on("click", ".heart_btn", function(){
- 		 let no ='<%=session.getAttribute("member_num")%>';
- 		
- 		console.log("원두 번호 >> "+ $(this).val());
- 		console.log("세션번호 >> " + no);
- 		
- 		if(no == "null"){
- 			alert('로그인 후 이용가능합니다.');
- 		}else{
- 		
- 		$.ajax({
-			type : "post",
-			url : "heart_select_list.do",
-			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			data : {
-					member_num : no,
-					beans_num : $(this).val()
-					},
-			datatype : "text",
-			success: function(data1){
-					
-				if(data1 != 0){
-					console.log("찾음");
-					alert("이미 찜한 상품");
-					
-					
-				}else{
-					console.log("값 없음");
-					alert("처음 찜한 상품");
-					
-				}
 
-			},
-			error : function(){
-				alert('데이터 통신 에러');
-			}
-		});  
- 		}
-	});
-	
+	   // 하트 버튼 클릭시 찜 수정 또는 등록 ajax 
+	   $(document).on("click", ".heart_btn", function(){
+		   
+		 	let no ='<%=session.getAttribute("member_num")%>';
+
+	   		$.ajax({
+	   			url : "beans_heart.do",
+	   			data : {member_num : ${member_num},
+	   					beans_num : $(this).val()
+	   					},
+				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+	   			datatype : "text",
+	   			success : function(data){
+	   				
+					console.log("찜 여부 >> "+data);
+					
+					if(data == 1){
+						alert("찜 목록에 추가했습니다.");
+						
+						$(".heart_btn").css("background-color", "red");
+
+					}else{
+						alert("찜 목록에서 삭제했습니다.");
+						
+
+					}
+	   			
+	   			},
+	   			error : function(){
+	   				console.log('찜 실패!');
+	   			}
+	   		});
+	   });
+
 	
  	$('.box1').change(function() {
  	    var result = $('.box1 option:selected').val();
@@ -308,52 +300,16 @@
 
 }); 
 
-
-
-
-
-
-
-
-
-
-
-
-<%--
- $(function(){
-
- 	$(document).on("click", ".heart_btn", function(){
- 		 let no ='<%=session.getAttribute("member_num")%>';
- 		
- 		console.log("원두 번호 >> "+ $(this).val());
- 		console.log("세션번호 >> " + no);
- 		if(no == "null"){
- 			alert('로그인 후 이용가능합니다.');
- 		}else{
- 		
- 		$.ajax({
-			type : "post",
-			url : "heart_insert.do",
-			contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-			data : {
-					member_num : no,
-					coffee_heart : 0,
-					beans_num : $(this).val()
-					},
-			datatype : "text",
-			success: function(data){
-						
-				<%-- 하트 색깔 변경을 나중에... 모르겠음..^^.. 
-				console.log("찜");
-
-			},
-				
-		});  
- 		}
-	});
-}); 
---%>
-
+/*
+ * 
+ 
+ 
+	<svg focusable="false" viewBox="0 0 24 24" class="pip-svg-icon pip-btn__icon" aria-hidden="true">
+	<path id="heart_border" style="fill:rgb(0, 0, 0);" fill-rule="evenodd" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0zm-7.2069 12.0516c.6695-.43 1.9102-1.2835 3.1366-2.4096 1.8786-1.7247 3.4884-3.8702 3.4894-6.0264-.0037-.849-.2644-1.6326-.8333-2.2015-1.1036-1.1035-2.9413-1.0999-4.0445.0014l-1.7517 1.7448-1.7461-1.7462c-1.1165-1.1164-2.9267-1.1164-4.0431 0-1.6837 1.6837-.5313 4.4136.6406 6.0156.8996 1.2298 2.0728 2.3207 3.137 3.1722a24.3826 24.3826 0 0 0 2.0151 1.4497z"></path>
+</svg> 
+ 
+ 
+ */
 
 </script>
 

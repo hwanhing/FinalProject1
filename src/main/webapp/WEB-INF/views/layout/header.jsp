@@ -13,17 +13,19 @@
 
 
     <meta name="robots" content="noindex">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
-<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+	<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
 
 
         <header class="header">
             <div class="h-wrap" style="height: 80px">
                 <div class="h-logo">
-                    <a href=""><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
+                    <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
                 </div>
         
                 <div class="h-gnb">
@@ -40,8 +42,18 @@
 					<div>
 						<b>${member_name }님</b>
 						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+						  <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
 					</div>
 				</c:if>
+				<c:if test="${member_name eq null }">	
+                    <div class="menu-etc">
+                        <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
+                    </div>
+                </c:if>    				
 
             <!--------------비회원 c:if 문 START------------->
                     <c:if test="${member_name eq null }">	
@@ -59,12 +71,12 @@
                                             <span class="icon-close"></span>
                                         </div>
 
-                                        <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
+                                        <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
-                                                    <p><input type="text" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
-                                                    <p><input type="text" placeholder="비밀번호를 입력하세요" required></p>
+                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
                                                 <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
                                                 </div>
 
@@ -137,7 +149,7 @@
             </div>
         </header>
 
-	     <c:if test="${!empty member_id  }">
+	     <c:if test="${!empty member_id}">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="offcanvas-header">
 		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">${member_name} 님 환영합니다.</h5>

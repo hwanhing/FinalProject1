@@ -9,7 +9,6 @@ public class CoffeeTestDAOImpl implements CoffeeTestDAO{
 	@Inject
 	private SqlSessionTemplate sqlSession;
 
-
 	
 	
 }

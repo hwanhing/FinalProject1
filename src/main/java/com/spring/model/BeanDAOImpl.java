@@ -37,30 +37,43 @@ public class BeanDAOImpl implements BeanDAO{
 	public List<CoffeeBeanDTO> BeanPriceUpList() {
 		return this.sqlSession.selectList("priceuplist");
 	}	
-	
-	@Override
-	public CoffeeStarDTO selectBean(Map<String, Object> map) {
-		
-		return this.sqlSession.selectOne("Bean_select", map);
-	}	
-	
-/*	@Override
-	public int insertHeart(Map<String, Object> map) {
-		
-		return this.sqlSession.insert("Heart_insert", map);
-	} */
-	
-	
-	
-/*	@Override
-	public int update(Map<String, Object> map) {
-		
-		return this.sqlSession.insert("Del", map);
-	}*/
+
 	
 	@Override
 	public CoffeeBeanDTO getBeanContent(int num) {
 		return this.sqlSession.selectOne("Cont", num);
+	}
+
+
+	@Override
+	public CoffeeStarDTO seHeart(Map<String, Integer> map) {
+		return this.sqlSession.selectOne("heartmap1", map);
+	}
+
+
+	@Override
+	public void insertHeart(Map<String, Integer> map) {
+		this.sqlSession.selectOne("insertHeart1", map);
+		
+	}
+
+
+	@Override
+	public void updateHeart(Map<String, Integer> map) {
+		this.sqlSession.selectOne("updateHeart1", map);
+		
+	}
+
+
+	@Override
+	public List<CoffeeWriteDTO> getWriteList() {
+		return this.sqlSession.selectList("writeList");
+	}
+
+
+	@Override
+	public int writeinsert(CoffeeWriteDTO dto) {
+		return this.sqlSession.insert("writeAdd", dto);
 	}
 
 
