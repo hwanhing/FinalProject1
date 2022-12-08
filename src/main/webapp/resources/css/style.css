@@ -21,7 +21,7 @@
     min-height: 500px;
 }
 .container {
-    max-width: 1330px;
+    max-width: 1440px;
     padding: 0;
 }
 .container-full {
@@ -141,9 +141,9 @@ select {
 select:focus {
     border-color: var(--color);
 }
-label {
+/* label {
     cursor: pointer;
-}
+} */
 
 
 img {
@@ -352,6 +352,7 @@ s
     text-align: center;
     font-family: 'YESMyoungjo-Regular';
     letter-spacing: 3px;
+    margin-top: 10px;
 }
 
 .log-modal .login-form .login-title p {
@@ -374,6 +375,7 @@ s
 }
 
 .log-modal .login-form{
+
     background-color: #fff;
     width: 360px;
     height: 440px;
@@ -390,7 +392,7 @@ s
 }
 
 .login-form .mf-wrap {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .login-form .mf-form input{
@@ -421,6 +423,7 @@ s
     color: #734338;
     font-family: 'YESMyoungjo-Regular';
     margin-top: 10px;
+    height: 50px;
     width: 100%;
 }
 
@@ -458,7 +461,6 @@ s
 /************************/
 
 
-
 .join-modal {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.13);
@@ -468,6 +470,22 @@ s
     width: 100%;
     display: none;
 }
+
+.join-modal .join-form {
+    background-color: #fff;
+    width: 360px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(0, 0, 0.15);
+    font-family: 'YESMyoungjo-Regular';
+    text-align: center;
+
+}
+
 
 .join-modal .join-form .join-title {
     text-align: center;
@@ -484,10 +502,88 @@ s
 	height: 80px;
 }
 
-.join-modal .join-title span {
+.join-modal .join-form .join-title span {
     position: absolute;
     top: 25px;
     right: 25px;
+}
+
+.join-form .jf-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -22px;
+}
+
+
+.join-form .jf-form input{
+    width: 300px;
+    margin-top: 4px;
+    padding: 7px;
+    color: rgb(0, 0, 0.13);
+}
+
+.join-form .jf-form input:focus::placeholder{
+    color: transparent;
+}
+
+.join-form .jf-form label {
+    margin-top: 20px;
+}
+
+.join-form .jf-form .error {
+    font-size: 12px;
+    margin: 5px 0;
+    color: #800000;
+    opacity: .7;
+    
+}
+
+.join-form .jf-btn {
+    background-color: #D9CEC1;
+    border-radius: 5px;
+    font-size: 17px;
+    color: #734338;
+    font-family: 'YESMyoungjo-Regular';
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+}
+
+.join-form .jf-btn:hover {
+    background-color: #734338;
+    color:  #D9CEC1;
+    transition: all .3s ease-in-out;
+}
+
+.join-form .join-agr {
+    color: 696969;
+    margin: 10px;
+}
+
+.join-form .join-agr .join-agr-all {
+    font-size: 17px;
+    font-weight: 500;
+    margin: 5px;
+}
+
+.join-form .join-agr .join-agr-per {
+    font-size: 12px;
+}
+
+
+.join-form .join-agr .join-agr-shop {
+    font-size: 12px;
+}
+
+.join-form .join-agr .join-agr-age {
+    font-size: 12px;
+
+}
+
+.join-form .join-agr .join-agr-mak{
+    font-size: 12px;
+
 }
 
 
