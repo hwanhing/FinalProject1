@@ -469,6 +469,26 @@ s
     display: none;
 }
 
+.join-modal .join-form .join-title {
+    text-align: center;
+    font-family: 'YESMyoungjo-Regular';
+    letter-spacing: 3px;
+}
+
+.join-modal .join-form .join-title p {
+    margin-top: 13px;
+}
+
+.join-modal .join-form .join-title img {
+	width: 180px;
+	height: 80px;
+}
+
+.join-modal .join-title span {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
 
 
 /******************************/
