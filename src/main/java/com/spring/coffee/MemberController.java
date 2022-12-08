@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.model.CoffeeTestDTO;
 import com.spring.model.FinalMemberDTO;
 import com.spring.model.MemberDAO;
 
@@ -37,10 +38,11 @@ public class MemberController {
 		FinalMemberDTO f_dto = this.dao.checkMember(dto);
 		
 		 if (f_dto != null) { // 세션 변수 저장
-			 
+			
 			 session.setAttribute("member_num", f_dto.getMember_num());
 			 session.setAttribute("member_id", f_dto.getMember_id());
 			  session.setAttribute("member_name", f_dto.getMember_name());
+			  session.setAttribute("member_img", f_dto.getMember_img());
 			  
 			}else if(f_dto == null) {
 				out.println("<script>");

@@ -13,19 +13,56 @@
 <mapper namespace="beanDAO">
 	
 	<select id="list" resultType="coffeeBeanDTO">
-		select * from coffee_beans
+		select * from coffee_beans order by beans_num
+	</select>
+	
+	<select id="heartlist" resultType="coffeeBeanDTO">
+		select * from coffee_beans order by beans_num desc
+	</select>
+	
+	<select id="pricedownlist" resultType="coffeeBeanDTO">
+		select * from coffee_beans order by beans_price
+	</select>
+	
+	<select id="priceuplist" resultType="coffeeBeanDTO">
+		select * from coffee_beans order by beans_price desc
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select * from final_member where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
 	
-	<insert id="Add" parameterType="map">
-		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
+	<select id="Cont" parameterType="int" resultType="coffeeBeanDTO">
+		select * from coffee_beans where beans_num = #{beans_num}
+	</select>
+	
+	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
+		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
+	</select>
+	
+<!--<insert id="Heart_insert" parameterType="map">
+		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
 	</insert>
+  -->		
 
 </mapper>  
 
+
+<!-- 	<update id="Del" parameterType="map">
+		<if test="coffee_heart == 0">
+			update member_star set coffee_heart = #{coffee_heart} + 1 where member_num = #{member_num} and beans_num = #{beans_num}	
+		</if>
+
+		<if test="coffee_heart == 1">
+			update member_star set coffee_heart = #{coffee_heart} - 1 where member_num = #{member_num} and beans_num = #{beans_num}	
+		</if>	
+		
+			
+	</update> 
+	
+		<insert id="Bean_select" parameterType="map">
+		insert into member_star(coffee_heart, member_num, beans_num) values(#{coffee_heart}, #{member_num}, #{beans_num})
+	</insert>-->
 
 
   
