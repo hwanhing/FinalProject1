@@ -52,7 +52,6 @@
 .tabbable-line > .nav-tabs {
   border: none;
   margin: 0px;
-}
 .tabbable-line > .nav-tabs > li {
   margin-right: 50px;
   font-size: 15px;

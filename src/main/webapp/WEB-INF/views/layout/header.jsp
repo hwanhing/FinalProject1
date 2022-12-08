@@ -102,7 +102,7 @@
 		         	고객센터
 		           </a>
 		           <ul class="dropdown-menu">
-		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${dto.getMember_num()}">문의게시판</a></li>
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${member_num}">문의게시판</a></li>
 		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/">1:1문의하기</a></li>
 		             <li>
 		     

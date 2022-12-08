@@ -54,14 +54,20 @@ public class MemberController {
 
 		
 		 if (f_dto != null) { // 세션 변수 저장
-			 
+			
 			 session.setAttribute("member_num", f_dto.getMember_num());
 			 session.setAttribute("member_id", f_dto.getMember_id());
+
+			  session.setAttribute("member_name", f_dto.getMember_name());
+			  session.setAttribute("member_img", f_dto.getMember_img());
+			  
+
 			  session.setAttribute("member_name", f_dto.getMember_name());			  
 			  session.setAttribute("member_point", f_dto.getMember_point());
 			  session.setAttribute("test_num", f_dto.getTest_num());
 			  session.setAttribute("test_img", f_dto.getTest_img());
 			  session.setAttribute("test_name", f_dto.getTest_name());
+
 			}else if(f_dto == null) {
 				out.println("<script>");
 				out.println("alert('로그인안됨;;')");
@@ -444,6 +450,19 @@ public class MemberController {
 					out.println("</script>");
 			 }
 	  }
+		
+		  @RequestMapping("board_list.do") public String
+		  board_list(@RequestParam("num")int num ,Model model) {
+		  
+		  List<FinalMemberDTO> dto = this.dao.BoardList(num);
+		  
+		  model.addAttribute("board_list", dto);
+		  
+		  return "./member/board_list";
+		  
+		  
+		  }
+		
 	  
 	  }
 	  

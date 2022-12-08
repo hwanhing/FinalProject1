@@ -93,6 +93,11 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.delete("myheartdelete",num);
 	}
 
+	@Override
+	public List<FinalMemberDTO> BoardList(int num) {
+		return this.sqlSession.selectList("board_list", num);
+	}
+
 
 
 
