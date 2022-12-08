@@ -269,10 +269,12 @@ console.log('js')
        totalPriceH.value = reTotalPrice
        totalPrice.textContent = reTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
        allTotalPrice.textContent = totalPrice.textContent
-
+	   
        point(finSum) 
        deleteRowDB(cartNum)
    }
+   
+   // 장바구니 목록이 없다면 결제하기 버튼 없애기
    
    // ajax ----------------------------------------------------------
   	$.ajaxSetup({	

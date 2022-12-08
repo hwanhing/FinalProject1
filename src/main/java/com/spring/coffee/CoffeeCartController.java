@@ -172,11 +172,8 @@ public class CoffeeCartController {
 		if(cartList.size() != 0) {
 			getRecList = cartDao.getRecListCart(member_num);
 			
-			System.out.println("추천리스트 가져옴(장바구니기준) : " + getRecList.size() + " 개");
-			
 		}else {
 			getRecList = cartDao.getRecListOrder(member_num);
-			System.out.println("추천리스트 가져옴(주문내역기준) : " + getRecList.size() + " 개");
 		}
 		
 		model.addAttribute("memNum", member_num);

@@ -62,7 +62,7 @@
 			                                <!-- 상품 이미지 -->
 			                                <div class="row_img_area">
 			                                    <div class="row_img">
-			                                        <a href="#" class="img_a">
+			                                        <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
 			                                            <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
 			                                        </a>
 			                                    </div>
@@ -203,7 +203,9 @@
 		                                    <!-- 추천상품이미지 -->
 		                                    <div class="recommend_img_area">   
 		                                        <div class="recommend_img">
-		                                            <a href="#" class="img_a"><img src="${recomend.getBeans_img()}" alt="${recomend.getBeans_name()}" class="product_img_file"></a>
+		                                            <a href="<%=request.getContextPath() %>/bean_content.do?num=${recomend.getBeans_num()}" class="img_a">
+		                                            	<img src="${recomend.getBeans_img()}" alt="${recomend.getBeans_name()}" class="product_img_file">
+		                                            </a>
 		                                        </div>
 		                                    </div>
 		                                    
