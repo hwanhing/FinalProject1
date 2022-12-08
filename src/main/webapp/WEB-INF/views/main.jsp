@@ -22,7 +22,10 @@
 
 <jsp:include page="./layout/header.jsp" />
 
+
+
 <!--------------메인 비주얼 START---------------->
+
 
 <div class="main-contents" id="main-contents">
 	<div class="container-wide">
@@ -256,3 +259,4 @@
 
 </script>
 <jsp:include page="layout/footer.jsp" />
+

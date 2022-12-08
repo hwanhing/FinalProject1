@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class CoffeeTestDTO {
 	
-
 	private int test_num;
 	private String test_name;
 	private String test_full_name;

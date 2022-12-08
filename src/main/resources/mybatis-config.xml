@@ -22,6 +22,7 @@
 		<typeAlias type="com.spring.model.CoffeeCartDTO" alias="coffeeCartDTO" />
 		<typeAlias type="com.spring.model.CoffeeOrderDTO" alias="coffeeOrderDTO" />
 		
+		
 		<typeAlias type="com.spring.model.CoffeeStarDTO" alias="coffeeStarDTO" />
 		<typeAlias type="com.spring.model.CoffeeTestDTO" alias="coffeeTestDTO" />
 		<typeAlias type="com.spring.model.CoffeeTestResultDTO" alias="coffeeTestResultDTO" />

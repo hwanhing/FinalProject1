@@ -35,35 +35,82 @@
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
-
+                
 				<c:if test="${member_name ne null }">
 					<div>
 						<b>${member_name }님</b>
 						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
 					</div>
 				</c:if>
-				<c:if test="${member_name eq null }">	
-            <!---------menu-etc START------------------>
-                    <div class="menu-etc">
-                        <a href="#" class="login-pop">Log-in</a>
-                          <!------------로그인 모달 창 START ---------------->
-                            <div class="log-modal login-bg" id="log-modal">
 
-                                <div class="login-form">
-                                    <div class="login-title">
+            <!--------------비회원 c:if 문 START------------->
+                    <c:if test="${member_name eq null }">	
+                <!-----------menu-etc START--------------------->
+                        <div class="menu-etc">
+                     <!------------로그인 모달 창 START ---------------->
+
+                            <a href="#" class="login-pop">Log-in</a>
+                                <div class="log-modal login-bg" id="log-modal">
+
+                                    <div class="login-form">
+                                        <div class="login-title">
+                                            <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
+                                                <p>회원 로그인</p>
+                                            <span class="icon-close"></span>
+                                        </div>
+
+                                        <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
+                                            <fieldset class="mf-wrap">
+
+                                                <div class="mf-form">
+                                                    <p><input type="text" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" placeholder="비밀번호를 입력하세요" required></p>
+                                                <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
+                                                </div>
+
+                                                    <button type="submit" class="mf-btn" id="mf-btn">login</button>
+
+                                                <div class="mf-etc">
+                                                    <a href="<%=request.getContextPath()%>/member_join.do"><span class="icon-people"></span>회원가입</a>
+                                                    <a href="<%=request.getContextPath()%>/member_find.do"><span class="icon-question"></span>
+                                                    아이디/비밀번호 찾기</a>
+                                                </div>
+
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            <!------------로그인 모달 창 END ---------------->
+
+                            <!------------회원가입 모달 창 START ---------------->
+                            <a href="#" class="join-pop">Join</a>
+                            <div class="join-modal join-bg" id="join-modal">
+
+                                <div class="join-form">
+                                    <div class="join-title">
                                         <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
-                                            <p>회원 로그인</p>
+                                            <p>회원가입</p>
                                         <span class="icon-close"></span>
-                                     </div>
+                                    </div>
 
-                                    <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
-                                        <fieldset class="mf-wrap">
+                                    <form id="join-form" name="join-form" type="post" action="<%=request.getContextPath()%>/member_join_check.do">
+                                        <fieldset class="join-wrap">
 
-                                            <div class="mf-form">
-                                                <p><input type="text" placeholder="아이디를 입력하세요" required autofocus></p>
-                                                <p><input type="text" placeholder="비밀번호를 입력하세요" required></p>
-                                               <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
-                                            </div>
+                                            <div class="join-form">
+
+                                                <label for="">아이디</label>
+                                                <p><input type="text" placeholder="숫자, 영문,특수조합 최소 8자" required autofocus></p>
+
+                                                <button type="input" class="e-check">중복확인</button>
+
+
+                                                <p><input type="text" placeholder="비밀번호 재입력" required></p>
+
+                                                <p><input type="text" placeholder="비밀번호를 다시 한 번 입력하세요" required></p>
+
+
+
+
 
                                                 <button type="submit" class="mf-btn" id="mf-btn">login</button>
 
@@ -77,12 +124,14 @@
                                     </form>
                                 </div>
                             </div>
-                        <!------------로그인 모달 창 END ---------------->
 
-                        <a href="#" class="join-pop">Join</a>
-                    </div>
-                    <!---------menu-etc END------------------>
-                </c:if>    
+                            
+                        </div>
+                        
+                    </c:if>    
+                    <!--------------비회원 c:if 문 END ------------->
+                    <!---------------menu-etc END------------------>
+                        
                 </div>
 
             </div>
