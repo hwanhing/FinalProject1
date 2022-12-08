@@ -36,11 +36,6 @@ public class MemberController {
 	private MemberDAO dao;
 	private CoffeeTestDAO c_dao;
 	
-	@RequestMapping("member_login.do")
-	public String login() {
-		
-		return "./member/member_login";
-	}
 	
 	@RequestMapping("member_login_check.do")
 	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
@@ -48,9 +43,6 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 		
 		FinalMemberDTO f_dto = this.dao.checkMember(dto);
-		
-		
-		
 
 		
 		 if (f_dto != null) { // 세션 변수 저장
@@ -61,7 +53,6 @@ public class MemberController {
 			  session.setAttribute("member_name", f_dto.getMember_name());
 			  session.setAttribute("member_img", f_dto.getMember_img());
 			  
-
 			  session.setAttribute("member_name", f_dto.getMember_name());			  
 			  session.setAttribute("member_point", f_dto.getMember_point());
 			  session.setAttribute("test_num", f_dto.getTest_num());

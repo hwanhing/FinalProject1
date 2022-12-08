@@ -15,10 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.BeanDAO;
 import com.spring.model.CoffeeBeanDTO;
+import com.spring.model.CoffeeCartDTO;
 import com.spring.model.CoffeeStarDTO;
+import com.spring.model.CoffeeWriteDTO;
 
 @Controller
 public class CoffeeBeanController {
@@ -36,7 +39,48 @@ public class CoffeeBeanController {
 		
 		return "./bean/bean_list";
 	}
+
+	// 찜 수정 또는 등록
+	@RequestMapping("beans_heart.do")
+	public void updateHeart(HttpServletRequest request, HttpServletResponse response) throws IOException{
 	
+	int member_num = Integer.valueOf(request.getParameter("member_num")); 
+	int beans_num = Integer.valueOf(request.getParameter("beans_num"));
+	
+	Map<String, Integer> map = new HashMap<String, Integer>();
+	map.put("member_num", member_num);
+	map.put("beans_num", beans_num);
+	
+	// 이미 데이터가 있다면 DB 수정, 없을 경우 DB 추가 (0일때는 데이터 없음)
+	CoffeeStarDTO dto = this.dao.seHeart(map);
+	int insertHeart = dto.getBeans_num();
+	int updateHeart = dto.getCoffee_heart();
+	
+	
+	// 찜해져있는 상태라면 찜 해제(0), 아닐경우 찜하기(1)
+	if(updateHeart==0) {
+		updateHeart = 1;
+		
+	}else {
+		updateHeart = 0;
+	}
+	
+	map.put("coffee_heart", updateHeart);
+	
+	PrintWriter out = response.getWriter();
+	
+	if(insertHeart==0) {
+		// 찜 등록
+		this.dao.insertHeart(map);
+	}else {
+		// 찜 수정
+		this.dao.updateHeart(map);
+		
+	}
+
+	out.println(updateHeart);
+	
+}
 
 	@RequestMapping("beans_list_heart.do")
 	public String downlist(Model model, CoffeeBeanDTO dto) {
@@ -71,65 +115,6 @@ public class CoffeeBeanController {
 		
 	}	
 	
-/*	@RequestMapping("heart_insert.do")
-	public void insert(@RequestParam("member_num") int member_num, @RequestParam("coffee_heart") int coffee_heart, @RequestParam("beans_num") int beans_num, HttpServletResponse response, HttpServletRequest request) throws IOException {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("member_num", member_num);		
-		map.put("coffee_heart", coffee_heart);	
-		map.put("beans_num", beans_num);
-		
-		int res = this.dao.insert(map);				
-	
-	}*/
-	
-	@RequestMapping("heart_select_list.do")
-	public void selectBean(@RequestParam("member_num") int member_num, @RequestParam("beans_num") int beans_num, HttpServletResponse response) throws IOException {
-
-
-	@RequestMapping("heart_insert.do")
-	public void insert(@RequestParam("member_num") int no, @RequestParam("coffee_heart") int heart) {
-
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("member_num", member_num);		
-		map.put("beans_num", beans_num);
-		
-		
-		CoffeeStarDTO dto = this.dao.selectBean(map);
-	
-		PrintWriter out = response.getWriter();
-		
-		int result;
-		
-		if(dto != null) {
-			result = 1;	// 값 있음.
-		}else {
-			result = 0;	// 값 없음.
-		}
-		
-		out.println(result);
-	
-	}	
-	
-/*	@RequestMapping("heart_insert.do")
-	public void insertheart(@RequestParam("member_num") int member_num, @RequestParam("beans_num") int beans_num, @RequestParam("coffee_heart") int coffee_heart, HttpServletResponse response) throws IOException {
-		Map<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("member_num", member_num);		
-		map.put("beans_num", beans_num);
-		map.put("coffee_heart", coffee_heart);
-		
-		PrintWriter out = response.getWriter();
-		
-		int res = this.dao.insertHeart(map);
-		
-		System.out.println(res);
-		out.println(res);
-	} */
-	
-	
-	
 	@RequestMapping("bean_content.do")
 	public String content(@RequestParam("num") int num,CoffeeBeanDTO dto_1, Model model) {
 
@@ -140,9 +125,22 @@ public class CoffeeBeanController {
 		CoffeeBeanDTO dto = this.dao.getBeanContent(num);
 		model.addAttribute("Cont", dto);
 		
+		List<CoffeeWriteDTO> list_1 = this.dao.getWriteList();
+		model.addAttribute("writeList", list_1);
+		
+		
 		return "./bean/bean_content";
 	}
-
 	
+	@RequestMapping("write_insert.do")
+	public String writeinsert(MultipartHttpServletRequest mrequest, CoffeeWriteDTO dto, HttpServletResponse response) throws IOException {
+		
+		int res = this.dao.writeinsert(dto);
+		
+		int num = dto.getBeans_num();
+		
+		
+		return "./bean/bean_content.do?no="+num+"";
+	}
 
 }

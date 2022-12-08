@@ -14,11 +14,14 @@ public interface BeanDAO {
 	
 	List<CoffeeBeanDTO> BeanPriceUpList();
 	
-	CoffeeStarDTO selectBean(Map<String, Object> map);
-	
-//	int insertHeart(Map<String, Object> map);
-	
+	CoffeeStarDTO seHeart(Map<String, Integer> map);
+	void insertHeart(Map<String, Integer> map);
+	void updateHeart(Map<String, Integer> map);
 	
 	
 	CoffeeBeanDTO getBeanContent(int num);
+
+	List<CoffeeWriteDTO> getWriteList();
+
+	int writeinsert(CoffeeWriteDTO dto);
 }
