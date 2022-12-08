@@ -110,6 +110,7 @@
 		       
 		           </ul>
 		    
+		    
 		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do">로그아웃</a>
 		         </li>
 		       </ul>
