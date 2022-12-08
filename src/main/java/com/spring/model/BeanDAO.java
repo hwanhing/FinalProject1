@@ -8,5 +8,17 @@ public interface BeanDAO {
 
 	List<CoffeeBeanDTO> getBeanList();
 	
-	int insert(Map<String, Object> map );
+	List<CoffeeBeanDTO> getBeanHeartList();
+	
+	List<CoffeeBeanDTO> BeanPriceDownList();
+	
+	List<CoffeeBeanDTO> BeanPriceUpList();
+	
+	CoffeeStarDTO selectBean(Map<String, Object> map);
+	
+//	int insertHeart(Map<String, Object> map);
+	
+	
+	
+	CoffeeBeanDTO getBeanContent(int num);
 }
