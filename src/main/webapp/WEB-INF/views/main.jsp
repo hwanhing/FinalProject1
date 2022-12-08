@@ -6,6 +6,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
 <link href="<%=request.getContextPath()%>/resources/css/main.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/swiper.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/bootstrap.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/resource/js/swiper.min.js"></script>
@@ -51,6 +52,7 @@
 			<h2 class="recom-h2 ">다양한 취향에 따라<br>내린 한 잔</h2>
 			<p class="recom-txt ">편하게 즐기는 데일리부터<br>밤을 지켜주는 디카페인까지</p>
 		</div>
+
 
 		<div class="container recom-wrap">
 			<ul class="swiper-wrapper">
@@ -124,15 +126,6 @@
 
 					</a>
 				</li>
-
-			<div class="main-visual">
-				<div class="video-container" align="center">
-					<video muted autoplay loop>
-						<source src="<%=request.getContextPath()%>/resources/video/coffee_video.mp4" type="video/mp4">
-						<strong>내 입맛에 맞는 나만의 커피</strong>
-					  </video>
-				</div>
-
 
 
 				<li class="swiper-slide">
