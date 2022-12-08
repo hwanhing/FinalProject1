@@ -8,16 +8,21 @@ console.log('js')
    */
    
    // 변수 
-   // 구매 최대값, 최소값 변수
+   // 구매 최대 수량, 최소 수량 변수
    const maxOrder = 20
    const minOrder = 1
+   
+   // 구매 최대 그람, 최소 그람
+   const maxGram = 400
+   const minGram = 100
+   
    const pointRate = 0.05
    let finSum = 0;
  
    // 버튼 변수 
-   //let btnUp = document.querySelectorAll(".btn_up")
    let btnDown = document.querySelectorAll(".btn_down")
-
+   let gbtnDown = document.querySelectorAll(".gram_btn_down")
+   
    // input 변수
    let inputCnt = document.querySelectorAll(".input_cnt") // 수량 
    let rowPrice = document.querySelectorAll(".row_price") // 단가 
@@ -50,10 +55,16 @@ console.log('js')
 		           btnDown[index].setAttribute('disabled',true)
 		           btnDown[index].classList.add('disabled_btn')
 		    }
+		    
+	    	if(rowGram[index].value==100){
+		           gbtnDown[index].setAttribute('disabled',true)
+		           gbtnDown[index].classList.add('disabled_btn')
+		    }
+   			
    			
    			let rowPriceNum = parseInt(rowPrice[index].value) // 단가
    			let rowInCntNum = parseInt(inputCnt[index].value) // 수량
-   			let rowGramNum = parseInt(rowGram[index].textContent)/100 // 그람수/100
+   			let rowGramNum = parseInt(rowGram[index].value)/100 // 그람수/100
 
    			let rowTotalNum = rowPriceNum * rowInCntNum * rowGramNum  
    			rowTotal[index].textContent = rowTotalNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
@@ -62,7 +73,6 @@ console.log('js')
    		})  
    		
    		heart.forEach(function(e,index){
-   			
 	   		heart[index].classList.add('heart_active')
    		})
    }
@@ -137,12 +147,66 @@ console.log('js')
       cartReCntDB(cartNum, clickedCntValue)
    }
    
+   // 그람 up 버튼 클릭시
+   function gramUpCnt(cartNum){
+   		console.log('그람 up클릭')
+    	let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
+    	let clickedGramValue = parseInt(clickedGram.value) +100 
+    	clickedGram.value = clickedGramValue
+    	
+    	let clickedGUBtn = document.querySelector(".num_g_"+cartNum+"_Ubtn")
+	  	let clickedGDBtn = document.querySelector(".num_g_"+cartNum+"_Dbtn")
+    	
+    	if(clickedGramValue >= minGram){
+			clickedGDBtn.removeAttribute('disabled')
+	        clickedGDBtn.classList.remove('disabled_btn')
+	    }
+	
+	    if(clickedGramValue >= maxGram){
+	    	clickedGUBtn.setAttribute('disabled',true)
+	        clickedGUBtn.classList.add('disabled_btn')
+	    }
+	    
+	    CalcRowTotal(cartNum)
+	   	CalcAllTotal()
+   		
+   		// DB 수정 함수
+      	cartReGramDB(cartNum, clickedGramValue)
+   }
+   
+   // 그람 down 버튼 클릭시 
+   function gramDownCnt(cartNum){
+   		console.log('그람 down클릭')
+   		let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
+    	let clickedGramValue = parseInt(clickedGram.value) -100 
+    	clickedGram.value = clickedGramValue
+    	
+    	let clickedGUBtn = document.querySelector(".num_g_"+cartNum+"_Ubtn")
+	  	let clickedGDBtn = document.querySelector(".num_g_"+cartNum+"_Dbtn")
+	  	
+	  	if(clickedGramValue == minGram){
+			 clickedGDBtn.setAttribute('disabled',true)
+	         clickedGDBtn.classList.add('disabled_btn')
+	    }
+	
+	    if(clickedGramValue < maxGram){
+	    	 clickedGUBtn.removeAttribute('disabled')
+	         clickedGUBtn.classList.remove('disabled_btn')
+	    }
+	    
+	    CalcRowTotal(cartNum)
+	   	CalcAllTotal()
+	   	
+	   	// DB 수정 함수
+      	cartReGramDB(cartNum, clickedGramValue)
+   }
+   
    // 수량. 그람수 변화에 따라 합계 계산 함수
    function CalcRowTotal(cartNum){
        
 	   let rPrice = parseInt(document.querySelector(".num_"+cartNum+"_Rprice").value)
 	   let rCnt = parseInt(document.querySelector(".num_"+cartNum+"_cnt").value)
-	   let rGram = parseInt(document.querySelector(".num_"+cartNum+"_gram").textContent)/100
+	   let rGram = parseInt(document.querySelector(".num_"+cartNum+"_gram").value)/100
 	   
 	   let rTotalTag = document.querySelector(".num_"+cartNum+"_Rtotal")
 	   let rTotal = parseInt(rTotalTag.textContent.replace(',',''))
@@ -271,6 +335,24 @@ console.log('js')
    		})
    }
    
+   // 그람 버튼 클릭시 장바구니 그람 수정하는 ajax
+   function cartReGramDB(cartNum, reGramValue){
+   	
+   		console.log("cartNum : " + cartNum)
+   		console.log("reGramValue : " + reGramValue)
+   		
+   		$.ajax({
+   			url : "/coffee/updateCartGram.do",
+   			data : { cartNum : cartNum, cartGram : reGramValue},
+   			datatype : "text",
+   			success : function(data){
+   				console.log("그람 수정 성공");
+   			},
+   			error : function(){
+   				console.log('그람 수정 실패!');
+   			}
+   		})
+   }
  
    
    

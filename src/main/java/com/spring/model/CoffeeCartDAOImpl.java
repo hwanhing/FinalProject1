@@ -64,14 +64,31 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 		return this.sqlSession.delete("deleteCartNum",cartNum);
 	}
 	
-	// 장바구니 페이지 : 수량 ------------------------------------------------------------------------------
+	// 장바구니 페이지 : 수량 수정 --------------------------------------------------------------------------
 	@Override
 	public int updateCartCnt(Map<String, Integer> cartCntMap) {
 		return this.sqlSession.update("updateCartCnt",cartCntMap);
 	}
 
-	
-	
+	// 장바구니 페이지 : 그람 수정 --------------------------------------------------------------------------
+	@Override
+	public int updateCartGram(Map<String, Integer> cartGramMap) {
+		return this.sqlSession.update("updateCartGram",cartGramMap);
+	}
+
+	// 추천 상품
+	@Override
+	public List<CoffeeCartDTO> getRecListCart(int member_num) {
+		return this.sqlSession.selectList("getRecListCart",member_num);
+	}
+
+	@Override
+	public List<CoffeeCartDTO> getRecListOrder(int member_num) {
+		return this.sqlSession.selectList("getRecListOrder",member_num);
+	}
+
+	// ----
+
 
 	
 	

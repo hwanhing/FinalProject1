@@ -34,20 +34,30 @@
 }
 
 .btn_up,
-.btn_down{
-    color: var(--color_begie)
+.btn_down,
+.gram_btn_up,
+.gram_btn_down{
+    color: var(--color_begie) !important;
 }
 
 .btn_up:hover{
-    color: var(--color_milk_brown);
+    color: var(--color_milk_brown) !important;
 }
 
 .btn_down:hover{
-    color: var(--color_milk_brown);
+    color: var(--color_milk_brown) !important;
+}
+
+.gram_btn_up:hover{
+    color: var(--color_milk_brown) !important;
+}
+
+.gram_btn_down:hover{
+    color: var(--color_milk_brown) !important;
 }
 
 .heart_active{
-    color: var(--color_milk_brown);
+    color: var(--color_milk_brown) !important;
 }
 
 /* --------------------------------------------------------- */
@@ -79,6 +89,7 @@
 .row_area{
     height: 300px;
     box-shadow: var(--box_shadow);
+    overflow: scroll;
 }
 /* ---------------------------------- */
 .row_img_area{
@@ -94,6 +105,10 @@
 
 .product_name{
     padding: 10px;
+    height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 }
 
 /* 수량조절 삭제, 찜 버튼 구역 */
@@ -101,16 +116,37 @@
     padding: 10px;
     display: flex;
     margin-bottom: 10px;
+    z-index: 300;
+}
+
+.gram_cnt_btn_area{
+    width: 280px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: var(--input_box_shadow);
+    border-radius: var(--radius);
 }
 
 /* 수량조절 버튼 */
+.gram_updown,
 .cnt_updown{
     padding: 5px;
-    border-radius: var(--radius);
     display: flex;
-    box-shadow: var(--input_box_shadow);
+    justify-content: space-between;
 }
 
+.gram_input_area{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.gram_input_area label{
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.gram_updown input,
 .cnt_updown input{
     width: 80px;
     padding: 10px;
@@ -125,11 +161,12 @@
 
 /* 수량 1일경우 down 버튼, 수량 20일 경우 up 버튼 적용 */
 .disabled_btn{
-    color: var(--color_greyish);
+    color: var(--color_greyish) !important;
+    border: none !important;
 }
 
 .disabled_btn:hover{
-    color: var(--color_greyish);
+    color: var(--color_greyish) !important;
 }
 
 /* 삭제버튼, 찜 버튼 공통 */
@@ -166,6 +203,7 @@
 */
 .total_price_txt_area{
     padding: 20px;
+    overflow: scroll;
 }
 
 .total{
@@ -203,6 +241,7 @@
 .recommend_products{
     width: 100%;
     height: 350px;
+    padding-top: 10px;
     overflow: scroll;
     display: grid;
     grid-template-columns: repeat(8, 250px);
@@ -223,21 +262,33 @@
 }
 
 .recommend_img_area{
+	width: 100%;
+    height: 125px;
+    
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: var(--margin);
+    
 }
 
 .recommend_img .product_img_file{
     width: 120px;
     height: 120px;
+    transition: .4s ease;
+}
+
+.recommend_img .product_img_file:hover{
+	width: 125px;
+    height: 125px;
 }
 
 .recommend_price_heart{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     margin-bottom: var(--margin);
 }
 
@@ -293,4 +344,13 @@
 /* ----------------- 삭제시 display none --------------------------- */
 .display_none{
     display: none;
+}
+
+
+// 추가 css
+      	
+      	
+.recommend_img img:hover{
+    width: 125px;
+    height: 125px;
 }

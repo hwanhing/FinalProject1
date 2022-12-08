@@ -2,6 +2,7 @@ package com.spring.coffee;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,16 +58,16 @@ public class CoffeeCartController {
 		int select_weight = 100;
 		int select_grind = 0;
 		
-		if(request.getParameter("cnt")!=null) {
-			select_cnt = Integer.valueOf(request.getParameter("cnt")) ;
+		if(request.getParameter("count")!=null) {
+			select_cnt = Integer.valueOf(request.getParameter("count")) ;
 		};
 		
 		if(request.getParameter("weight")!=null) {
-			select_weight = Integer.valueOf(request.getParameter("cart_weight")); 
+			select_weight = Integer.valueOf(request.getParameter("weight")); 
 		};
 		
 		if(request.getParameter("grind")!=null) {
-			select_grind = Integer.valueOf(request.getParameter("cart_grind"));
+			select_grind = Integer.valueOf(request.getParameter("grind"));
 		}
 		
 		// 상품 가격 가져오기
@@ -161,9 +162,26 @@ public class CoffeeCartController {
 	public String goCart(HttpSession session, Model model) {
 		int member_num = (Integer) session.getAttribute("member_num");
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);
+		
+		System.out.println("cartList.size() : " + cartList.size());
+		
+		// 추천 상품 가져오기
+		// cartList.size() 가 0 이면 가장 많이 주문한 상품 맛 기준으로 전체 주문건 많은 상품순 
+		// 아닐 경우 장바구니에 많이 담겨져있는 상품 맛 기준 전체 주문건이 많은 상품 순
+		List<CoffeeCartDTO> getRecList = new ArrayList<CoffeeCartDTO>();
+		if(cartList.size() != 0) {
+			getRecList = cartDao.getRecListCart(member_num);
+			
+			System.out.println("추천리스트 가져옴(장바구니기준) : " + getRecList.size() + " 개");
+			
+		}else {
+			getRecList = cartDao.getRecListOrder(member_num);
+			System.out.println("추천리스트 가져옴(주문내역기준) : " + getRecList.size() + " 개");
+		}
+		
 		model.addAttribute("memNum", member_num);
 		model.addAttribute("cartList", cartList);
-
+		model.addAttribute("recProductList", getRecList);
 		
 		return "./cartAndOrder/cart";
 	}
@@ -241,7 +259,24 @@ public class CoffeeCartController {
 		out.println("1");
 	}
 	
-	
+	// 장바구니 그람 수정
+	@RequestMapping("updateCartGram.do")
+	public void updateCartGram(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		
+		int cartNum = Integer.valueOf(request.getParameter("cartNum").trim());
+		int cartGram = Integer.valueOf(request.getParameter("cartGram").trim());
+		System.out.println("cartNum : " + cartNum);
+		System.out.println("cartGram : " + cartGram);
+		
+		Map<String, Integer> cartGramMap = new HashMap<String, Integer>();
+		cartGramMap.put("cartNum", cartNum);
+		cartGramMap.put("cartGram", cartGram);
+		int res = cartDao.updateCartGram(cartGramMap);
+		System.out.println("coffeeCartController 그람 수정 결과 : " + res);
+		
+		PrintWriter out = response.getWriter();
+		out.println("1");
+	}
 	
 	
 }
