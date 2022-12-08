@@ -22,6 +22,7 @@
 		<typeAlias type="com.spring.model.CoffeeCartDTO" alias="coffeeCartDTO" />
 		<typeAlias type="com.spring.model.CoffeeOrderDTO" alias="coffeeOrderDTO" />
 		
+		
 		<typeAlias type="com.spring.model.CoffeeStarDTO" alias="coffeeStarDTO" />
 		<typeAlias type="com.spring.model.CoffeeTestDTO" alias="coffeeTestDTO" />
 		<typeAlias type="com.spring.model.CoffeeTestResultDTO" alias="coffeeTestResultDTO" />
@@ -30,7 +31,7 @@
 		<typeAlias type="com.spring.model.CoffeeBeanDTO" alias="coffeeBeanDTO" />
 		<typeAlias type="com.spring.model.BeanDAO" alias="beanDAO" />
 		<typeAlias type="com.spring.model.MemberDAO" alias="memberDAO" />
-		
+		<typeAlias type="com.spring.model.CoffeeCartDAO" alias="cartDAO" />
 		
 		
 	</typeAliases>

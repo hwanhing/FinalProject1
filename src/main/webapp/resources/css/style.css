@@ -13,6 +13,33 @@
     font-style: normal;
 }
 
+/*************************/
+/* Container
+/*************************/
+#container {
+    padding-top: 80px;
+    min-height: 500px;
+}
+.container {
+    max-width: 1330px;
+    padding: 0;
+}
+.container-full {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+.container-wide {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1800px;
+}
+
+@media(max-width:1840px) {
+    .container-wide {
+        width: 100%;
+    } 
+}
 
 
 /*************************/
@@ -360,6 +387,7 @@ footer{
     font-weight: bold;
     letter-spacing: 3px;
     padding-bottom: 10px;
+    font-size: 15px;
 
 }
 
@@ -385,4 +413,16 @@ footer{
     width: 100%;
     font-family: 'YESMyoungjo-Regular';
 
+}
+
+/*김홍기 수정  */
+.result-img{
+	
+	margin-left: 90px;
+}
+.result_name{
+	margin-top: 30px;
+	margin-left: 150px;
+	font-size :20px;
+	font-family: 'Cafe24Danjunghae';
 }
