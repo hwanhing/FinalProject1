@@ -210,8 +210,8 @@
 		                                    </div>
 		                                    
 		                                    <!-- 추천상품가격 -->
-		                                    <div class="recommend_price_heart">
-		                                    	<h3 class="point_text product_name">${recomend.getBeans_name()}</h3>
+		                                    <div class="recommend_product_cont">
+		                                    	<h3 class="point_text product_rec_name">${recomend.getBeans_name()}</h3>
 		                                        <h4 class="middle_text">${recomend.getBeans_taste()}</h4>
 		                                        <h4 class="middle_text">₩ <fmt:formatNumber value="${recomend.getBeans_price()}" /></h3>
 		                                    </div>

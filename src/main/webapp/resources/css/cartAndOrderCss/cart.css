@@ -105,10 +105,6 @@
 
 .product_name{
     padding: 10px;
-    height: 80px;
-	display: flex;
-	justify-content: center;
-	align-items: flex-start;
 }
 
 /* 수량조절 삭제, 찜 버튼 구역 */
@@ -231,7 +227,7 @@
        ㄴ recommend_product
         ㄴ recommend_product_area
          ㄴ recommend_img_area
-         ㄴ recommend_price_heart
+         ㄴ recommend_product_cont
          ㄴ recommend_star
  */
 .recommend_products_section{
@@ -283,13 +279,20 @@
     height: 125px;
 }
 
-.recommend_price_heart{
+.recommend_product_cont{
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: var(--margin);
+}
+
+.product_rec_name{
+	height: 80px; 
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
 }
 
 /* 별점 색상 */
