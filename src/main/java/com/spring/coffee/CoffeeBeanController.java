@@ -86,10 +86,6 @@ public class CoffeeBeanController {
 	@RequestMapping("heart_select_list.do")
 	public void selectBean(@RequestParam("member_num") int member_num, @RequestParam("beans_num") int beans_num, HttpServletResponse response) throws IOException {
 
-
-	@RequestMapping("heart_insert.do")
-	public void insert(@RequestParam("member_num") int no, @RequestParam("coffee_heart") int heart) {
-
 		Map<String, Object> map = new HashMap<String, Object>();
 		
 		map.put("member_num", member_num);		
