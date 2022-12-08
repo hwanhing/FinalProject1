@@ -41,7 +41,6 @@
     } 
 }
 
-
 /*************************/
 /* Variable
 /*************************/
@@ -230,7 +229,7 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    max-width: 100%;
+    max-width: 1440px;
     height: 80px;
     box-sizing: border-box;
     margin: 0 auto;
@@ -306,18 +305,19 @@ s
 
 }
 
-.header .h-wrap .menu-etc a {
+.header .h-wrap .menu-etc .login-pop,
+.header .h-wrap .menu-etc .join-pop {
 	font-size: 14px;
     font-family: 'Cafe24Danjunghae';
    	color: #734338;
 	margin: 25px 25px 25px 25px;
 	display: block;
     letter-spacing: 1px;
-	
 
 }
 
-.header .h-wrap .menu-etc a:after {
+.header .h-wrap .menu-etc .login-pop:after,
+.header .h-wrap .menu-etc .join-pop:after {
 	  display: block;
 	  content: '';
 	  border-bottom: solid 1px #734338;
@@ -327,9 +327,129 @@ s
 
 }
 
-.header .h-wrap .menu-etc a:hover::after {
+.header .h-wrap .menu-etc .login-pop:hover::after,
+.header .h-wrap .menu-etc .join-pop:hover::after {
 	transform-origin:  0% 50%;
 	transform: scaleX(1);
+}
+
+
+/*************************/
+/* 로그인 모달 
+/************************/
+
+.log-modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.13);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+
+.log-modal .login-form .login-title {
+    text-align: center;
+    font-family: 'YESMyoungjo-Regular';
+    letter-spacing: 3px;
+}
+
+.log-modal .login-form .login-title p {
+    margin-top: 13px;
+}
+
+.log-modal .login-form .login-title img {
+	width: 180px;
+	height: 80px;
+}
+
+.log-modal .login-title span {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.log-modal .login-title .icon-close{ 
+    cursor: pointer;
+}
+
+.log-modal .login-form{
+    background-color: #fff;
+    width: 360px;
+    height: 440px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(0, 0, 0.15);
+    font-family: 'YESMyoungjo-Regular';
+    text-align: center;
+
+}
+
+.login-form .mf-wrap {
+    margin-top: 10px;
+}
+
+.login-form .mf-form input{
+    width: 100%;
+    padding: 5px;
+    margin-top: 15px;
+    color: rgb(0, 0, 0.13);
+
+}
+.login-form .mf-form .log-input {
+    width: 13px;
+    height: 13px;
+    vertical-align: text-top;
+}
+.login-form .mf-form .log-check {
+    vertical-align: -12px;
+    margin-left: 5px;
+}
+
+.login-form .mf-form input:focus::placeholder{
+    color: transparent;
+}
+
+.login-form .mf-btn {
+    background-color: #D9CEC1;
+    border-radius: 5px;
+    font-size: 17px;
+    color: #734338;
+    font-family: 'YESMyoungjo-Regular';
+    margin-top: 10px;
+    width: 100%;
+}
+
+.login-form .mf-btn:hover {
+    background-color: #734338;
+    color:  #D9CEC1;
+    transition: all .3s ease-in-out;
+}
+
+.login-form .mf-etc {
+    display: flex;
+    font-size: 12px;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+
+.login-form .mf-etc a{ 
+    cursor: pointer;
+    font-family: 'YESMyoungjo-Regular';
+    color: #734338;
+}
+
+.login-form .mf-etc a:hover {
+    color:  #D9CEC1;
+}
+
+.login-form .mf-etc .icon-question {
+    cursor: pointer;
 }
 
 

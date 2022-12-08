@@ -49,6 +49,10 @@
     } 
 }
 
+/*************************/
+/* 메인 비주얼창 
+/************************/
+
 .main-visual .main-title .visual-title{
     top: 200px;
     left: 38.5%;
@@ -100,6 +104,10 @@
     }
   }
 
+
+/*************************/
+/* 메인 원두 추천 창 
+/************************/
 
 .main-recom {
     position: relative;
@@ -208,6 +216,11 @@
     padding: 20px;
     object-fit: cover;
 }
+
+
+/*************************/
+/* 메인 카페 추천 창 
+/************************/
 
 .main-shop {
     background-color: #fff;
@@ -323,6 +336,11 @@
     color: #734338;
 }
 
+
+/*************************/
+/* 메인 취향 추천 창 
+/************************/
+
 .taste-title {
     width: 100%;
 }
@@ -423,5 +441,94 @@
     font-family: 'YESMyoungjo-Regular';
 }
 
+/*************************/
+/* 로그인 모달 
+/************************/
+
+.log-modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.13);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+
+.log-modal .login-form .login-title {
+    margin-top: 10px;
+    text-align: center;
+    font-family: 'YESMyoungjo-Regular';
+    letter-spacing: 3px;
+}
 
 
+.log-modal .login-title span {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.log-modal .login-title .icon-close{ 
+    cursor: pointer;
+}
+
+.log-modal .login-form{
+    background-color: #fff;
+    width: 360px;
+    height: 440px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(0, 0, 0.15);
+    text-align: center;
+
+}
+
+.login-form .mf-wrap {
+    margin-top: 45px;
+}
+
+.login-form .mf-form input{
+    width: 100%;
+    padding: 5px;
+    margin-top: 15px;
+
+}
+
+.login-form .mf-btn {
+    background-color: #D9CEC1;
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 17px;
+    color: #734338;
+    margin-top: 30px;
+}
+
+.login-form .mf-btn:hover a {
+    background-color: #734338;
+    color:  #D9CEC1;
+    transition: all .3s ease-in-out;
+}
+
+.login-form .mf-etc {
+    display: flex;
+    font-size: 7px;
+}
+
+
+.login-form .mf-etc a{ 
+    cursor: pointer;
+    color:  #D9CEC1;
+}
+
+.login-form .mf-etc a:hover {
+    color: #734338;
+}
+
+.login-form .mf-etc .icon-question {
+    cursor: pointer;
+}
