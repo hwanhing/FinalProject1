@@ -86,7 +86,7 @@
 			                                        
 			                                        <!-- 삭제 & 찜 -->
 			                                        <button type="button" class="btn btn_dh btn_delete" onclick="deleteRow(${list.getCart_num() })">
-			                                            <i class="fa-solid fa-trash"></i>
+			                                            <i class="fa-solid fa-trash"> </i>
 			                                        </button>
 			                                        
 			                                        <button type="button" class="btn btn_dh btn_coffee_heart" onclick="heartRow(${memNum}, ${list.getBeans_num() }, ${list.getCart_num() })">
