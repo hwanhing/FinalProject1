@@ -81,7 +81,7 @@ public class CoffeeCartController {
 		cartMap.put("select_grind", select_grind);
 		
 		CoffeeCartDTO cartDto = cartDao.getCart(cartMap);
-		
+
 		int cart_num = cartDto.getCart_num();	
 		int db_cnt = cartDto.getCart_cnt();
 		int db_weight = cartDto.getCart_weight();
@@ -99,6 +99,7 @@ public class CoffeeCartController {
 			cartDto.setCart_grind(select_grind);
 			
 			int res = cartDao.insertCart(cartDto);
+			
 			if(res>0) {
 				System.out.println("장바구니 등록 성공!");
 				out.println("<script>");
