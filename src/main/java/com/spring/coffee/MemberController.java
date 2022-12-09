@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.model.BoardMemberDTO;
+import com.spring.model.BoardReplyDTO;
 import com.spring.model.CoffeeTestDAO;
 import com.spring.model.CoffeeTestDTO;
 import com.spring.model.FinalMemberDTO;
@@ -36,11 +38,6 @@ public class MemberController {
 	private MemberDAO dao;
 	private CoffeeTestDAO c_dao;
 	
-	@RequestMapping("member_login.do")
-	public String login() {
-		
-		return "./member/member_login";
-	}
 	
 	@RequestMapping("member_login_check.do")
 	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
@@ -48,9 +45,6 @@ public class MemberController {
 		PrintWriter out = response.getWriter();
 		
 		FinalMemberDTO f_dto = this.dao.checkMember(dto);
-		
-		
-		
 
 		
 		 if (f_dto != null) { // 세션 변수 저장
@@ -61,7 +55,6 @@ public class MemberController {
 			  session.setAttribute("member_name", f_dto.getMember_name());
 			  session.setAttribute("member_img", f_dto.getMember_img());
 			  
-
 			  session.setAttribute("member_name", f_dto.getMember_name());			  
 			  session.setAttribute("member_point", f_dto.getMember_point());
 			  session.setAttribute("test_num", f_dto.getTest_num());
@@ -462,10 +455,78 @@ public class MemberController {
 		  
 		  
 		  }
-		
-	  
+		  
+		  @RequestMapping("board_cont.do")
+		public String board_cont(@RequestParam("num")int num,Model model ) {
+			
+			 FinalMemberDTO dto = this.dao.boardcont(num);
+			 
+			
+			 BoardReplyDTO dto1 = this.dao.replycont(num);
+	
+			  model.addAttribute("board_cont", dto);
+			  
+			  model.addAttribute("admin_reply", dto1);
+			
+			  return "./member/board_cont";
+			  
+		  }
+	  @RequestMapping("myboard_delete.do")
+	  public void myboarddelete(@RequestParam("no") int no,@RequestParam("num") int num, FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		  
+		  int check = this.dao.myboard_delete(no);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			 System.out.println(">>>>>>>>"+num);
+			 if(check>0) {
+				 
+					out.println("<script>");
+					out.println("alert('삭제')");
+					out.println("location.href='board_list.do?num="+num+"'");
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
 	  }
-	  
+	  @RequestMapping("w_write.do")
+	  public String w_write() {
+		
+		  
+		  return "./member/w_write";
+		  
+	  }
+	  @RequestMapping("write_ok.do")
+	  public void write_ok( @RequestParam("num")int num ,FinalMemberDTO dto,HttpServletResponse response) throws IOException {
+		  
+		  int check = this.dao.w_writeok(dto);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			
+			 if(check>0) {
+				
+					out.println("<script>");
+					out.println("alert('추가')");
+				
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
+	  }
+		  
+	  }
+	
 
 
 	 

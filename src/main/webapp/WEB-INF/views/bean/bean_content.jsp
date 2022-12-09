@@ -8,6 +8,7 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>커피 상세내역</title>
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -280,8 +281,7 @@
 		    
 	    .write_box2{
 	    	width: 100%;
-	    	height: 500px;
-	    	background-color: green;
+	    	
 	    }
 	    
 		#re_writer{
@@ -306,12 +306,14 @@
 		
 		#replyBtn{
 			border: none;
-		    font-size: 15px;
+		    font-size: 17px;
+		    font-weight: bold;
 		    border-radius: 6px;
 		    text-align: center;
 		    background-color: white;
 		    float: right;
 		    margin-top: 1%;
+		    margin-right: 1%;
 		}
 		
 		.writer_img{
@@ -354,7 +356,98 @@
 	    overflow: hidden;
 	    border: 0;
 	}
-	/* -----------------------------------------------*/    
+	
+	.writer2_img{
+		width: 40px;
+		height:40px; 	
+	}
+	
+	.writer2_name{
+		font-size: 17px;
+		font-weight: bold;
+	}
+	
+	.write_img2{
+		width: 100px;
+		height: 100px;
+	}
+
+	.write_img2:hover{
+		opacity: 50%;
+	}
+	
+	.text_inbox{
+		border-radius: 6px; 
+		border-style: hidden; 
+		box-shadow: 0 0 0 1px #c6c6c6;	
+	}
+
+	.write_list1{
+		border: 1px solid #000; 
+		width: 90%; 
+		margin-left: 3%; 
+		padding-top: 3%; 
+		padding-left: 2%;
+	}
+	
+	.write_starbox{
+		margin-left: 0.5%; 
+		margin-top: 0.5%; 
+		margin-bottom: 0.5%;
+	}
+	
+	.write_contbox{
+		margin-left: 0.5%; 
+		margin-top: 0.5%; 
+		margin-bottom: 0.5%;
+	}
+	
+	.write_singobox{
+		margin-right: 1%; 
+		margin-bottom: 1%; 
+		margin-top: 1%;
+	}
+	/* -----------------------------------------------*/
+	
+	/* 사진 클릭시 확대 되도록 (모달) ----------------------*/
+	.modal {
+		display: none;
+		z-index: 500;
+		width: 100%;
+		height: 100vh;
+		position: fixed;
+		top: 0;
+		left: 0;
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+	
+	.modal button {
+		position: absolute;
+		top: 3rem;
+		right: 3rem;
+		background: transparent;
+		border: 0;
+		color: #ffffff;
+		font-size: 3rem;
+	}
+	
+	.modalBox {
+		position: relative;
+		top: 20%;
+		left: 50%;
+		transform: translate(-50%, -20%);
+		width: 30%;
+		height: 30%;
+		text-align: center;
+	}
+	
+	.modalBox img {
+		width: 100%;
+	}
+
+	/* -----------------------------------------------*/	
+
+	    
 	</style>
 	
 	
@@ -485,48 +578,83 @@
 		
 			<h3 class="que1">후기글</h3>
 			<br>
-			
 	
 				<div class="write_box1">
+				<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/write_insert.do">
+					<input type="hidden" name="beans_num" value="${i.getBeans_num()}">
 					<table>
 						<tr>
 							<td class="writer_td_box">
 								<img class="writer_img" src="https://cdn-icons-png.flaticon.com/128/5079/5079583.png">	
-								<input name="re_id" id="re_writer" value="${member_name }">
+								<input name="member_id" id="re_writer" value="${member_id }">
 							</td>
 						</tr>	
 						<tr>
 							<td>
-							<br>
 								<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
-	    						<label for="file" class="file_label">사진추가</label> 
-						  		<input type="file" id="file" accept="image/*" onchange="readURL1(this)" width="280" name="movie_dpic">
-						  		<img id="img-preview1" class="img_no" src="" width="100px">
+	    						<label for="file" class="file_label">파일추가</label> 
+						  		<input type="file" id="file" accept="image/*" onchange="readURL1(this)" width="280" name="write_img">
+						  <!--  <img id="img-preview1" class="img_no" src="" width="100px">  파일추가 했을때 바로 눈앞에 보이게 하는것.-->		
 						  		<br><br>
 							</td>
 						</tr>
-						<tr style="border-radius: 6px; border-style: hidden; box-shadow: 0 0 0 1px #c6c6c6;">
+						<tr class="text_inbox">
 							<td>
-								<textarea class="autosize" name="re_content" id="re_content" cols="500" placeholder="후기글을 작성해주세요."></textarea>
+								<textarea class="autosize" name="write_cont" id="re_content" cols="500" placeholder="후기글을 작성해주세요."></textarea>
 							</td>
 						</tr>
-	<!--					<tr>
-							<td>
-								<input style="width: 100%; border-color:#c6c6c6; box-shadow-color:#000; box-shadow:none !important;" type="file" name="free_file">
-							</td>
-						</tr> --> 
-						
 						<tr>
 							<td>
-							<input type="button" id="replyBtn" value="등록">
+							<input type="submit" id="replyBtn" value="등록">
 							</td>
-						</tr>		
-		
+						</tr>
 					</table>
+				</form>
 				</div>		
 			<br>
-			<div class="write_box2">		
-			</div>
+			<div class="write_box2">	
+			<c:set var="w_list" value="${writeList }" />
+			<c:forEach items="${w_list }" var="w">
+			
+				<div class="write_list1">
+					
+					<img class="writer2_img" alt="" src="${member_img }">
+					<span class="writer2_name">${w.getMember_id() }</span>
+					
+					<div class="write_starbox">
+						<span>${w.getWrite_date().substring(0,10) }</span>
+						<br>
+						⭐⭐⭐⭐⭐
+					</div>
+					
+					<div class="write_click_img2">
+						<img class="write_img2" alt="" src="${w.getWrite_img() }">
+					</div>
+					
+					<div class="write_contbox">
+						${w.getWrite_cont() }								
+					</div>
+					
+					<div align="right" class="write_singobox">
+						<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='#'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
+					</div>
+			
+				</div>
+			
+			</c:forEach>	
+
+				<!-- 팝업 될 곳 -->
+				<div class="modal">
+					<button>&times;</button>
+					<div class="modalBox">
+						<img src="" alt="">
+						<p></p>
+					</div>
+				</div>
+
+			
+			
+			</div> <%-- write_box2 끝 --%>
 		
 		</div>	<%-- empty3 끝 --%>
 	
@@ -547,7 +675,7 @@
 	        	<div class="con1">
 	        	
 	        		<div class="con_box" align="center" >
-	        			<img alt="커피원두1" width="250px" height="280px" <%--여기--%> src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
+	        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
 	        		</div>
 	        		<div class="info_out">
 	        		
@@ -556,10 +684,10 @@
 		        				<span>New</span>
 		        			</div>
 		        			<div class="con_name">
-		        				<span><%--여기--%>${i.getBeans_name() }</span>
+		        				<span>${i.getBeans_name() }</span>
 		        			</div>
 		        			<div class="con_taste">
-		        				<span><%--여기--%>${i.getBeans_taste() }</span>
+		        				<span>${i.getBeans_taste() }</span>
 		        			</div>
 		        			<div class="con_price">
 		        				<span><b>￦ <fmt:formatNumber value="${i.getBeans_price() }" /></b></span>
@@ -843,8 +971,39 @@
 		  var fileName = $("#file").val();
 		  $(".upload-name").val(fileName);
 		});
+
+	
+	
+	$(function(){
+//	 	이미지 클릭시 해당 이미지 모달
+		$(".write_click_img2").click(function(){
+			$(".modal").show();
+			// 해당 이미지 가겨오기
+			var imgSrc = $(this).children(".write_img2").attr("src");
+			$(".modalBox img").attr("src", imgSrc);
+			
+		});
 		
-	</script>
+		//.modal안에 button을 클릭하면 .modal닫기
+		$(".modal button").click(function(){
+			$(".modal").hide();
+		});
+		
+		//.modal밖에 클릭시 닫힘
+		$(".modal").click(function (e) {
+	    if (e.target.className != "modal") {
+	      return false;
+	    } else {
+	      $(".modal").hide();
+	    }
+	  });
+	});	
+	
+
+	
+	
+	
+</script>
 	
 	
 	</body>

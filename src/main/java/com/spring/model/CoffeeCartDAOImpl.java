@@ -27,7 +27,7 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 
 	@Override
 	public int insertCart(CoffeeCartDTO cartDTO) {
-		return this.sqlSession.insert("insertCart", cartDTO );
+		return this.sqlSession.insert("insertCart", cartDTO);
 	}
 	
 	@Override

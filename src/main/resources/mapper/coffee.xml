@@ -11,7 +11,8 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="beanDAO">
-	
+
+	<!-- 환희 -->
 	<select id="list" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_num
 	</select>
@@ -28,11 +29,14 @@
 		select * from coffee_beans order by beans_price desc
 	</select>
 
+	<select id="writeList" resultType="coffeeWriteDTO">
+		select * from coffee_write
+	</select>
+
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
-	select fm.*, ct.*from final_member fm join coffee_test ct on fm.test_num = ct.test_num where member_id=#{member_id} and member_pwd=#{member_pwd}
+		select fm.*, ct.*from final_member fm join coffee_test ct on fm.test_num = ct.test_num where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
 	
-
 	<select id="Cont" parameterType="int" resultType="coffeeBeanDTO">
 		select * from coffee_beans where beans_num = #{beans_num}
 	</select>
@@ -40,11 +44,32 @@
 	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
+
 	
 <insert id="Heart_insert" parameterType="map">
 		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
 	</insert>
 
+
+	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
+		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
+	</select>
+
+	<insert id="insertHeart1" parameterType="map">
+		insert into member_star values(0, #{coffee_heart}, #{member_num}, #{beans_num})
+	</insert>
+
+	<update id="updateHeart1" parameterType="map">
+		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
+	</update>
+
+	<insert id="writeAdd" parameterType="coffeeWriteDTO">
+		insert into coffee_write values(#{write_num}, #{write_cont}, #{write_date}, #{write_img}, #{member_id}, #{beans_num})
+	</insert>
+
+
+
+	<!-- 홍기 -->
 	<select id="MyPage" parameterType="int" resultType="finalMemberDTO">
 		select * from final_member where member_num=#{member_num}
 	</select>
@@ -71,9 +96,9 @@
 	
 	<insert id="Add" parameterType="map">
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
-
 	</insert>
-  	
+
+
 
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}
@@ -88,35 +113,36 @@
 	</update>
 	
 	<update id="pwd_modify" parameterType="finalMemberDTO">
-	update final_member set member_pwd=#{member_pwd} where member_num=#{member_num}
+		update final_member set member_pwd=#{member_pwd} where member_num=#{member_num}
 	</update>
 
 	<select id="heart_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
-	
-	select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
+		select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
 	</select>
 	
 	<select id="board_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select fm.*, mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where fm.member_num=#{member_num}
 	</select>
-
+	
+	<select id="board_cont" resultType="finalMemberDTO"  parameterType="finalMemberDTO">
+		select * from member_board where board_num=#{board_num}
+	</select>
+	
+	<select id="board_reply" resultType="boardReplyDTO"  parameterType="boardReplyDTO">
+		select * from admin_reply where board_num=#{board_num}
+	</select>
+	<delete id="myboard_delete"  parameterType="int" > 
+		delete  from member_board where board_num=#{board_num}
+	</delete>
+	
+	
+	
+	<insert id="w_write_ok" parameterType="finalMemberDTO" >
+		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,'')
+	</insert>
+	
 </mapper>  
 
-<!-- 	<update id="Del" parameterType="map">
-		<if test="coffee_heart == 0">
-			update member_star set coffee_heart = #{coffee_heart} + 1 where member_num = #{member_num} and beans_num = #{beans_num}	
-		</if>
-
-		<if test="coffee_heart == 1">
-			update member_star set coffee_heart = #{coffee_heart} - 1 where member_num = #{member_num} and beans_num = #{beans_num}	
-		</if>	
-		
-			
-	</update> 
-	
-		<insert id="Bean_select" parameterType="map">
-		insert into member_star(coffee_heart, member_num, beans_num) values(#{coffee_heart}, #{member_num}, #{beans_num})
-	</insert>-->
 
 
   

@@ -52,6 +52,11 @@ public class FinalMemberDTO {
 	private String board_date;
 	private int board_reply;
 	
+	private int reply_num;
+	private String reply_cont;
+	private String reply_date;
+	private int admin_num;
+	
 	
 }
 

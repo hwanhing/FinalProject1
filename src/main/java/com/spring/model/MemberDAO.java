@@ -37,4 +37,14 @@ public interface MemberDAO {
 	int myheartdelete(int num);
 	
 	List<FinalMemberDTO> BoardList(int num);
+	
+	FinalMemberDTO boardcont(int num);
+	
+	BoardReplyDTO replycont(int num);
+	
+	int myboard_delete(int no);
+
+	int w_writeok(FinalMemberDTO dto);
+
+	
 }

@@ -247,6 +247,31 @@
 
 	
 }
+.title{
+	text-align: center;
+	width:300;
+}
+.delete{
+	text-align: center;
+}
+	/* 답변 미완료, 완료 */
+	#fin_a{
+		width: 80px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #2E9E02;
+		color: white;
+	}
+	#fin_b{
+		width: 95px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #FF2727;
+		color: white;
+	}
+
 
 </style>
 <meta charset="UTF-8">
@@ -259,7 +284,7 @@
 		<div class="zero">
 		<br>
 		<br>
-		<h1>찜목록</h1>
+		<h1>내문의내역</h1>
 			<div class="logout">
 				<span>
 				</span>
@@ -280,7 +305,7 @@
                 <thead>
                     <tr>
 						 <th class="no">문의번호</th>
-                        <th class="title">문의내용</th>
+                        <th class="title">내용</th>
                         <th	class="delete">삭제</th>
 						<th class="result">처리상태</th>
                     </tr>
@@ -289,15 +314,19 @@
                 	<c:if test="${!empty boardlist }">
 					<c:forEach items="${boardlist}" var="dto">
                     <tr>
-					
-						
                         <td>${dto.getBoard_num() }</td>
-                        <td>${dto.getBoard_title() }</td>
-						<td>${dto.getBeans_name() }</td>
-                        <td>${dto.getBeans_price() }</td>
-                        <td align="center">                     
-                           <a  href="<%=request.getContextPath() %>/myheart_delete.do?num=${dto.getMember_num()}" class="delete" ><i class="fa-solid fa-trash"></i></a>                           
+                        <td class="title"><a href="<%=request.getContextPath() %>/board_cont.do?num=${dto.getBoard_num()}">${dto.getBoard_title() }</a></td>
+						   <td class="delete">                     
+                           <a  href="<%=request.getContextPath() %>/myboard_delete.do?no=${dto.getBoard_num()}&num=${member_num}" class="delete" ><i class="fa-solid fa-trash"></i></a>                           
                        	 </td>
+                       <td class="now">
+						<%-- 게시글 번호랑 가지고 있는 게시글 번호랑 같고, 내용이 있을때 나와라. --%>
+						<c:if test="${dto.getBoard_reply() eq '1'}">
+							<button id="fin_a">답변완료</button>
+						</c:if>
+						<c:if test="${dto.getBoard_reply() ne '1' }">
+							<button id="fin_b">답변 대기중</button>
+						</c:if>     
 				    </tr>  	
 				    </c:forEach>
 					</c:if>	
@@ -308,7 +337,8 @@
    
 						<c:if test="${empty boardlist }">
                      		<td colspan="5" align="center">
-                     	<h3>찜목록이 비었습니다.....</h3>
+                     	<h3>문의내역이없습니다..
+                     	</h3>
                     	</td>
 					</c:if>
 	        </tbody>
