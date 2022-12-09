@@ -40,7 +40,7 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	// 장바구니 테이블에 row가 1개 라도 있을경우
 	@Override
 	public int insertCart(CoffeeCartDTO cartDTO) {
-		return this.sqlSession.insert("insertCart", cartDTO);
+		return this.sqlSession.insert("insertCart", cartDTO );
 	}
 	
 	@Override
