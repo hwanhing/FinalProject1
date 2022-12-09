@@ -943,7 +943,7 @@
 		let b_weight = parseInt(document.getElementById("b_weight").textContent);
 		parseInt(grind_total);
 		
-		location.href="cart_insert.do?bean_num="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
+		location.href="bean_cart_insert.do?no="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
 		
 	});	
 	

@@ -44,22 +44,9 @@
 	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
-
-	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
-		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
-	</select>
-
-	<insert id="insertHeart1" parameterType="map">
-		insert into member_star values(0, #{coffee_heart}, #{member_num}, #{beans_num})
-	</insert>
-
-	<update id="updateHeart1" parameterType="map">
-		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
-	</update>
-
-	<insert id="writeAdd" parameterType="coffeeWriteDTO">
-		insert into coffee_write values(#{write_num}, #{write_cont}, #{write_date}, #{write_img}, #{member_id}, #{beans_num})
-	</insert>
+	
+<!--<insert id="Heart_insert" parameterType="map">
+		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
 
 
 	<!-- 홍기 -->
@@ -90,7 +77,7 @@
 	<insert id="Add" parameterType="map">
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
 	</insert>
-		
+  -->		
 
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}
