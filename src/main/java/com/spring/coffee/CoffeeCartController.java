@@ -164,6 +164,7 @@ public class CoffeeCartController {
 						        + "{ location.href='bean_cart_update.do?no="+cartDto.getCart_num()+"&cnt="+cartDto.getCart_cnt()+"&weight="+cartDto.getCart_weight()+"'"
 								+ "} else{location.href='bean_cart.do'}");
 				out.println("</script>");
+				
 			}
 			
 		}
