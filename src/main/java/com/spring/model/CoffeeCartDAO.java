@@ -8,8 +8,12 @@ public interface CoffeeCartDAO {
 	// 상품 정보 가져오는 메서드
 	CoffeeBeanDTO getProduct(int beans_num);
 	
+	// 장바구니에 데이터 유무 확인
+	int getCartDBTrue();
+	
 	// 장바구니 추가/수정 메서드
 	CoffeeCartDTO getCart(Map<String, Integer> cartMap);
+	void insertFirstCart(CoffeeCartDTO cartDTO);
 	int insertCart(CoffeeCartDTO cartDTO);
 	int updateCart(Map<String, Integer> cartMap);
 	
