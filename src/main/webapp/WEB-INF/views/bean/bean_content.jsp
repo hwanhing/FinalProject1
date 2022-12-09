@@ -944,14 +944,16 @@
 	});
 	
 	$(".cart_btn1").on("click",function(){
+
 		if('<%=session.getAttribute("member_id")%>' != "null"){
 			
-			let beans_num = document.getElementById("hidden_beans_num").value;
-			let number = parseInt(document.getElementById("result").textContent);
-			let b_weight = parseInt(document.getElementById("b_weight").textContent);
-			parseInt(grind_total);
-			
-			location.href="cart_insert.do?bean_num="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
+		let beans_num = document.getElementById("hidden_beans_num").value;
+		let number = parseInt(document.getElementById("result").textContent);
+		let b_weight = parseInt(document.getElementById("b_weight").textContent);
+		parseInt(grind_total);
+		
+		location.href="bean_cart_insert.do?no="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
+
 					
 		}else{
 			
@@ -970,6 +972,7 @@
 			
 			
 		}
+
 		
 	});	
 	

@@ -45,6 +45,7 @@
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
 
+
 	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
 		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
 	</select>
@@ -94,7 +95,7 @@
 	<insert id="Add" parameterType="map">
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
 	</insert>
-		
+
 
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}

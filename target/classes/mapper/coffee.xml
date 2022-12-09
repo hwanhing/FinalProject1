@@ -66,6 +66,7 @@
 
 
 
+
 	<!-- 홍기 -->
 	<select id="MyPage" parameterType="int" resultType="finalMemberDTO">
 		select * from final_member where member_num=#{member_num}
@@ -94,7 +95,7 @@
 	<insert id="Add" parameterType="map">
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
 	</insert>
-		
+  -->		
 
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}
