@@ -165,6 +165,7 @@ public class CoffeeCartController {
 								+ "} else{location.href='bean_cart.do'}");
 				out.println("</script>");
 			}
+			
 		}
 	}
 	
