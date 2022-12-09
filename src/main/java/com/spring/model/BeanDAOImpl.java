@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Repository
 public class BeanDAOImpl implements BeanDAO{
@@ -72,9 +73,14 @@ public class BeanDAOImpl implements BeanDAO{
 
 
 	@Override
-	public int writeinsert(CoffeeWriteDTO dto) {
-		return this.sqlSession.insert("writeAdd", dto);
+	public int seWrite(Map<String, Object> map) {
+		return this.sqlSession.insert("insertWrite", map);
 	}
+
+
+
+
+
 
 
 

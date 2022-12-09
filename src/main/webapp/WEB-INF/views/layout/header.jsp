@@ -13,14 +13,14 @@
 
 
     <meta name="robots" content="noindex">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+	<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
-<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/member.js"></script>
- <link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
 
         <header class="header">
             <div class="h-wrap" style="height: 80px">
@@ -99,66 +99,39 @@
                             <div class="join-modal join-bg" id="join-modal">
 
                                 <div class="join-form">
-
                                     <div class="join-title">
                                         <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
+                                            <p>회원가입</p>
                                         <span class="icon-close"></span>
                                     </div>
 
-                                    <form id="j-form" name="j-form" type="post" action="<%=request.getContextPath()%>/member_join_check.do">
-
+                                    <form id="join-form" name="join-form" type="post" action="<%=request.getContextPath()%>/member_join_check.do">
                                         <fieldset class="join-wrap">
 
-                                            <div class="jf-form">
-                                            
-                                                <label class="label-id" for="member_id">아이디</label>
-                                                    <p><input type="text" placeholder="영문,숫자 조합 5-11자" required autofocus></p>
-                                                    <p class="error">잘못된 아이디 형식입니다.</p>
+                                            <div class="join-form">
 
-                                                <label class="label-pw" for="member_pw">비밀번호</label>
-                                                    <p><input type="text" placeholder="숫자, 영문,특수조합 최소 8자" required></p>
-                                                    <p class="error">잘못된 비밀번호 형식입니다.</p>
+                                                <label for="">아이디</label>
+                                                <p><input type="text" placeholder="숫자, 영문,특수조합 최소 8자" required autofocus></p>
 
-                                                    <p><input type="text" placeholder="비밀번호 재입력" required></p>
+                                                <button type="input" class="e-check">중복확인</button>
 
-                                                <label class="label-email" for="member_email">이메일</label>
-                                                    <p><input type="text" placeholder="사용 가능한 이메일을 입력하세요" required></p>
-                                                    <p class="error">잘못된 이메일 형식입니다.</p>
+
+                                                <p><input type="text" placeholder="비밀번호 재입력" required></p>
+
+                                                <p><input type="text" placeholder="비밀번호를 다시 한 번 입력하세요" required></p>
+
+
+
+
+
+                                                <button type="submit" class="mf-btn" id="mf-btn">login</button>
+
+                                            <div class="mf-etc">
+                                                <a href="<%=request.getContextPath()%>/member_join.do"><span class="icon-people"></span>회원가입</a>
+                                                <a href="<%=request.getContextPath()%>/member_find.do"><span class="icon-question"></span>
+                                                아이디/비밀번호 찾기</a>
                                             </div>
 
-
-                                            <div class="join-agr">
-
-                                                <div class="join-agr-all">
-                                                    <input type="checkbox" class="checkbox-group" id="check-all">
-                                                    <label for="agr-all">약관 전체 동의</label>
-                                                </div>
-
-                                                <div class="join-agr-per">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-per">[필수]개인정보 수집 및 이용 동의</label>
-                                                </div>
-
-                                                <div class="join-agr-shop">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-shop">[필수]커퍼커피 스토어 이용 동의</label>
-                                                </div>
-
-
-                                                <div class="join-agr-age">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-age">[필수]만 14세 미만 가입 제한</label>
-                                                </div>
-
-
-                                                <div class="join-agr-mak">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-mak">[선택]마케팅 및 광고성 정보 수신 동의</label>
-                                                </div>
-
-                                            </div>
-                                            
-                                            <button type="submit" class="jf-btn" id="jf-btn">가입하기</button>
                                         </fieldset>
                                     </form>
                                 </div>
@@ -197,7 +170,7 @@
 	          			 <img class="result-img" src="${test_img }" width=200>
 	          		</c:if>
 	          		 <c:if test="${empty test_img }">
-	          			<button>테스트하기</button>
+	          			<button>테스트하러가기</button>
 	          		</c:if>
 	          		</div>
 	          		
@@ -275,9 +248,7 @@
 
     </body>
 
-    <!-- <script>
-
-        // 로그인 모달 팝업 
+    <script>
         $('.login-pop').click(function(){
             $('.log-modal').fadeIn()
         });
@@ -286,49 +257,6 @@
             $('.log-modal').fadeOut()
         });
 
-        //영역 밖 클릭 시 로그인 모달 창 꺼짐
-
-        $(document).on('click', function(e){
-           if($('.log-modal').is(e.target)) {
-            $('.log-modal').css({
-                display:"none"
-            });
-           }
-        });
-
-        // 회원가입 모달 팝업 
-        $('.join-pop').click(function(){
-            $('.join-modal').fadeIn()
-        });
-
-        $('.icon-close').click(function(){
-            $('.join-modal').fadeOut()
-        });
-
-        // 회원가입 약관 전체 동의시 전체 checked 
-
-        $('#check-all').on('click', function() {
-            var checked = $(this).is(':checked');
-
-            if(checked){
-                $(this).closest('.join-agr').find('input').prop('checked', true); 
-            }else {
-                $(this).closest('.join-agr').find('input').prop('checked', false);
-            }
-        });
-
-        
-        //영역 밖 클릭 시 회원가입 모달 창 꺼짐
-
-        $(document).on('click', function(e){
-           if($('.join-modal').is(e.target)) {
-            $('.join-modal').css({
-                display:"none"
-            });
-           }
-        });
 
 
-
-
-    </script> -->
+    </script>

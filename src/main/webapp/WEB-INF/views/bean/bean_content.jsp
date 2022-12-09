@@ -182,18 +182,18 @@
 	    
 		.list_box{
 	
-	      	width: 70%;
-	      	display: grid;
+	      width: 70%;
+	      display: grid;
 	      grid-template-columns: repeat(8, 1fr);
 	      gap: 30px;
 	      	
 		}    
 	    
 		.con1{
-	
+		  border: 1px solid lightgray;
+		  border-radius: 20px;
 	      width: 100%;
 	      position: relative;
-	      background-color: #E3DCCC;
 	      height: 450px;		
 		}
 		
@@ -208,15 +208,12 @@
 	/* ------------------------------------------- */		
 	
 			.con_info{
-				margin-top: 10%;
+				margin-top: 5%;
 				margin-bottom: 10%;
-				padding-top: 5%;
-				text-align: left;
-				margin-left: 15%;
+				text-align: center;
 			}
 			
 			.info_out{
-				background-color: #D6CCB7;
 				height: 145px;
 			}		
 			
@@ -329,7 +326,7 @@
 		 
 	.upload-name {
 	    display: inline-block;
-	    height: 40px;
+	    height: 3em;
 	    padding: 0 10px;
 	    vertical-align: middle;
 	    border: 1px solid #dddddd;
@@ -344,7 +341,7 @@
 	    vertical-align: middle;
 	    background-color: #000;
 	    cursor: pointer;
-	    height: 40px;
+	    height: 3em;
 	    margin-left: 10px;
 	}
 	
@@ -383,7 +380,7 @@
 	}
 
 	.write_list1{
-		border: 1px solid #000; 
+		/*border: 1px solid #000;*/ 
 		width: 90%; 
 		margin-left: 3%; 
 		padding-top: 3%; 
@@ -400,6 +397,7 @@
 		margin-left: 0.5%; 
 		margin-top: 0.5%; 
 		margin-bottom: 0.5%;
+		padding-right: 3%;
 	}
 	
 	.write_singobox{
@@ -561,7 +559,7 @@
 		    	</div>
 			
 				<div class="cart_btn">
-					<button class="cart_btn1">장바구니담기</button><br>	<%-- onclick태그안에 넣는법... --%>
+					<button class="cart_btn1">장바구니담기</button><br>
 					<button class="cart_btn2">구매하기</button>
 				</div>
 			
@@ -578,10 +576,10 @@
 		
 			<h3 class="que1">후기글</h3>
 			<br>
-	
+				<c:if test="${member_id ne null }">
 				<div class="write_box1">
 				<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/write_insert.do">
-					<input type="hidden" name="beans_num" value="${i.getBeans_num()}">
+
 					<table>
 						<tr>
 							<td class="writer_td_box">
@@ -593,7 +591,7 @@
 							<td>
 								<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
 	    						<label for="file" class="file_label">파일추가</label> 
-						  		<input type="file" id="file" accept="image/*" onchange="readURL1(this)" width="280" name="write_img">
+						  		<input type="file" id="file" accept="image/*" onchange="readURL1(this)" width="280" name="writeimg">
 						  <!--  <img id="img-preview1" class="img_no" src="" width="100px">  파일추가 했을때 바로 눈앞에 보이게 하는것.-->		
 						  		<br><br>
 							</td>
@@ -610,15 +608,17 @@
 						</tr>
 					</table>
 				</form>
-				</div>		
+				</div>	
+				</c:if>	
 			<br>
+			
 			<div class="write_box2">	
 			<c:set var="w_list" value="${writeList }" />
 			<c:forEach items="${w_list }" var="w">
 			
 				<div class="write_list1">
 					
-					<img class="writer2_img" alt="" src="${member_img }">
+					<img class="writer2_img" alt="" src="https://cdn-icons-png.flaticon.com/128/5079/5079583.png">
 					<span class="writer2_name">${w.getMember_id() }</span>
 					
 					<div class="write_starbox">
@@ -635,10 +635,17 @@
 						${w.getWrite_cont() }								
 					</div>
 					
-					<div align="right" class="write_singobox">
-						<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='#'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
-					</div>
-			
+					<c:if test="${member_id eq w.getMember_id() && member_id ne null}">
+						<div align="right" class="write_singobox">
+							<button onclick="if(confirm('정말 삭제 하시겠습니까?')){location.href='#'}else{return;}"><span style="color: #000;">❌삭제하기</span></button>
+						</div>
+					</c:if>	
+					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
+						<div align="right" class="write_singobox">
+							<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='#'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
+						</div>
+					</c:if>
+					<hr>
 				</div>
 			
 			</c:forEach>	
@@ -937,13 +944,32 @@
 	});
 	
 	$(".cart_btn1").on("click",function(){
-		
-		let beans_num = document.getElementById("hidden_beans_num").value;
-		let number = parseInt(document.getElementById("result").textContent);
-		let b_weight = parseInt(document.getElementById("b_weight").textContent);
-		parseInt(grind_total);
-		
-		location.href="cart_insert.do?bean_num="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
+		if('<%=session.getAttribute("member_id")%>' != "null"){
+			
+			let beans_num = document.getElementById("hidden_beans_num").value;
+			let number = parseInt(document.getElementById("result").textContent);
+			let b_weight = parseInt(document.getElementById("b_weight").textContent);
+			parseInt(grind_total);
+			
+			location.href="cart_insert.do?bean_num="+beans_num+"&count="+number+"&weight="+b_weight+"&grind="+grind_total+""
+					
+		}else{
+			
+			alert('로그인 후 이용해주세요.');
+			
+			let resultElement = document.getElementById("result");
+			
+			resultElement.innerText = 1;
+			
+			$(".grind_0").css({"border" : "1px solid"});	
+			$(".grind_1").css({"border" : "1px solid"});	
+			$("#gram1").css({"border" : "1px solid"});			
+			$("#gram2").css({"border" : "1px solid"});			
+			$("#gram3").css({"border" : "1px solid"});			
+			$("#gram4").css({"border" : "1px solid"});		
+			
+			
+		}
 		
 	});	
 	

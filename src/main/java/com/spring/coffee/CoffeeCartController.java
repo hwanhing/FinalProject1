@@ -94,6 +94,7 @@ public class CoffeeCartController {
 		if(cart_num == 0) {
 			// 상품 번호가 장바구니에 없는경우(row 추가)
 			System.out.println("장바구니에 없는 상품 입니다.");
+
 			cartDto.setCart_cnt(select_cnt);
 			cartDto.setCart_weight(select_weight);
 			cartDto.setCart_grind(select_grind);
