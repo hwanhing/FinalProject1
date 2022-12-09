@@ -9,7 +9,7 @@
        <meta http-equiv="X-UA-Compatible" content="IE=edge">
        <meta name="viewport" content="width=device-width, initial-scale=1.0">
        <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="./resources/orderimg/coffeebean04.png">
-       <title>장바구니</title>
+       <title>CuppACoffee</title>
        <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
        <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/order.css">
        <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
@@ -57,7 +57,7 @@
                             <div class="deliver_info">
                                 <!-- 상단 -->
                                 <div class="deliver_info_top">
-                                    <h3>배송정보</h3>
+                                    <h3 class="point_text">배송정보</h3>
                                 </div>
                                 <!-- 메인 -->
                                 <!-- 배송 정보 입력 -->
@@ -144,7 +144,7 @@
                             <div class="summary_order">
                                 <!-- 주문정보 -->
                                 <div class="detail_order_btn">
-                                    <h3>주문 정보</h3>
+                                    <h3 class="point_text">주문 정보</h3>
                                     <!-- 버튼 -->
                                     <button class="btn detail_btn" onclick="showDetail()">
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -201,48 +201,56 @@
                                     <!-- 총 주문가격 -->
                                     <div class="total_price_txt_area">
                                         <div class="total total_price_txt">
-                                            <h4>상품가격</h4> 
+                                            <h4 class="middle_text">상품가격</h4> 
                                             <div class="price_txt">
-                                                <h3><span class="total_price">10000</span> 원</h3>
+                                                <h3 class="middle_text"><span class="total_price">10000</span> 원</h3>
                                                 <input type="hidden" class="total_price_hidden" name="total_price_hidden">
                                             </div>
                                         </div>
                                         <div class="total total_delivery">
-                                            <h4>전체배송비</h4> 
-                                            <h4 class="h4_not"><span>무료배송</span></h4>
+                                            <h4 class="middle_text">전체배송비</h4> 
+                                            <h4 class="middle_text h4_not"><span>무료배송</span></h4>
                                         </div>
                                         <div class="total use_point">
-                                            <h5>사용 포인트</h5> 
-                                            <h5 class="h4_not"><span class="total_use_point">0</span>원</h5>
+                                            <h5 class="middle_text">사용 포인트</h5> 
+                                            <h5 class="middle_text h4_not"><span class="total_use_point">0</span>원</h5>
                                         </div>
                                         <div class="hr_div hr_price"></div>
                                         <!-- 상품가격 + 배송비 -->
                                         <div class="total all_price">
-                                            <h4>총 주문금액</h4> 
-                                            <div class="price_txt">
-                                                <h3><span class="all_total_price">10000</span> 원</h3>
+                                            <h4 class="middle_text">총 주문금액</h4> 
+                                            <div class="middle_text price_txt">
+                                                <h3 class="point_text">
+                                                	<span class="all_total_price">10000</span> 원
+                                                </h3>
                                             </div>
                                         </div>
                                         <div class="total all_t_point">
-                                            <h5>적립 포인트</h5> 
-                                            <div class="price_txt">
-                                                <h5><span class="all_point">10000</span> 원</h5>
+                                            <h5 class="sub_middle_text">적립 포인트</h5> 
+                                            <div class="sub_middle_text price_txt">
+                                                <h5 class="sub_middle_text">
+                                                	<span class="all_point">10000</span> 원
+                                                </h5>
                                                 <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
                            <!-- ----------------------------------- -->
-                           <!-- 주문상세 -->
+                           <!-- 주문상세(슬라이더) -->
                            <div class="slider">
+                                
                                 <div class="detail_order_btn">
-                                    <h3>주문 정보</h3>
+                                    <h3 class="point_text">주문 정보</h3>
                                     <button class="btn detail_btn" onclick="hideDetail()">
                                         <i class="fa-solid fa-arrow-right"></i>
                                     </button>
                                 </div>
+                                
                                 <div class="rows_area">
+                                
                                     <!-- foreach 로 돌아갈 예정 -->
                                     <div class="row_area">
                                         <!-- 상품 이미지 -->
@@ -256,105 +264,68 @@
                                         <!-- 상품정보 -->
                                         <div class="row_cont_area">
                                             <div class="product_name">
-                                                <h3>가나 원두</h3>
-                                                <p>다크 / 200g</p>
-                                                <p><span class="row_price">13000</span> 원</p>
-                                                <p>수량 : <span class="fin_row_cnt">1</span></p>
+                                                <h4 class="middle_text">상품명</h3>
+                                                <p class="middle_text">그람 : 200g</p>
+                                                <p class="middle_text">수량 : 
+                                                	<span class="fin_row_cnt">1</span>
+                                                </p>
+                                                 <p class="middle_text">
+                                                	원두 갈기 : 갈아서/ 갈지 않고
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="row_price_area">
                                             <div class="price_txt row_price_txt">
-                                                <h3><span class="row_total">10000</span> 원</h3>
+                                                <h3 class="middle_text">
+                                                	<span class="row_total">10000</span> 원
+                                                </h3>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row_area">
-                                        <!-- 상품 이미지 -->
-                                        <div class="row_img_area">
-                                            <div class="row_img">
-                                                <a href="#" class="img_a">
-                                                    <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- 상품정보 -->
-                                        <div class="row_cont_area">
-                                            <div class="product_name">
-                                                <h3>가나 원두</h3>
-                                                <p>다크 / 200g</p>
-                                                <p><span class="row_price">13000</span> 원</p>
-                                                <p>수량 : <span class="fin_row_cnt">1</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="row_price_area">
-                                            <div class="price_txt row_price_txt">
-                                                <h3><span class="row_total">10000</span> 원</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row_area">
-                                        <!-- 상품 이미지 -->
-                                        <div class="row_img_area">
-                                            <div class="row_img">
-                                                <a href="#" class="img_a">
-                                                    <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- 상품정보 -->
-                                        <div class="row_cont_area">
-                                            <div class="product_name">
-                                                <h3>가나 원두</h3>
-                                                <p>다크 / 200g</p>
-                                                <p><span class="row_price">13000</span> 원</p>
-                                                <p>수량 : <span class="fin_row_cnt">1</span></p>
-                                            </div>
-                                        </div>
-                                        <div class="row_price_area">
-                                            <div class="price_txt row_price_txt">
-                                                <h3><span class="row_total">10000</span> 원</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>	<%-- rows_area 끝 --%>
+                                
                                 <div class="total_price_area1">
                                     <div class="total_price_area2">
+                                       
                                         <!-- 총 주문가격 -->
                                         <div class="total_price_txt_area">
                                             <div class="total total_price_txt">
-                                                <h4>상품가격</h4> 
+                                                <h4 class="middle_text">상품가격</h4> 
                                                 <div class="price_txt">
-                                                    <h3><span class="total_price">10000</span> 원</h3>
+                                                    <h3 class="middle_text"><span class="total_price">10000</span> 원</h3>
                                                     <input type="hidden" class="total_price_hidden" name="total_price_hidden">
                                                 </div>
                                             </div>
                                             <div class="total total_delivery">
-                                                <h4>전체배송비</h4> 
-                                                <h4 class="h4_not"><span>무료배송</span></h4>
+                                                <h4 class="middle_text">전체배송비</h4> 
+                                                <h4 class="middle_text h4_not"><span>무료배송</span></h4>
                                             </div>
                                             <div class="total use_point">
-                                                <h5>사용 포인트</h5> 
-                                                <h5 class="h4_not"><span>0</span>원</h5>
+                                                <h5 class="middle_text">사용 포인트</h5> 
+                                                <h5 class="middle_text h4_not"><span>0</span>원</h5>
                                             </div>
                                             <div class="hr_div hr_price"></div>
                                             <!-- 상품가격 + 배송비 -->
                                             <div class="total all_price">
-                                                <h4>총 주문금액</h4> 
+                                                <h4 class="middle_text">총 주문금액</h4> 
                                                 <div class="price_txt">
-                                                    <h3><span class="all_total_price">10000</span> 원</h3>
+                                                    <h3 class="middle_text"><span class="all_total_price">10000</span> 원</h3>
                                                 </div>
                                             </div>
                                             <div class="total all_t_point">
-                                                <h5>적립 포인트</h5> 
+                                                <h5 class="sub_middle_text">적립 포인트</h5> 
                                                 <div class="price_txt">
-                                                    <h5><span class="all_point">10000</span> 원</h5>
+                                                    <h5 class="sub_middle_text"><span class="all_point">10000</span> 원</h5>
                                                     <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
-                                </div> 
-                            </div> 
+                                </div> <%-- total_price_area1 끝 --%>
+                                
+                            </div> <%-- 슬라이더 끝 --%>
+                            
                         </div>
                     </div>
                 </section>
@@ -363,7 +334,6 @@
         
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />
-        <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/cart.js"></script>
 		<script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/order.js"></script>
 
 </body>

@@ -17,6 +17,9 @@ public class CoffeeOrderDTO {
 	private int cart_weight;
 	private int cart_grind;
 	private int member_num;
+	
+	// 테이블 외 필요
+	private String beans_img;
 }
 
 

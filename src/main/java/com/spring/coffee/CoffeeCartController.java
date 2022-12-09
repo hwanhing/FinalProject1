@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.model.BeanDAO;
 import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeCartDAO;
 import com.spring.model.CoffeeCartDTO;
@@ -62,9 +63,7 @@ public class CoffeeCartController {
 		 
 		if((Integer) session.getAttribute("member_num")==null) {
 			out.println("<script>");
-			// 창 확인 필요
-			out.println("alert('로그인 페이지로 이동합니다.!')");
-			out.println("location.href='member_login.do'");
+			out.println("location.href='go_login.do'");
 			out.println("</script>");
 		}
 		
@@ -170,6 +169,12 @@ public class CoffeeCartController {
 		}
 	}
 	
+	@RequestMapping("go_login.do")
+	public String goLogin() {
+		
+		return "./cartAndOrder/login";
+	}
+	
 	@RequestMapping("bean_cart_update.do")
 	public void updateCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -222,10 +227,6 @@ public class CoffeeCartController {
 		return "./cartAndOrder/cart";
 	}
 	
-	@RequestMapping("bean_order.do")
-	public String tmp(){
-		return "./cartAndOrder/order";
-	}
 	
 	// ajax -----------------------------------------------------------------------
 	// 찜 수정 또는 등록

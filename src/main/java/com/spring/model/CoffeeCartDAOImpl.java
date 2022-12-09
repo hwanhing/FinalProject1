@@ -63,12 +63,12 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 
 	@Override
 	public void insertHeart(Map<String, Integer> heartMap) {
-		this.sqlSession.selectOne("insertHeart",heartMap);
+		this.sqlSession.insert("insertHeart",heartMap);
 	}
 
 	@Override
 	public void updateHeart(Map<String, Integer> heartMap) {
-		this.sqlSession.selectOne("updateHeart",heartMap);
+		this.sqlSession.update("updateHeart",heartMap);
 	}
 	
 	// 장바구니 페이지 : 장바구니 row 삭제 -------------------------------------------------------------------

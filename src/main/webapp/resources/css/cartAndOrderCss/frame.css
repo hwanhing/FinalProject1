@@ -19,6 +19,12 @@
 	z-index: 500;
 }
 
+/* 스크롤바 제거 */
+*::-webkit-scrollbar {
+    display: none; 
+}
+
+
 /* 텍스트 크기 ---------------------------------- */
 .point_text{
 	font-size: 20px !important;

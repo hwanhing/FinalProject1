@@ -112,7 +112,7 @@
 	<!-- 장바구니에서 그람 수정 -->
 	<update id="updateCartGram" parameterType="hashmap">
 		update coffee_cart 
-		   set cart_gram = #{cartGram}
+		   set cart_weight = #{cartGram}
 		 where cart_num = #{cartNum}
 	</update>
 	

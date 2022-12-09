@@ -66,8 +66,8 @@
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
-                                                    <p><input type="text" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
-                                                    <p><input type="text" placeholder="비밀번호를 입력하세요" required></p>
+                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
                                                 <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
                                                 </div>
 

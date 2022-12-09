@@ -130,17 +130,17 @@
 }
 
 .detail_btn{
-    padding: 10px;
-    border-radius: 50%;
-    font-size: 1.2rem;
-    background-color:  var(--color_greyish);
-    color: white;
-    transition: 0.3s ease-in-out;
+    padding: 10px !important;
+    border-radius: 50% !important;
+    font-size: 1.2rem !important;
+    background-color:  var(--color_greyish) !important;
+    color: white !important;
+    transition: 0.3s ease-in-out !important;
 }
 
 .detail_btn:hover{
-   background-color: var(--color_begie);
-   color: black;
+   background-color: var(--color_begie) !important;
+   color: black !important;
 }
 
 .total_price_txt_area{
