@@ -21,6 +21,13 @@ public class CoffeeCartDTO {
 	private String beans_url;
 	private int coffee_heart;
 	
+	// 추천메뉴에 필요
+	private String recog_priority_row;
+	private int order_cnt; // 상품의 전체 주문건 수량(모든 회원)
+	private int people_cnt; // 별점 등록한 사람
+	private int avg_star;	// 평점
+	
+	
 }
 
 
