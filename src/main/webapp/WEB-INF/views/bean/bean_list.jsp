@@ -11,6 +11,7 @@
 
 
 <style type="text/css">
+
         .top{
             width: 100%;
             height: 4em;
@@ -52,10 +53,11 @@
         }
 
 		.con1{
-	     /*  border: 1px solid black; */
+	      border: 1px solid black;
+	      border-radius: 20px;
 	      width: 100%;
 	      position: relative;
-	      background-color: #E3DCCC;	
+
 	      height: 600px;	
 		}
 		
@@ -81,7 +83,6 @@
 			height: 45px;
 			border-radius: 25px;
 			background-color: #734338;		
-			margin-left: 10%;
 			border: none;
 		}
 		
@@ -89,26 +90,25 @@
 			width: 45px;
 			height: 45px;
 			border-radius: 25px;
-			background-color: #fff;
+			background-color: #000;
 			margin-left: 3%;
+			padding: 0;
 			border: none;	
 		}
-		
 		
 		.con_box{
 			margin-top: 10%;
 		}
 		
 		.con_info{
-			margin-top: 10%;
+			margin-top: 3%;
 			margin-bottom: 10%;
-			margin-left: 10%;
 			padding-top: 15px;
 		}
 
 		
 		.info_out{
-			background-color: #D6CCB7;
+			text-align: center;
 			height: 225px;
 		}	
 		
@@ -147,7 +147,7 @@
 
     <div class="empty">
         <div class="title_box">
-            <h1>전체 목록</h1>
+            <h3>전체 목록</h3>
         </div>
 
         <div style="height: 4em;">
@@ -214,18 +214,22 @@
 	        				<span><b>￦ <fmt:formatNumber value="${i.getBeans_price() }" /></b></span>
 	        			</div>        			
 	        		</div>
-        		
-        			<%-- 장바구니 버튼 --%>
-       				<button type="button" class="cart_btn" onclick="location.href='bean_cart_insert.do?no=${i.getBeans_num()}'">	
-						<svg focusable="false" viewBox="0 0 24 24" class="pip-svg-icon pip-btn__icon" aria-hidden="true">
-							<path id="cart_border" style="fill:rgb(255, 255, 255);" fill-rule="evenodd" clip-rule="evenodd" d="M10.4372 4h3.1244l.2922.4801 3.3574 5.517h5.0694l-.3104 1.2425L21.5303 13h-2.0615l.2506-1.0029H4.2808l1.3106 5.2426a1 1 0 0 0 .9702.7574H15v2H6.5616c-1.3766 0-2.5766-.9369-2.9105-2.2724L2.03 11.2397l-.3107-1.2426H6.788l3.357-5.517L10.4372 4zm2.0003 2L14.87 9.9971H9.1291L11.5614 6h.8761zm5.5586 10v-2h2v2h2v2h-2v2h-2v-2h-2v-2h2z"></path>
-						</svg>  
-					</button>      				
         			
-        			<%-- 찜 버튼 --%>
-       				<button type="button" class="heart_btn" value="${i.getBeans_num() }">
-						<img>
-					</button> 
+        			<div>
+	        			<%-- 장바구니 버튼 --%>
+	       				<button type="button" class="cart_btn" onclick="location.href='bean_cart_insert.do?no=${i.getBeans_num()}'">	
+							<svg focusable="false" fill="rgb(255, 255, 255)" width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="pip-svg-icon ">
+							 <path fill-rule="evenodd" clip-rule="evenodd" d="M10.4372 4h3.1244l.2922.4801 3.3574 5.517h5.0694l-.3104 1.2425L21.5303 13h-2.0615l.2506-1.0029H4.2808l1.3106 5.2426a1 1 0 0 0 .9702.7574H15v2H6.5616c-1.3766 0-2.5766-.9369-2.9105-2.2724L2.03 11.2397l-.3107-1.2426H6.788l3.357-5.517L10.4372 4zm2.0003 2L14.87 9.9971H9.1291L11.5614 6h.8761zm5.5586 10v-2h2v2h2v2h-2v2h-2v-2h-2v-2h2z"></path>
+							</svg>						
+						</button>      				
+	        			
+	        			<%-- 찜 버튼 --%>
+	       				<button type="button" class="heart_btn" value="${i.getBeans_num() }">
+							<svg focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="rgb(255, 255, 255)" xmlns="http://www.w3.org/2000/svg" class="pip-svg-icon ">
+							 <path fill-rule="evenodd" style="fill:rgb(255, 255, 255);" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0z"></path>
+							</svg>						
+						</button>
+       				</div> 
 					</div>
 					</div><%-- con1 끝 --%>
 								
@@ -244,11 +248,14 @@
 	   // 하트 버튼 클릭시 찜 수정 또는 등록 ajax 
 	   $(document).on("click", ".heart_btn", function(){
 		   
+		  if('<%=session.getAttribute("member_id")%>' != "null"){
+			  
 		 	let no ='<%=session.getAttribute("member_num")%>';
-
+ 	
+		 	
 	   		$.ajax({
 	   			url : "beans_heart.do",
-	   			data : {member_num : ${member_num},
+	   			data : {member_num : no,
 	   					beans_num : $(this).val()
 	   					},
 				contentType : "application/x-www-form-urlencoded;charset=UTF-8",
@@ -265,7 +272,7 @@
 					}else{
 						alert("찜 목록에서 삭제했습니다.");
 						
-
+						$(".heart_btn").css("background-color", "#000");
 					}
 	   			
 	   			},
@@ -273,6 +280,12 @@
 	   				console.log('찜 실패!');
 	   			}
 	   		});
+	   		
+		  }else{
+				alert('로그인 후 이용해주세요.');  
+		  }
+		   
+		 	
 	   });
 
 	

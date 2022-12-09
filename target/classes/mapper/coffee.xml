@@ -44,9 +44,27 @@
 	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
-	
-<!--<insert id="Heart_insert" parameterType="map">
-		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
+
+	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
+		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
+	</select>
+
+	<insert id="insertHeart1" parameterType="map">
+		insert into member_star values(0, #{coffee_heart}, #{member_num}, #{beans_num})
+	</insert>
+
+	<update id="updateHeart1" parameterType="map">
+		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
+	</update>
+
+	<insert id="insertWrite" parameterType="map">
+		<selectKey resultType="int" keyProperty="write_num" order="BEFORE">
+			select max(write_num) from coffee_write	
+		</selectKey>	
+		insert into coffee_write values(#{dto.write_num} + 1, #{dto.write_cont}, #{dto.write_date}, #{w_file}, #{dto.member_id}, #{dto.beans_num})
+	</insert>
+
+
 
 
 	<!-- 홍기 -->

@@ -3,6 +3,8 @@ package com.spring.model;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 public interface BeanDAO {
 
@@ -23,5 +25,6 @@ public interface BeanDAO {
 
 	List<CoffeeWriteDTO> getWriteList();
 
-	int writeinsert(CoffeeWriteDTO dto);
+	int seWrite(Map<String, Object> map);
+	
 }
