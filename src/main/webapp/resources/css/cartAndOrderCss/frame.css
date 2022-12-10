@@ -40,6 +40,10 @@
 	padding-bottom: 5px;
 }
 
+.btn_text{
+	font-size: 20px !important;
+}
+
 /* ------------------------------------------- */
 
 .blank{
@@ -137,9 +141,9 @@
 }
 
 .order_main_right{
-    width: 30%;
+    width: 30% ;
     position: sticky;
-    top: 120px;
+    top: 100px;
 }
 
 .order_main_right_in{
@@ -174,7 +178,7 @@
 /* 결제하기 버튼 공통 */
 .total_price_button{
     width: 100% !important;
-    height: 100px !important;
+    height: 80px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;

@@ -8,18 +8,19 @@ public class CoffeeOrderDTO {
 	private String order_num;
 	private int order_row;
 	private int order_cnt;
-	private int order_price;
+	private int order_price;		// 단가 * 수량 * (그람/100)
 	private String order_date;
 	private int beans_num;
 	private String beans_name;
-	private int beans_price;
-	private String beans_taste;
+	private int beans_price;		// 단가
+	private String beans_taste;		
 	private int cart_weight;
 	private int cart_grind;
 	private int member_num;
 	
 	// 테이블 외 필요
-	private String beans_img;
+	private int cart_num;			// 장바구니 번호
+	private String beans_img;		// 상품 이미지
 }
 
 

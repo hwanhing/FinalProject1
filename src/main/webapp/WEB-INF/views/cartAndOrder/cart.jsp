@@ -159,9 +159,9 @@
 			                             <%-- 상품 재고가 없을 경우 시작 ---------------------------------------------------------------------%>
 			                             <c:if test="${list.getBeans_count()==0 }">
 			                             	
-			                             	<div class="sold_out_row">
+			                              	<div class="sold_out_row num_${list.getCart_num()}_row">
 			                             		<h3 class="sold_out_txt">품&nbsp;&nbsp;절</h3>
-			                    				 <div class="row_area sold_out num_${list.getCart_num()}_row">
+			                    				 <div class="row_area sold_out">
 					                                <!-- 상품 이미지 -->
 					                                <div class="row_img_area">
 					                                    <div class="row_img">
@@ -309,8 +309,8 @@
                             <!-- 결제하기 버튼 구역 -->
                             <div class="total_price_button_area">
                                <c:if test="${!empty cartList  }">
-                               		<button class="btn total_price_button" onclick="cartToOrder()">
-	                                    <h2 class="point_text total_price_button_in">결제하기</h2>
+                               		<button class="btn total_price_button" onclick="location.href='bean_order.do'">
+	                                    <h2 class="btn_text total_price_button_in">주문하기</h2>
 	                                    <div class="total_price_button_in">
 	                                        <i class="fa-solid fa-arrow-right"></i>
 	                                    </div>

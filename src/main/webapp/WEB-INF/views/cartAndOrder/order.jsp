@@ -23,6 +23,7 @@
   <%-- 해더 --%>
   <jsp:include page="../layout/header.jsp" />
   <div class="blank"></div>
+  <div class="content_fade"></div>
   <!-- 컨텐츠 부분 -->
         <section class="content">
             <section class="order_wrap">
@@ -50,65 +51,84 @@
                 </section>
                 <!-- 장바구니 목록 컨텐츠 -->
                 <section class="order_main cart_row_section">
+                    
                     <!-- 왼쪽 -->
                     <div class="order_main_left">
                        <div class="order_main_left_in">
+                           
                             <!-- 배송정보 -->
                             <div class="deliver_info">
+                               
                                 <!-- 상단 -->
                                 <div class="deliver_info_top">
                                     <h3 class="point_text">배송정보</h3>
                                 </div>
+                                
                                 <!-- 메인 -->
                                 <!-- 배송 정보 입력 -->
                                 <div>
                                     <form method="post" action="">
                                         <!-- 배송 정보 입력 -->
+                                        
                                         <table class="order_info_text">
-                                            <!-- 배송지 -->
                                             <tbody>
-                                                <tr>
-                                                    <th>배송지</th>
-                                                    <!-- <td>
-                                                        <button type="button" class="btn delivery_addr_btn" type="button">주소입력</button>
-                                                    </td> -->
+                                            	<!-- 배송지 -->
+                                                <tr class="rowspan">
+                                                    <th rowspan="3" >배송지</th>
                                                     <td>
-                                                        <input class="input delivery_input input_long">
+                                                    	<div class="delivery_radio">
+			                                        		<input type="radio" id="delivery_house" name="delivery_addr" class="addr_radio" checked> <label for="delivery_house"> 집 </label>
+			                                        		<input type="radio" id="delivery_company" name="delivery_addr" class="addr_radio"> <label for="delivery_company"> 회사 </label>
+			                                        		<input type="radio" id="delivery_etc" name="delivery_addr" class="addr_radio"> <label for="delivery_etc"> 외 </label>
+			                                        	</div>
                                                     </td>
                                                 </tr>
+                                                <tr class="rowspan">
+                                                	<th></th>
+                                                	<td>
+                                                		<input class="input delivery_input" value="${addrArr[0] }">
+                                                	</td>
+                                                </tr>
+                                                <tr class="rowspan">
+                                                	<th></th>
+                                                	<td>
+                                                		<input class="input delivery_input input_long" value="${addrArr[1] }">
+                                                	</td>
+                                                </tr>
+                                                
                                                 <!-- 받으시는분 -->
                                                 <tr>
                                                     <th>받으시는 분</th>
                                                     <td>
                                                         <!-- member_name -->
-                                                        <input class="input delivery_input">
+                                                        <input class="input delivery_input" value="${memberDto.getMember_name() }">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>휴대전화</th>
                                                     <td class="flex_row">
-                                                        <input type="number" class="input delivery_input">
+                                                        <input class="input delivery_input" value="${phoneArr[0] }">
                                                         <span class="span"> - </span>
-                                                        <input type="number" class="input delivery_input">
+                                                        <input class="input delivery_input" value="${phoneArr[1] }">
                                                         <span class="span"> - </span>
-                                                        <input type="number" class="input delivery_input">
+                                                        <input class="input delivery_input" value="${phoneArr[2] }">
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <th>이메일</th>
                                                     <td class="flex_row">
-                                                        <input class="input delivery_input">
+                                                        <input class="input delivery_input" value="${emailArr[0]}">
                                                         <span class="span">@</span>
-                                                        <input class="input delivery_input">
+                                                        <input class="input delivery_input" value="${emailArr[1]}">
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                            <tbody>
+                                            <tbody class="hr">
                                                 <tr>
-                                                    <th rowspan="2">포인트</th>
+                                                    <th rowspan="2">사용 포인트</th>
                                                     <td>
                                                         <input type="number" class="input delivery_input input_use_point"> 
-                                                        <span>원 (총 사용 가능 포인트 : <span class="can_use_point">1000</span>원)</span>
+                                                        <span>원 (총 사용 가능 포인트 : <span class="can_use_point">${memberDto.getMember_point() }</span>원)</span>
                                                     </td>
                                                 </tr>
                                                 <tr class="except_tr">
@@ -126,7 +146,7 @@
                                         </table>
                                         <div class="pay_btn_area">
                                             <button type="submit" class="btn pay_btn total_price_button">
-                                                <h2>결제하기</h2>
+                                                <h2 class="btn_text">결제하기</h2>
                                                 <div>
                                                     <i class="fa-solid fa-arrow-right"></i>
                                                 </div>
@@ -137,11 +157,14 @@
                             </div>
                        </div>
                     </div>
+                    
                     <!-- 오른쪽 -->
                     <div class="order_main_right">
                         <div class="order_main_right_in">
+                           
                             <!-- 주문 요약 -->
                             <div class="summary_order">
+                              
                                 <!-- 주문정보 -->
                                 <div class="detail_order_btn">
                                     <h3 class="point_text">주문 정보</h3>
@@ -150,60 +173,42 @@
                                         <i class="fa-solid fa-arrow-right"></i>
                                     </button>
                                 </div>
+                                
                                 <!-- 주문 이미지 간략 & 버튼 -->
                                 <div class="summary_order_img_btn">
+                                
                                     <!-- 이미지 구역 -->
                                     <div class="summary_order_img">
                                         <div class="summary_order_img_in">
-                                            <!-- for_each로 돌아갈 예정 -->
-                                            <!-- 한줄에 4개 -->
-                                            <div class="row_img_area">
-                                                <div class="row_img">
-                                                    <a href="#" class="img_a">
-                                                        <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row_img_area">
-                                                <div class="row_img">
-                                                    <a href="#" class="img_a">
-                                                        <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row_img_area">
-                                                <div class="row_img">
-                                                    <a href="#" class="img_a">
-                                                        <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row_img_area">
-                                                <div class="row_img">
-                                                    <a href="#" class="img_a">
-                                                        <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                    </a>
-                                                </div>
-                                            </div>
-                                            <div class="row_img_area">
-                                                <div class="row_img">
-                                                    <a href="#" class="img_a">
-                                                        <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                    </a>
-                                                </div>
-                                            </div>
+                                            
+                                            <c:if test="${!empty cartList}">
+                                            	<c:forEach items="${cartList }" var="list">
+                                            		
+                                            		 <div class="row_img_area">
+		                                                <div class="row_img">
+		                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+		                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+		                                                    </a>
+		                                                </div>
+		                                            </div>
+                                            	
+                                            	</c:forEach>
+                                            </c:if>
+                                            
                                         </div>
                                     </div>
                                     
                                 </div>
+                                
                                 <!-- 주문내역 -->
                                 <div class="summary_order_price">
+                                 
                                     <!-- 총 주문가격 -->
                                     <div class="total_price_txt_area">
                                         <div class="total total_price_txt">
                                             <h4 class="middle_text">상품가격</h4> 
                                             <div class="price_txt">
-                                                <h3 class="middle_text"><span class="total_price">10000</span> 원</h3>
+                                                <h3 class="middle_text">₩ <span class="total_price">10000</span></h3>
                                                 <input type="hidden" class="total_price_hidden" name="total_price_hidden">
                                             </div>
                                         </div>
@@ -213,7 +218,7 @@
                                         </div>
                                         <div class="total use_point">
                                             <h5 class="middle_text">사용 포인트</h5> 
-                                            <h5 class="middle_text h4_not"><span class="total_use_point">0</span>원</h5>
+                                            <h5 class="middle_text h4_not">₩ <span class="total_use_point">0</span></h5>
                                         </div>
                                         <div class="hr_div hr_price"></div>
                                         <!-- 상품가격 + 배송비 -->
@@ -221,7 +226,7 @@
                                             <h4 class="middle_text">총 주문금액</h4> 
                                             <div class="middle_text price_txt">
                                                 <h3 class="point_text">
-                                                	<span class="all_total_price">10000</span> 원
+                                                	₩ <span class="all_total_price">10000</span>
                                                 </h3>
                                             </div>
                                         </div>
@@ -229,7 +234,7 @@
                                             <h5 class="sub_middle_text">적립 포인트</h5> 
                                             <div class="sub_middle_text price_txt">
                                                 <h5 class="sub_middle_text">
-                                                	<span class="all_point">10000</span> 원
+                                                	₩ <span class="all_point">10000</span>
                                                 </h5>
                                                 <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                             </div>
@@ -240,97 +245,117 @@
                             
                            <!-- ----------------------------------- -->
                            <!-- 주문상세(슬라이더) -->
-                           <div class="slider">
-                                
-                                <div class="detail_order_btn">
-                                    <h3 class="point_text">주문 정보</h3>
-                                    <button class="btn detail_btn" onclick="hideDetail()">
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                                
-                                <div class="rows_area">
-                                
-                                    <!-- foreach 로 돌아갈 예정 -->
-                                    <div class="row_area">
-                                        <!-- 상품 이미지 -->
-                                        <div class="row_img_area">
-                                            <div class="row_img">
-                                                <a href="#" class="img_a">
-                                                    <img src="./resources/orderimg/coffeebean.png" alt="상품1" class="product_img_file">
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <!-- 상품정보 -->
-                                        <div class="row_cont_area">
-                                            <div class="product_name">
-                                                <h4 class="middle_text">상품명</h3>
-                                                <p class="middle_text">그람 : 200g</p>
-                                                <p class="middle_text">수량 : 
-                                                	<span class="fin_row_cnt">1</span>
-                                                </p>
-                                                 <p class="middle_text">
-                                                	원두 갈기 : 갈아서/ 갈지 않고
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="row_price_area">
-                                            <div class="price_txt row_price_txt">
-                                                <h3 class="middle_text">
-                                                	<span class="row_total">10000</span> 원
-                                                </h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>	<%-- rows_area 끝 --%>
-                                
-                                <div class="total_price_area1">
-                                    <div class="total_price_area2">
-                                       
-                                        <!-- 총 주문가격 -->
-                                        <div class="total_price_txt_area">
-                                            <div class="total total_price_txt">
-                                                <h4 class="middle_text">상품가격</h4> 
-                                                <div class="price_txt">
-                                                    <h3 class="middle_text"><span class="total_price">10000</span> 원</h3>
-                                                    <input type="hidden" class="total_price_hidden" name="total_price_hidden">
-                                                </div>
-                                            </div>
-                                            <div class="total total_delivery">
-                                                <h4 class="middle_text">전체배송비</h4> 
-                                                <h4 class="middle_text h4_not"><span>무료배송</span></h4>
-                                            </div>
-                                            <div class="total use_point">
-                                                <h5 class="middle_text">사용 포인트</h5> 
-                                                <h5 class="middle_text h4_not"><span>0</span>원</h5>
-                                            </div>
-                                            <div class="hr_div hr_price"></div>
-                                            <!-- 상품가격 + 배송비 -->
-                                            <div class="total all_price">
-                                                <h4 class="middle_text">총 주문금액</h4> 
-                                                <div class="price_txt">
-                                                    <h3 class="middle_text"><span class="all_total_price">10000</span> 원</h3>
-                                                </div>
-                                            </div>
-                                            <div class="total all_t_point">
-                                                <h5 class="sub_middle_text">적립 포인트</h5> 
-                                                <div class="price_txt">
-                                                    <h5 class="sub_middle_text"><span class="all_point">10000</span> 원</h5>
-                                                    <input type="hidden" class="all_point_hidden" name="all_point_hidden">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                </div> <%-- total_price_area1 끝 --%>
-                                
-                            </div> <%-- 슬라이더 끝 --%>
-                            
+						   
+						   <!--  --> 
+						                             
                         </div>
                     </div>
                 </section>
             </section>
         </section>
+        
+        <!-- 주문상세(슬라이더) -->
+        <div class="slider">
+             
+             <div class="detail_order_btn">
+                 <h3 class="point_text">주문 정보</h3>
+                 <button class="btn detail_btn" onclick="hideDetail()">
+                     <i class="fa-solid fa-arrow-right"></i>
+                 </button>
+             </div>
+             
+             <div class="rows_area">
+             
+             	 <c:if test="${!empty cartList}">
+                      <c:forEach items="${cartList }" var="list">
+                      		
+                      		<div class="row_area">
+                    
+                       <!-- 상품 이미지 -->
+                       <div class="row_img_area">
+                              <div class="row_img">
+                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+                                  </a>
+                              </div>
+                          </div>
+                       
+                       <!-- 상품정보 -->
+                       <div class="row_cont_area">
+                           <div class="product_name">
+                               <h4 class="middle_text">${list.getBeans_name() }</h3>
+                               <p class="sub_middle_text">그람 : ${list.getCart_weight() } g</p>
+                               <p class="sub_middle_text">수량 : 
+                               	<span class="fin_row_cnt">${list.getOrder_cnt() }</span>
+                               </p>
+                                <p class="sub_middle_text">
+                               	원두 갈기 :
+                               	<c:if test="${list.getCart_grind() == 0 }">
+                           	 원두 그대로 주세요
+                               	</c:if>
+                               	<c:if test="${list.getCart_grind() == 1 }">
+                           	 원두 갈아주세요
+                               	</c:if>
+                               </p>
+                           </div>
+                       </div>
+                       
+                       <!-- 상품 가격 -->
+                       <div class="row_price_area">
+                           <div class="price_txt row_price_txt">
+                               <h3 class="middle_text">
+                               	₩ <span class="row_total"><fmt:formatNumber value="${list.getOrder_price()}"/></span>
+                               </h3>
+                           </div>
+                       </div>
+                   </div>
+                        
+                      </c:forEach>
+                  </c:if>
+             </div>	
+             <%-- rows_area 끝 --%>
+             
+             <div class="total_price_area1">
+                 <div class="total_price_area2">
+                    
+                     <!-- 총 주문가격 -->
+                     <div class="total_price_txt_area">
+                         <div class="total total_price_txt">
+                             <h4 class="middle_text">상품가격</h4> 
+                             <div class="price_txt">
+                                 <h3 class="middle_text">₩ <span class="total_price"></span></h3>
+                             </div>
+                         </div>
+                         <div class="total total_delivery">
+                             <h4 class="middle_text">전체배송비</h4> 
+                             <h4 class="middle_text h4_not"><span>무료배송</span></h4>
+                         </div>
+                         <div class="total use_point">
+                             <h5 class="middle_text">사용 포인트</h5> 
+                             <h5 class="middle_text h4_not">₩ <span class="total_use_point">0</span></h5>
+                         </div>
+                         <div class="hr_div hr_price"></div>
+                         <!-- 상품가격 + 배송비 -->
+                         <div class="total all_price">
+                             <h4 class="middle_text">총 주문금액</h4> 
+                             <div class="price_txt">
+                                 <h3 class="middle_text">₩ <span class="all_total_price"></span></h3>
+                             </div>
+                         </div>
+                         <div class="total all_t_point">
+                             <h5 class="sub_middle_text">적립 포인트</h5> 
+                             <div class="price_txt">
+                                 <h5 class="sub_middle_text">₩ <span class="all_point"></span></h5>
+                             </div>
+                         </div>
+                     </div>
+                     
+                 </div>
+             </div> 
+             <%-- total_price_area1 끝 --%>
+             
+         </div> 
+         <%-- 슬라이더 끝 --%>
         
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />

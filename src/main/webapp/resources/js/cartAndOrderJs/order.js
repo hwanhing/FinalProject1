@@ -1,31 +1,89 @@
 console.log('order.js')
 
+	const pointRate = 0.05
+	
+	let rowTotal = document.querySelectorAll(".row_total") 				// 수량 * 단가 * (그람/100)
+    
+	let totalPrice = document.querySelectorAll(".total_price")         	// 상품가격  
+    let allTotalPrice = document.querySelectorAll(".all_total_price")  	// 상품가격 + 배송비 - 사용포인트
+    let allPoint = document.querySelectorAll(".all_point")             	// 적립포인트
+	
+	let inputUsePoint = document.querySelector(".input_use_point")  	// 입력한 사용포인트
+    let totalUsePoint = document.querySelectorAll(".total_use_point")  	// 사용포인트
+    let canUsePoint = document.querySelector(".can_use_point")      	// 사용 가능한 포인트
+
+	 //---------------------------------------------------------------------------------
+	window.onload = CalcAllTotal();
+    
+    // 총 합계 함수
+    function CalcAllTotal(){
+   	   console.log('CalcAllTotal 실행')
+      
+       this.nums = []
+       this.sum = 0
+
+       // row total nums 배열에 넣기
+       for(let i=0; i<rowTotal.length; i++){
+           let num = parseInt(rowTotal[i].textContent.replace(',', ''));
+           this.nums.push(num)
+       }
+
+       // 배열에 들어간 값 저장
+       this.nums.forEach(function(item){
+           this.sum += parseInt(item)
+       })
+
+       finSum = this.sum
+
+       // 총 상품 금액, 적립 포인트 수정
+       let sumText = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+       let point = Math.round(finSum * pointRate)
+       let pointText = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+   	   
+       totalPrice.forEach(function(e,index){
+       		totalPrice[index].textContent = sumText
+       		allTotalPrice[index].textContent = sumText
+       		allPoint[index].textContent = pointText
+       })
+    }   
+
+
 	// 슬라이더 -------------------------------------------------------- 
 	// 변수
 	let slider = document.querySelector('.slider')
 	let summaryOrder = document.querySelector('.summary_order')
+	let contentFade = document.querySelector('.content_fade')
+	let deliverInfo = document.querySelector('.deliver_info')
+	let orderPathA = document.querySelectorAll('.order_path_list a')
 	 
 	// 버튼 클릭시 주문 상세보기 화면 나오는 함수
 	function showDetail(){
+	    summaryOrder.classList.add('hidden')
+	    deliverInfo.classList.add('fade_active_txt')
+	    
+	    for(let i=0; i<3; i++){
+	    	orderPathA[i].classList.add('fade_active_txt');
+	    }
+	    
+	    contentFade.classList.add('fade_active')
 	    slider.classList.add('show')
 	}
 	
 	// 버튼 클릭시 주문 상세보기 들어가는 함수
 	function hideDetail(){
+		deliverInfo.classList.remove('fade_active_txt')
+		
+		for(let i=0; i<3; i++){
+	    	orderPathA[i].classList.remove('fade_active_txt');
+	    }
+	    
 	    slider.classList.remove('show')
+	    summaryOrder.classList.remove('hidden')
+		contentFade.classList.remove('fade_active')
  	}
 
 	
-   // -------------- 주문서 작성시 사용 
-	 
-   let totalPrice = document.querySelector(".total_price")         // 상품가격
-   let inputUsePoint = document.querySelector(".input_use_point")  // 입력한 사용포인트
-   let totalUsePoint = document.querySelector(".total_use_point")  // 사용포인트
-   let canUsePoint = document.querySelector(".can_use_point")      // 사용 가능한 포인트
-	  
-   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
-   let allPoint = document.querySelector(".all_point")             // 적립포인트
-	   
+   // -------------- 포인트 사용
    // 적립 포인트 사용
    inputUsePoint.addEventListener('keyup',function(){
       
@@ -59,15 +117,24 @@ console.log('order.js')
        exceptPointTotal(inputPoint)
    }) 
    
-   // 사용 포인트 제외 함수
    function exceptUsePoint(usePointNum){
-       totalUsePoint.textContent = usePointNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+       
+       for(let i in totalUsePoint){
+       	 totalUsePoint[i].textContent = usePointNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+       }
+      
    }
 
    // 총 주문 금액 재설정 함수
    function exceptPointTotal(usePointNum){
-      let allTotalNum = (totalPrice.textContent - usePointNum)
-      let allTotal = (totalPrice.textContent - usePointNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      allTotalPrice.textContent = allTotal
+      
+      let totalPriceNum = parseInt(totalPrice[1].textContent.replace(',',''))
+      
+      let allTotalNum = (totalPriceNum - usePointNum)
+      let allTotal = allTotalNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      
+      for(let i in allTotalPrice){
+       	 allTotalPrice[i].textContent = allTotal
+       }
    }
 	   

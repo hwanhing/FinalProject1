@@ -31,12 +31,12 @@ console.log('js')
    
    // 총 합계 변수
    let totalPrice = document.querySelector(".total_price")         // 상품가격
-   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
+   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 사용포인트
    let allPoint = document.querySelector(".all_point")             // 적립포인트
 
    //---------------------------------------------------------------------------------
    	
-   window.onload = onloadCalc();
+   window.onload = onloadCalc()
 
    // 윈도우 로드시 row total 함수(단가 * 수량 * (그람수/100))
    function onloadCalc(){
@@ -44,7 +44,6 @@ console.log('js')
 	   let heart = document.querySelectorAll('.heart_1')
 	   
    		inputCnt.forEach(function(e,index){
-   			
    			
    			// 수량 최소값(1) 일경우 버튼 비활성화
    			if(inputCnt[index].value==minOrder){
@@ -224,8 +223,8 @@ console.log('js')
    
    // 총 합계 함수 (품절 상품은 제외)
    function CalcAllTotal(){
-       this.nums = [];
-       this.sum = 0;
+       this.nums = []
+       this.sum = 0
 
        // row total nums 배열에 넣기
        for(let i=0; i<rowTotal.length; i++){
@@ -235,7 +234,7 @@ console.log('js')
 
        // 배열에 들어간 값 저장
        this.nums.forEach(function(item){
-           this.sum += parseInt(item);
+           this.sum += parseInt(item)
        })
 
        finSum = this.sum

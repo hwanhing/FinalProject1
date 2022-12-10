@@ -52,8 +52,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	public List<CoffeeCartDTO> getCartList(int member_num) {
 		return this.sqlSession.selectList("getCartList", member_num);
 	}
-
-	
 	
 	// 장바구니 페이지 : 찜 --------------------------------------------------------------------------------
 	@Override
@@ -99,16 +97,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	public List<CoffeeCartDTO> getRecListOrder(int member_num) {
 		return this.sqlSession.selectList("getRecListOrder",member_num);
 	}
-
-	
-
-	
-
-	// ----
-
-
-	
-	
 
 
 }

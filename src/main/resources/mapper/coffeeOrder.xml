@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderDAO">
+
+	<!-- 멤버 정보 -->
+	<select id="getMemberCont" parameterType="int" resultType="finalMemberDTO">
+		select member_name
+		     , member_email
+		     , member_phone
+		     , case when replace(member_addr,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr 
+		     , case when replace(member_addr2,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr2 
+		     , case when replace(member_addr3,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr3 
+		     , case when replace(member_addr4,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr4 
+		     , case when replace(member_addr5,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr5 
+		     , member_point
+		  from final_member
+		 where member_num = #{member_num}
+	</select>
+	
+	<!-- 장바구니 리스트(주문전 수량, 그람 확정) -->
+	<select id="getCartListFin" parameterType="int" resultType="coffeeOrderDTO">
+		select ca.cart_num  
+		     , ca.cart_cnt  as order_cnt
+		     , be.beans_price * ca.cart_cnt * (ca.cart_weight/100) as order_price
+		     , ca.beans_num
+		     , be.beans_name
+		     , be.beans_price
+		     , be.beans_taste
+		     , be.beans_img
+		     , ca.cart_weight
+		     , ca.cart_grind 
+		     , ca.member_num
+		  from coffee_cart ca
+		  join coffee_beans be
+		    on ca.beans_num = be.beans_num
+		 where ca.member_num = #{member_num}
+		   and be.beans_count not in(0)
+		 order by ca.cart_num desc
+	</select>
+	
+
+</mapper>
