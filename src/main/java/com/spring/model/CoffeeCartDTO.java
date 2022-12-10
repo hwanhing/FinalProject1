@@ -19,6 +19,7 @@ public class CoffeeCartDTO {
 	private String beans_taste;
 	private String beans_img;
 	private String beans_url;
+	private String beans_count; // 재고
 	private int coffee_heart;
 	
 	// 추천메뉴에 필요

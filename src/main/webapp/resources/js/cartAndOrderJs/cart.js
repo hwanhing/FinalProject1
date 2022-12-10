@@ -23,21 +23,16 @@ console.log('js')
    let btnDown = document.querySelectorAll(".btn_down")
    let gbtnDown = document.querySelectorAll(".gram_btn_down")
    
-   // input 변수
-   let inputCnt = document.querySelectorAll(".input_cnt") // 수량 
-   let rowPrice = document.querySelectorAll(".row_price") // 단가 
-   let rowGram = document.querySelectorAll(".row_gram")	  // 그람
-   let rowTotal = document.querySelectorAll(".row_total") // 수량 * 단가 * (그람/100)
+   // 구매가능한 상품만
+   let inputCnt = document.querySelectorAll(".input_cnt") 		// 수량 
+   let rowPrice = document.querySelectorAll(".row_price") 		// 단가 
+   let rowGram = document.querySelectorAll(".row_gram")	  		// 그람
+   let rowTotal = document.querySelectorAll(".row_total") 		// 수량 * 단가 * (그람/100)
    
    // 총 합계 변수
    let totalPrice = document.querySelector(".total_price")         // 상품가격
    let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
    let allPoint = document.querySelector(".all_point")             // 적립포인트
-
-   // input hidden 값으로 넘겨줘야할 값
-   let rowTotalH = document.querySelectorAll(".row_total_hidden")
-   let totalPriceH = document.querySelector(".total_price_hidden")
-   let allPointH = document.querySelector(".all_point_hidden")     //
 
    //---------------------------------------------------------------------------------
    	
@@ -50,26 +45,38 @@ console.log('js')
 	   
    		inputCnt.forEach(function(e,index){
    			
-   			// 수량 1일경우 버튼 비활성화
-   			if(inputCnt[index].value==1){
+   			
+   			// 수량 최소값(1) 일경우 버튼 비활성화
+   			if(inputCnt[index].value==minOrder){
 		           btnDown[index].setAttribute('disabled',true)
 		           btnDown[index].classList.add('disabled_btn')
 		    }
 		    
-	    	if(rowGram[index].value==100){
+		    // 수량 최대값(20) 일경우 버튼 비활성화
+		    if(inputCnt[index].value==maxOrder){
+		           btnUp[index].setAttribute('disabled',true)
+		           btnUp[index].classList.add('disabled_btn')
+		    }
+		    
+		    // 그람 최소값(100) 일경우 버튼 비활성화
+	    	if(rowGram[index].value==minGram){
 		           gbtnDown[index].setAttribute('disabled',true)
 		           gbtnDown[index].classList.add('disabled_btn')
 		    }
+		    
+		    // 그람 최대값(400) 일경우 버튼 비활성화
+   			if(rowGram[index].value==maxGram){
+		           gbtnUp[index].setAttribute('disabled',true)
+		           gbtnUp[index].classList.add('disabled_btn')
+		    }
    			
-   			
-   			let rowPriceNum = parseInt(rowPrice[index].value) // 단가
-   			let rowInCntNum = parseInt(inputCnt[index].value) // 수량
+   			let rowPriceNum = parseInt(rowPrice[index].value) 	// 단가
+   			let rowInCntNum = parseInt(inputCnt[index].value) 	// 수량
    			let rowGramNum = parseInt(rowGram[index].value)/100 // 그람수/100
 
    			let rowTotalNum = rowPriceNum * rowInCntNum * rowGramNum  
    			rowTotal[index].textContent = rowTotalNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    			CalcAllTotal()
-   			
    		})  
    		
    		heart.forEach(function(e,index){
@@ -97,7 +104,7 @@ console.log('js')
 	   
    }
    
-   // Up 버튼 클릭시 실행하는 함수 안 실행 함수
+   // 수량 up 함수
    function up(cartNum){
 	  
 	  let clickedCnt = document.querySelector(".num_"+cartNum+"_cnt")
@@ -122,7 +129,7 @@ console.log('js')
       cartReCntDB(cartNum, clickedCntValue)
    }
    
-   // Down 버튼 클릭시 실행하는 함수 안 실행 함수
+   // 수량 down 함수
    function down(cartNum){
 		  
 	  let clickedCnt = document.querySelector(".num_"+cartNum+"_cnt")
@@ -147,7 +154,7 @@ console.log('js')
       cartReCntDB(cartNum, clickedCntValue)
    }
    
-   // 그람 up 버튼 클릭시
+   // 그람 up 함수
    function gramUpCnt(cartNum){
    		console.log('그람 up클릭')
     	let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
@@ -174,7 +181,7 @@ console.log('js')
       	cartReGramDB(cartNum, clickedGramValue)
    }
    
-   // 그람 down 버튼 클릭시 
+   // 그람 down 함수
    function gramDownCnt(cartNum){
    		console.log('그람 down클릭')
    		let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
@@ -215,7 +222,7 @@ console.log('js')
 	   rTotalTag.textContent = calc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    }
    
-   // 총 합계 함수
+   // 총 합계 함수 (품절 상품은 제외)
    function CalcAllTotal(){
        this.nums = [];
        this.sum = 0;
@@ -235,19 +242,20 @@ console.log('js')
 
        // 총 상품 금액, 적립 포인트 수정
        let sumText = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+       
        totalPrice.textContent = sumText
        allTotalPrice.textContent = totalPrice.textContent
-       totalPriceH.value = this.sum
        
        point(finSum) 
    }
    
    // 포인트 집계 함수
    function point(finSum){
+   
        let point = Math.round(finSum * pointRate)
        let pointText = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+   
        allPoint.textContent = pointText
-       allPointH.value = point
    }
 
    // 삭제 클릭시 ---------------------------------------------------------------
@@ -266,15 +274,51 @@ console.log('js')
       
        finSum = reTotalPrice
        
-       totalPriceH.value = reTotalPrice
        totalPrice.textContent = reTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
        allTotalPrice.textContent = totalPrice.textContent
 	   
        point(finSum) 
+       
+       // 장바구니에 상품이 하나도 없을 경우 
+       disabledOrderBtn(inputCnt.length)
+       
+       // DB 수정 함수
        deleteRowDB(cartNum)
    }
    
+   // 품절 상품 삭제 클릭시 ---------------------------------------------------------------
+   function deleteSoldOutRow(cartNum){
+   	
+   	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
+	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")	
+   		
+   	   rowArea.classList.add('display_none')
+	   hrdiv.classList.add('display_none')
+   		
+   	   // 장바구니에 상품이 하나도 없을 경우 
+       disabledOrderBtn()
+   		
+   	   // DB 수정 함수
+       deleteRowDB(cartNum)
+   }
+   
+   
    // 장바구니 목록이 없다면 결제하기 버튼 없애기
+   function disabledOrderBtn(){
+   	   
+   	    let row = document.querySelectorAll(".row_area")
+   		let deleteRow = document.querySelectorAll(".display_none")
+   		console.log("삭제버튼 누름 : " + deleteRow.length)
+   		console.log("row : " + row.length) 
+   		
+   		if(deleteRow.length == row.length*2){
+   			document.querySelector(".rows_area").innerHTML = '<div class="row_area empty_cart">' 
+   				+ '<h3 class="point_text">담아둔 상품이 없습니다.</h3>'
+			 	+ '</div>'
+			 	
+			document.querySelector(".total_price_button").classList.add('display_none')
+   		}
+   }
    
    // ajax ----------------------------------------------------------
   	$.ajaxSetup({	
@@ -356,55 +400,6 @@ console.log('js')
    		})
    }
  
- 
-   // 결제 하기 버튼 클릭시 정보 모두 넘겨주기
-   function cartToOrder(){
-   		console.log('결제하기 버튼을 클릭했습니다.')
-   
-   		// 장바구니 목록 가져오기 
-   		let rowArea = document.querySelectorAll('.row_area')
-   		
-   		let allArray = []
-   		let rowArray = []
-   		
-   		// 이미지, 상품명, 그람, 수량, 갈기, 금액
-   		// inputCnt(수량), rowGram(그람), rowTotal(행 합)
-		 let rowImges = document.querySelectorAll('.cart_img_file')
-		 let rowPName = document.querySelectorAll('.cart_p_name')
-		 let rowGrind = document.querySelectorAll('.cart_p_grind')
-   	
-   		console.log(rowArea.length)
-   	
-   		for(let i =0; i<rowArea.length; i++){
-			rowArray.push(rowImges[i].src)
-   			rowArray.push(rowPName[i].textContent)
-   			rowArray.push(parseInt(rowGram[i].value))
-   			rowArray.push(parseInt(inputCnt[i].value))
-   			rowArray.push(parseInt(rowGrind[i].value))
-   			rowArray.push(parseInt(rowTotal[i].textContent.replace(',','')))
-   		}
-   		
-   		for(let i=0; i<=rowArray.length; i++){
-   			allArray.push(rowArray.splice(0,6))
-   		}
-   		
-   		console.log(rowArray)
-   		console.log(allArray)
-   		
-   		$.ajax({
-   			url : "/coffee/bean_order.do",
-   			data : { allArray : allArray},
-   			datatype : "text",
-   			success : function(data){
-   				console.log("전송 성공");
-   			},
-   			error : function(){
-   				console.log('전송 실패!');
-   			}
-   		})
-   	
-   		
-   }
    
    
   

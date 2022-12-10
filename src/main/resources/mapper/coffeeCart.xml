@@ -64,6 +64,7 @@
 		     , be.beans_taste
 		     , be.beans_img
 		     , be.beans_url
+		     , be.beans_count
 		     , case when ms.coffee_heart is null then 0 else ms.coffee_heart end as coffee_heart
 		  from coffee_cart ca
 		  join coffee_beans be
