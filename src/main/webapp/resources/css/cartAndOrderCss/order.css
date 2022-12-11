@@ -59,6 +59,11 @@
 	box-shadow: none;
 }
 
+/* 주소가 없을 경우 등록 버튼 */
+.f_btn{
+	width: 100px;
+}
+
 /* 핸드폰 번호, 이메일 */
 .flex_row{
     display: flex;
@@ -416,5 +421,5 @@
  }
  
 .display_none{
-	 display: none
+	 display: none !important;
 } 

@@ -14,11 +14,7 @@
        <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
        <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/order.css">
        <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
-       <style>
-       	.blank{
-       		height: 120px;
-       	}
-       </style>
+       <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
    </head>
 <body>
   <%-- 해더 --%>
@@ -69,11 +65,16 @@
                                 <!-- 배송 정보 입력 -->
                                 <div>
                                     <form method="post" action="">
-                                        <!-- 배송 정보 입력 -->
                                         
                                         <table class="order_info_text">
-                                            <tbody>
-                                            	<!-- 배송지 -->
+                                            <input type="hidden" class="addr1" name="addr1" value="${addrArr[0] }" >
+                                            <input type="hidden" class="addr2" name="addr2" value="${addrArr[1] }" >
+                                            <input type="hidden" class="addr3" name="addr3" value="${addrArr[2] }" >
+                                            <input type="hidden" class="addr4" name="addr4" value="${addrArr[3] }" >
+                                            <input type="hidden" class="addr5" name="addr5" value="${addrArr[4] }" >
+                                           	<tbody>
+                                           	
+                                            	<!-- 배송지 선택 -->
                                                 <tr class="rowspan">
                                                     <th rowspan="2">배송지</th>
                                                     <td>
@@ -92,19 +93,28 @@
                                                 <c:set var="addr" value="${addrArr[0] }" />
                                                 <c:set var="addrlength" value="${fn:length(addrArr[0]) }" />
                                                  
-                                                <tr class="rowspan">
+                                                <tr class="f_addr display_none">
+                                              			<th></th>
+                                              			<td>
+	                                               			<div class="modal_btn">
+												        		<button class="btn f_btn">주소 등록하기</button>
+												        	</div>
+											        	<td>
+                                             	</tr>
+                                             	
+                                             	<tr class="rowspan t_addr">
                                                 	<th></th>
                                                 	<td>
-                                                		<input class="input delivery_input" value="${fn:substring(addr,0,6) }" readonly>
+                                                		<input class="input delivery_input selected_addr" value="${fn:substring(addr,0,6) }" readonly>
                                                 	</td>
                                                 </tr>
-                                                <tr class="rowspan">
+                                                <tr class="rowspan t_addr">
                                                 	<th></th>
                                                 	<td>
-                                                		<input class="input delivery_input input_long" value="${fn:substring(addr,6,addrlength)}" readonly>
+                                                		<input class="input delivery_input input_long selected_addr" value="${fn:substring(addr,6,addrlength)}" readonly>
                                                 	</td>
                                                 </tr>
-                                                
+                                               
                                                 <!-- 받으시는분 -->
                                                 <tr>
                                                     <th>받으시는 분</th>
@@ -393,7 +403,7 @@
 	            			<td rowspan="2">${row }</td>
 	            			<td align="left">${fn:substring(addrArr,0,6) }</td>
 	            			<td rowspan="2">
-		            			<button class="t_select">선택</button>
+		            			<button class="t_select" onclick="selectAddr(${row}+2)">선택</button>
 		            		</td>
 	            		</c:if>
 	            	</tr>

@@ -12,6 +12,12 @@ console.log('order.js')
     let totalUsePoint = document.querySelectorAll(".total_use_point")  	// 사용포인트
     let canUsePoint = document.querySelector(".can_use_point")      	// 사용 가능한 포인트
 
+	// 주소관련 변수
+	let addrRadio = document.querySelectorAll('.addr_radio')
+    let addrSelected = document.querySelectorAll('.selected_addr')
+   
+    let addr = "";
+
 	 //---------------------------------------------------------------------------------
 	window.onload = CalcAllTotal();
     
@@ -19,6 +25,7 @@ console.log('order.js')
     function CalcAllTotal(){
    	   console.log('CalcAllTotal 실행')
       
+       noAddr()
        this.nums = []
        this.sum = 0
 
@@ -166,28 +173,69 @@ console.log('order.js')
    }
    
    // 주소 선택 --------------------------------------------------------------------------------------
-   let addr = document.querySelectorAll('.addr_radio')
+
    
-   addr.forEach(function(e,index){
+   // 주소 radio 버튼 클릭시
+   addrRadio.forEach(function(e,index){
        		
-       	addr[index].addEventListener('click',function(){
-       		console.log(addr[index])
-       		console.log(index)
+       	addrRadio[index].addEventListener('click',function(){
 
 			// 0: 집, 1: 회사, 2: 외
-       		if(index==2){
+       		if(index==0){
+       			
+       			addr = document.querySelector('.addr1').value.replace('  ',' ')
+       			addrSelected[0].value = addr.slice(0,5)
+       			addrSelected[1].value = addr.slice(6)
+       			noAddr()
+       		
+       		} else if(index==1){
+       			
+       			addr = document.querySelector('.addr2').value.replace('  ',' ')
+       			addrSelected[0].value = addr.slice(0,6)
+       			addrSelected[1].value = addr.slice(6)
+       			noAddr()
+       			
+       		} else if(index==2){
        			fadeInActive()
-       			
-       			
        			document.querySelector('.modal_body').classList.remove('display_none')
        		}
+       		
        	})
     })
-	   
+    
+    // 주소 radio 버튼 [외] 클릭후 특정 주소 선택시
+    function selectAddr(index){
+    	console.log(`외 라디오 버튼 : ${index}`)
+    	addr = document.querySelector(`.addr${index}`).value.replace('  ',' ')
+		addrSelected[0].value = addr.slice(0,5)
+		addrSelected[1].value = addr.slice(6)
+		
+		fadeOutActive()
+		document.querySelector('.modal_body').classList.add('display_none')
+		console.log(addr)
+    }
+    
+    function noAddr(){
+    	let tAddr = document.querySelectorAll('.t_addr')
+    	let fAddr = document.querySelector('.f_addr')
+    	
+    	console.log(addrSelected[0].value)
+    	if(addrSelected[0].value=='-'){
+    		tAddr[0].classList.add('display_none')
+    		tAddr[1].classList.add('display_none')
+    		fAddr.classList.remove('display_none')
+    	
+    	}else{
+    		tAddr[0].classList.remove('display_none')
+    		tAddr[1].classList.remove('display_none')
+    		fAddr.classList.add('display_none')
+    	}
+    }
+    
 	function closeModal(){
 		console.log('종료 버튼 클릭')
 		fadeOutActive()
 		document.querySelector('.modal_body').classList.add('display_none')
 	}
-	   
-	   
+	  
+	  

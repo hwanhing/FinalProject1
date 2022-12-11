@@ -22,6 +22,8 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public List<CoffeeOrderDTO> getCartListFin(int member_num) {
 		return this.sqlSession.selectList("getCartListFin", member_num);
 	}
+	
+	
 
 	
 }
