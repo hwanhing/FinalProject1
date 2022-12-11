@@ -95,7 +95,7 @@
     margin: auto;
 }
 
-.pay_btn{
+.pay_btn_area .total_price_button{
     width: 100% !important;
 }
 
@@ -231,7 +231,7 @@
 	background-color: rgba(216, 206, 192, 0.15);
 	
 	transition: all .8s ease-in-out;
-	z-index: 300px;
+	z-index: 400px;
 }
 
 .fade_active_txt{
@@ -245,6 +245,9 @@
 	transition: all .8s ease-in-out;
 }
 
+/* .summary_order, .all_total_price{
+	color: var(--color_begie) !important;
+} */
 
 /* 상세보기 ----------------------------------------------------------------- */
 .slider{
@@ -258,6 +261,7 @@
     background-color: white;
     box-shadow: var(--box_shadow);
     z-index: 305; 
+  
 }
 
 /* 상세보기 보여주기 ---------------------------------------------------------- */
@@ -345,3 +349,72 @@
 .total_price_area2{
     padding: 10px;
 }
+
+/* 주소 선택 모달 창 --------------------------------------------------------- */
+.modal_body {
+     position: absolute;
+     top: 60%;
+     left: 50%;
+
+     width: 500px;
+     height: 600px;
+
+     padding: 20px;
+
+     text-align: center;
+
+     background-color: rgb(255, 255, 255);
+     border-radius: 10px;
+     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+     transform: translateX(-50%) translateY(-50%);
+ }
+ 
+ /* 모달 - 주소등록하기 버튼 */
+ .modal_btn{
+ 	width: 95%;
+ 	margin: auto;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: var(--margin);
+}
+
+.modal_btn .btn:not(.modal_close){
+	background-color: var(--color_greyish) !important;
+	color: white;
+	font-size: 13px;
+}
+
+.modal_btn .btn:hover:not(.modal_close){
+	background-color: var(--color_begie) !important;
+}
+ 
+ /* 모달 - 주소 테이블 */
+ .modal_table{
+ 	width: 450px;
+ 	margin: auto;
+ 	border: 1px solid var(--color_greyish);
+ 	border-collapse: collapse;
+ }
+ 
+ .modal_table th,
+ .modal_table td{
+ 	padding: 5px 0px 5px 0px;
+ }
+ 
+ .t_border_top{
+ 	border-top: 1px solid var(--color_greyish);
+ }
+ 
+ .t_border_bottom{
+ 	border-bottom: 1px solid var(--color_greyish);
+ }
+ 
+ .t_select:hover{
+ 	font-weight: bold;
+ 	color: var(--color_greyish);
+ }
+ 
+.display_none{
+	 display: none
+} 

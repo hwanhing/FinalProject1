@@ -56,32 +56,59 @@ console.log('order.js')
 	let deliverInfo = document.querySelector('.deliver_info')
 	let orderPathA = document.querySelectorAll('.order_path_list a')
 	 
-	// 버튼 클릭시 주문 상세보기 화면 나오는 함수
-	function showDetail(){
-	    summaryOrder.classList.add('hidden')
-	    deliverInfo.classList.add('fade_active_txt')
+ 	// ---------------------------------------------------------------------------------------------
+ 	// fade in 
+ 	function fadeInActive(){
+ 		deliverInfo.classList.add('fade_active_txt')
 	    
 	    for(let i=0; i<3; i++){
 	    	orderPathA[i].classList.add('fade_active_txt');
 	    }
 	    
 	    contentFade.classList.add('fade_active')
-	    slider.classList.add('show')
-	}
-	
-	// 버튼 클릭시 주문 상세보기 들어가는 함수
-	function hideDetail(){
-		deliverInfo.classList.remove('fade_active_txt')
+	    
+	    document.querySelector('.summary_order').classList.add('fade_active_txt')
+		document.querySelector('.all_total_price').classList.add('fade_active_txt')
+		document.querySelector('.pay_btn').setAttribute('disabled',true)
+		document.querySelector('.detail_btn').setAttribute('disabled',true)
+ 	}
+ 	
+ 	// fade out
+ 	function fadeOutActive(){
+ 		deliverInfo.classList.remove('fade_active_txt')
 		
 		for(let i=0; i<3; i++){
 	    	orderPathA[i].classList.remove('fade_active_txt');
 	    }
 	    
-	    slider.classList.remove('show')
-	    summaryOrder.classList.remove('hidden')
-		contentFade.classList.remove('fade_active')
+	    contentFade.classList.remove('fade_active')
+	    
+	    document.querySelector('.summary_order').classList.remove('fade_active_txt')
+		document.querySelector('.all_total_price').classList.remove('fade_active_txt')
+ 	
+ 		document.querySelector('.pay_btn').removeAttribute('disabled')
+ 		document.querySelector('.detail_btn').removeAttribute('disabled')
  	}
+ 	
+ 	
+ 	
+ 	// ---------------------------------------------------------------------------------------------
+	
+	// 버튼 클릭시 주문 상세보기 화면 나오는 함수
+	function showDetail(){
+	    fadeInActive()
+	    
+	    summaryOrder.classList.add('hidden')
+	    slider.classList.add('show')
+	}
+	
+	// 버튼 클릭시 주문 상세보기 들어가는 함수
+	function hideDetail(){
+		fadeOutActive()
 
+	    summaryOrder.classList.remove('hidden')
+	    slider.classList.remove('show')
+ 	}
 	
    // -------------- 포인트 사용
    // 적립 포인트 사용
@@ -137,4 +164,30 @@ console.log('order.js')
        	 allTotalPrice[i].textContent = allTotal
        }
    }
+   
+   // 주소 선택 --------------------------------------------------------------------------------------
+   let addr = document.querySelectorAll('.addr_radio')
+   
+   addr.forEach(function(e,index){
+       		
+       	addr[index].addEventListener('click',function(){
+       		console.log(addr[index])
+       		console.log(index)
+
+			// 0: 집, 1: 회사, 2: 외
+       		if(index==2){
+       			fadeInActive()
+       			
+       			
+       			document.querySelector('.modal_body').classList.remove('display_none')
+       		}
+       	})
+    })
+	   
+	function closeModal(){
+		console.log('종료 버튼 클릭')
+		fadeOutActive()
+		document.querySelector('.modal_body').classList.add('display_none')
+	}
+	   
 	   

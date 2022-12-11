@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -74,25 +75,33 @@
                                             <tbody>
                                             	<!-- 배송지 -->
                                                 <tr class="rowspan">
-                                                    <th rowspan="3" >배송지</th>
+                                                    <th rowspan="2">배송지</th>
                                                     <td>
                                                     	<div class="delivery_radio">
-			                                        		<input type="radio" id="delivery_house" name="delivery_addr" class="addr_radio" checked> <label for="delivery_house"> 집 </label>
-			                                        		<input type="radio" id="delivery_company" name="delivery_addr" class="addr_radio"> <label for="delivery_company"> 회사 </label>
-			                                        		<input type="radio" id="delivery_etc" name="delivery_addr" class="addr_radio"> <label for="delivery_etc"> 외 </label>
+			                                        		<input type="radio" id="delivery_house" name="delivery_addr" class="addr_radio" checked> 
+			                                        		<label for="delivery_house"> 집 </label>
+			                                        		<input type="radio" id="delivery_company" name="delivery_addr" class="addr_radio"> 
+			                                        		<label for="delivery_company"> 회사 </label>
+			                                        		<input type="radio" id="delivery_etc" name="delivery_addr" class="addr_radio"> 
+			                                        		<label for="delivery_etc"> 외 </label>
 			                                        	</div>
                                                     </td>
                                                 </tr>
+                                                
+                                                <%-- 주소 --%>
+                                                <c:set var="addr" value="${addrArr[0] }" />
+                                                <c:set var="addrlength" value="${fn:length(addrArr[0]) }" />
+                                                 
                                                 <tr class="rowspan">
                                                 	<th></th>
                                                 	<td>
-                                                		<input class="input delivery_input" value="${addrArr[0] }">
+                                                		<input class="input delivery_input" value="${fn:substring(addr,0,6) }" readonly>
                                                 	</td>
                                                 </tr>
                                                 <tr class="rowspan">
                                                 	<th></th>
                                                 	<td>
-                                                		<input class="input delivery_input input_long" value="${addrArr[1] }">
+                                                		<input class="input delivery_input input_long" value="${fn:substring(addr,6,addrlength)}" readonly>
                                                 	</td>
                                                 </tr>
                                                 
@@ -218,7 +227,7 @@
                                         </div>
                                         <div class="total use_point">
                                             <h5 class="middle_text">사용 포인트</h5> 
-                                            <h5 class="middle_text h4_not">₩ <span class="total_use_point">0</span></h5>
+                                            <h5 class="middle_text h4_not">₩ <span class="total_use_point"></span></h5>
                                         </div>
                                         <div class="hr_div hr_price"></div>
                                         <!-- 상품가격 + 배송비 -->
@@ -226,7 +235,7 @@
                                             <h4 class="middle_text">총 주문금액</h4> 
                                             <div class="middle_text price_txt">
                                                 <h3 class="point_text">
-                                                	₩ <span class="all_total_price">10000</span>
+                                                	₩ <span class="all_total_price"></span>
                                                 </h3>
                                             </div>
                                         </div>
@@ -234,7 +243,7 @@
                                             <h5 class="sub_middle_text">적립 포인트</h5> 
                                             <div class="sub_middle_text price_txt">
                                                 <h5 class="sub_middle_text">
-                                                	₩ <span class="all_point">10000</span>
+                                                	₩ <span class="all_point"></span>
                                                 </h5>
                                                 <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                             </div>
@@ -244,9 +253,6 @@
                             </div>
                             
                            <!-- ----------------------------------- -->
-                           <!-- 주문상세(슬라이더) -->
-						   
-						   <!--  --> 
 						                             
                         </div>
                     </div>
@@ -269,46 +275,46 @@
              	 <c:if test="${!empty cartList}">
                       <c:forEach items="${cartList }" var="list">
                       		
-                      		<div class="row_area">
+                   		<div class="row_area">
                     
-                       <!-- 상품 이미지 -->
-                       <div class="row_img_area">
-                              <div class="row_img">
-                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
-                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
-                                  </a>
-                              </div>
-                          </div>
-                       
-                       <!-- 상품정보 -->
-                       <div class="row_cont_area">
-                           <div class="product_name">
-                               <h4 class="middle_text">${list.getBeans_name() }</h3>
-                               <p class="sub_middle_text">그람 : ${list.getCart_weight() } g</p>
-                               <p class="sub_middle_text">수량 : 
-                               	<span class="fin_row_cnt">${list.getOrder_cnt() }</span>
-                               </p>
-                                <p class="sub_middle_text">
-                               	원두 갈기 :
-                               	<c:if test="${list.getCart_grind() == 0 }">
-                           	 원두 그대로 주세요
-                               	</c:if>
-                               	<c:if test="${list.getCart_grind() == 1 }">
-                           	 원두 갈아주세요
-                               	</c:if>
-                               </p>
-                           </div>
-                       </div>
-                       
-                       <!-- 상품 가격 -->
-                       <div class="row_price_area">
-                           <div class="price_txt row_price_txt">
-                               <h3 class="middle_text">
-                               	₩ <span class="row_total"><fmt:formatNumber value="${list.getOrder_price()}"/></span>
-                               </h3>
-                           </div>
-                       </div>
-                   </div>
+		                       <!-- 상품 이미지 -->
+		                       <div class="row_img_area">
+		                              <div class="row_img">
+		                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+		                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+		                                  </a>
+		                              </div>
+		                          </div>
+		                       
+		                       <!-- 상품정보 -->
+		                       <div class="row_cont_area">
+		                           <div class="product_name">
+		                               <h4 class="middle_text">${list.getBeans_name() }</h3>
+		                               <p class="sub_middle_text">그람 : ${list.getCart_weight() } g</p>
+		                               <p class="sub_middle_text">수량 : 
+		                               	<span class="fin_row_cnt">${list.getOrder_cnt() }</span>
+		                               </p>
+		                                <p class="sub_middle_text">
+		                               	원두 갈기 :
+		                               	<c:if test="${list.getCart_grind() == 0 }">
+		                           	 		원두 그대로 주세요
+		                               	</c:if>
+		                               	<c:if test="${list.getCart_grind() == 1 }">
+		                           	 		원두 갈아주세요
+		                               	</c:if>
+		                               </p>
+		                           </div>
+		                       </div>
+		                       
+		                       <!-- 상품 가격 -->
+		                       <div class="row_price_area">
+		                           <div class="price_txt row_price_txt">
+		                               <h3 class="middle_text">
+		                               	₩ <span class="row_total"><fmt:formatNumber value="${list.getOrder_price()}"/></span>
+		                               </h3>
+		                           </div>
+		                       </div>
+		                   </div>
                         
                       </c:forEach>
                   </c:if>
@@ -356,6 +362,51 @@
              
          </div> 
          <%-- 슬라이더 끝 --%>
+        
+        <!-- 주소(외) -->
+      	<!-- <div class="modal_body "> -->
+        <div class="modal_body display_none">
+        
+        	<div class="modal_btn">
+        		
+        		<button class="btn modal_close" onclick="closeModal()">
+        			<i class="fa-solid fa-x"></i>
+        		</button>
+        		
+        		<button class="btn">주소 등록하기</button>
+        	</div>
+        	
+            <table class="modal_table">
+            	<tr>
+            		<th width="20%">순서</th>
+            		<th width="60%">주소</th>
+            		<th width="20%">선택</th>
+            	</tr>
+            	
+            	 <%-- 주소 --%>
+            	<c:forEach items="${ addrArr}" var="addrArr" begin="2" step="1">
+           			<c:set var="addrlen" value="${fn:length(addrArr) }" />
+           			<c:set var="row" value="${row+1}" />
+           			
+           			<tr class="t_border_top">
+	            		<c:if test="${!addrArr.equals('-')}">
+	            			<td rowspan="2">${row }</td>
+	            			<td align="left">${fn:substring(addrArr,0,6) }</td>
+	            			<td rowspan="2">
+		            			<button class="t_select">선택</button>
+		            		</td>
+	            		</c:if>
+	            	</tr>
+	            	<tr class="t_border_bottom">
+	            		<c:if test="${!addrArr.equals('-')}">
+		            		<td align="left">${fn:substring(addrArr,6,addrlen) }</td>
+	            		</c:if>
+	            	</tr>
+	            	
+            	</c:forEach>
+            	
+            </table>
+        </div>
         
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />

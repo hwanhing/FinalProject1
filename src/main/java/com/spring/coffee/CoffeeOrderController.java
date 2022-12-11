@@ -1,6 +1,8 @@
 package com.spring.coffee;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -37,18 +39,19 @@ public class CoffeeOrderController {
 		String email = memberDto.getMember_email();
 		String[] emailArr =  email.split("@");
 		
-		// 우편번호, 나머지 주소 분리
-		String addr = memberDto.getMember_addr();
-		String[] addrArr = new String[2];
-		addrArr[0] = addr.substring(0, 5);
-		addrArr[1] = addr.substring(6);
+		// 주소
+		String addr1 = memberDto.getMember_addr();
+		String addr2 = memberDto.getMember_addr2();
+		String addr3 = memberDto.getMember_addr3();
+		String addr4 = memberDto.getMember_addr4();
+		String addr5 = memberDto.getMember_addr5();
+		String[] addrArr = {addr1, addr2, addr3, addr4, addr5};
 		
 		model.addAttribute("memberDto",memberDto);
 		model.addAttribute("cartList",cartList);
 		model.addAttribute("phoneArr", phoneArr);
 		model.addAttribute("emailArr", emailArr);
 		model.addAttribute("addrArr", addrArr);
-		
 		
 		return "./cartAndOrder/order";
 	}
