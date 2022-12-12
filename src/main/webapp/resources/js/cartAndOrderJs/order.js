@@ -210,6 +210,7 @@ console.log('order.js')
 		addrSelected[0].value = addr.slice(0,5)
 		addrSelected[1].value = addr.slice(6)
 		
+		noAddr()
 		fadeOutActive()
 		document.querySelector('.modal_body').classList.add('display_none')
 		console.log(addr)
