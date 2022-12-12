@@ -92,7 +92,6 @@ public class CoffeeCartController {
 		
 		// 2. 데이터가 완전히 없는지 확인
 		int cartDBTrue = cartDao.getCartDBTrue();
-		System.out.println("카트 테이블에 db가 있는지? " + cartDBTrue);
 		
 		if(cartDBTrue == 0) {	// 2-1 db에 데이터 아예 없음
 			CoffeeCartDTO cartFDto = new CoffeeCartDTO();

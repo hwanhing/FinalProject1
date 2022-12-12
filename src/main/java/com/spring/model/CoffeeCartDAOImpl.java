@@ -14,11 +14,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	@Inject
 	private SqlSessionTemplate sqlSession;
 	
-	@Override
-	public CoffeeBeanDTO getProduct(int beans_num) {
-		return this.sqlSession.selectOne("product", beans_num);
-	}
-	
 	// 장바구니 DB row 유무 확인
 	@Override
 	public int getCartDBTrue() {

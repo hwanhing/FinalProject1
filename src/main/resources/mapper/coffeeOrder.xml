@@ -40,5 +40,23 @@
 		 order by ca.cart_num desc
 	</select>
 	
+	<update id="insertOrder" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=" " open="insert all" close="select * from dual">
+			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
+			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point})
+		</foreach>
+	</update>
+	
+	<update id="updateBeanCnt" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
+			update coffee_beans set beans_count = beans_count - (${item.order_cnt}*(${item.cart_weight}/100)) where beans_num = ${item.beans_num}
+		</foreach>
+	</update>
+	
+	<delete id="deleteCart" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
+			delete from coffee_cart where cart_num = ${item.cart_num}
+		</foreach>
+	</delete>
 
 </mapper>

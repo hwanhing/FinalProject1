@@ -28,6 +28,7 @@ console.log('js')
    let rowPrice = document.querySelectorAll(".row_price") 		// 단가 
    let rowGram = document.querySelectorAll(".row_gram")	  		// 그람
    let rowTotal = document.querySelectorAll(".row_total") 		// 수량 * 단가 * (그람/100)
+   let rowStock = document.querySelectorAll(".beans_count") 
    
    // 총 합계 변수
    let totalPrice = document.querySelector(".total_price")         // 상품가격
@@ -68,6 +69,7 @@ console.log('js')
 		           gbtnUp[index].setAttribute('disabled',true)
 		           gbtnUp[index].classList.add('disabled_btn')
 		    }
+		    
    			
    			let rowPriceNum = parseInt(rowPrice[index].value) 	// 단가
    			let rowInCntNum = parseInt(inputCnt[index].value) 	// 수량
@@ -76,6 +78,7 @@ console.log('js')
    			let rowTotalNum = rowPriceNum * rowInCntNum * rowGramNum  
    			rowTotal[index].textContent = rowTotalNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    			CalcAllTotal()
+   			
    		})  
    		
    		heart.forEach(function(e,index){
