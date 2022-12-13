@@ -35,4 +35,6 @@ public interface MemberDAO {
 	List<FinalMemberDTO> member_heart(int num);
 
 	int myheartdelete(int num);
+
+	int joinIdCheck(FinalMemberDTO dto);
 }

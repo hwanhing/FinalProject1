@@ -93,6 +93,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.delete("myheartdelete",num);
 	}
 
+	@Override
+	public int joinIdCheck(String joinId) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectOne("joinIdCheck", joinId);
+	}
+
 
 
 

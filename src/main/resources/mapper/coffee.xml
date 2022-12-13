@@ -118,6 +118,11 @@
 	</select>
 	
 
+<!-- 지ㅎ ㅖ  -->
+
+	<select id="joinIdCheck" resultType="int">
+		select count(*) from final_member where member_id = #{member_id};
+	</select>
 </mapper>  
 
 
