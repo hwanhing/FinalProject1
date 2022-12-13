@@ -8,9 +8,9 @@ console.log('order.js')
     let allTotalPrice = document.querySelectorAll(".all_total_price")  	// 상품가격 + 배송비 - 사용포인트
     let allPoint = document.querySelectorAll(".all_point")             	// 적립포인트
 	
-	let inputUsePoint = document.querySelector(".input_use_point")  	// 입력한 사용포인트
-    let totalUsePoint = document.querySelectorAll(".total_use_point")  	// 사용포인트
-    let canUsePoint = document.querySelector(".can_use_point")      	// 사용 가능한 포인트
+	let inputUsePoint = document.querySelector(".input_use_point")  	// 입력한 사용포인트 태그
+    let totalUsePoint = document.querySelectorAll(".total_use_point")  	// 사용포인트 태그(주문정보 부분에 위치)
+    let canUsePoint = document.querySelector(".can_use_point")      	// 사용 가능한 포인트 태그
 
 	// 주소관련 변수
 	let addrRadio = document.querySelectorAll('.addr_radio')
@@ -52,6 +52,9 @@ console.log('order.js')
        		allTotalPrice[index].textContent = sumText
        		allPoint[index].textContent = pointText
        })
+       
+       // 주소 확인
+       checkAddr()
     }   
 
 
@@ -97,8 +100,6 @@ console.log('order.js')
  		document.querySelector('.detail_btn').removeAttribute('disabled')
  	}
  	
- 	
- 	
  	// ---------------------------------------------------------------------------------------------
 	
 	// 버튼 클릭시 주문 상세보기 화면 나오는 함수
@@ -120,9 +121,11 @@ console.log('order.js')
    // -------------- 포인트 사용
    // 적립 포인트 사용
    inputUsePoint.addEventListener('keyup',function(){
-      
-       let inputPoint = parseInt(inputUsePoint.value)
-       let canUsePointV = parseInt(canUsePoint.textContent)
+      		
+      								
+       let inputPoint = parseInt(inputUsePoint.value)				// 입력한 포인트 value 값
+       let canUsePointV = parseInt(canUsePoint.textContent)			// 사용가능한 포인트 
+	   let totalPriceC = totalPrice[0].textContent.replace(',','') // 상품 가격
 
        // 적립 포인트가 1000원 미만이면 input 창 막기
        if(canUsePointV<1000){
@@ -132,7 +135,7 @@ console.log('order.js')
            let pointText = document.querySelector(".pointText")
            pointText.classList.add('alertText')
        }
-
+       
        // 사용가능한 포인트보다 더 큰 포인트를 사용하려 하는 경우
        if(inputPoint>canUsePointV){
            inputUsePoint.value = canUsePointV
@@ -140,6 +143,12 @@ console.log('order.js')
            canUsePoint.classList.add('alertText')
        }else{
            canUsePoint.classList.remove('alertText')
+       }
+       
+       // 주문금액 보다 포인트를 더 사용하려는 경우
+       if(totalPriceC < inputPoint){
+       	   inputUsePoint.value = totalPriceC
+       	   inputPoint = totalPriceC
        }
        
        // input value 값 공란일 경우 사용 포인트 0으로 변경 
@@ -173,7 +182,22 @@ console.log('order.js')
    }
    
    // 주소 선택 --------------------------------------------------------------------------------------
-
+   // 주소가 "-" 일경우 결제하기 버튼 막기
+   function checkAddr(){
+   		
+   		let nowAddr = addrSelected[0].value
+   		console.log(`선택된 주소 ${nowAddr}`)
+   		
+   		if(nowAddr == "-"){
+   			document.querySelector('.pay_btn').setAttribute('disabled',true)
+   
+   			
+   		}else{
+   			document.querySelector('.pay_btn').removeAttribute('disabled')
+   		}
+   		
+   		
+   }
    
    // 주소 radio 버튼 클릭시
    addrRadio.forEach(function(e,index){
@@ -200,6 +224,7 @@ console.log('order.js')
        			document.querySelector('.modal_body').classList.remove('display_none')
        		}
        		
+       		checkAddr()
        	})
     })
     
@@ -216,6 +241,7 @@ console.log('order.js')
 		console.log(addr)
     }
     
+    // 주소가 없을 경우 
     function noAddr(){
     	let tAddr = document.querySelectorAll('.t_addr')
     	let fAddr = document.querySelector('.f_addr')
@@ -233,6 +259,7 @@ console.log('order.js')
     	}
     }
     
+    // 모달창 닫기
 	function closeModal(){
 		console.log('종료 버튼 클릭')
 		fadeOutActive()

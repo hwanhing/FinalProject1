@@ -6,21 +6,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-       <meta charset="UTF-8">
-       <meta http-equiv="X-UA-Compatible" content="IE=edge">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="./resources/orderimg/coffeebean04.png">
-       <title>CuppACoffee</title>
-       <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
-       <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/order.css">
-       <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
-       <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-   </head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <title>CuppACoffee</title>
+      <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
+      <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/order.css">
+      <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+</head>
 <body>
   <%-- 해더 --%>
   <jsp:include page="../layout/header.jsp" />
+  
   <div class="blank"></div>
   <div class="content_fade"></div>
+  
   <!-- 컨텐츠 부분 -->
         <section class="content">
             <section class="order_wrap">
@@ -37,19 +39,29 @@
                             <li>
                                 <a href="<%=request.getContextPath() %>/bean_order.do" class="a last order_path_a"><b>주문서작성</b></a>
                             </li>
-                            <!--<li>
-                                <a href="#" class="a order_path_a">결제완료</a>
-                            </li>
-                            <li>
-                                <a href="#" class="a order_path_a">주문완료</a>
-                            </li> -->
                         </ul>
                     </section>
                 </section>
                 <!-- 장바구니 목록 컨텐츠 -->
                 <section class="order_main cart_row_section">
                     
-                    <!-- 왼쪽 -->
+                    <%-- 바로주문인지, 장바구니 통해서 주문인지 확인 --%>
+                    <input type="hidden" class="reqtype" value="${requestType }">
+                    <c:if test="${requestType.equals('d') }">
+                   	    <input type="hidden" class="d_con" value="${cartList.getOrder_cnt() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getOrder_price() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_num() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_name() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_price() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_taste() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_img() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_weight() }">
+	                    <input type="hidden" class="d_con" value="${cartList.getBeans_grind() }">
+                    </c:if>
+               
+                    
+                    
+                    <%-- 왼쪽 --------------------------------------------------------------------------------------------------------------------%>
                     <div class="order_main_left">
                        <div class="order_main_left_in">
                            
@@ -64,120 +76,120 @@
                                 <!-- 메인 -->
                                 <!-- 배송 정보 입력 -->
                                 <div>
-                                    <form method="post" action="">
-                                        
-                                        <table class="order_info_text">
-                                            <input type="hidden" class="addr1" name="addr1" value="${addrArr[0] }" >
-                                            <input type="hidden" class="addr2" name="addr2" value="${addrArr[1] }" >
-                                            <input type="hidden" class="addr3" name="addr3" value="${addrArr[2] }" >
-                                            <input type="hidden" class="addr4" name="addr4" value="${addrArr[3] }" >
-                                            <input type="hidden" class="addr5" name="addr5" value="${addrArr[4] }" >
-                                           	<tbody>
-                                           	
-                                            	<!-- 배송지 선택 -->
-                                                <tr class="rowspan">
-                                                    <th rowspan="2">배송지</th>
-                                                    <td>
-                                                    	<div class="delivery_radio">
-			                                        		<input type="radio" id="delivery_house" name="delivery_addr" class="addr_radio" checked> 
-			                                        		<label for="delivery_house"> 집 </label>
-			                                        		<input type="radio" id="delivery_company" name="delivery_addr" class="addr_radio"> 
-			                                        		<label for="delivery_company"> 회사 </label>
-			                                        		<input type="radio" id="delivery_etc" name="delivery_addr" class="addr_radio"> 
-			                                        		<label for="delivery_etc"> 외 </label>
-			                                        	</div>
-                                                    </td>
-                                                </tr>
-                                                
-                                                <%-- 주소 --%>
-                                                <c:set var="addr" value="${addrArr[0] }" />
-                                                <c:set var="addrlength" value="${fn:length(addrArr[0]) }" />
-                                                 
-                                                <tr class="f_addr display_none">
-                                              			<th></th>
-                                              			<td>
-	                                               			<div class="modal_btn">
-												        		<button class="btn f_btn">주소 등록하기</button>
-												        	</div>
-											        	<td>
-                                             	</tr>
-                                             	
-                                             	<tr class="rowspan t_addr">
-                                                	<th></th>
-                                                	<td>
-                                                		<input class="input delivery_input selected_addr" value="${fn:substring(addr,0,6) }" readonly>
-                                                	</td>
-                                                </tr>
-                                                <tr class="rowspan t_addr">
-                                                	<th></th>
-                                                	<td>
-                                                		<input class="input delivery_input input_long selected_addr" value="${fn:substring(addr,6,addrlength)}" readonly>
-                                                	</td>
-                                                </tr>
+                                     <table class="order_info_text">
+                                          <input type="hidden" class="addr1" name="addr1" value="${addrArr[0] }" >
+                                          <input type="hidden" class="addr2" name="addr2" value="${addrArr[1] }" >
+                                          <input type="hidden" class="addr3" name="addr3" value="${addrArr[2] }" >
+                                          <input type="hidden" class="addr4" name="addr4" value="${addrArr[3] }" >
+                                          <input type="hidden" class="addr5" name="addr5" value="${addrArr[4] }" >
+                                          
+                                          <tbody>
+                                         	
+                                          	<!-- 배송지 선택 -->
+                                              <tr class="rowspan">
+                                                  <th rowspan="2">배송지</th>
+                                                  <td>
+                                                  	<div class="delivery_radio">
+	                                        		<input type="radio" id="delivery_house" name="delivery_addr" class="addr_radio" checked> 
+	                                        		<label for="delivery_house"> 집 </label>
+	                                        		<input type="radio" id="delivery_company" name="delivery_addr" class="addr_radio"> 
+	                                        		<label for="delivery_company"> 회사 </label>
+	                                        		<input type="radio" id="delivery_etc" name="delivery_addr" class="addr_radio"> 
+	                                        		<label for="delivery_etc"> 외 </label>
+	                                        	</div>
+                                                  </td>
+                                              </tr>
+                                              
+                                              <%-- 주소 --%>
+                                              <c:set var="addr" value="${addrArr[0] }" />
+                                              <c:set var="addrlength" value="${fn:length(addrArr[0]) }" />
                                                
-                                                <!-- 받으시는분 -->
-                                                <tr>
-                                                    <th>받으시는 분</th>
-                                                    <td>
-                                                        <!-- member_name -->
-                                                        <input class="input delivery_input" value="${memberDto.getMember_name() }">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>휴대전화</th>
-                                                    <td class="flex_row">
-                                                        <input class="input delivery_input" value="${phoneArr[0] }">
-                                                        <span class="span"> - </span>
-                                                        <input class="input delivery_input" value="${phoneArr[1] }">
-                                                        <span class="span"> - </span>
-                                                        <input class="input delivery_input" value="${phoneArr[2] }">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <th>이메일</th>
-                                                    <td class="flex_row">
-                                                        <input class="input delivery_input" value="${emailArr[0]}">
-                                                        <span class="span">@</span>
-                                                        <input class="input delivery_input" value="${emailArr[1]}">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                            <tbody class="hr">
-                                                <tr>
-                                                    <th rowspan="2">사용 포인트</th>
-                                                    <td>
-                                                        <input type="number" class="input delivery_input input_use_point"> 
-                                                        <span>원 (총 사용 가능 포인트 : <span class="can_use_point">${memberDto.getMember_point() }</span>원)</span>
-                                                    </td>
-                                                </tr>
-                                                <tr class="except_tr">
-                                                    <td class="list">
-                                                        <ul class="use_point_txt">
-                                                            <li class="pointText">- 적립금은 최소 1,000원 이상일때 결제 가능합니다.</li>
-                                                            <li>- 최대 사용금액은 제한이 없습니다.</li>
-                                                            <li>- 적립금으로만 결제할 경우 결제 금액이 0으로 보여지는 것은 정상이며
-                                                            <br>&nbsp;&nbsp;[결제하기] 버튼을 누르면 주문이 완료됩니다.
-                                                            </li>
-                                                        </ul>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <div class="pay_btn_area">
-                                            <button type="submit" class="btn pay_btn total_price_button">
-                                                <h2 class="btn_text">결제하기</h2>
-                                                <div>
-                                                    <i class="fa-solid fa-arrow-right"></i>
-                                                </div>
-                                            </button>
-                                        </div> 
-                                    </form>
-                                </div>
+                                              <tr class="f_addr display_none">
+                                         		<th></th>
+                                          		<td>
+                                            		<div class="btn_a">
+								        				<button class="btn f_btn">주소 등록하기</button>
+								        				
+								        			</div>
+								        			<div class="btn_alert"> ** 주소를 등록해주세요.</div>
+								        		<td>
+                                           	 </tr>
+                                           	
+                                           	<tr class="rowspan t_addr">
+                                              	<th></th>
+                                              	<td>
+                                              		<input class="input delivery_input selected_addr" value="${fn:substring(addr,0,6) }" readonly>
+                                              	</td>
+                                              </tr>
+                                              <tr class="rowspan t_addr">
+                                              	<th></th>
+                                              	<td>
+                                              		<input class="input delivery_input input_long selected_addr" value="${fn:substring(addr,6,addrlength)}" readonly>
+                                              	</td>
+                                              </tr>
+                                             
+                                              <!-- 받으시는분 -->
+                                              <tr>
+                                                  <th>받으시는 분</th>
+                                                  <td>
+                                                      <!-- member_name -->
+                                                      <input class="input delivery_input" value="${memberDto.getMember_name() }">
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <th>휴대전화</th>
+                                                  <td class="flex_row">
+                                                      <input class="input delivery_input" value="${phoneArr[0] }">
+                                                      <span class="span"> - </span>
+                                                      <input class="input delivery_input" value="${phoneArr[1] }">
+                                                      <span class="span"> - </span>
+                                                      <input class="input delivery_input" value="${phoneArr[2] }">
+                                                  </td>
+                                              </tr>
+                                              <tr>
+                                                  <th>이메일</th>
+                                                  <td class="flex_row">
+                                                      <input class="input delivery_input" value="${emailArr[0]}">
+                                                      <span class="span">@</span>
+                                                      <input class="input delivery_input" value="${emailArr[1]}">
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                          <tbody class="hr">
+                                              <tr>
+                                                  <th rowspan="2">사용 포인트</th>
+                                                  <td>
+                                                      <input type="number" class="input delivery_input input_use_point"> 
+                                                      <span>원 (총 사용 가능 포인트 : <span class="can_use_point">${memberDto.getMember_point() }</span>원)</span>
+                                                  </td>
+                                              </tr>
+                                              <tr class="except_tr">
+                                                  <td class="list">
+                                                      <ul class="use_point_txt">
+                                                          <li class="pointText">- 적립금은 최소 1,000원 이상일때 결제 가능합니다.</li>
+                                                          <li>- 최대 사용금액은 제한이 없습니다.</li>
+                                                          <li>- 적립금으로만 결제할 경우 결제 금액이 0으로 보여지는 것은 정상이며
+                                                          <br>&nbsp;&nbsp;[결제하기] 버튼을 누르면 주문이 완료됩니다.
+                                                          </li>
+                                                      </ul>
+                                                  </td>
+                                              </tr>
+                                          </tbody>
+                                      </table>
+                                      <div class="pay_btn_area">
+                                          <button type="button" id="apibtn" class="btn pay_btn total_price_button">
+                                              <h2 class="btn_text">결제하기</h2>
+                                              <div>
+                                                  <i class="fa-solid fa-arrow-right"></i>
+                                              </div>
+                                          </button>
+                                      </div> 
+                               </div>
                             </div>
                        </div>
                     </div>
                     
-                    <!-- 오른쪽 -->
+                    <%-- 오른쪽 -------------------------------------------------------------------------------------------------------------------%>
                     <div class="order_main_right">
                         <div class="order_main_right_in">
                            
@@ -185,8 +197,11 @@
                             <div class="summary_order">
                               
                                 <!-- 주문정보 -->
+                                <input type="hidden" class="itemName" value="${itemName }">
+                                <input type="hidden" class="quantity" value="${quantity }">
+                                
                                 <div class="detail_order_btn">
-                                    <h3 class="point_text">주문 정보</h3>
+                                    <h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
                                     <!-- 버튼 -->
                                     <button class="btn detail_btn" onclick="showDetail()">
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -237,7 +252,7 @@
                                         </div>
                                         <div class="total use_point">
                                             <h5 class="middle_text">사용 포인트</h5> 
-                                            <h5 class="middle_text h4_not">₩ <span class="total_use_point"></span></h5>
+                                            <h5 class="middle_text h4_not">₩ <span class="total_use_point">0</span></h5>
                                         </div>
                                         <div class="hr_div hr_price"></div>
                                         <!-- 상품가격 + 배송비 -->
@@ -255,7 +270,6 @@
                                                 <h5 class="sub_middle_text">
                                                 	₩ <span class="all_point"></span>
                                                 </h5>
-                                                <input type="hidden" class="all_point_hidden" name="all_point_hidden">
                                             </div>
                                         </div>
                                     </div>
@@ -274,14 +288,13 @@
         <div class="slider">
              
              <div class="detail_order_btn">
-                 <h3 class="point_text">주문 정보</h3>
+                 <h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
                  <button class="btn detail_btn" onclick="hideDetail()">
                      <i class="fa-solid fa-arrow-right"></i>
                  </button>
              </div>
              
              <div class="rows_area">
-             
              	 <c:if test="${!empty cartList}">
                       <c:forEach items="${cartList }" var="list">
                       		
@@ -299,10 +312,10 @@
 		                       <!-- 상품정보 -->
 		                       <div class="row_cont_area">
 		                           <div class="product_name">
-		                               <h4 class="middle_text">${list.getBeans_name() }</h3>
-		                               <p class="sub_middle_text">그람 : ${list.getCart_weight() } g</p>
+		                               <h4 class="middle_text b_n">${list.getBeans_name() }</h3>
+		                               <p class="sub_middle_text b_w">그람 : ${list.getCart_weight() } g</p>
 		                               <p class="sub_middle_text">수량 : 
-		                               	<span class="fin_row_cnt">${list.getOrder_cnt() }</span>
+		                               	<span class="fin_row_cnt b_c">${list.getOrder_cnt() }</span>
 		                               </p>
 		                                <p class="sub_middle_text">
 		                               	원두 갈기 :
@@ -313,6 +326,9 @@
 		                           	 		원두 갈아주세요
 		                               	</c:if>
 		                               </p>
+		                               
+		                               <input type="hidden" class="row_cart_num" value="${list.getCart_num() }">
+		                               <input type="hidden" class="row_price" value="${list.getBeans_price() }">
 		                           </div>
 		                       </div>
 		                       
@@ -377,7 +393,7 @@
       	<!-- <div class="modal_body "> -->
         <div class="modal_body display_none">
         
-        	<div class="modal_btn">
+        	<div class="btn_a">
         		
         		<button class="btn modal_close" onclick="closeModal()">
         			<i class="fa-solid fa-x"></i>
@@ -420,6 +436,10 @@
         
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />
+        
+        <c:set var="path" value="${pageContext.request.contextPath}"/>
+        
+        <script type="text/javascript" src="${path }/resources/js/cartAndOrderJs/kakaoapi.js"></script>
 		<script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/order.js"></script>
 
 </body>

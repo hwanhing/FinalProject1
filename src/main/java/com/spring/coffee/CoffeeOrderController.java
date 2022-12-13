@@ -39,64 +39,71 @@ public class CoffeeOrderController {
 	@Inject
 	private CoffeeOrderDAO orderDao;
 	
-	@RequestMapping("bean_direct_order.do")
-	public String beanOrder(HttpSession session, HttpServletRequest request, Model model) {
-		int member_num = (Integer) session.getAttribute("member_num");
-		int beans_num = Integer.valueOf(request.getParameter("no"));
-		int select_cnt = Integer.valueOf(request.getParameter("count")) ;
-		int select_weight = Integer.valueOf(request.getParameter("weight")); 
-		int select_grind = Integer.valueOf(request.getParameter("grind"));
-		
-		CoffeeBeanDTO coffeeDto = orderDao.getProduct(beans_num);
-		FinalMemberDTO memberDto = orderDao.getMemberCont(member_num);
-		
-		CoffeeOrderDTO orderDto = new CoffeeOrderDTO();
-		orderDto.setOrder_cnt(select_cnt);
-		orderDto.setOrder_price(select_cnt * coffeeDto.getBeans_price() * (select_weight/100));
-		orderDto.setBeans_num(beans_num);
-		orderDto.setBeans_name(coffeeDto.getBeans_name());
-		orderDto.setBeans_price(coffeeDto.getBeans_price());
-		orderDto.setBeans_taste(coffeeDto.getBeans_taste());
-		orderDto.setBeans_img(coffeeDto.getBeans_img());
-		orderDto.setCart_weight(select_weight);
-		orderDto.setCart_grind(select_grind);
-		orderDto.setMember_num(member_num);
-		
-		// 핸드폰번호 분리
-		String phone = memberDto.getMember_phone();
-		String[] phoneArr = phone.split("-");
-		
-		// 이메일 분리
-		String email = memberDto.getMember_email();
-		String[] emailArr =  email.split("@");
-		
-		// 주소
-		String addr1 = memberDto.getMember_addr();
-		String addr2 = memberDto.getMember_addr2();
-		String addr3 = memberDto.getMember_addr3();
-		String addr4 = memberDto.getMember_addr4();
-		String addr5 = memberDto.getMember_addr5();
-		String[] addrArr = {addr1, addr2, addr3, addr4, addr5};
-		
-		model.addAttribute("memberDto",memberDto);
-		model.addAttribute("cartList",orderDto);
-		model.addAttribute("itemName", coffeeDto.getBeans_name());
-		model.addAttribute("quantity", select_cnt);
-		model.addAttribute("phoneArr", phoneArr);
-		model.addAttribute("emailArr", emailArr);
-		model.addAttribute("addrArr", addrArr);
-		model.addAttribute("requestType", "d");	// 바로주문하기 일경우 "d"
-		
-		return "./cartAndOrder/order";
-	}
+//	@RequestMapping("bean_direct_order.do")
+//	public String beanOrder(HttpSession session, HttpServletRequest request, Model model) {
+//		int member_num = (Integer) session.getAttribute("member_num");
+//		int beans_num = Integer.valueOf(request.getParameter("no"));
+//		int select_cnt = Integer.valueOf(request.getParameter("count")) ;
+//		int select_weight = Integer.valueOf(request.getParameter("weight")); 
+//		int select_grind = Integer.valueOf(request.getParameter("grind"));
+//		
+//		CoffeeBeanDTO coffeeDto = orderDao.getProduct(beans_num);
+//		FinalMemberDTO memberDto = orderDao.getMemberCont(member_num);
+//		
+//		CoffeeOrderDTO orderDto = new CoffeeOrderDTO();
+//		orderDto.setOrder_cnt(select_cnt);
+//		orderDto.setOrder_price(select_cnt * coffeeDto.getBeans_price() * (select_weight/100));
+//		orderDto.setBeans_num(beans_num);
+//		orderDto.setBeans_name(coffeeDto.getBeans_name());
+//		orderDto.setBeans_price(coffeeDto.getBeans_price());
+//		orderDto.setBeans_taste(coffeeDto.getBeans_taste());
+//		orderDto.setBeans_img(coffeeDto.getBeans_img());
+//		orderDto.setCart_weight(select_weight);
+//		orderDto.setCart_grind(select_grind);
+//		orderDto.setMember_num(member_num);
+//		
+//		// 핸드폰번호 분리
+//		String phone = memberDto.getMember_phone();
+//		String[] phoneArr = phone.split("-");
+//		
+//		// 이메일 분리
+//		String email = memberDto.getMember_email();
+//		String[] emailArr =  email.split("@");
+//		
+//		// 주소
+//		String addr1 = memberDto.getMember_addr();
+//		String addr2 = memberDto.getMember_addr2();
+//		String addr3 = memberDto.getMember_addr3();
+//		String addr4 = memberDto.getMember_addr4();
+//		String addr5 = memberDto.getMember_addr5();
+//		String[] addrArr = {addr1, addr2, addr3, addr4, addr5};
+//		
+//		model.addAttribute("memberDto",memberDto);
+//		model.addAttribute("cartList",orderDto);
+//		model.addAttribute("itemName", coffeeDto.getBeans_name());
+//		model.addAttribute("quantity", select_cnt);
+//		model.addAttribute("phoneArr", phoneArr);
+//		model.addAttribute("emailArr", emailArr);
+//		model.addAttribute("addrArr", addrArr);
+//		model.addAttribute("requestType", "d");	// 바로주문하기 일경우 "d"
+//		
+//		return "./cartAndOrder/order";
+//	}
 	
 	@RequestMapping("bean_order.do")
-	public String beanCartList(HttpSession session, Model model) {
+	public String beanCartList(@RequestParam("cart") String cart, HttpSession session, Model model) {
 		
 		int member_num = (Integer) session.getAttribute("member_num");
+		String[] cartNumArr = cart.split(",");
+		
+		List<Integer> cartNumList = new ArrayList<Integer>();
+		for(int i=0; i<cartNumArr.length; i++) {
+			int tmp = Integer.valueOf(cartNumArr[i]);
+			cartNumList.add(tmp);
+		}
 		
 		FinalMemberDTO memberDto = orderDao.getMemberCont(member_num);
-		List<CoffeeOrderDTO> cartList = orderDao.getCartListFin(member_num);
+		List<CoffeeOrderDTO> cartList = orderDao.getCartListFin(cartNumList);
 		
 		String item_name = "";
 		int quantity = 0;
@@ -139,7 +146,7 @@ public class CoffeeOrderController {
 		model.addAttribute("emailArr", emailArr);
 		model.addAttribute("addrArr", addrArr);
 		model.addAttribute("requestType", "c");	// 장바구니를 통해서 주문일 경우 "c"
-		
+
 		return "./cartAndOrder/order";
 	}
 	
@@ -205,79 +212,75 @@ public class CoffeeOrderController {
 		return fin;
 	}
 	
-	@RequestMapping("approvalpay.do")
-	public void approvalPay(HttpServletResponse response) throws IOException {
-		
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("location.href='bean_order_ok.do'");
-		out.println("</script>");
-	}
-	
-	@RequestMapping("cancelpay.do")
-	public void cancelPay(HttpServletResponse response) throws IOException {
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("location.href='bean_order.do'");
-		out.println("</script>");
-	}
-	
-	@RequestMapping("failpay.do")
-	public void failPay(HttpServletResponse response) throws IOException {
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("location.href='bean_order.do'");
-		out.println("</script>");
-	}
-	
 	@RequestMapping("order_session.do")
 	public void orderSession(HttpSession session, HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
+		// 바로가기로 구매한 상품: d , 장바구니 페이지 거쳐서 구매한 상품 : c
 		String reqestType = request.getParameter("requestType");
-		System.out.println("reqestType : " + reqestType);
 		
-		// 사용자가 구매 요청시 상품 단가
+		// 사용자가 구매 요청시 상품 단가, 사용포인트, 적립 포인트
+		String[] cartArr = request.getParameterValues("rowCartArr");
 		String[] priceArr = request.getParameterValues("rowPriceArr");
 		int usePoint = Integer.valueOf(request.getParameter("totalUsePoint"));
+		int savePoint = Integer.valueOf(request.getParameter("savePoint"));
 		
-		List<String> priceList = new ArrayList<String>();
-		for(int i=0; i<priceArr.length; i++) {
-			priceList.add(priceArr[i]);
+		List<Integer> cartList = new ArrayList<Integer>();
+		List<Integer> priceList = new ArrayList<Integer>();
+		for(int i=0; i<cartArr.length; i++) {
+			cartList.add(Integer.valueOf(cartArr[i]));
+			priceList.add(Integer.valueOf(priceArr[i]));
 		}
 		
+		Map<String, Object> sessionMap = new HashMap<String, Object>();
+		sessionMap.put("reqestType", reqestType);
+		sessionMap.put("usePoint", usePoint);
+		sessionMap.put("savePoint", savePoint);
+		
 		// 세션 등록
-		session.setAttribute("reqestType", reqestType);
+		session.setAttribute("cartList", cartList);
 		session.setAttribute("priceList", priceList);
-		session.setAttribute("usePoint", usePoint);
+		session.setAttribute("sessionMap", sessionMap);
 		
 		PrintWriter out = response.getWriter();
 		out.println("1");
 	}
 	
-	@RequestMapping("bean_order_ok.do")
-	public String beanOrderOkList(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	@RequestMapping("approvalpay.do")
+	public void approvalPay(HttpSession session, HttpServletResponse response) throws IOException {
 		
 		/*
-		 	1. 주문 테이블에 주문건 저장
-		 		ㄴ 사용자가 결제요청시 상품단가와 상품의 현 단가와 상이할 경우 사용자 구매 요청 단가로 변경
-		 	2. 상품 수량 판매된 수량 만큼 제외
-		 	3. 장바구니 목록 삭제
-		 	4. 세션 종료("priceList","usePoint")
-		 */
-		
+	 	1. 주문 테이블에 주문건 저장
+	 		ㄴ 사용자가 결제요청시 상품단가와 상품의 현 단가와 상이할 경우 사용자 구매 요청 단가로 변경
+	 	2. 상품 수량 판매된 수량 만큼 제외
+	 	3. 포인트 업데이트
+	 	4. 장바구니 목록 삭제
+	 	5. 세션 종료("priceList","usePoint")
+	 	6. 주문내역 페이지로 이동
+		*/
+	
 		// 1. 주문 테이블에 주문건 저장
 		// 	ㄴ 1-1 장바구니 상품 정보를 가져오기
 		//  ㄴ 1-2 현재 상품금액과 사용자 구매 요청 금액 비교 & 구매 날짜(주문번호, 주문row, 주문일 dto에 입력)
 		//  ㄴ 1-3 주문 테이블에 저장
 		int member_num = (Integer) session.getAttribute("member_num");
-		List<String> priceList =  (ArrayList) session.getAttribute("priceList");
-		int usePoint = (Integer) session.getAttribute("usePoint");
 		
-		System.out.println("--bean_order_ok.do-----------------------------------------------------");
+		List<Integer> cartList =  (ArrayList) session.getAttribute("cartList");
+		List<Integer> priceList =  (ArrayList) session.getAttribute("priceList");
+		
+		Map<String, Object> sessionMap = (Map<String, Object>) session.getAttribute("sessionMap");
+		sessionMap.put("memberNum", member_num);
+		
+		String requestType = (String) sessionMap.get("reqestType");
+		int usePoint = (Integer) sessionMap.get("usePoint");
+		int savePoint = (Integer) sessionMap.get("savePoint");
+		
+		System.out.println("--bean_order_ok.do-------------------------------------------------------------------------------------------------------");
+		System.out.println("requestType : " + requestType);
 		System.out.println("사용한 포인트(usePoint) : " + usePoint);
+		System.out.println("저장할 포인트(usePoint) : " + savePoint);
 		
 		// 1-1 장바구니 상품 정보를 가져오기
-		List<CoffeeOrderDTO> orderList = orderDao.getCartListFin(member_num);
+		List<CoffeeOrderDTO> orderList = orderDao.getCartListFin(cartList);
 		
 		// 1-2 현재 상품금액과 사용자 구매 요청시 상품금액 비교 & 구매 날짜(주문번호, 주문row, 주문일 dto에 입력)
 		
@@ -287,14 +290,14 @@ public class CoffeeOrderController {
 		
 		// 오늘 날짜 현재시간 (시간 12시간형)
 		LocalDateTime now = LocalDateTime.now();
+		String formatNow24 = now.format(DateTimeFormatter.ofPattern("yyyyMMddkkmmss"));
 		String formatNow12 = now.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
 		
 		for(int i=0; i<orderList.size(); i++) {
 			
 			dataPrice[i] = orderList.get(i).getBeans_price();
-			userPirce[i] = Integer.valueOf(priceList.get(i));
-			
-			System.out.println("현재 원두 가격(dataPrice) == 사용자가 구매시 원두가격(userPrice) >>> " + dataPrice[i] + "==" + userPirce[i] + " ===> " + (dataPrice[i] == userPirce[i]) );
+			userPirce[i] = priceList.get(i); 
+			System.out.println("현재 원두 가격(dataPrice) == 사용자가 구매시 원두가격(userPrice) >>> " + dataPrice[i] + "==" + userPirce[i] + " ==> " + (dataPrice[i] == userPirce[i]) );
 			
 			// 현재 원두 단가와 사용자가 결제 요청 시점 원두 단가가 다름
 			if(dataPrice[i]!=userPirce[i]) {
@@ -309,31 +312,99 @@ public class CoffeeOrderController {
 			
 			// 주문번호, 주문row, 주문시간 등록
 			// 주문번호 
-			orderList.get(i).setOrder_num("O"+formatNow12+member_num);
+			orderList.get(i).setOrder_num("O"+formatNow24+member_num);
 			// 주문row
 			orderList.get(i).setOrder_row(i+1);
 			// 주문일
 			orderList.get(i).setOrder_date(formatNow12);
 			// 사용포인트
-			orderList.get(i).setUse_point(usePoint);
+			orderList.get(0).setUse_point(usePoint);
 			
 		}
 		
+		int result = 0;
 		// 1-3. 주문 목록 db 저장
-		orderDao.insertOrder(orderList);
+		result = orderDao.insertOrder(orderList);
+		System.out.println("주문목록 업데이트 결과 : " + result);
 		
-		// 2. 상품 수량 판매된 수량 만큼 제외
-		orderDao.updateBeanCnt(orderList);
+		// 2. 포인트 업데이트 
+		result = orderDao.updatePoint(sessionMap);
+		System.out.println("포인트 업데이트 결과 : " + result);
 		
-		// 3. 장바구니 목록 삭제
-		orderDao.deleteCart(orderList);
+		// 3. 상품 수량 판매된 수량 만큼 제외
+		result = orderDao.updateBeanCnt(orderList);
+		System.out.println("상품 재고 업데이트 결과 : " + result);
 		
-		// 4. 세션 종료("priceList","usePoint")
+		// 4. 장바구니 목록 삭제(장바구니 페이지에서 넘어온 경우에만 목록 삭제)
+		if(requestType.equals("c")) {
+			result = orderDao.deleteCart(orderList);
+			System.out.println("장바구니 목록 삭제 결과 : " + result);
+		}
+		
+		System.out.println("-------------------------------------------------------------------------------------------------------------------------");
+		
+		// 5. 세션 종료("priceList","usePoint")
+		session.removeAttribute("cartList");
 		session.removeAttribute("priceList");
-		session.removeAttribute("usePoint");
+		session.removeAttribute("sessionMap");
 		
-		model.addAttribute("orderList",orderList);
+		// 6. 주문내역 페이지로 이동
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("location.href='bean_order_ok.do?order="+orderList.get(0).getOrder_num() +"'");
+		out.println("</script>");
+	}
+	
+	@RequestMapping("cancelpay.do")
+	public void cancelPay(HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("location.href='bean_cart.do'");
+		out.println("</script>");
+	}
+	
+	@RequestMapping("failpay.do")
+	public void failPay(HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("location.href='bean_cart.do'");
+		out.println("</script>");
+	}
+	
+
+	
+	@RequestMapping("bean_order_ok.do")
+	public String beanOrderOkList(@RequestParam("order") String order_num, Model model) throws IOException {
 		
+		// 주문 테이블 가져오기
+		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
+		
+		// 요약 정보
+		Map<String, Object> summaryOrder = new HashMap<String, Object>();
+		
+		String order_date = orderList.get(0).getOrder_date().substring(0,10);
+		
+		// 주문상품이 1개 이상일경우 oo상품 외 2
+		String order_product = orderList.get(0).getBeans_name();
+		if(orderList.size()>1) {
+			order_product = orderList.get(0).getBeans_name() + " 외 " + (orderList.size() -1);
+		}
+
+		int order_price_total = 0;
+		for(int i=0; i<orderList.size(); i++) {
+			order_price_total += orderList.get(i).getOrder_price();
+		}
+		
+		int use_point = orderList.get(0).getUse_point();
+		
+		summaryOrder.put("order_num", order_num);
+		summaryOrder.put("order_date", order_date);
+		summaryOrder.put("order_product", order_product);
+		summaryOrder.put("order_price_total", order_price_total);
+		summaryOrder.put("use_point", use_point);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryOrder", summaryOrder);
 		
 		return "./cartAndOrder/orderOk";
 	}

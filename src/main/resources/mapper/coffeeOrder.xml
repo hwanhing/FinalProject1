@@ -20,7 +20,7 @@
 	</select>
 	
 	<!-- 장바구니 리스트(주문전 수량, 그람 확정) -->
-	<select id="getCartListFin" parameterType="int" resultType="coffeeOrderDTO">
+	<select id="getCartListFin" parameterType="java.util.List" resultType="coffeeOrderDTO">
 		select ca.cart_num  
 		     , ca.cart_cnt  as order_cnt
 		     , be.beans_price * ca.cart_cnt * (ca.cart_weight/100) as order_price
@@ -35,7 +35,10 @@
 		  from coffee_cart ca
 		  join coffee_beans be
 		    on ca.beans_num = be.beans_num
-		 where ca.member_num = #{member_num}
+		 where ca.cart_num in
+		 	<foreach collection="list" item="item" separator="," open="(" close=")">
+		 		${item}
+		 	</foreach>
 		   and be.beans_count not in(0)
 		 order by ca.cart_num desc
 	</select>
@@ -45,6 +48,12 @@
 			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
 			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point})
 		</foreach>
+	</update>
+	
+	<update id="updatePoint" parameterType="hashmap">
+		update final_member
+		   set member_point = member_point + #{savePoint} - #{usePoint}
+		 where member_num = #{memberNum}
 	</update>
 	
 	<update id="updateBeanCnt" parameterType="java.util.List">
@@ -59,4 +68,7 @@
 		</foreach>
 	</delete>
 
+	<select id="nowOrderList" parameterType="String" resultType="coffeeOrderDTO">
+	     select * from coffee_order where order_num = #{order_num}
+	</select>
 </mapper>

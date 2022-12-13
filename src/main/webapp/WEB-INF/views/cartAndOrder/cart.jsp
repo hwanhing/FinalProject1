@@ -18,7 +18,6 @@
 	   	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
         
         
-        <link rel="shortcut icon" sizes="16x16 32x32 64x64" href="./resources/orderimg/coffeebean04.png">
         <title>CuppACoffee</title>
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/cart.css">
@@ -52,14 +51,14 @@
                     <!-- 장바구니 담겨져있는 상품 row -->
                     <div class="order_main_left rows_area">
                     	
-                    	
-                        <%-- <form method="post" action="<%=request.getContextPath() %>/bean_order.do"> --%>
                             <c:choose>
 	                    		<c:when test="${!empty cartList }">
 	                    			<c:forEach items="${cartList }" var="list">
 	                    				
 	                    				<%-- 상품 재고가 있을 경우 시작 ---------------------------------------------------------------------%>
 	                    				<c:if test="${list.getBeans_count()!=0 }">
+	                    					 <input type="hidden" class="row_cart_num" value="${list.getCart_num() }">
+		                    				 
 		                    				 <div class="row_area num_${list.getCart_num()}_row">
 				                                
 				                                <!-- 상품 이미지 -->
@@ -147,7 +146,6 @@
 				                                <div class="row_price_area">
 				                                    <div class="price_txt row_price_txt">
 				                                        <h3 class="point_text product_price ">₩ <span class="row_total num_${list.getCart_num()}_Rtotal">0</span></h3>
-				                                        <input type="hidden" class="row_total_hidden" name="row_total_hidden">
 				                                    </div>
 				                                </div>
 				                           
@@ -309,7 +307,7 @@
                             <!-- 결제하기 버튼 구역 -->
                             <div class="total_price_button_area">
                                <c:if test="${!empty cartList  }">
-                               		<button class="btn total_price_button" onclick="location.href='bean_order.do'">
+                               		<button class="btn total_price_button order_btn">
 	                                    <h2 class="btn_text total_price_button_in">주문하기</h2>
 	                                    <div class="total_price_button_in">
 	                                        <i class="fa-solid fa-arrow-right"></i>

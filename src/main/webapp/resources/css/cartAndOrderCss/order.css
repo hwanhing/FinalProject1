@@ -250,9 +250,6 @@
 	transition: all .8s ease-in-out;
 }
 
-/* .summary_order, .all_total_price{
-	color: var(--color_begie) !important;
-} */
 
 /* 상세보기 ----------------------------------------------------------------- */
 .slider{
@@ -376,7 +373,7 @@
  }
  
  /* 모달 - 주소등록하기 버튼 */
- .modal_btn{
+ .btn_a{
  	width: 95%;
  	margin: auto;
 	display: flex;
@@ -384,14 +381,19 @@
 	margin-bottom: var(--margin);
 }
 
-.modal_btn .btn:not(.modal_close){
+.btn_a .btn:not(.modal_close){
 	background-color: var(--color_greyish) !important;
 	color: white;
 	font-size: 13px;
 }
 
-.modal_btn .btn:hover:not(.modal_close){
+.btn_a .btn:hover:not(.modal_close){
 	background-color: var(--color_begie) !important;
+}
+
+.btn_alert{
+	margin: 5px;
+	color: var(--color_milk_brown);
 }
  
  /* 모달 - 주소 테이블 */

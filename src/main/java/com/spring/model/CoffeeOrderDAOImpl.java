@@ -25,8 +25,8 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	}
 	
 	@Override
-	public List<CoffeeOrderDTO> getCartListFin(int member_num) {
-		return this.sqlSession.selectList("getCartListFin", member_num);
+	public List<CoffeeOrderDTO> getCartListFin(List<Integer> cartList) {
+		return this.sqlSession.selectList("getCartListFin", cartList);
 	}
 
 	@Override
@@ -36,6 +36,11 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	// 한번에 여러행 추가 방법 : https://aljjabaegi.tistory.com/528
 
 	@Override
+	public int updatePoint(Map<String, Object> map) {
+		return this.sqlSession.update("updatePoint", map);
+	}
+	
+	@Override
 	public int updateBeanCnt(List<CoffeeOrderDTO> orderDto) {
 		return this.sqlSession.update("updateBeanCnt", orderDto);
 	}
@@ -44,6 +49,15 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public int deleteCart(List<CoffeeOrderDTO> orderDto) {
 		return this.sqlSession.delete("deleteCart", orderDto);
 	}
+
+	@Override
+	public List<CoffeeOrderDTO> getNowOrderList(String order_num) {
+		return this.sqlSession.selectList("nowOrderList", order_num);
+	}
+	
+	
+
+	
 
 	
 	

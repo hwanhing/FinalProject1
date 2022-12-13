@@ -254,7 +254,7 @@ console.log('js')
    // 포인트 집계 함수
    function point(finSum){
    
-       let point = Math.round(finSum * pointRate)
+       let point = Math.ceil(finSum * pointRate)
        let pointText = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    
        allPoint.textContent = pointText
@@ -402,6 +402,26 @@ console.log('js')
    		})
    }
  
+	// 장바구니 번호 배열
+	function rowCartNum(){
+		let rowCartNumArr = [];
+		
+		for(let i=0; i<$(".row_cart_num").length; i++){
+			rowCartNumArr.push(Number($($(".row_cart_num")[i]).val()))
+		}
+		
+		return rowCartNumArr;
+	}
+ 
+  // 결제하기 버튼 클릭
+  let order_btn = document.querySelector(".order_btn")
+  order_btn.addEventListener("click",function(){
+  		
+  		// 장바구니 번호 넘겨줌
+  		let rowCartArr = rowCartNum()
+	  	location.href="bean_order.do?cart="+rowCartArr
+  
+  })
    
    
   

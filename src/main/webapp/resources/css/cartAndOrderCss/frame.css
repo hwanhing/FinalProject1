@@ -30,6 +30,7 @@
 	font-size: 20px !important;
 	padding-bottom: 10px;
 }
+
 .middle_text{
 	font-size: 18px !important;
 	padding-bottom: 8px;
@@ -124,6 +125,11 @@
     content: " > ";
 }
 
+.disable{
+	color: gray !important;
+	cursor: none;
+}
+
 /* 
     order_main, cart_row_section        장바구니 목록 
      ㄴ order_main_left, rows_area            장바구니 담겨져있는 상품 row
@@ -159,7 +165,7 @@
 
 /* 총 주문금액 */
 .all_total_price{
-    color: blue;
+    color: var(--color_milk_brown);
 }
 
 .row_area{
