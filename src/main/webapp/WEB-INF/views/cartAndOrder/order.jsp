@@ -108,7 +108,7 @@
                                          		<th></th>
                                           		<td>
                                             		<div class="btn_a">
-								        				<button class="btn f_btn">주소 등록하기</button>
+								        				<button class="btn f_btn" onclick="location.href='<%=request.getContextPath()%>/member_mypage.do?num=${memberDto.getMember_num() }'">주소 등록하기</button>
 								        				
 								        			</div>
 								        			<div class="btn_alert"> ** 주소를 등록해주세요.</div>
@@ -399,7 +399,7 @@
         			<i class="fa-solid fa-x"></i>
         		</button>
         		
-        		<button class="btn">주소 등록하기</button>
+        		<button class="btn" onclick="location.href='<%=request.getContextPath()%>/member_mypage.do?num=${memberDto.getMember_num() }'">주소 등록하기</button>
         	</div>
         	
             <table class="modal_table">

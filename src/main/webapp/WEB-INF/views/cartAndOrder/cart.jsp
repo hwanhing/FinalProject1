@@ -57,7 +57,7 @@
 	                    				
 	                    				<%-- 상품 재고가 있을 경우 시작 ---------------------------------------------------------------------%>
 	                    				<c:if test="${list.getBeans_count()!=0 }">
-	                    					 <input type="hidden" class="row_cart_num" value="${list.getCart_num() }">
+	                    					 <input type="hidden" class="row_cart_num num_${list.getCart_num()}_n" value="${list.getCart_num() }">
 		                    				 
 		                    				 <div class="row_area num_${list.getCart_num()}_row">
 				                                

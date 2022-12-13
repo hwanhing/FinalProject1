@@ -263,12 +263,14 @@ console.log('js')
    // 삭제 클릭시 ---------------------------------------------------------------
    function deleteRow(cartNum){
        
+	   let rowCartNum = document.querySelector(".num_"+cartNum+"_n")
 	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
 	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")
 	   
 	   let rTotalTag = document.querySelector(".num_"+cartNum+"_Rtotal")
 	   let rTotal = parseInt(rTotalTag.textContent.replace(',',''))
 	  
+	   rowCartNum.classList.remove('row_cart_num')
 	   rowArea.classList.add('display_none')
 	   hrdiv.classList.add('display_none')
        
@@ -403,7 +405,7 @@ console.log('js')
    }
  
 	// 장바구니 번호 배열
-	function rowCartNum(){
+	function makeCartNumArr(){
 		let rowCartNumArr = [];
 		
 		for(let i=0; i<$(".row_cart_num").length; i++){
@@ -418,8 +420,9 @@ console.log('js')
   order_btn.addEventListener("click",function(){
   		
   		// 장바구니 번호 넘겨줌
-  		let rowCartArr = rowCartNum()
+  		let rowCartArr = makeCartNumArr()
 	  	location.href="bean_order.do?cart="+rowCartArr
+	  	
   
   })
    

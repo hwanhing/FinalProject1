@@ -6,7 +6,8 @@
 
 	<!-- 멤버 정보 -->
 	<select id="getMemberCont" parameterType="int" resultType="finalMemberDTO">
-		select member_name
+		select member_num
+		     , member_name
 		     , member_email
 		     , member_phone
 		     , case when replace(member_addr,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr 
