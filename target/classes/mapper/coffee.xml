@@ -69,7 +69,6 @@
 	<update id="updateHeart1" parameterType="map">
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
-
 	
 <!--<update id="heartUp" parameterType="map">
 		update coffee_beans set beans_heart = #{beans_heart} + 1 where beans_num = #{beans_num}
@@ -156,6 +155,7 @@
 	
 
 </mapper>  
+
 
 
 

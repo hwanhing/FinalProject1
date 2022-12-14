@@ -23,25 +23,21 @@ console.log('js')
    let btnDown = document.querySelectorAll(".btn_down")
    let gbtnDown = document.querySelectorAll(".gram_btn_down")
    
-   // input 변수
-   let inputCnt = document.querySelectorAll(".input_cnt") // 수량 
-   let rowPrice = document.querySelectorAll(".row_price") // 단가 
-   let rowGram = document.querySelectorAll(".row_gram")	  // 그람
-   let rowTotal = document.querySelectorAll(".row_total") // 수량 * 단가 * (그람/100)
+   // 구매가능한 상품만
+   let inputCnt = document.querySelectorAll(".input_cnt") 		// 수량 
+   let rowPrice = document.querySelectorAll(".row_price") 		// 단가 
+   let rowGram = document.querySelectorAll(".row_gram")	  		// 그람
+   let rowTotal = document.querySelectorAll(".row_total") 		// 수량 * 단가 * (그람/100)
+   let rowStock = document.querySelectorAll(".beans_count") 
    
    // 총 합계 변수
    let totalPrice = document.querySelector(".total_price")         // 상품가격
-   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
+   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 사용포인트
    let allPoint = document.querySelector(".all_point")             // 적립포인트
-
-   // input hidden 값으로 넘겨줘야할 값
-   let rowTotalH = document.querySelectorAll(".row_total_hidden")
-   let totalPriceH = document.querySelector(".total_price_hidden")
-   let allPointH = document.querySelector(".all_point_hidden")     //
 
    //---------------------------------------------------------------------------------
    	
-   window.onload = onloadCalc();
+   window.onload = onloadCalc()
 
    // 윈도우 로드시 row total 함수(단가 * 수량 * (그람수/100))
    function onloadCalc(){
@@ -50,20 +46,33 @@ console.log('js')
 	   
    		inputCnt.forEach(function(e,index){
    			
-   			// 수량 1일경우 버튼 비활성화
-   			if(inputCnt[index].value==1){
+   			// 수량 최소값(1) 일경우 버튼 비활성화
+   			if(inputCnt[index].value==minOrder){
 		           btnDown[index].setAttribute('disabled',true)
 		           btnDown[index].classList.add('disabled_btn')
 		    }
 		    
-	    	if(rowGram[index].value==100){
+		    // 수량 최대값(20) 일경우 버튼 비활성화
+		    if(inputCnt[index].value==maxOrder){
+		           btnUp[index].setAttribute('disabled',true)
+		           btnUp[index].classList.add('disabled_btn')
+		    }
+		    
+		    // 그람 최소값(100) 일경우 버튼 비활성화
+	    	if(rowGram[index].value==minGram){
 		           gbtnDown[index].setAttribute('disabled',true)
 		           gbtnDown[index].classList.add('disabled_btn')
 		    }
+		    
+		    // 그람 최대값(400) 일경우 버튼 비활성화
+   			if(rowGram[index].value==maxGram){
+		           gbtnUp[index].setAttribute('disabled',true)
+		           gbtnUp[index].classList.add('disabled_btn')
+		    }
+		    
    			
-   			
-   			let rowPriceNum = parseInt(rowPrice[index].value) // 단가
-   			let rowInCntNum = parseInt(inputCnt[index].value) // 수량
+   			let rowPriceNum = parseInt(rowPrice[index].value) 	// 단가
+   			let rowInCntNum = parseInt(inputCnt[index].value) 	// 수량
    			let rowGramNum = parseInt(rowGram[index].value)/100 // 그람수/100
 
    			let rowTotalNum = rowPriceNum * rowInCntNum * rowGramNum  
@@ -97,7 +106,7 @@ console.log('js')
 	   
    }
    
-   // Up 버튼 클릭시 실행하는 함수 안 실행 함수
+   // 수량 up 함수
    function up(cartNum){
 	  
 	  let clickedCnt = document.querySelector(".num_"+cartNum+"_cnt")
@@ -122,7 +131,7 @@ console.log('js')
       cartReCntDB(cartNum, clickedCntValue)
    }
    
-   // Down 버튼 클릭시 실행하는 함수 안 실행 함수
+   // 수량 down 함수
    function down(cartNum){
 		  
 	  let clickedCnt = document.querySelector(".num_"+cartNum+"_cnt")
@@ -147,7 +156,7 @@ console.log('js')
       cartReCntDB(cartNum, clickedCntValue)
    }
    
-   // 그람 up 버튼 클릭시
+   // 그람 up 함수
    function gramUpCnt(cartNum){
    		console.log('그람 up클릭')
     	let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
@@ -174,7 +183,7 @@ console.log('js')
       	cartReGramDB(cartNum, clickedGramValue)
    }
    
-   // 그람 down 버튼 클릭시 
+   // 그람 down 함수
    function gramDownCnt(cartNum){
    		console.log('그람 down클릭')
    		let clickedGram = document.querySelector(".num_"+cartNum+"_gram")
@@ -215,10 +224,10 @@ console.log('js')
 	   rTotalTag.textContent = calc.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
    }
    
-   // 총 합계 함수
+   // 총 합계 함수 (품절 상품은 제외)
    function CalcAllTotal(){
-       this.nums = [];
-       this.sum = 0;
+       this.nums = []
+       this.sum = 0
 
        // row total nums 배열에 넣기
        for(let i=0; i<rowTotal.length; i++){
@@ -228,37 +237,40 @@ console.log('js')
 
        // 배열에 들어간 값 저장
        this.nums.forEach(function(item){
-           this.sum += parseInt(item);
+           this.sum += parseInt(item)
        })
 
        finSum = this.sum
 
        // 총 상품 금액, 적립 포인트 수정
        let sumText = sum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+       
        totalPrice.textContent = sumText
        allTotalPrice.textContent = totalPrice.textContent
-       totalPriceH.value = this.sum
        
        point(finSum) 
    }
    
    // 포인트 집계 함수
    function point(finSum){
-       let point = Math.round(finSum * pointRate)
+   
+       let point = Math.ceil(finSum * pointRate)
        let pointText = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+   
        allPoint.textContent = pointText
-       allPointH.value = point
    }
 
    // 삭제 클릭시 ---------------------------------------------------------------
    function deleteRow(cartNum){
        
+	   let rowCartNum = document.querySelector(".num_"+cartNum+"_n")
 	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
 	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")
 	   
 	   let rTotalTag = document.querySelector(".num_"+cartNum+"_Rtotal")
 	   let rTotal = parseInt(rTotalTag.textContent.replace(',',''))
 	  
+	   rowCartNum.classList.remove('row_cart_num')
 	   rowArea.classList.add('display_none')
 	   hrdiv.classList.add('display_none')
        
@@ -266,15 +278,51 @@ console.log('js')
       
        finSum = reTotalPrice
        
-       totalPriceH.value = reTotalPrice
        totalPrice.textContent = reTotalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
        allTotalPrice.textContent = totalPrice.textContent
 	   
        point(finSum) 
+       
+       // 장바구니에 상품이 하나도 없을 경우 
+       disabledOrderBtn(inputCnt.length)
+       
+       // DB 수정 함수
        deleteRowDB(cartNum)
    }
    
+   // 품절 상품 삭제 클릭시 ---------------------------------------------------------------
+   function deleteSoldOutRow(cartNum){
+   	
+   	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
+	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")	
+   		
+   	   rowArea.classList.add('display_none')
+	   hrdiv.classList.add('display_none')
+   		
+   	   // 장바구니에 상품이 하나도 없을 경우 
+       disabledOrderBtn()
+   		
+   	   // DB 수정 함수
+       deleteRowDB(cartNum)
+   }
+   
+   
    // 장바구니 목록이 없다면 결제하기 버튼 없애기
+   function disabledOrderBtn(){
+   	   
+   	    let row = document.querySelectorAll(".row_area")
+   		let deleteRow = document.querySelectorAll(".display_none")
+   		console.log("삭제버튼 누름 : " + deleteRow.length)
+   		console.log("row : " + row.length) 
+   		
+   		if(deleteRow.length == row.length*2){
+   			document.querySelector(".rows_area").innerHTML = '<div class="row_area empty_cart">' 
+   				+ '<h3 class="point_text">담아둔 상품이 없습니다.</h3>'
+			 	+ '</div>'
+			 	
+			document.querySelector(".total_price_button").classList.add('display_none')
+   		}
+   }
    
    // ajax ----------------------------------------------------------
   	$.ajaxSetup({	
@@ -356,62 +404,28 @@ console.log('js')
    		})
    }
  
-   
-   
-   // -------------- 주문서 작성시 사용 
-   /*
-   let totalPrice = document.querySelector(".total_price")         // 상품가격
-   let inputUsePoint = document.querySelector(".input_use_point")  // 입력한 사용포인트
-   let totalUsePoint = document.querySelector(".total_use_point")  // 사용포인트
-   let canUsePoint = document.querySelector(".can_use_point")      // 사용 가능한 포인트
+	// 장바구니 번호 배열
+	function makeCartNumArr(){
+		let rowCartNumArr = [];
+		
+		for(let i=0; i<$(".row_cart_num").length; i++){
+			rowCartNumArr.push(Number($($(".row_cart_num")[i]).val()))
+		}
+		
+		return rowCartNumArr;
+	}
+ 
+  // 결제하기 버튼 클릭
+  let order_btn = document.querySelector(".order_btn")
+  order_btn.addEventListener("click",function(){
+  		
+  		// 장바구니 번호 넘겨줌
+  		let rowCartArr = makeCartNumArr()
+	  	location.href="bean_order.do?cart="+rowCartArr
+	  	
   
-   let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 적립포인트
-   let allPoint = document.querySelector(".all_point")             // 적립포인트
-   */
+  })
    
-   // 적립 포인트 사용
-  /*  inputUsePoint.addEventListener('keyup',function(){
-       let inputPoint = parseInt(inputUsePoint.value)
-       let canUsePointV = parseInt(canUsePoint.textContent)
-
-       // 적립 포인트가 1000원 미만이면 input 창 막기
-       if(canUsePointV<1000){
-           inputUsePoint.setAttribute('disabled',true)
-           inputUsePoint.value = 0
-           inputPoint = 0
-           let pointText = document.querySelector(".pointText")
-           pointText.classList.add('alertText')
-       }
-
-       // 사용가능한 포인트보다 더 큰 포인트를 사용하려 하는 경우
-       if(inputPoint>canUsePointV){
-           inputUsePoint.value = canUsePointV
-           inputPoint = canUsePointV
-           canUsePoint.classList.add('alertText')
-       }else{
-           canUsePoint.classList.remove('alertText')
-       }
-       
-       // input value 값 공란일 경우 사용 포인트 0으로 변경 
-       if(inputUsePoint.value == null || inputUsePoint.value == ""){
-           inputPoint = 0
-       }
-       
-       exceptUsePoint(inputPoint)
-       exceptPointTotal(inputPoint)
-   }) 
    
-   // 사용 포인트 제외 함수
-   function exceptUsePoint(usePointNum){
-       totalUsePoint.textContent = usePointNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-   }
-
-   // 총 주문 금액 재설정 함수
-   function exceptPointTotal(usePointNum){
-      let allTotalNum = (totalPrice.textContent - usePointNum)
-      let allTotal = (totalPrice.textContent - usePointNum).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-      allTotalPrice.textContent = allTotal
-   }
-   
-   */
+  
 		
