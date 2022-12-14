@@ -19,15 +19,28 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 		return this.sqlSession.selectOne("product", beans_num);
 	}
 	
-	// 장바구니 페이지 전 >> 장바구니 페이지 : 장바구니 추가 또는 수정 ---------------------------------------------
+	// 장바구니 DB row 유무 확인
+	@Override
+	public int getCartDBTrue() {
+		return this.sqlSession.selectOne("cartDBTrue");
+	}
+	
+	// 장바구니 요청 상품 유무 확인
 	@Override
 	public CoffeeCartDTO getCart(Map<String, Integer> cartMap) {
 		return this.sqlSession.selectOne("findCart", cartMap);
 	}
 
+	// 장바구니 테이블에 row가 1개도 없을 경우
+	@Override
+	public void insertFirstCart(CoffeeCartDTO cartFDto) {
+		this.sqlSession.selectOne("insertFirstCart", cartFDto);
+	}
+	
+	// 장바구니 테이블에 row가 1개 라도 있을경우
 	@Override
 	public int insertCart(CoffeeCartDTO cartDTO) {
-		return this.sqlSession.insert("insertCart", cartDTO);
+		return this.sqlSession.insert("insertCart", cartDTO );
 	}
 	
 	@Override
@@ -64,14 +77,35 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 		return this.sqlSession.delete("deleteCartNum",cartNum);
 	}
 	
-	// 장바구니 페이지 : 수량 ------------------------------------------------------------------------------
+	// 장바구니 페이지 : 수량 수정 --------------------------------------------------------------------------
 	@Override
 	public int updateCartCnt(Map<String, Integer> cartCntMap) {
 		return this.sqlSession.update("updateCartCnt",cartCntMap);
 	}
 
+	// 장바구니 페이지 : 그람 수정 --------------------------------------------------------------------------
+	@Override
+	public int updateCartGram(Map<String, Integer> cartGramMap) {
+		return this.sqlSession.update("updateCartGram",cartGramMap);
+	}
+
+	// 추천 상품
+	@Override
+	public List<CoffeeCartDTO> getRecListCart(int member_num) {
+		return this.sqlSession.selectList("getRecListCart",member_num);
+	}
+
+	@Override
+	public List<CoffeeCartDTO> getRecListOrder(int member_num) {
+		return this.sqlSession.selectList("getRecListOrder",member_num);
+	}
+
 	
+
 	
+
+	// ----
+
 
 	
 	

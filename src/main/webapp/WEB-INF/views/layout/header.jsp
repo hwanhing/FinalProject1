@@ -257,6 +257,37 @@
             $('.log-modal').fadeOut()
         });
 
+        
+     // 아이디 정규식 확인
 
+        $("#join-id").on("input", function(){
+            let joinId = $("#join-id").val();
+            let id_pattern = /^[a-zA-Z0-9]{5,}$/g;
+
+            console.log("dddd"+joinId);
+            if(!id_pattern.test(joinId)) {
+                $(".id-error").show();
+
+            } else {
+                $(".id-error").hide();
+                $.ajax({
+                    url: "member_join_check.do",
+                    data: { member_id : joinId },
+                    type: "get",
+                    dataType : "text",
+                    contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+                    async: false ,
+                    success : function(result) {
+                        if(result > 0 ) {
+                            $("#join-id").show.html("사용할 수 없는 아이디입니다."); 
+                            console.log("success");
+                        } else {
+                            $("join-id").show.html("사용 가능한 아이디입니다.");
+                        }
+
+                    }
+                });
+            } 
+        });
 
     </script>
