@@ -269,6 +269,8 @@ public class CoffeeBeanController {
 			out.println("</script>");
 		}		
 		
+		
+		
 	}
 
 }
