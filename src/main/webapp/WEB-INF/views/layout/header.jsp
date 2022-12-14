@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% long time = System.currentTimeMillis(); %>
 
-<!DOCTYPE html>
-<html> 
-<head>
     <meta charset="UTF-8">
     <title>커퍼 커피(Cuppa Coffee)</title>
 
@@ -41,13 +38,23 @@
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
-
+                
 				<c:if test="${member_name ne null }">
 					<div>
 						<b>${member_name }님</b>
 						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+						  <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
 					</div>
 				</c:if>
+				<c:if test="${member_name eq null }">	
+                    <div class="menu-etc">
+                        <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
+                    </div>
+                </c:if>    				
 
             <!--------------비회원 c:if 문 START------------->
                     <c:if test="${member_name eq null }">	
@@ -65,12 +72,12 @@
                                             <span class="icon-close"></span>
                                         </div>
 
-                                        <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
+                                        <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
-                                                    <p><input type="text" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
-                                                    <p><input type="text" placeholder="비밀번호를 입력하세요" required></p>
+                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
                                                 <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
                                                 </div>
 
@@ -141,7 +148,6 @@
 
             </div>
         </header>
-
 
 	     <c:if test="${!empty member_id}">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -250,6 +256,37 @@
             $('.log-modal').fadeOut()
         });
 
+        
+     // 아이디 정규식 확인
 
+        $("#join-id").on("input", function(){
+            let joinId = $("#join-id").val();
+            let id_pattern = /^[a-zA-Z0-9]{5,}$/g;
+
+            console.log("dddd"+joinId);
+            if(!id_pattern.test(joinId)) {
+                $(".id-error").show();
+
+            } else {
+                $(".id-error").hide();
+                $.ajax({
+                    url: "member_join_check.do",
+                    data: { member_id : joinId },
+                    type: "get",
+                    dataType : "text",
+                    contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+                    async: false ,
+                    success : function(result) {
+                        if(result > 0 ) {
+                            $("#join-id").show.html("사용할 수 없는 아이디입니다."); 
+                            console.log("success");
+                        } else {
+                            $("join-id").show.html("사용 가능한 아이디입니다.");
+                        }
+
+                    }
+                });
+            } 
+        });
 
     </script>
