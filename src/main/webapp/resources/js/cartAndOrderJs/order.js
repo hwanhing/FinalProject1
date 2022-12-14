@@ -55,6 +55,8 @@ console.log('order.js')
        
        // 주소 확인
        checkAddr()
+       
+       console.log(document.querySelector('.d_con').value)
     }   
 
 
@@ -186,7 +188,6 @@ console.log('order.js')
    function checkAddr(){
    		
    		let nowAddr = addrSelected[0].value
-   		console.log(`선택된 주소 ${nowAddr}`)
    		
    		if(nowAddr == "-"){
    			document.querySelector('.pay_btn').setAttribute('disabled',true)
@@ -230,7 +231,7 @@ console.log('order.js')
     
     // 주소 radio 버튼 [외] 클릭후 특정 주소 선택시
     function selectAddr(index){
-    	console.log(`외 라디오 버튼 : ${index}`)
+    
     	addr = document.querySelector(`.addr${index}`).value.replace('  ',' ')
 		addrSelected[0].value = addr.slice(0,5)
 		addrSelected[1].value = addr.slice(6)
@@ -246,7 +247,6 @@ console.log('order.js')
     	let tAddr = document.querySelectorAll('.t_addr')
     	let fAddr = document.querySelector('.f_addr')
     	
-    	console.log(addrSelected[0].value)
     	if(addrSelected[0].value=='-'){
     		tAddr[0].classList.add('display_none')
     		tAddr[1].classList.add('display_none')

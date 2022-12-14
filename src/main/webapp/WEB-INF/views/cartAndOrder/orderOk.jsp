@@ -117,7 +117,17 @@
                                     <c:forEach items="${orderList}" var="list">
                                     	<tr class="t_hr">
 	                                        <td class="txt_center">${list.getOrder_row() }</td>
-	                                        <td>${list.getBeans_name() }</td>
+	                                        <td>${list.getBeans_name() }<br>
+	                                        	<c:if test="${list.getCart_grind() eq 0 }">
+	                                         	 	<i class="fa-solid fa-check"></i>
+		                                         	 원두 그대로 주세요
+		                                         </c:if>
+		                                         
+		                                         <c:if test="${list.getCart_grind() eq 1 }">
+		                                         	 <i class="fa-solid fa-check"></i>
+		                                         	 원두 갈아주세요
+		                                         </c:if>
+	                                        </td>
 	                                        <td class="txt_right">${list.getCart_weight() } g</td>
 	                                        <td class="txt_right">${list.getOrder_cnt() }</td>
 	                                        <td class="txt_right">

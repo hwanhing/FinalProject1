@@ -7,6 +7,13 @@
    			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
 			type: "post"
 		})
+		
+		let directOrderBean = [];
+ 		for(let i=0; i<$(".d_con").length; i++){
+ 			directOrderBean.push($($(".d_con")[i]).val())
+	 	}
+	 	console.log(directOrderBean)
+		
 	
  		let requestType = $(".reqtype").val()
  		
@@ -83,10 +90,15 @@
 				
 			}else{
 				
+				let directOrderBean = [];
+		 		for(let i=0; i<$(".d_con").length; i++){
+		 			directOrderBean.push($($(".d_con")[i]).val())
+			 	}
+				
 				$.ajax({
 					url:'/coffee/order_session.do',
 					traditional: true,	// ajax 배열 넘기기 옵션
-					data : {rowPriceArr: rowPriceArr, totalUsePoint : totalUsePoint },
+					data : {requestType: requestType, directOrderBean: directOrderBean, totalUsePoint : totalUsePoint, savePoint : savePoint },
 					dataType: 'data',
 					success : function(data){
 						console.log('order_session.do에 데이터 전송 완료')

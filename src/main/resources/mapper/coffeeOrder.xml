@@ -44,6 +44,7 @@
 		 order by ca.cart_num desc
 	</select>
 	
+	<!-- 장바구니 통해서 주문(상품 여러개 주문) -->
 	<update id="insertOrder" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=" " open="insert all" close="select * from dual">
 			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
@@ -51,16 +52,28 @@
 		</foreach>
 	</update>
 	
-	<update id="updatePoint" parameterType="hashmap">
-		update final_member
-		   set member_point = member_point + #{savePoint} - #{usePoint}
-		 where member_num = #{memberNum}
-	</update>
-	
 	<update id="updateBeanCnt" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
 			update coffee_beans set beans_count = beans_count - (${item.order_cnt}*(${item.cart_weight}/100)) where beans_num = ${item.beans_num}
 		</foreach>
+	</update>
+	
+	<!-- 바로 주문(상품 여러개 주문) -->
+	<insert id="insertOneOrder" parameterType="coffeeOrderDTO">
+		insert into coffee_order 
+		values(#{order_num}, #{order_row}, #{order_cnt}, #{order_price}, to_date(#{order_date},'yyyyMMddhhmiss'), 
+			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point})
+	</insert>
+	
+	<update id="updateOneBeanCnt" parameterType="coffeeOrderDTO">
+		update coffee_beans set beans_count = beans_count - (#{order_cnt}*(#{cart_weight}/100)) where beans_num = #{beans_num}
+	</update>
+	
+	<!-- 업데이트 포인트 -->
+	<update id="updatePoint" parameterType="hashmap">
+		update final_member
+		   set member_point = member_point + #{savePoint} - #{usePoint}
+		 where member_num = #{memberNum}
 	</update>
 	
 	<delete id="deleteCart" parameterType="java.util.List">

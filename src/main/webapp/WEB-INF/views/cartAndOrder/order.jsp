@@ -45,22 +45,6 @@
                 <!-- 장바구니 목록 컨텐츠 -->
                 <section class="order_main cart_row_section">
                     
-                    <%-- 바로주문인지, 장바구니 통해서 주문인지 확인 --%>
-                    <input type="hidden" class="reqtype" value="${requestType }">
-                    <c:if test="${requestType.equals('d') }">
-                   	    <input type="hidden" class="d_con" value="${cartList.getOrder_cnt() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getOrder_price() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_num() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_name() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_price() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_taste() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_img() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_weight() }">
-	                    <input type="hidden" class="d_con" value="${cartList.getBeans_grind() }">
-                    </c:if>
-               
-                    
-                    
                     <%-- 왼쪽 --------------------------------------------------------------------------------------------------------------------%>
                     <div class="order_main_left">
                        <div class="order_main_left_in">
@@ -77,6 +61,8 @@
                                 <!-- 배송 정보 입력 -->
                                 <div>
                                      <table class="order_info_text">
+                                     	  
+                                     	  <c:set var="addrArr" value="${memberMap.get('addrArr') }"/>
                                           <input type="hidden" class="addr1" name="addr1" value="${addrArr[0] }" >
                                           <input type="hidden" class="addr2" name="addr2" value="${addrArr[1] }" >
                                           <input type="hidden" class="addr3" name="addr3" value="${addrArr[2] }" >
@@ -101,7 +87,6 @@
                                               </tr>
                                               
                                               <%-- 주소 --%>
-                                              <c:set var="addr" value="${addrArr[0] }" />
                                               <c:set var="addrlength" value="${fn:length(addrArr[0]) }" />
                                                
                                               <tr class="f_addr display_none">
@@ -118,13 +103,13 @@
                                            	<tr class="rowspan t_addr">
                                               	<th></th>
                                               	<td>
-                                              		<input class="input delivery_input selected_addr" value="${fn:substring(addr,0,6) }" readonly>
+                                              		<input class="input delivery_input selected_addr" value="${fn:substring(addrArr[0],0,6) }" readonly>
                                               	</td>
                                               </tr>
                                               <tr class="rowspan t_addr">
                                               	<th></th>
                                               	<td>
-                                              		<input class="input delivery_input input_long selected_addr" value="${fn:substring(addr,6,addrlength)}" readonly>
+                                              		<input class="input delivery_input input_long selected_addr" value="${fn:substring(addrArr[0],6,addrlength)}" readonly>
                                               	</td>
                                               </tr>
                                              
@@ -139,19 +124,19 @@
                                               <tr>
                                                   <th>휴대전화</th>
                                                   <td class="flex_row">
-                                                      <input class="input delivery_input" value="${phoneArr[0] }">
+                                                      <input class="input delivery_input" value="${memberMap.get('phoneArr')[0] }">
                                                       <span class="span"> - </span>
-                                                      <input class="input delivery_input" value="${phoneArr[1] }">
+                                                      <input class="input delivery_input" value="${memberMap.get('phoneArr')[1] }">
                                                       <span class="span"> - </span>
-                                                      <input class="input delivery_input" value="${phoneArr[2] }">
+                                                      <input class="input delivery_input" value="${memberMap.get('phoneArr')[2] }">
                                                   </td>
                                               </tr>
                                               <tr>
                                                   <th>이메일</th>
                                                   <td class="flex_row">
-                                                      <input class="input delivery_input" value="${emailArr[0]}">
+                                                      <input class="input delivery_input" value="${memberMap.get('emailArr')[0]}">
                                                       <span class="span">@</span>
-                                                      <input class="input delivery_input" value="${emailArr[1]}">
+                                                      <input class="input delivery_input" value="${memberMap.get('emailArr')[1]}">
                                                   </td>
                                               </tr>
                                           </tbody>
@@ -193,6 +178,24 @@
                     <div class="order_main_right">
                         <div class="order_main_right_in">
                            
+                            <c:set var="cartList" value="${cartMap.get('cartList')}"/>
+                            <c:set var="itemName" value="${cartMap.get('itemName')}"/>
+                            <c:set var="quantity" value="${cartMap.get('quantity')}"/>
+                            <c:set var="requestType" value="${cartMap.get('requestType')}"/>
+                           
+                            <%-- 바로주문인지, 장바구니 통해서 주문인지 확인 --%>
+		                    <input type="hidden" class="reqtype" value="${requestType }">
+		                    <c:if test="${requestType.equals('d') }">
+		                   	    <input type="hidden" class="d_con" value="${cartList.getOrder_cnt() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getOrder_price() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getBeans_num() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getBeans_name() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getBeans_price() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getBeans_taste() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getCart_weight() }">
+			                    <input type="hidden" class="d_con" value="${cartList.getCart_grind() }">
+		                    </c:if>
+                           
                             <!-- 주문 요약 -->
                             <div class="summary_order">
                               
@@ -201,7 +204,14 @@
                                 <input type="hidden" class="quantity" value="${quantity }">
                                 
                                 <div class="detail_order_btn">
-                                    <h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
+                                    <c:choose>
+					             		<c:when test="${requestType.equals('d') }">
+					             			<h3 class="point_text">주문 정보(1)</h3>
+					             		</c:when>
+					             		<c:otherwise>
+					             			<h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
+					             		</c:otherwise>
+					             	</c:choose>
                                     <!-- 버튼 -->
                                     <button class="btn detail_btn" onclick="showDetail()">
                                         <i class="fa-solid fa-arrow-right"></i>
@@ -216,17 +226,39 @@
                                         <div class="summary_order_img_in">
                                             
                                             <c:if test="${!empty cartList}">
-                                            	<c:forEach items="${cartList }" var="list">
-                                            		
-                                            		 <div class="row_img_area">
-		                                                <div class="row_img">
-		                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
-		                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
-		                                                    </a>
-		                                                </div>
-		                                            </div>
+                                            
+                                            	<c:choose>
                                             	
-                                            	</c:forEach>
+                                            		<c:when test="${requestType.equals('d') }">
+                                            			
+                                            			<div class="row_img_area">
+			                                                <div class="row_img">
+			                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}" class="img_a">
+			                                                        <img src="${cartList.getBeans_img() }" alt="${cartList.getBeans_name() }" class="product_img_file">
+			                                                    </a>
+			                                                </div>
+		                                            	</div>
+		                                            	
+                                            		</c:when>
+                                            		
+                                            		<c:otherwise>
+                                            			
+                                            			<c:forEach items="${cartList }" var="list">
+                                            		
+		                                            		 <div class="row_img_area">
+				                                                <div class="row_img">
+				                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+				                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+				                                                    </a>
+				                                                </div>
+				                                            </div>
+                                            	
+                                            			</c:forEach>
+                                            		
+                                            		</c:otherwise>
+                                            	</c:choose>
+                                            	
+                                            	
                                             </c:if>
                                             
                                         </div>
@@ -288,7 +320,15 @@
         <div class="slider">
              
              <div class="detail_order_btn">
-                 <h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
+             	<c:choose>
+             		<c:when test="${requestType.equals('d') }">
+             			<h3 class="point_text">주문 정보(1)</h3>
+             		</c:when>
+             		<c:otherwise>
+             			<h3 class="point_text">주문 정보(${fn:length(cartList) })</h3>
+             		</c:otherwise>
+             	</c:choose>
+                 
                  <button class="btn detail_btn" onclick="hideDetail()">
                      <i class="fa-solid fa-arrow-right"></i>
                  </button>
@@ -296,15 +336,17 @@
              
              <div class="rows_area">
              	 <c:if test="${!empty cartList}">
-                      <c:forEach items="${cartList }" var="list">
-                      		
-                   		<div class="row_area">
+             	 	
+             	 	<c:choose>
+                                            	
+                      <c:when test="${requestType.equals('d') }">
+                      	<div class="row_area">
                     
 		                       <!-- 상품 이미지 -->
 		                       <div class="row_img_area">
 		                              <div class="row_img">
-		                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
-		                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+		                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}" class="img_a">
+		                                      <img src="${cartList.getBeans_img() }" alt="${cartList.getBeans_name() }" class="product_img_file">
 		                                  </a>
 		                              </div>
 		                          </div>
@@ -312,23 +354,23 @@
 		                       <!-- 상품정보 -->
 		                       <div class="row_cont_area">
 		                           <div class="product_name">
-		                               <h4 class="middle_text b_n">${list.getBeans_name() }</h3>
-		                               <p class="sub_middle_text b_w">그람 : ${list.getCart_weight() } g</p>
+		                               <h4 class="middle_text b_n">${cartList.getBeans_name() }</h3>
+		                               <p class="sub_middle_text b_w">그람 : ${cartList.getCart_weight() } g</p>
 		                               <p class="sub_middle_text">수량 : 
-		                               	<span class="fin_row_cnt b_c">${list.getOrder_cnt() }</span>
+		                               	<span class="fin_row_cnt b_c">${cartList.getOrder_cnt() }</span>
 		                               </p>
 		                                <p class="sub_middle_text">
 		                               	원두 갈기 :
-		                               	<c:if test="${list.getCart_grind() == 0 }">
+		                               	<c:if test="${cartList.getCart_grind() == 0 }">
 		                           	 		원두 그대로 주세요
 		                               	</c:if>
-		                               	<c:if test="${list.getCart_grind() == 1 }">
+		                               	<c:if test="${cartList.getCart_grind() == 1 }">
 		                           	 		원두 갈아주세요
 		                               	</c:if>
 		                               </p>
 		                               
-		                               <input type="hidden" class="row_cart_num" value="${list.getCart_num() }">
-		                               <input type="hidden" class="row_price" value="${list.getBeans_price() }">
+		                               <input type="hidden" class="row_cart_num" value="${cartList.getCart_num() }">
+		                               <input type="hidden" class="row_price" value="${cartList.getBeans_price() }">
 		                           </div>
 		                       </div>
 		                       
@@ -336,13 +378,67 @@
 		                       <div class="row_price_area">
 		                           <div class="price_txt row_price_txt">
 		                               <h3 class="middle_text">
-		                               	₩ <span class="row_total"><fmt:formatNumber value="${list.getOrder_price()}"/></span>
+		                               	₩ <span class="row_total"><fmt:formatNumber value="${cartList.getOrder_price()}"/></span>
 		                               </h3>
 		                           </div>
 		                       </div>
 		                   </div>
-                        
-                      </c:forEach>
+                      	
+             	 	  </c:when>
+             	 	  
+             	 	  <c:otherwise>
+             	 	  	
+             	 	  	<c:forEach items="${cartList }" var="list">
+                      		
+	                   		<div class="row_area">
+	                    
+			                       <!-- 상품 이미지 -->
+			                       <div class="row_img_area">
+			                              <div class="row_img">
+			                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+			                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
+			                                  </a>
+			                              </div>
+			                          </div>
+			                       
+			                       <!-- 상품정보 -->
+			                       <div class="row_cont_area">
+			                           <div class="product_name">
+			                               <h4 class="middle_text b_n">${list.getBeans_name() }</h3>
+			                               <p class="sub_middle_text b_w">그람 : ${list.getCart_weight() } g</p>
+			                               <p class="sub_middle_text">수량 : 
+			                               	<span class="fin_row_cnt b_c">${list.getOrder_cnt() }</span>
+			                               </p>
+			                                <p class="sub_middle_text">
+			                               	원두 갈기 :
+			                               	<c:if test="${list.getCart_grind() == 0 }">
+			                           	 		원두 그대로 주세요
+			                               	</c:if>
+			                               	<c:if test="${list.getCart_grind() == 1 }">
+			                           	 		원두 갈아주세요
+			                               	</c:if>
+			                               </p>
+			                               
+			                               <input type="hidden" class="row_cart_num" value="${list.getCart_num() }">
+			                               <input type="hidden" class="row_price" value="${list.getBeans_price() }">
+			                           </div>
+			                       </div>
+			                       
+			                       <!-- 상품 가격 -->
+			                       <div class="row_price_area">
+			                           <div class="price_txt row_price_txt">
+			                               <h3 class="middle_text">
+			                               	₩ <span class="row_total"><fmt:formatNumber value="${list.getOrder_price()}"/></span>
+			                               </h3>
+			                           </div>
+			                       </div>
+			                   </div>
+	                        
+                      	</c:forEach>
+             	 	  
+             	 	  </c:otherwise>
+             	 </c:choose>
+                      
                   </c:if>
              </div>	
              <%-- rows_area 끝 --%>
