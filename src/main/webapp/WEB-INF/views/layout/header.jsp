@@ -2,9 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <% long time = System.currentTimeMillis(); %>
 
-<!DOCTYPE html>
-<html> 
-<head>
     <meta charset="UTF-8">
     <title>커퍼 커피(Cuppa Coffee)</title>
 
@@ -16,11 +13,14 @@
 
 
     <meta name="robots" content="noindex">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
-<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
- <link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+	<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
 
 
         <header class="header">
@@ -38,13 +38,23 @@
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
-
+                
 				<c:if test="${member_name ne null }">
 					<div>
 						<b>${member_name }님</b>
 						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+						  <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
 					</div>
 				</c:if>
+				<c:if test="${member_name eq null }">	
+                    <div class="menu-etc">
+                        <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
+                    </div>
+                </c:if>    				
 
             <!--------------비회원 c:if 문 START------------->
                     <c:if test="${member_name eq null }">	
@@ -62,7 +72,7 @@
                                             <span class="icon-close"></span>
                                         </div>
 
-                                        <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
+                                        <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
@@ -109,9 +119,8 @@
 
                                                 <p><input type="text" placeholder="비밀번호 재입력" required></p>
 
+
                                                 <p><input type="text" placeholder="비밀번호를 다시 한 번 입력하세요" required></p>
-
-
 
 
 
@@ -139,6 +148,103 @@
 
             </div>
         </header>
+
+	     <c:if test="${!empty member_id}">
+	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+		     <div class="offcanvas-header">
+		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">${member_name} 님 환영합니다.</h5>
+		    	<div>
+		    	
+		    	
+		    	</div>
+	       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		     </div>
+		     <div class="offcanvas-body">
+		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+		     
+		       
+		         <li class="nav-item">
+	          	<div>
+	          	<div >
+	          		<c:if test="${!empty test_img }">
+	          			 <img class="result-img" src="${test_img }" width=200>
+	          		</c:if>
+	          		 <c:if test="${empty test_img }">
+	          			<button>테스트하러가기</button>
+	          		</c:if>
+	          		</div>
+	          		
+	          	<div>
+	          		<span class="result_name">${test_name}</span>
+	          	</div>
+	          	
+	          	</div>
+		          <div>
+		          		<span> 💰포인트 : ${member_point }p</span>
+		          </div>
+		         </li>
+		         <li class="nav-item">
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}">마이페이지</a>
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}">찜리스트</a>
+	        
+		         <li class="nav-item dropdown">
+		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		         	고객센터
+		           </a>
+		           <ul class="dropdown-menu">
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${dto.getMember_num()}">문의게시판</a></li>
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/">1:1문의하기</a></li>
+		             <li>
+		     
+		             </li>
+		       
+		           </ul>
+		    
+		    
+		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do">로그아웃</a>
+		         </li>
+		       </ul>
+		      
+		     </div>
+		   </div>
+		   </c:if>
+		
+		  <c:if test="${empty member_id }">
+		  	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+		     <div class="offcanvas-header">
+		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">로그인하셈</h5>
+		       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		     </div>
+		     <div class="offcanvas-body">
+		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+		         <li class="nav-item">
+		           <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/">Home</a>
+		         </li>
+		         <li class="nav-item">
+		           <a class="nav-link" href="#">Link</a>
+		         </li>
+		         <li class="nav-item dropdown">
+		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		           로그인안댐
+		           </a>
+		           <ul class="dropdown-menu">
+		             <li><a class="dropdown-item" href="#">Action</a></li>
+		             <li><a class="dropdown-item" href="#">Another action</a></li>
+		             <li>
+		               <hr class="dropdown-divider">
+		             </li>
+		             <li><a class="dropdown-item" href="#">Something else here</a></li>
+		           </ul>
+		         </li>
+		       </ul>
+		       <form class="d-flex mt-3" role="search">
+		         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+		         <button class="btn btn-outline-success" type="submit">Search</button>
+		       </form>
+		     </div>
+		   </div>
+		   </c:if>
+
     </body>
 
     <script>
@@ -150,6 +256,37 @@
             $('.log-modal').fadeOut()
         });
 
+        
+     // 아이디 정규식 확인
 
+        $("#join-id").on("input", function(){
+            let joinId = $("#join-id").val();
+            let id_pattern = /^[a-zA-Z0-9]{5,}$/g;
+
+            console.log("dddd"+joinId);
+            if(!id_pattern.test(joinId)) {
+                $(".id-error").show();
+
+            } else {
+                $(".id-error").hide();
+                $.ajax({
+                    url: "member_join_check.do",
+                    data: { member_id : joinId },
+                    type: "get",
+                    dataType : "text",
+                    contentType : "application/x-www-form-urlencoded;charset=UTF-8",
+                    async: false ,
+                    success : function(result) {
+                        if(result > 0 ) {
+                            $("#join-id").show.html("사용할 수 없는 아이디입니다."); 
+                            console.log("success");
+                        } else {
+                            $("join-id").show.html("사용 가능한 아이디입니다.");
+                        }
+
+                    }
+                });
+            } 
+        });
 
     </script>

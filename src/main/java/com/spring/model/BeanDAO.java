@@ -3,6 +3,8 @@ package com.spring.model;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 
 public interface BeanDAO {
 
@@ -18,10 +20,22 @@ public interface BeanDAO {
 	void insertHeart(Map<String, Integer> map);
 	void updateHeart(Map<String, Integer> map);
 	
+//	void beanHeartUp(Map<String, Integer> map);
+//	void beanHeartDown(Map<String, Integer> map);
 	
 	CoffeeBeanDTO getBeanContent(int num);
+	
+	int getWriteCount(int num);
+	
+	List<CoffeeWriteDTO> getWriteList(int num);
 
-	List<CoffeeWriteDTO> getWriteList();
-
-	int writeinsert(CoffeeWriteDTO dto);
+	int seWrite(CoffeeWriteDTO dto);
+	
+	void getStar(CoffeeStarDTO dto);
+	
+	int checkWrite(CoffeeStarDTO dto1);
+	
+	// 후기글 삭제
+	int deleteWrite(int write_num);
+	
 }

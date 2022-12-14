@@ -7,6 +7,7 @@ import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Repository
 public class BeanDAOImpl implements BeanDAO{
@@ -44,7 +45,6 @@ public class BeanDAOImpl implements BeanDAO{
 		return this.sqlSession.selectOne("Cont", num);
 	}
 
-
 	@Override
 	public CoffeeStarDTO seHeart(Map<String, Integer> map) {
 		return this.sqlSession.selectOne("heartmap1", map);
@@ -66,15 +66,66 @@ public class BeanDAOImpl implements BeanDAO{
 
 
 	@Override
-	public List<CoffeeWriteDTO> getWriteList() {
-		return this.sqlSession.selectList("writeList");
+	public List<CoffeeWriteDTO> getWriteList(int num) {
+		return this.sqlSession.selectList("writeList", num);
 	}
 
 
 	@Override
-	public int writeinsert(CoffeeWriteDTO dto) {
-		return this.sqlSession.insert("writeAdd", dto);
+	public int seWrite(CoffeeWriteDTO dto) {
+		return this.sqlSession.insert("insertWrite", dto);
 	}
+
+	
+	/* list 페이지에서 상세보기 눌렀을 때 후기글 몇 개 인지 조회하는 메서드. */
+	@Override
+	public int getWriteCount(int num) {
+		return this.sqlSession.selectOne("writeCount", num);
+	}
+
+
+	@Override
+	public void getStar(CoffeeStarDTO dto) {
+		this.sqlSession.update("updateStar", dto);
+		
+	}
+
+
+	@Override
+	public int checkWrite(CoffeeStarDTO dto1) {
+		return this.sqlSession.selectOne("checkWrite", dto1);
+	}
+
+
+	@Override
+	public int deleteWrite(int write_num) {
+		return this.sqlSession.delete("deleteWrite", write_num);
+	}
+
+
+
+
+
+
+
+/*	@Override
+	public void beanHeartUp(Map<String, Integer> map) {
+		this.sqlSession.update("heartUp", map);
+		
+	}
+
+
+	@Override
+	public void beanHeartDown(Map<String, Integer> map) {
+		this.sqlSession.update("heartDown", map);
+	}
+	
+*/
+
+
+
+
+
 
 
 
