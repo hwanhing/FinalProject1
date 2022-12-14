@@ -231,6 +231,7 @@
 	      width: 100%;
 	      position: relative;
 	      height: 32em;		
+
 		}
 		
 	
@@ -250,6 +251,7 @@
 			}
 			
 			.info_out{
+
 				height: 5em;
 			}		
 			
@@ -595,6 +597,7 @@
 		    		</span>
 		    	</div>
 		    	<div class="bean_star">
+
 		    		<c:if test="${i.getWrite_count() == 0}">
 		    			아직 평가가 없습니다.
 		    		</c:if>
@@ -610,6 +613,7 @@
 			    			${i.getCount_h() }								
 						</c:if>
 					</span>						    		
+
 		    	</div>  	
 		    	
 		    	<div class="bean_price">
@@ -664,8 +668,12 @@
 				<c:if test="${member_id ne null }">
 				<div class="write_box1">
 				<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/write_insert.do">
+
 					<input type="hidden" name="beans_num" value="${i.getBeans_num() }">
 					<input type="hidden" name="member_num" value="${member_num }">
+
+
+
 					<table>
 
 						<tr>
@@ -706,7 +714,9 @@
 							<td>
 								<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
 	    						<label for="file" class="file_label">파일추가</label> 
+
 						  		<input type="file" id="file" onchange="readURL1(this)" width="280" name="writeimg">
+
 						  <!--  <img id="img-preview1" class="img_no" src="" width="100px">  파일추가 했을때 바로 눈앞에 보이게 하는것.-->		
 						  		<br><br>
 							</td>
@@ -734,7 +744,7 @@
 				<div class="write_list1">
 					
 					<img class="writer2_img" alt="" src="https://cdn-icons-png.flaticon.com/128/5079/5079583.png">
-					
+
 					<span class="writer2_name">${w.getMember_id() }</span>
 					
 					<div class="write_starbox">
@@ -811,12 +821,15 @@
 					
 					<c:if test="${member_id eq w.getMember_id() && member_id ne null}">
 						<div align="right" class="write_singobox">
+
 							<button onclick="if(confirm('정말 삭제 하시겠습니까?')){location.href='write_delete.do?no=${w.getWrite_num()}&num=${w.getBeans_num() }'}else{return;}"><span style="color: #000;">❌삭제하기</span></button>
 						</div>
 					</c:if>	
 					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
 						<div align="right" class="write_singobox">
+
 							<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='ss'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
+
 						</div>
 					</c:if>
 					<hr>
@@ -1118,6 +1131,7 @@
 	
 	$(".cart_btn1").on("click",function(){
 
+
 		if('<%=session.getAttribute("member_id")%>' != "null" && grind_total != undefined){
 			
 			let beans_num = document.getElementById("hidden_beans_num").value;
@@ -1151,7 +1165,8 @@
 
 	});	
 	
-	$(".cart_btn2").on("click",function(){
+	$(".cart_btn1").on("click",function(){
+
 
 		if('<%=session.getAttribute("member_id")%>' != "null" && grind_total != undefined){
 			
@@ -1184,7 +1199,7 @@
 		
 		}
 
-	});	
+	});
 	
 	$("textarea.autosize").on('keydown keyup', function () {
 		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	

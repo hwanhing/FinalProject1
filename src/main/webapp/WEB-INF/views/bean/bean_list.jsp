@@ -90,16 +90,19 @@
 			height: 37px;
 			border-radius: 25px;
 			background-color: #000;
+
 			margin-left: 2%;
 			padding: 0;
 			border: none;	
 		}
 		
+
 		
 		.con_info{
 		
 			margin-bottom: 10%;
 			
+
 		}
 
 		
@@ -217,6 +220,7 @@
 						</button>      				
 	        			
 	        			<%-- 찜 버튼 --%>
+
 	       				<button type="button" class="heart_btn" value="${i.getBeans_num() }" style="background-color: #000;">
 							<svg focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="rgb(255, 255, 255)" xmlns="http://www.w3.org/2000/svg" class="pip-svg-icon ">
 							 <path fill-rule="evenodd" style="fill:rgb(255, 255, 255);" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0z"></path>
@@ -241,6 +245,7 @@
 	   $(document).on("click", ".heart_btn", function(){
 		   
 		  if('<%=session.getAttribute("member_id")%>' != "null"){
+
 			
 			let beans_heart = $('#beans_heart').val(); 
 		 	let no ='<%=session.getAttribute("member_num")%>';
