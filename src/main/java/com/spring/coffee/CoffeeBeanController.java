@@ -246,7 +246,6 @@ public class CoffeeBeanController {
 		
 	}
 	
-	
 	// 후기글 삭제 하는 메서드.
 	@RequestMapping("write_delete.do")
 	public void deleteWrite(@RequestParam("no") int write_num, @RequestParam("num") int beans_num, HttpServletResponse response) throws IOException {
