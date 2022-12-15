@@ -57,6 +57,7 @@
 				success : function(data){
 					let box = data.next_redirect_pc_url;
 					window.open(box);
+					window.close();
 				},
 				error: function(error){
 					alert('에러남');
