@@ -28,17 +28,21 @@
 /* 텍스트 크기 ---------------------------------- */
 .point_text{
 	font-size: 20px !important;
-	padding-bottom: 10px;
+	/* padding-bottom: 10px; */
 }
 
 .middle_text{
 	font-size: 18px !important;
-	padding-bottom: 8px;
+	/* padding-bottom: 8px; */
 }
 
 .sub_middle_text{
 	font-size: 15px !important;
-	padding-bottom: 5px;
+	/* padding-bottom: 5px; */
+}
+
+.small_txt{
+	font-size: 14px !important;
 }
 
 .btn_text{
@@ -246,4 +250,9 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+/* ----------------- 삭제시 display none --------------------------- */
+.display_none{
+    display: none;
 }

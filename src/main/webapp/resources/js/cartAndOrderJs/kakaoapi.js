@@ -83,6 +83,7 @@
 					dataType: 'data',
 					success : function(data){
 						console.log('order_session.do에 데이터 전송 완료')
+						window.close();
 					},
 					error: function(error){
 						console.log('order_session.do에 데이터 전송 실패')
@@ -103,6 +104,7 @@
 					dataType: 'data',
 					success : function(data){
 						console.log('order_session.do에 데이터 전송 완료')
+						window.close();
 					},
 					error: function(error){
 						console.log('order_session.do에 데이터 전송 실패')

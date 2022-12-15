@@ -11,6 +11,7 @@
 		<title>CuppACoffee</title>
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
+        <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderListD.css">
 </head>
 <body>
 	
@@ -42,6 +43,151 @@
                     </section>
                 </section>
 
+				<!-- 변경 후 -------------------------------------------------------------- -->
+				
+				 <section class="order_main"> 
+                    <div class="order_main_in">
+                        <!-- head -->
+                        <div class="m_header">
+                            <h3 class="point_text">주문 상세정보</h3>
+                        </div>
+
+                        <!-- main -->
+                        <div class="m_main">
+                            <!-- 주문 내역 -->
+                            <div class="m_order_rows m_main_t m_detail_t">
+                                <div class="m_order_num">
+                                    <ul class="list">
+                                        <li>주문일 | <span><b>2022.12.16</b></span> </li>
+                                        <li>주문번호 | <span><b>O202212161413221</b></span> </li>
+                                    </ul>
+                                </div>
+                                <table class="m_table m_s_t">
+                                    <colgroup>
+                                        <col style="width: 10%">
+                                        <col style="width: 60%">
+                                        <col style="width: 20%">
+                                        <col style="width: 10%">
+                                    </colgroup>
+                                    <tr>
+                                        <th>순번</th>
+                                        <th>상품 정보</th>
+                                        <th>상품 금액</th>
+                                        <th>재구매</th>
+                                    </tr>
+                                    <!-- foreach로 돌아갈 예정 -->
+                                    <tr class="m_tr">
+                                       
+                                        <td class="p_row txt_center">1</td>
+                                        <!-- 이미지 -->
+                                        <td class="p_cont_area">
+                                            <div class="p_cont_imgcont">
+                                                <div class="p_img">
+                                                    <a class="p_img_a" href="">
+                                                        <img src="./resources/orderimg/coffeebean.png" alt="">
+                                                    </a>
+                                                </div>
+                                                <div class="p_cont">
+                                                    <p class="sub_middle_text">상품이름</p>
+                                                    <p class="small_txt">그람 : <span> 100</span> </p>
+                                                    <p class="small_txt">수량 : <span> 1</span> </p>
+                                                    <p class="small_txt">원두갈기 : <span> 갈아주세요</span> </p>
+                                                </div>
+                                            </div>
+                                        </td>
+                                      
+                                        <td class="p_price txt_right">10,000 원</td>
+                                        <td class="p_reorder">
+                                            <button class="btn small_txt">재구매하기</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                            </div>
+                            <!-- ---------------------------- -->
+                            
+                            <!-- 결제 정보 -->
+                            <div>
+                                <div class="m_header">
+                                    <h3 class="point_text">주문/결제 정보</h3>
+                                </div>
+                                <div class="o_all">
+                                    <div class="o_pay_point">
+                                        <div class="o_order_pay">
+                                            <div class="o_order">
+                                                <h5 class="middle_text">주문금액</h5>
+                                                <table>
+                                                    <tr>
+                                                        <th>상품금액</th>
+                                                        <td class="txt_right">
+                                                            10000원
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>배송비</th>
+                                                        <td class="txt_right">0원</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>포인트사용</th>
+                                                        <td class="txt_right">- 1000원</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="o_pay">
+                                                <h5 class="middle_text">결제금액</h5>
+                                                <table>
+                                                    <tr>
+                                                        <th>카카오페이</th>
+                                                        <td class="txt_right">10000원</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="o_point">
+                                            <h5 class="middle_text">포인트</h5>
+                                            <table>
+                                                <tr>
+                                                    <th>포인트적립</th>
+                                                    <td class="txt_right">10000원</td>
+                                                </tr>
+                                            </table>
+                                        </div> 
+                                    </div>
+                                    <div class="o_conclusion">
+                                        <table class="o_conclusion_t">
+                                            <tr>
+                                                <th>주문금액</th>
+                                                <td class="txt_right">10000원</td>
+                                            </tr>
+                                            <tr>
+                                                <th>배송비</th>
+                                                <td class="txt_right">+ 0원</td>
+                                            </tr>
+                                            <tr>
+                                                <th>포인트사용</th>
+                                                <td class="txt_right">- 1000원</td>
+                                            </tr>
+                                            <tr class="sep_tr">
+                                                <td colspan="2"></td>
+                                            </tr>
+                                            <tr>
+                                                <th>결제금액</th>
+                                                <td class="txt_right">9000원</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                               
+                            </div>
+                           
+                        </div>
+                    </div>
+                </section>
+				
+				
+				<!--------------------------------------------------------------------------->
+				
+				<!-- 변경 전 -------------------------------------------------------------- -->
                 <!-- 주문 완료 목록 -->
                 <section class="order_main">
                     
@@ -138,16 +284,11 @@
 	                                    </tr>
                                     </c:forEach> 
                                    
-                                   <!--  <tr class="t_hr">
-                                        <td class="txt_center">d</td>
-                                        <td>dd</td>
-                                        <td class="txt_right">d</td>
-                                        <td class="txt_right">d</td>
-                                        <td class="txt_right">d</td>
-                                    </tr> -->
                                 </table>
                             </div>
                         </div>
+                        
+                        <!--------------------------------------------------------------------------->
                     </div>
                 </section>
             </section>
