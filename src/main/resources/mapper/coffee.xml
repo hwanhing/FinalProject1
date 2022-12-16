@@ -45,6 +45,7 @@
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
 
+
 	
 <insert id="Heart_insert" parameterType="map">
 		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
@@ -63,8 +64,11 @@
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 
-	<insert id="writeAdd" parameterType="coffeeWriteDTO">
-		insert into coffee_write values(#{write_num}, #{write_cont}, #{write_date}, #{write_img}, #{member_id}, #{beans_num})
+	<insert id="insertWrite" parameterType="map">
+		<selectKey resultType="int" keyProperty="write_num" order="BEFORE">
+			select max(write_num) from coffee_write	
+		</selectKey>	
+		insert into coffee_write values(#{dto.write_num} + 1, #{dto.write_cont}, #{dto.write_date}, #{w_file}, #{dto.member_id}, #{dto.beans_num})
 	</insert>
 
 
@@ -97,6 +101,7 @@
 	<insert id="Add" parameterType="map">
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
 	</insert>
+
 
 
 
@@ -138,8 +143,28 @@
 	
 	
 	<insert id="w_write_ok" parameterType="finalMemberDTO" >
-		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,'')
+		<selectKey resultType="int" keyProperty="board_num" order="BEFORE">
+			select nvl(max(board_num),0) from member_board
+		</selectKey>	
+		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,0,#{member_num})
 	</insert>
+	
+<!--관리자   -->
+	
+	<select id="count" resultType="int">
+        select  count(*) from final_member
+    </select>
+	
+	<select id="admin_check" resultType="finalAdminDTO" parameterType="finalAdminDTO">
+		select * from final_admin where admin_id=#{admin_id} and admin_pwd=#{admin_pwd}
+	</select>
+	
+	<select id="memberList" resultType="finalMemberDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by member_num desc) rnum from final_member b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	<select id="admin_cont"  parameterType="int" resultType="finalMemberDTO">
+		select * from final_member where member_num=#{member_num}
+	</select>
 	
 </mapper>  
 

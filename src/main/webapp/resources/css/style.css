@@ -461,6 +461,23 @@ s
 /************************/
 
 
+
+.join-modal {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.13);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    display: none;
+}
+
+
+/*************************/
+/* 회원가입 모달 
+/************************/
+
+
 .join-modal {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.13);
@@ -678,4 +695,46 @@ footer{
 	margin-left: 150px;
 	font-size :20px;
 	font-family: 'Cafe24Danjunghae';
+}
+#unlogin{
+  width: 170px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-right: 100px;
+	
+}
+#unlogin:hover{
+  background-color: red;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+	
+}
+.point{
+	font-size: 18px;
+	font-family: fantasy;
+	
+	
+}
+.point2{
+	font-size: 18px;
+}
+.nav-link{
+	margin-top: 30px;
+}
+a{
+	
+	font-size: 20px;
 }

@@ -8,8 +8,12 @@ public interface CoffeeCartDAO {
 	// 상품 정보 가져오는 메서드
 	CoffeeBeanDTO getProduct(int beans_num);
 	
+	// 장바구니에 데이터 유무 확인
+	int getCartDBTrue();
+	
 	// 장바구니 추가/수정 메서드
 	CoffeeCartDTO getCart(Map<String, Integer> cartMap);
+	void insertFirstCart(CoffeeCartDTO cartDTO);
 	int insertCart(CoffeeCartDTO cartDTO);
 	int updateCart(Map<String, Integer> cartMap);
 	
@@ -25,10 +29,16 @@ public interface CoffeeCartDAO {
 	int deleteCartRow(int cartNum);
 	
 	// 장바구니에서 수량, 그람 수정 메서드
-	// 수량 업데이트
+	// 수량 업데이트 
 	int updateCartCnt(Map<String, Integer> cartCntMap);
 	
+	// 그람 업데이트
+	int updateCartGram(Map<String, Integer> cartGramMap);
 	
+	// 추천 리스트 가져오는 메서드
+	// 카트에 상품이 있을 경우 (카트에 담겨져있는 맛 기준)
+	List<CoffeeCartDTO> getRecListCart(int member_num);
 	
-	
+	// 카트에 상품이 없을 경우 (주문한 맛 기준)
+	List<CoffeeCartDTO> getRecListOrder(int member_num);
 }

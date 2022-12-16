@@ -15,6 +15,9 @@
 	<typeAliases>
 	 	<typeAlias type="com.spring.model.FinalAdminDTO" alias="finalAdminDTO" />
 		<typeAlias type="com.spring.model.FinalMemberDTO" alias="finalMemberDTO" />
+		<typeAlias type="com.spring.model.PageDTO" alias="pageDTO" />
+		
+	
 		
 		<typeAlias type="com.spring.model.BoardMemberDTO" alias="boardMemberDTO" />
 		<typeAlias type="com.spring.model.BoardReplyDTO" alias="boardReplyDTO" />
@@ -32,6 +35,7 @@
 		<typeAlias type="com.spring.model.BeanDAO" alias="beanDAO" />
 		<typeAlias type="com.spring.model.MemberDAO" alias="memberDAO" />
 		<typeAlias type="com.spring.model.CoffeeCartDAO" alias="cartDAO" />
+		<typeAlias type="com.spring.model.AdminDAO" alias="adminDAO" />
 		
 		
 	</typeAliases>

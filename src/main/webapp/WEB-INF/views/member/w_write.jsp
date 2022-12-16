@@ -102,6 +102,9 @@
 	  <br>
 	 <c:set value="${w_write }" var="dto" />
 	  <form method="post" class="was-validated" action="<%=request.getContextPath() %>/write_ok.do">
+	  
+	  <input type="hidden" value="${member_num }" name="member_num">
+	  	
 	  	<div class="top">
 			<h2>Q&A문의등록<input type="submit" value="등록" id="img_a"></h2>
 			<hr width="70%">

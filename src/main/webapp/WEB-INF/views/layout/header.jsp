@@ -48,11 +48,11 @@
 					</div>
 				</c:if>
 				<c:if test="${member_name eq null }">	
-                    <div class="menu-etc">
+                  <!--   <div class="menu-etc">
                         <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
 					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
 					   </button>
-                    </div>
+                    </div> -->
                 </c:if>    				
 
             <!--------------비회원 c:if 문 START------------->
@@ -95,7 +95,7 @@
                             <!------------로그인 모달 창 END ---------------->
 
                             <!------------회원가입 모달 창 START ---------------->
-                            <a href="#" class="join-pop">Join</a>
+                            <a href="<%=request.getContextPath() %>/adminlogin.do" class="join-pop">Join</a>
                             <div class="join-modal join-bg" id="join-modal">
 
                                 <div class="join-form">
@@ -180,70 +180,53 @@
 	          	
 	          	</div>
 		          <div>
-		          		<span> 💰포인트 : ${member_point }p</span>
+		          		<span class="point"> 💰포인트 : <span>${member_point }p</span></span>
 		          </div>
 		         </li>
 		         <li class="nav-item">
-		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}">마이페이지</a>
-		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}">찜리스트</a>
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}"><span class="point">마이페이지</span> </a>
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}"><span class="point">찜리스트</span></a>
 	        
-		     <!--     <li class="nav-item dropdown">
-		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" >
-		         	고객센터
+		         <li class="nav-item dropdown">
+		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		         	<span class="point">고객센터</span>
 		           </a>
-		           <ul class="dropdown-menu"> -->
-		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${member_num}">문의게시판</a></li>
-		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/w_write.do?num=${member_num}">1:1문의하기</a></li>
+		           <ul class="dropdown-menu">
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${member_num}"><span class="point">문의게시판</span></a></li>
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/w_write.do?num=${member_num}"><span class="point2">1:1문의하기</span></a></li>
 		             <li>
 		     
 		             </li>
-		       
+		       			
 		           </ul>
 		    
 		    
-		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do">로그아웃</a>
-		   <!--       </li>
-		       </ul> -->
+		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do"><span class="point">로그아웃</span></a>
+		         </li>
+		       </ul>
 		      
 		     </div>
 		   </div>
 		   </c:if>
 		
-		  <c:if test="${empty member_id }">
+		<%--   <c:if test="${empty member_id }">
 		  	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="offcanvas-header">
-		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">로그인하셈</h5>
-		       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Cuppa Coffee에 오신걸 환영합니다</h5>
+		       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"  aria-label="Close"></button>
 		     </div>
 		     <div class="offcanvas-body">
 		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 		         <li class="nav-item">
-		           <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/">Home</a>
-		         </li>
-		         <li class="nav-item">
-		           <a class="nav-link" href="#">Link</a>
-		         </li>
-		         <li class="nav-item dropdown">
-		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		           로그인안댐
-		           </a>
-		           <ul class="dropdown-menu">
-		             <li><a class="dropdown-item" href="#">Action</a></li>
-		             <li><a class="dropdown-item" href="#">Another action</a></li>
-		             <li>
-		               <hr class="dropdown-divider">
-		             </li>
-		             <li><a class="dropdown-item" href="#">Something else here</a></li>
-		           </ul>
-		         </li>
+		         <button class="nav-link active login-pop" aria-current="page" id="unlogin" onclick="loaction.href='login.do'">Login
+		         
+		         
+		           <a class="nav-link active" aria-current="page" id="unlogin" href="<%=request.getContextPath()%>/login.do">Login</a>
+		       	 </button>	
 		       </ul>
-		       <form class="d-flex mt-3" role="search">
-		         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-		         <button class="btn btn-outline-success" type="submit">Search</button>
-		       </form>
 		     </div>
 		   </div>
-		   </c:if>
+		   </c:if> --%>
 
 
     </body>
