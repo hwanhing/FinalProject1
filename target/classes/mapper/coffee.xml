@@ -13,22 +13,27 @@
 <mapper namespace="beanDAO">
 
 	<!-- 환희 -->
+	<!-- 전체 원두 목록 뽑는 문 -->
 	<select id="list" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_num
 	</select>
 	
+	<!-- 찜많은 목록 뽑는 문 -->	
 	<select id="heartlist" resultType="coffeeBeanDTO">
-		select * from coffee_beans order by beans_heart desc
+		select * from coffee_beans order by count_h desc
 	</select>
-	
+
+	<!-- 가격이 낮은 원두 뽑는 문 -->	
 	<select id="pricedownlist" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_price
 	</select>
-	
+
+	<!-- 가격이 높은 원두 뽑는 문 -->	
 	<select id="priceuplist" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_price desc
 	</select>
 
+	<!-- 원두 상세페이지 정보 뽑는 문 -->	
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
 		<!-- select * from coffee_write where beans_num = #{beans_num} -->
 		select cw.write_num,cw.write_cont,cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
@@ -70,14 +75,7 @@
 	<update id="updateHeart1" parameterType="map">
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
-	
-<!--<update id="heartUp" parameterType="map">
-		update coffee_beans set beans_heart = #{beans_heart} + 1 where beans_num = #{beans_num}
-	</update>
-	
-	<update id="heartDown" parameterType="map">
-		update coffee_beans set beans_heart = #{beans_heart} - 1 where beans_num = #{beans_num}
-	</update>  -->
+
 	<select id="writeCount" parameterType="int" resultType="int">
 		select count(beans_num) from coffee_write where beans_num = #{beans_num}
 	</select>
@@ -101,6 +99,15 @@
 	<delete id="deleteWrite" parameterType="int">
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
+
+	<insert id="insertStar" parameterType="coffeeStarDTO">
+		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
+	</insert>
+
+
+	<update id="deleteStar" parameterType="map">
+		update member_star set coffee_star = 0 where member_num = #{member_num} and beans_num = #{beans_num}
+	</update>
 
 
 
