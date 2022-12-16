@@ -1,13 +1,5 @@
 @charset "UTF-8";
 
-table th{
-	text-align: center !important;
-}
-
-table td{
-	padding-right: 10px !important;
-}
-
 /* m_order_rows
     ㄴ m_order_num
     ㄴ m_table
@@ -32,11 +24,6 @@ table td{
     width: 300px;
     padding: 10px 5px 10px 5px;
     font-size: 18px;
-}
-
-/* 주문 row */
-.m_tr{
-    border-bottom: 1px solid var(--color_begie);
 }
 
 /* 이미지, 상품 정보 */
@@ -84,7 +71,6 @@ table td{
 
 .o_pay_point table{
     width: 100%;
-    margin-top: 10px !important;
     padding-right: 10px;
 }
 
@@ -115,10 +101,16 @@ table td{
     background-color: var(--color_begie);
 }
 
+.o_conclusion_d{
+	padding: 20px 10px 20px 10px;
+}
+
 .o_conclusion_t{
     width: 100%;
-    margin-top: 25px;
-    padding: 25px 20px 20px 10px !important;
+}
+
+.o_conclusion_t .middle_text{
+	font-weight: bold;
 }
 
 .o_conclusion table tr:not(.sep_tr){
@@ -131,6 +123,6 @@ table td{
 
 .sep_tr{
     padding-top: 20px !important;
-    height: 2px;
+    height: 2px !important;
     background-color: var(--color_greyish);
 }

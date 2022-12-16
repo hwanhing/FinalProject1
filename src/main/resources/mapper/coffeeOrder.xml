@@ -83,6 +83,11 @@
 	</delete>
 
 	<select id="nowOrderList" parameterType="String" resultType="coffeeOrderDTO">
-	     select * from coffee_order where order_num = #{order_num}
+	      select co.*
+		      , be.beans_img
+		   from coffee_order co 
+		   join coffee_beans be
+		     on co.beans_num = be.beans_num 
+		  where order_num = #{order_num}
 	</select>
 </mapper>

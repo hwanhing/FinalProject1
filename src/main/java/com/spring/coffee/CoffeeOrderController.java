@@ -167,6 +167,9 @@ public class CoffeeOrderController {
 		// 주문일
 		String order_date = orderList.get(0).getOrder_date().substring(0,10);
 		
+		// 주문상품(대표사진)
+		String order_img = orderList.get(0).getBeans_img();
+		
 		// 주문명 주문상품이 1개 이상일경우 oo상품 외 2
 		String order_product = orderList.get(0).getBeans_name();
 		if(orderList.size()>1) {
@@ -184,6 +187,7 @@ public class CoffeeOrderController {
 		
 		summaryOrder.put("order_num", order_num);
 		summaryOrder.put("order_date", order_date);
+		summaryOrder.put("order_img", order_img);
 		summaryOrder.put("order_product", order_product);
 		summaryOrder.put("order_price_total", order_price_total);
 		summaryOrder.put("use_point", use_point);
@@ -365,7 +369,7 @@ public class CoffeeOrderController {
 	}
 	
 	@RequestMapping("approvalpay.do")
-	public void approvalPay(HttpSession session, HttpServletResponse response) throws IOException {
+	public void approvalPay(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
 		System.out.println("--approvalpay.do----------------------------------------------------------------");
 		
@@ -501,9 +505,15 @@ public class CoffeeOrderController {
 		
 		// 6. 주문내역 페이지로 이동
 		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("location.href='bean_order_ok.do?order="+order_num+"'");
-		out.println("</script>");
+		if(request.getParameter("nonePay")!=null) {
+			out.println(order_num);
+		}else {
+			out.println("<script>");
+			out.println("location.href='bean_order_ok.do?order="+order_num+"'");
+			out.println("</script>");
+		}
+		
+		
 		
 		System.out.println("--------------------------------------------------------------------------------");
 	}
@@ -535,6 +545,11 @@ public class CoffeeOrderController {
 		model.addAttribute("summaryOrder", summaryOrder);
 		
 		return "./cartAndOrder/orderOk";
+	}
+	
+	@RequestMapping("order_list.do")
+	public String orderList() {
+		return "./cartAndOrder/orderList";
 	}
 }
 
