@@ -128,6 +128,13 @@ public class MemberDAOImpl implements MemberDAO{
 	
 
 
+	public int joinIdCheck(FinalMemberDTO dto) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectOne("joinIdCheck", dto);
+	}
+
+
+
 
 
 

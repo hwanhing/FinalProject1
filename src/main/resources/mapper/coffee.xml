@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
@@ -18,7 +19,7 @@
 	</select>
 	
 	<select id="heartlist" resultType="coffeeBeanDTO">
-		select * from coffee_beans order by beans_num desc
+		select * from coffee_beans order by beans_heart desc
 	</select>
 	
 	<select id="pricedownlist" resultType="coffeeBeanDTO">
@@ -29,8 +30,11 @@
 		select * from coffee_beans order by beans_price desc
 	</select>
 
-	<select id="writeList" resultType="coffeeWriteDTO">
-		select * from coffee_write
+	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
+		<!-- select * from coffee_write where beans_num = #{beans_num} -->
+		select cw.write_num,cw.write_cont,cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
+		ms.coffee_star from coffee_write cw join member_star ms on cw.beans_num = ms.beans_num
+		where cw.beans_num = #{beans_num}
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
@@ -38,18 +42,22 @@
 	</select>
 	
 	<select id="Cont" parameterType="int" resultType="coffeeBeanDTO">
-		select * from coffee_beans where beans_num = #{beans_num}
+<!-- 	select * from coffee_beans where beans_num = #{beans_num} -->	
+		with test as ( select beans_num
+		                    , count(member_num) as count_heart
+		              from member_star 
+		             where coffee_heart = 1
+		             group by beans_num 
+		)select cb.*
+		      , case when count_heart is null then 0 else count_heart end as count_h
+		   from coffee_beans cb
+		   left join test t
+		     on cb.beans_num = t.beans_num where cb.beans_num = #{beans_num}
 	</select>
 	
 	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
-
-
-	
-<insert id="Heart_insert" parameterType="map">
-		insert into member_star values(#{coffee_heart}, #{member_num}, #{beans_num})
-	</insert>
 
 
 	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
@@ -64,13 +72,36 @@
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 
-	<insert id="insertWrite" parameterType="map">
+<!--<update id="heartUp" parameterType="map">
+		update coffee_beans set beans_heart = #{beans_heart} + 1 where beans_num = #{beans_num}
+	</update>
+	
+	<update id="heartDown" parameterType="map">
+		update coffee_beans set beans_heart = #{beans_heart} - 1 where beans_num = #{beans_num}
+	</update>  -->
+	<select id="writeCount" parameterType="int" resultType="int">
+		select count(beans_num) from coffee_write where beans_num = #{beans_num}
+	</select>
+	
+	
+	<insert id="insertWrite" parameterType="coffeeWriteDTO">
 		<selectKey resultType="int" keyProperty="write_num" order="BEFORE">
-			select max(write_num) from coffee_write	
+			select max(write_num) from coffee_write
 		</selectKey>	
-		insert into coffee_write values(#{dto.write_num} + 1, #{dto.write_cont}, #{dto.write_date}, #{w_file}, #{dto.member_id}, #{dto.beans_num})
+		insert into coffee_write values(#{write_num} + 1, #{write_cont}, sysdate, #{write_img}, #{member_id}, #{beans_num})
 	</insert>
 
+	<update id="updateStar" parameterType="coffeeStarDTO">
+		update member_star set coffee_star = #{coffee_star} where member_num = #{member_num} and beans_num = #{beans_num}
+	</update>
+
+	<select id="checkWrite" parameterType="coffeeStarDTO" resultType="int">
+		select count(*) from member_star where member_num = #{member_num} and beans_num = #{beans_num}
+	</select>
+
+	<delete id="deleteWrite" parameterType="int">
+		delete from coffee_write where write_num = #{write_num}
+	</delete>
 
 
 	<!-- 홍기 -->
@@ -167,7 +198,5 @@
 	</select>
 	
 </mapper>  
-
-
 
   

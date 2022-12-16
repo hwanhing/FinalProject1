@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.spring.model.BeanDAO;
 import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeCartDAO;
 import com.spring.model.CoffeeCartDTO;
@@ -62,9 +63,7 @@ public class CoffeeCartController {
 		 
 		if((Integer) session.getAttribute("member_num")==null) {
 			out.println("<script>");
-			// 창 확인 필요
-			out.println("alert('로그인 페이지로 이동합니다.!')");
-			out.println("location.href='member_login.do'");
+			out.println("location.href='go_login.do'");
 			out.println("</script>");
 		}
 		
@@ -95,7 +94,6 @@ public class CoffeeCartController {
 		
 		// 2. 데이터가 완전히 없는지 확인
 		int cartDBTrue = cartDao.getCartDBTrue();
-		System.out.println("카트 테이블에 db가 있는가? " + cartDBTrue);
 		
 		if(cartDBTrue == 0) {	// 2-1 db에 데이터 아예 없음
 			CoffeeCartDTO cartFDto = new CoffeeCartDTO();
@@ -107,7 +105,6 @@ public class CoffeeCartController {
 			cartFDto.setMember_num(member_num);
 			
 			System.out.print(cartFDto.getCart_num());
-			System.out.println(" ------------------------------------ ");
 			
 			cartDao.insertFirstCart(cartFDto);
 			
@@ -172,6 +169,12 @@ public class CoffeeCartController {
 		}
 	}
 	
+	@RequestMapping("go_login.do")
+	public String goLogin() {
+		
+		return "./cartAndOrder/login";
+	}
+	
 	@RequestMapping("bean_cart_update.do")
 	public void updateCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -204,8 +207,6 @@ public class CoffeeCartController {
 		int member_num = (Integer) session.getAttribute("member_num");
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);
 		
-		System.out.println("cartList.size() : " + cartList.size());
-		
 		// 추천 상품 가져오기
 		// cartList.size() 가 0 이면 가장 많이 주문한 상품 맛 기준으로 전체 주문건 많은 상품순 
 		// 아닐 경우 장바구니에 많이 담겨져있는 상품 맛 기준 전체 주문건이 많은 상품 순
@@ -224,10 +225,6 @@ public class CoffeeCartController {
 		return "./cartAndOrder/cart";
 	}
 	
-	@RequestMapping("bean_order.do")
-	public String tmp(){
-		return "./cartAndOrder/order";
-	}
 	
 	// ajax -----------------------------------------------------------------------
 	// 찜 수정 또는 등록
@@ -303,8 +300,6 @@ public class CoffeeCartController {
 		
 		int cartNum = Integer.valueOf(request.getParameter("cartNum").trim());
 		int cartGram = Integer.valueOf(request.getParameter("cartGram").trim());
-		System.out.println("cartNum : " + cartNum);
-		System.out.println("cartGram : " + cartGram);
 		
 		Map<String, Integer> cartGramMap = new HashMap<String, Integer>();
 		cartGramMap.put("cartNum", cartNum);

@@ -19,11 +19,18 @@
 	z-index: 500;
 }
 
+/* 스크롤바 제거 */
+*::-webkit-scrollbar {
+    display: none; 
+}
+
+
 /* 텍스트 크기 ---------------------------------- */
 .point_text{
 	font-size: 20px !important;
 	padding-bottom: 10px;
 }
+
 .middle_text{
 	font-size: 18px !important;
 	padding-bottom: 8px;
@@ -32,6 +39,10 @@
 .sub_middle_text{
 	font-size: 15px !important;
 	padding-bottom: 5px;
+}
+
+.btn_text{
+	font-size: 20px !important;
 }
 
 /* ------------------------------------------- */
@@ -114,6 +125,11 @@
     content: " > ";
 }
 
+.disable{
+	color: gray !important;
+	cursor: none;
+}
+
 /* 
     order_main, cart_row_section        장바구니 목록 
      ㄴ order_main_left, rows_area            장바구니 담겨져있는 상품 row
@@ -131,9 +147,9 @@
 }
 
 .order_main_right{
-    width: 30%;
+    width: 30% ;
     position: sticky;
-    top: 120px;
+    top: 100px;
 }
 
 .order_main_right_in{
@@ -149,7 +165,7 @@
 
 /* 총 주문금액 */
 .all_total_price{
-    color: blue;
+    color: var(--color_milk_brown);
 }
 
 .row_area{
@@ -168,7 +184,7 @@
 /* 결제하기 버튼 공통 */
 .total_price_button{
     width: 100% !important;
-    height: 100px !important;
+    height: 80px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;

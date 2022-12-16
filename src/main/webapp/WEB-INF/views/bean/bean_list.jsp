@@ -53,12 +53,11 @@
         }
 
 		.con1{
-	      border: 1px solid black;
+	      <%-- border: 1px solid lightgray; --%>
 	      border-radius: 20px;
 	      width: 100%;
 	      position: relative;
-
-	      height: 600px;	
+	      height: 570px;	
 		}
 		
 		.con1:after{
@@ -79,37 +78,38 @@
 		}
 		
 		.cart_btn{
-			width: 45px;
-			height: 45px;
+			width: 37px;
+			height: 37px;
 			border-radius: 25px;
 			background-color: #734338;		
 			border: none;
 		}
 		
 		.heart_btn{
-			width: 45px;
-			height: 45px;
+			width: 37px;
+			height: 37px;
 			border-radius: 25px;
 			background-color: #000;
-			margin-left: 3%;
+
+			margin-left: 2%;
 			padding: 0;
 			border: none;	
 		}
 		
-		.con_box{
-			margin-top: 10%;
-		}
+
 		
 		.con_info{
-			margin-top: 3%;
+		
 			margin-bottom: 10%;
-			padding-top: 15px;
+			
+
 		}
 
 		
 		.info_out{
-			text-align: center;
+			text-align: left;
 			height: 225px;
+			padding-left: 30%;
 		}	
 		
 		.con_new{
@@ -193,17 +193,13 @@
         <div class="list_box">
         
         	<c:forEach items="${list }" var="i"  varStatus="status">
-        	
+
         	<div class="con1">
-        	
         		<div class="con_box" align="center">
         			<img alt="커피원두1" width="300px" height="300px" <%--여기--%> src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
         		</div>
         		<div class="info_out">
 	        		<div class="con_info">
-	        			<div class="con_new">
-	        				<span>New</span>
-	        			</div>
 	        			<div class="con_name">
 	        				<span><%--여기--%>${i.getBeans_name() }</span>
 	        			</div>
@@ -224,10 +220,11 @@
 						</button>      				
 	        			
 	        			<%-- 찜 버튼 --%>
-	       				<button type="button" class="heart_btn" value="${i.getBeans_num() }">
+
+	       				<button type="button" class="heart_btn" value="${i.getBeans_num() }" style="background-color: #000;">
 							<svg focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="rgb(255, 255, 255)" xmlns="http://www.w3.org/2000/svg" class="pip-svg-icon ">
 							 <path fill-rule="evenodd" style="fill:rgb(255, 255, 255);" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0z"></path>
-							</svg>						
+							</svg>					
 						</button>
        				</div> 
 					</div>
@@ -237,7 +234,6 @@
 				
         	</div> <%-- list_box 끝 --%>
         </div> <%-- empty 끝 --%>
-        
     <jsp:include page="../layout/footer.jsp" />
     
     
@@ -249,9 +245,10 @@
 	   $(document).on("click", ".heart_btn", function(){
 		   
 		  if('<%=session.getAttribute("member_id")%>' != "null"){
-			  
+
+			
+			let beans_heart = $('#beans_heart').val(); 
 		 	let no ='<%=session.getAttribute("member_num")%>';
- 	
 		 	
 	   		$.ajax({
 	   			url : "beans_heart.do",
@@ -267,12 +264,10 @@
 					if(data == 1){
 						alert("찜 목록에 추가했습니다.");
 						
-						$(".heart_btn").css("background-color", "red");
-
+						
 					}else{
 						alert("찜 목록에서 삭제했습니다.");
 						
-						$(".heart_btn").css("background-color", "#000");
 					}
 	   			
 	   			},
@@ -284,7 +279,6 @@
 		  }else{
 				alert('로그인 후 이용해주세요.');  
 		  }
-		   
 		 	
 	   });
 
@@ -310,6 +304,9 @@
  	    }
  	    
  	  }); 
+ 	
+
+	
 
 }); 
 

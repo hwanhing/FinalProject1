@@ -20,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.BoardMemberDTO;
@@ -41,7 +42,8 @@ public class MemberController {
 	
 	
 	@RequestMapping("member_login_check.do")
-	public String check(FinalMemberDTO dto , HttpSession session, HttpServletResponse response) throws IOException {
+	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
+
 		
 		PrintWriter out = response.getWriter();
 		
@@ -74,6 +76,18 @@ public class MemberController {
 			 
 			}
 	
+	@RequestMapping("member_join_check.do")
+	@ResponseBody
+	public void joinCheck(@RequestParam("joinId")String joinId, FinalMemberDTO dto, HttpResponse response) {
+		
+		dto.setMember_id(joinId);
+		
+		int res = this.dao.joinIdCheck(dto);
+		
+		System.out.println("ssss"+res);
+		
+		
+	}
 		
 	@RequestMapping("member_logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {

@@ -5,9 +5,6 @@ import java.util.Map;
 
 public interface CoffeeCartDAO {
 	
-	// 상품 정보 가져오는 메서드
-	CoffeeBeanDTO getProduct(int beans_num);
-	
 	// 장바구니에 데이터 유무 확인
 	int getCartDBTrue();
 	

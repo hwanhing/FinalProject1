@@ -45,6 +45,7 @@ public interface MemberDAO {
 	int myboard_delete(int no);
 
 	int w_writeok(FinalMemberDTO dto);
-	
-	
+
+	int joinIdCheck(FinalMemberDTO dto);
+
 }
