@@ -94,9 +94,9 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public int joinIdCheck(String joinId) {
+	public int joinIdCheck(FinalMemberDTO dto) {
 		// TODO Auto-generated method stub
-		return this.sqlSession.selectOne("joinIdCheck", joinId);
+		return this.sqlSession.selectOne("joinIdCheck", dto);
 	}
 
 

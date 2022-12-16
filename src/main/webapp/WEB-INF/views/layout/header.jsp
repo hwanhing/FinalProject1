@@ -122,7 +122,7 @@
 
 
                             <!------------회원가입 모달 창 START ---------------->
-                            <a href="#" class="join-pop">Join</a>
+                            <a href="#" class="join-pop" >Join</a>
                             <div class="join-modal join-bg" id="join-modal">
 
                                 <div class="join-form">

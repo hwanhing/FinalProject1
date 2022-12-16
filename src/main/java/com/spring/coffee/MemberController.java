@@ -72,7 +72,9 @@ public class MemberController {
 			}
 	
 	@RequestMapping("member_join_check.do")
+	@ResponseBody
 	public void joinCheck(@RequestParam("joinId")String joinId, FinalMemberDTO dto, HttpResponse response) {
+		
 		dto.setMember_id(joinId);
 		
 		int res = this.dao.joinIdCheck(dto);

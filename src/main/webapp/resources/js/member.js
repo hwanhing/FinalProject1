@@ -84,20 +84,25 @@ $('.icon-close').click(function(){
 $("#join-id").on("input", function(){
     let joinId = $("#join-id").val();
     let id_pattern = /^[a-zA-Z0-9]{5,}$/g;
+    let id_length = joinId.length;
         
     console.log("dddd"+joinId);
-    if(!id_pattern.test(joinId)) {
+
+    if(id_length==0) {
+        $("#join-id").attr("placeholder", "필수입력 항목입니다.");
+
+    }else if(!id_pattern.test(joinId)) {
         $(".id-error").show();
 
     } else {
         $(".id-error").hide();
+
         $.ajax({
-            url: "member_join_check.do",
-            data: { param : joinId },
-            type: "get",
+            url: "<%=request.getContextPath()%>/member_join_check.do",
+            data: { member_id : joinId },
+            type: "post",
             dataType : "text",
             contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-            async: false ,
             success : function(result) {
                 if(result > 0 ) {
                     $("#join-id").show.html("사용할 수 없는 아이디입니다."); 
