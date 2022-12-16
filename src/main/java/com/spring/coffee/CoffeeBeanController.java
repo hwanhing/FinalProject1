@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,7 +25,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.BeanDAO;
 import com.spring.model.CoffeeBeanDTO;
-import com.spring.model.CoffeeCartDTO;
 import com.spring.model.CoffeeStarDTO;
 import com.spring.model.CoffeeWriteDTO;
 
@@ -126,7 +124,39 @@ public class CoffeeBeanController {
 
 		return "./bean/bean_list";
 
-	}
+		
+	}	
+	
+
+/*	@RequestMapping("heart_insert.do")
+	public void insert(@RequestParam("member_num") int member_num, @RequestParam("coffee_heart") int coffee_heart, @RequestParam("beans_num") int beans_num, HttpServletResponse response, HttpServletRequest request) throws IOException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("member_num", member_num);		
+		map.put("coffee_heart", coffee_heart);	
+		map.put("beans_num", beans_num);
+		
+		int res = this.dao.insert(map);				
+	
+	}*/
+	
+	
+	
+/*	@RequestMapping("heart_insert.do")
+	public void insertheart(@RequestParam("member_num") int member_num, @RequestParam("beans_num") int beans_num, @RequestParam("coffee_heart") int coffee_heart, HttpServletResponse response) throws IOException {
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("member_num", member_num);		
+		map.put("beans_num", beans_num);
+		map.put("coffee_heart", coffee_heart);
+		
+		PrintWriter out = response.getWriter();
+		
+		int res = this.dao.insertHeart(map);
+		
+		System.out.println(res);
+		out.println(res);
+	} */
 
 	// 원두 상세정보 페이지
 	@RequestMapping("bean_content.do")
@@ -286,5 +316,6 @@ public class CoffeeBeanController {
 		
 		
 	}
+
 
 }

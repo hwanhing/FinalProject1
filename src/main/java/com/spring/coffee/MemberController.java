@@ -20,8 +20,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.model.BoardMemberDTO;
+import com.spring.model.BoardReplyDTO;
 import com.spring.model.CoffeeTestDAO;
 import com.spring.model.CoffeeTestDTO;
 import com.spring.model.FinalAdminDTO;
@@ -35,20 +38,22 @@ public class MemberController {
 	
 	@Inject
 	private MemberDAO dao;
-	private CoffeeTestDAO c_dao;
+
 	
 	
 	@RequestMapping("member_login_check.do")
 	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
+
 		
 		PrintWriter out = response.getWriter();
 		
 		FinalMemberDTO f_dto = this.dao.checkMember(dto);
-
 		
-		 if (f_dto != null) { // 세션 변수 저장
+			
+				if (f_dto != null) { // 세션 변수 저장
 			
 			 session.setAttribute("member_num", f_dto.getMember_num());
+			 
 			 session.setAttribute("member_id", f_dto.getMember_id());
 
 			  session.setAttribute("member_name", f_dto.getMember_name());
@@ -59,17 +64,30 @@ public class MemberController {
 			  session.setAttribute("test_num", f_dto.getTest_num());
 			  session.setAttribute("test_img", f_dto.getTest_img());
 			  session.setAttribute("test_name", f_dto.getTest_name());
-
+			 
 			}else if(f_dto == null) {
 				out.println("<script>");
 				out.println("alert('로그인안됨;;')");
 				out.println("history.back()");
 				out.println("</script>");
 			}
+		
 			 return "main"; 
 			 
 			}
 	
+	@RequestMapping("member_join_check.do")
+	@ResponseBody
+	public void joinCheck(@RequestParam("joinId")String joinId, FinalMemberDTO dto, HttpResponse response) {
+		
+		dto.setMember_id(joinId);
+		
+		int res = this.dao.joinIdCheck(dto);
+		
+		System.out.println("ssss"+res);
+		
+		
+	}
 		
 	@RequestMapping("member_logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
@@ -80,7 +98,9 @@ public class MemberController {
 		  }
 	
 	@RequestMapping("member_mypage.do")
-	public String Mypage(@RequestParam("num") int num ,Model model ) {
+	public String Mypage(@RequestParam("num") int num ,Model model,HttpSession session ) {
+		
+		session.getAttribute("member_num");
 		
 		FinalMemberDTO dto = this.dao.MemberMyPage(num);
 		
@@ -442,9 +462,102 @@ public class MemberController {
 					out.println("</script>");
 			 }
 	  }
-	  
+		
+		  @RequestMapping("board_list.do") public String
+		  board_list(@RequestParam("num")int num ,Model model) {
+		  
+		  List<FinalMemberDTO> dto = this.dao.BoardList(num);
+		  
+		  model.addAttribute("board_list", dto);
+		  
+		  return "./member/board_list";
+		  
+		  
+		  }
+		  
+		  @RequestMapping("board_cont.do")
+		public String board_cont(@RequestParam("num")int num,Model model ) {
+			
+			 FinalMemberDTO dto = this.dao.boardcont(num);
+			 
+			
+			 BoardReplyDTO dto1 = this.dao.replycont(num);
+	
+			  model.addAttribute("board_cont", dto);
+			  
+			  model.addAttribute("admin_reply", dto1);
+			
+			  return "./member/board_cont";
+			  
+		  }
+	  @RequestMapping("myboard_delete.do")
+	  public void myboarddelete(@RequestParam("no") int no,@RequestParam("num") int num, FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		  
+		  int check = this.dao.myboard_delete(no);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			 System.out.println(">>>>>>>>"+num);
+			 if(check>0) {
+				 
+					out.println("<script>");
+					/* out.println("alert('삭제')"); */
+					out.println("location.href='board_list.do?num="+num+"'");
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
 	  }
-	  
+	  @RequestMapping("w_write.do")
+	  public String w_write(FinalMemberDTO dto,Model model) {
+		
+		  
+		
+		
+		  return "./member/w_write";
+		  
+	  }
+	  @RequestMapping("write_ok.do")
+	  public void write_ok(HttpSession session,FinalMemberDTO dto,HttpServletResponse response) throws IOException {
+		  
+		  Object num = session.getAttribute("member_num");
+		  
+		  System.out.println("세션>>>>>>>"+session.getAttribute("member_num"));
+		  int check = this.dao.w_writeok(dto);
+		  
+		
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			
+			 if(check>0) {
+				
+					out.println("<script>");
+					out.println("location.href='board_list.do?num="+num+"'");					
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
+	  }
+	  @RequestMapping("imgchang.do")	
+	 public String imgchange(@RequestParam("num")int num,Model model) {
+		  FinalMemberDTO dto =this.dao.MemberMyPage(num);
+		
+		  model.addAttribute("hana", dto);
+		  
+		  return "./member/mypage_img";
+	  }
+	  }
+	
 
 
 	 

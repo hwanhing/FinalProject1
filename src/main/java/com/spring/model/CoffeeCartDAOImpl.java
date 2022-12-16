@@ -14,11 +14,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	@Inject
 	private SqlSessionTemplate sqlSession;
 	
-	@Override
-	public CoffeeBeanDTO getProduct(int beans_num) {
-		return this.sqlSession.selectOne("product", beans_num);
-	}
-	
 	// 장바구니 DB row 유무 확인
 	@Override
 	public int getCartDBTrue() {
@@ -52,8 +47,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	public List<CoffeeCartDTO> getCartList(int member_num) {
 		return this.sqlSession.selectList("getCartList", member_num);
 	}
-
-	
 	
 	// 장바구니 페이지 : 찜 --------------------------------------------------------------------------------
 	@Override
@@ -63,12 +56,12 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 
 	@Override
 	public void insertHeart(Map<String, Integer> heartMap) {
-		this.sqlSession.selectOne("insertHeart",heartMap);
+		this.sqlSession.insert("insertHeart",heartMap);
 	}
 
 	@Override
 	public void updateHeart(Map<String, Integer> heartMap) {
-		this.sqlSession.selectOne("updateHeart",heartMap);
+		this.sqlSession.update("updateHeart",heartMap);
 	}
 	
 	// 장바구니 페이지 : 장바구니 row 삭제 -------------------------------------------------------------------
@@ -99,16 +92,6 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	public List<CoffeeCartDTO> getRecListOrder(int member_num) {
 		return this.sqlSession.selectList("getRecListOrder",member_num);
 	}
-
-	
-
-	
-
-	// ----
-
-
-	
-	
 
 
 }
