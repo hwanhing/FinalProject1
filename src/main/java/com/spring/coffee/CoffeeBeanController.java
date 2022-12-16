@@ -237,6 +237,7 @@ public class CoffeeBeanController {
 		}
 		
 		
+		
 		PrintWriter out = response.getWriter();
 		
 		if(res > 0) {
