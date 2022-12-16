@@ -68,10 +68,12 @@ public class CoffeeCartController {
 		}
 		
 		int member_num = (Integer) session.getAttribute("member_num");
+		System.out.println("member_num : " + member_num);
 		
 		// url 에서 받아온값(beans_num, cart_weight(상품상세페이지), cart_grind(상품세페이지))
 		int beans_num = Integer.valueOf(request.getParameter("no"));
-
+		System.out.println("beans_num : " + beans_num);
+		
 		// 상품 상세페이지에서 받아온 수량, 원두 그람수,원두 갈기 여부 
 		// 따로 받아온 값이 없을 경우 장바구니 수량 1 / 원두 그람수는 100 / 원두갈기는 0 (갈지 않고) 
 		int select_cnt = 1;

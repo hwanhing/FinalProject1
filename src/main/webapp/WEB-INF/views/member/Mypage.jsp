@@ -10,6 +10,28 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
+<script type="text/javascript">
+
+let noimage =
+	  "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimweb.me%2Fcommon%2Fimg%2Fdefault_profile.png&imgrefurl=https%3A%2F%2Fimweb.me%2Fmysite&tbnid=Vd7XhdBNSjYZIM&vet=12ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ..i&docid=3sDQ3orzKXesmM&w=200&h=200&itg=1&q=%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%B6%81%20%ED%94%84%EB%A1%9C%ED%95%84%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%97%86%EC%9D%8C&hl=ko&ved=2ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ";
+
+function readURL1(input) {
+	  console.log(input.files);
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	      $("#img-preview1").attr("src", e.target.result);
+	    };
+
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    $("#img-preview1").attr("src", noimage);
+	  }
+	}
+
+</script>
+
+
 <style>
 .zero{
 	margin-top: 200px;
@@ -121,7 +143,16 @@ text-align: center;
 	font-size: 30px;
 	
 }
-
+img{		
+margin-left:150px;
+border: 1px solid black;
+border-radius: 100%;
+height: 200px;
+ }
+        
+.field{
+	margin-left: 240px;
+}
 </style>
 </head>
 <body>
@@ -139,12 +170,12 @@ text-align: center;
 <br>
 <h1>계정 관리</h1>
 <div class="logout">
-<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal" >로그아웃</a>
+<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal">로그아웃</a>
 </span>
 	</div>
 </div>
 </div>
-
+<br><br>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -163,6 +194,21 @@ text-align: center;
     </div>
   </div>
 </div>
+
+  	<div class="field">
+ 
+          <fieldset>
+        
+             <label for="image"></label>
+             <img alt="핑구이미지" src="${dto.getMember_img() }">
+          <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><img id="img-preview1" class="img_no" src="${dto.getMember_img() }" /></a> 
+					<!-- 	<div>
+						  <input type="file" accept="image/*" onchange="readURL1(this)"  name="member_img" >
+						</div> -->
+          </fieldset>
+       
+        </div>
+
 
 <div class="container">
   <div class="row">

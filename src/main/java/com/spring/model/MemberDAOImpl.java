@@ -94,10 +94,45 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
+	public List<FinalMemberDTO> BoardList(int num) {
+		return this.sqlSession.selectList("board_list", num);
+	}
+
+	@Override
+	public FinalMemberDTO boardcont(int num) {
+	return this.sqlSession.selectOne("board_cont",num);
+	}
+	
+	@Override
+	public BoardReplyDTO replycont(int num) {
+	return this.sqlSession.selectOne("board_reply",num);
+	}
+
+	@Override
+	public int myboard_delete(int no) {
+		
+		return this.sqlSession.delete("myboard_delete", no);
+	}
+
+	@Override
+	public int w_writeok(FinalMemberDTO dto) {
+		 return this.sqlSession.insert("w_write_ok",dto);
+	}
+
+
+
+
+
+	
+
+	
+
+
 	public int joinIdCheck(FinalMemberDTO dto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.selectOne("joinIdCheck", dto);
 	}
+
 
 
 
