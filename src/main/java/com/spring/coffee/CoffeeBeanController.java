@@ -34,6 +34,7 @@ public class CoffeeBeanController {
 	@Inject
 	private BeanDAO dao;
 
+	// 모든 원두 목록 리스트
 	@RequestMapping("bean_list.do")
 	public String list(Model model, CoffeeBeanDTO dto) {
 
@@ -86,13 +87,10 @@ public class CoffeeBeanController {
 			// 찜 수정
 			this.dao.updateHeart(map);
 		}
-		
-		
-
 		out.println(updateHeart);
-
 	}
 
+	// 정렬할때 찜 많은 순
 	@RequestMapping("beans_list_heart.do")
 	public String downlist(Model model, CoffeeBeanDTO dto) {
 
@@ -104,6 +102,7 @@ public class CoffeeBeanController {
 
 	}
 
+	// 정렬 가격이 낮은 순
 	@RequestMapping("beans_price_down.do")
 	public String priceDownList(Model model, CoffeeBeanDTO dto) {
 
@@ -115,6 +114,7 @@ public class CoffeeBeanController {
 
 	}
 
+	// 정렬 가격이 높은 순
 	@RequestMapping("beans_price_up.do")
 	public String priceUpList(Model model, CoffeeBeanDTO dto) {
 
@@ -157,14 +157,8 @@ public class CoffeeBeanController {
 		System.out.println(res);
 		out.println(res);
 	} */
-	
-	
-	
 
-
-	
-
-
+	// 원두 상세정보 페이지
 	@RequestMapping("bean_content.do")
 	public String content(@RequestParam("num") int num, CoffeeStarDTO dto1, Model model) {
 
@@ -188,6 +182,7 @@ public class CoffeeBeanController {
 		return "./bean/bean_content";
 	}
 
+	// 후기글 추가
 	@RequestMapping("write_insert.do")
 	public void writeinsert(MultipartHttpServletRequest mRequest,@RequestParam("writeimg") MultipartFile writeimg, @RequestParam("coffee_star") int coffee_star,@RequestParam("member_num") int member_num, CoffeeStarDTO dto_1, CoffeeWriteDTO dto, HttpServletResponse response) throws IOException {
 		
@@ -221,7 +216,7 @@ public class CoffeeBeanController {
 			
 			// 실제 파일을 만들어 보자.(파일복사느낌임)
 			String saveFileName = originalFileName;
-			
+
 			if(!saveFileName.equals(null)) {
 				saveFileName = System.currentTimeMillis()+"_"+saveFileName;		// 현재 시간을 천분의 1초단위로 계산하고 있는 메소드래..
 				
@@ -237,7 +232,14 @@ public class CoffeeBeanController {
 					e.printStackTrace();
 				}
 			}
-			dto.setWrite_img(homedir+"\\"+saveFileName);
+			
+			if(writeimg == null) {
+				dto.setWrite_img("");				
+			}else {
+				dto.setWrite_img(homedir+"\\"+saveFileName);								
+			}
+			
+
 		} // while 문의 end 부분	
 		System.out.println("ddddd>>"+dto);
 		
@@ -247,25 +249,24 @@ public class CoffeeBeanController {
 		dto_1.setCoffee_star(coffee_star);
 		dto_1.setMember_num(member_num);
 		
-		// 별점 추가
-		System.out.println("coffee_star>>>>>"+ dto_1.getCoffee_star());
-		this.dao.getStar(dto_1);
+		response.setContentType("text/html; enctype=UTF-8");
 		
-		
-		// DB에 데이터가 있는지 없는지 결론 - insert 해야하냐 update 해야하냐.. 
 		dto_1.setBeans_num(dto.getBeans_num());
 		
+		// DB에 데이터가 있는지 없는지 결론 - insert 해야하냐 update 해야하냐.. 
 		int check = this.dao.checkWrite(dto_1);
 		
 		System.out.println("check >>> "+ check);
 		
 		if(check == 1) {
 			System.out.println("update로 하겠슴다.");
+			this.dao.updateStar(dto_1);
 		}else {
-			System.out.println("insert로 하겠슴다.");			
+			System.out.println("insert로 하겠슴다.");	
+			this.dao.insertStar(dto_1);
 		}
 		
-		response.setContentType("text/html; enctype=UTF-8");
+		
 		
 		PrintWriter out = response.getWriter();
 		
@@ -285,9 +286,17 @@ public class CoffeeBeanController {
 	
 	// 후기글 삭제 하는 메서드.
 	@RequestMapping("write_delete.do")
-	public void deleteWrite(@RequestParam("no") int write_num, @RequestParam("num") int beans_num, HttpServletResponse response) throws IOException {
+	public void deleteWrite(@RequestParam("m_num") int member_num, @RequestParam("no") int write_num, @RequestParam("num") int beans_num, HttpServletResponse response) throws IOException {
 		
 		int res = this.dao.deleteWrite(write_num);
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("member_num", member_num);
+		map.put("beans_num", beans_num);
+		
+		int check = this.dao.deleteStar(map);
+		
+		System.out.println("check...."+check);
 		
 		response.setContentType("text/html; enctype=UTF-8");
 		

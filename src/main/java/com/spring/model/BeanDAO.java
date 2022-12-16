@@ -37,5 +37,17 @@ public interface BeanDAO {
 	
 	// 후기글 삭제
 	int deleteWrite(int write_num);
+	// 후기글 삭제시 star도 삭제
+	int deleteStar(Map<String, Integer> map);
+	
+	
+	
+	// 후기글 별점 업데이트
+	void updateStar(CoffeeStarDTO dto_1);
+	
+	// 후기글 별점 insert
+	void insertStar(CoffeeStarDTO dto_1);
+	
+	
 	
 }
