@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orderDAO">
+
+	<!-- 멤버 정보 -->
+	<select id="getMemberCont" parameterType="int" resultType="finalMemberDTO">
+		select member_num
+		     , member_name
+		     , member_email
+		     , member_phone
+		     , case when replace(member_addr,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr,',',' ') end as member_addr 
+		     , case when replace(member_addr2,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr2,',',' ') end as member_addr2 
+		     , case when replace(member_addr3,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr3,',',' ') end as member_addr3 
+		     , case when replace(member_addr4,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr4,',',' ') end as member_addr4 
+		     , case when replace(member_addr5,', ','') = '주소를 넣어주세요' then '-' else replace(member_addr5,',',' ') end as member_addr5 
+		     , member_point
+		  from final_member
+		 where member_num = #{member_num}
+	</select>
+	
+	<!-- 장바구니 리스트(주문전 수량, 그람 확정) -->
+	<select id="getCartListFin" parameterType="java.util.List" resultType="coffeeOrderDTO">
+		select ca.cart_num  
+		     , ca.cart_cnt  as order_cnt
+		     , be.beans_price * ca.cart_cnt * (ca.cart_weight/100) as order_price
+		     , ca.beans_num
+		     , be.beans_name
+		     , be.beans_price
+		     , be.beans_taste
+		     , be.beans_img
+		     , ca.cart_weight
+		     , ca.cart_grind 
+		     , ca.member_num
+		  from coffee_cart ca
+		  join coffee_beans be
+		    on ca.beans_num = be.beans_num
+		 where ca.cart_num in
+		 	<foreach collection="list" item="item" separator="," open="(" close=")">
+		 		${item}
+		 	</foreach>
+		   and be.beans_count not in(0)
+		 order by ca.cart_num desc
+	</select>
+	
+	<!-- 장바구니 통해서 주문(상품 여러개 주문) -->
+	<update id="insertOrder" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=" " open="insert all" close="select * from dual">
+			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
+			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point})
+		</foreach>
+	</update>
+	
+	<update id="updateBeanCnt" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
+			update coffee_beans set beans_count = beans_count - (${item.order_cnt}*(${item.cart_weight}/100)) where beans_num = ${item.beans_num}
+		</foreach>
+	</update>
+	
+	<!-- 바로 주문(상품 여러개 주문) -->
+	<insert id="insertOneOrder" parameterType="coffeeOrderDTO">
+		insert into coffee_order 
+		values(#{order_num}, #{order_row}, #{order_cnt}, #{order_price}, to_date(#{order_date},'yyyyMMddhhmiss'), 
+			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point})
+	</insert>
+	
+	<update id="updateOneBeanCnt" parameterType="coffeeOrderDTO">
+		update coffee_beans set beans_count = beans_count - (#{order_cnt}*(#{cart_weight}/100)) where beans_num = #{beans_num}
+	</update>
+	
+	<!-- 업데이트 포인트 -->
+	<update id="updatePoint" parameterType="hashmap">
+		update final_member
+		   set member_point = member_point + #{savePoint} - #{usePoint}
+		 where member_num = #{memberNum}
+	</update>
+	
+	<delete id="deleteCart" parameterType="java.util.List">
+		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
+			delete from coffee_cart where cart_num = ${item.cart_num}
+		</foreach>
+	</delete>
+
+	<select id="nowOrderList" parameterType="String" resultType="coffeeOrderDTO">
+	     select * from coffee_order where order_num = #{order_num}
+	</select>
+</mapper>

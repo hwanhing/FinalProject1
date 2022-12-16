@@ -14,6 +14,9 @@ public class CoffeeBeanDTO {
 	private String beans_img;
 	private String beans_url;
 	
+	private int count_h;
+	
+	private int write_count;
 }
 
 

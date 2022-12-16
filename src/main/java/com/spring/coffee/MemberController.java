@@ -25,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.CoffeeTestDAO;
 import com.spring.model.CoffeeTestDTO;
+import com.spring.model.FinalAdminDTO;
 import com.spring.model.FinalMemberDTO;
 import com.spring.model.MemberDAO;
 
