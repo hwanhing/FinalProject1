@@ -120,7 +120,7 @@
 	                                 	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 	                                 </td>
 	                                 <td class="p_reorder">
-	                                     <button class="btn small_txt">재구매하기</button>
+	                                     <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매하기</button>
 	                                 </td>
 	                                </c:forEach>
 	                            </tr>

@@ -10,10 +10,15 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -195,6 +200,27 @@ public class CoffeeOrderController {
 		return summaryOrder;
 	}
 	
+	// 주문내역 리스트 주문월(중복제외)
+	public List<String> setArr(List<CoffeeOrderDTO> orderList) {
+		
+		System.out.println("--setArr(중복 월 제거)-------------------------------------------------------------");
+		
+		String[] orderMonArr = new String[orderList.size()];
+		
+		for(int i=0; i<orderList.size(); i++) {
+			orderMonArr[i] = orderList.get(i).getOrder_month();
+		}
+		
+		HashSet<String> hashSet = new HashSet<String>(Arrays.asList(orderMonArr));
+		List<String> orderMonths = new ArrayList<String>(hashSet);
+		
+		// 내림차순
+		Collections.sort(orderMonths, Collections.reverseOrder());
+		
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		return orderMonths;
+	}
 	// --------------------------------------------------------------------------------------------------
 	
 	// 장바구니에서 넘어옴
@@ -403,6 +429,14 @@ public class CoffeeOrderController {
 		// 오늘 날짜 현재시간 (order_num: 24시간 표기 / order_date : 12시간 표기
 		LocalDateTime now = LocalDateTime.now();
 		String formatNow24 = now.format(DateTimeFormatter.ofPattern("yyyyMMddkkmmss"));
+		// 24시일경우 00으로 변경
+		if(formatNow24.substring(9,11).equals("24")) {
+			formatNow24 = formatNow24.replace(formatNow24.substring(9,11), "00");
+			System.out.println("24시 일경우 변경 order_num : " + formatNow24);
+		}else {
+			System.out.println("24시가 아닐경우 order_num : " + formatNow24);	
+		}
+		
 		String formatNow12 = now.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
 		String order_num = "O"+formatNow24+member_num;
 		
@@ -548,7 +582,24 @@ public class CoffeeOrderController {
 	}
 	
 	@RequestMapping("order_list.do")
-	public String orderList() {
+	public String orderList(HttpSession session, Model model) {
+		
+		System.out.println("--order_list.do-----------------------------------------------------------------");
+		int member_num = (Integer) session.getAttribute("member_num");
+		System.out.println("member_num : " + member_num);
+		
+		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(member_num);
+		List<String> orderMonArr = setArr(orderList);
+		
+		System.out.println("orderList.size() : " + orderList.size());
+		for(int i=0; i<orderMonArr.size(); i++) {
+			System.out.println(orderMonArr.get(i));
+		}
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		model.addAttribute("orderMonArr",orderMonArr);
+		model.addAttribute("orderList", orderList);
+		
 		return "./cartAndOrder/orderList";
 	}
 }

@@ -95,9 +95,11 @@
                                  <!-- </td> -->
                                  <td class="search_date">
                                      <div class="s_date">
-                                         <input type="date">
+                                     	 
+                                         <input type="date" class="start_date">
                                          <span>-</span>
-                                         <input type="date">
+                                         <input type="date" class="end_date">
+                                     
                                      </div>
                                  </td>
                                  <td class="search_btn">
