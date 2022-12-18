@@ -441,3 +441,91 @@
     font-family: 'YESMyoungjo-Regular';
 }
 
+/*오프캔버스  */
+.offcanvas-header{
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--bs-offcanvas-padding-y) var(--bs-offcanvas-padding-x);
+
+}
+
+.header__content{
+	background-color: #D9CEC1;
+    -webkit-text-size-adjust: 100%;
+    font: 100% sans-serif;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+    font-size: .875rem;
+    line-height: 1.571;
+    visibility: visible;
+    text-align: left;
+    pointer-events: all;
+    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+    box-sizing: inherit;
+    outline: none;
+    margin: 0;
+    display: flex;
+	align-items: center;
+    justify-content: space-around;
+    padding: 100px 100px 50px 0.1px;
+}	
+.img_no{		
+margin-left:50px;
+border: 1px solid #FFF;
+border-radius: 100%;
+height: 100px;
+width: 100PX;
+ }
+	
+.header__username{
+	margin-bottom: 40px;
+}
+
+.navbar-nav {
+    --bs-nav-link-padding-x: 0;
+    --bs-nav-link-font-weight: ;
+    --bs-nav-link-color: var(--bs-navbar-color);
+    --bs-nav-link-hover-color: var(--bs-navbar-hover-color);
+    --bs-nav-link-disabled-color: var(--bs-navbar-disabled-color);
+    display: flex;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+.loyalty-modal__close-button{
+    -webkit-text-size-adjust: 100%;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    visibility: visible;
+    pointer-events: all;
+    box-sizing: inherit;
+    outline: none;
+    line-height: 1.5;
+    margin: 0;
+    overflow: visible;
+    text-transform: none;
+    -webkit-appearance: button;
+    font-family: inherit;
+    font-size: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: rgb(var(--colour-neutral-7, 17, 17, 17));
+    border: 0;
+    transition-property: background-color;
+    transition-duration: .3s;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: rgb(var(--colour-neutral-1, 255, 255, 255));
+    border-radius: 50%;
+    border-color: rgb(var(--colour-neutral-1, 255, 255, 255));
+    position: absolute;
+    top: 1.5625rem;
+    right: 2.3125rem;
+}
+.nav-link {
+   margin-top: 0px;
+}

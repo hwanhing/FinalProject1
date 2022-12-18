@@ -9,7 +9,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
 
 let noimage =
@@ -144,15 +144,24 @@ text-align: center;
 	
 }
 img{		
-margin-left:150px;
+margin-left:50px;
 border: 1px solid black;
 border-radius: 100%;
 height: 200px;
+width: 200PX;
  }
         
-.field{
-	margin-left: 240px;
+.profile{
+margin-top: 50px;
 }
+.fa-cogs:before, .fa-gears:before {
+    content: "\f085";
+    font-size: 60px;
+    margin-bottom: 30px;
+	position: absolute;
+	float: right;
+}
+
 </style>
 </head>
 <body>
@@ -195,19 +204,6 @@ height: 200px;
   </div>
 </div>
 
-  	<div class="field">
- 
-          <fieldset>
-        
-             <label for="image"></label>
-             <img alt="핑구이미지" src="${dto.getMember_img() }">
-          <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><img id="img-preview1" class="img_no" src="${dto.getMember_img() }" /></a> 
-					<!-- 	<div>
-						  <input type="file" accept="image/*" onchange="readURL1(this)"  name="member_img" >
-						</div> -->
-          </fieldset>
-       
-        </div>
 
 
 <div class="container">
@@ -229,14 +225,30 @@ height: 200px;
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_default_1">
-							<div>
+							<div>				
+								<div class="field">
+									<div class="profile">
+							 		  <span class="first-span">프로필사진</span>
+							 		 <br><br>
+							 		 </div>
+							             <label for="image"></label>
+							          <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><img id="img-preview1" class="img_no" src="${dto.getMember_img() }" /></a> 											
+											<%-- 	<a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><i class="fa-solid fa-gears"></i></a> --%>
+										<br><br>	
+										<div>
+										
+										</div>
+							        </div>
+										<hr width="1280px" color="gray">
 								  <div>
+				  
 								  <div>
 								  <span class="first-span">개인정보</span>
 								  
 								
 								</div>
 								<div>
+									<br><br>
 									<span>${dto.getMember_name() }</span>
 								</div>
 								<div>
