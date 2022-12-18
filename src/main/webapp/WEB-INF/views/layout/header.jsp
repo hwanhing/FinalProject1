@@ -230,23 +230,20 @@
             </div>
         </header>
 
+	<!-- 사이드바 -->
 	     <c:if test="${!empty member_id  }">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-		     <div class="offcanvas-header">
-		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">${member_name} 님 환영합니다.</h5>
-		    	<div>
-		    	
-		    	
-		    	</div>
-	       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		     </div>
-		     <div class="offcanvas-body">
-		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+		     <div class="header__content"><img src="${member_img }" class="img_no"><h5><span class="header__username">${member_name }</span></h5> 
 		     
-		       
+		     	</div>
+		     	  <div class="point-banner">
+		          		<span class="point"> 💰포인트 : <span>${member_point }p</span></span>
+		          </div>
+		     <div class="offcanvas-body">
+		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">	       
 		         <li class="nav-item">
 	          	<div>
-	          	<div >
+	          		<div>
 	          		<c:if test="${!empty test_img }">
 	          			 <img class="result-img" src="${test_img }" width=200>
 	          		</c:if>
@@ -260,15 +257,15 @@
 	          	</div>
 	          	
 	          	</div>
-		          <div>
-		          		<span class="point"> 💰포인트 : <span>${member_point }p</span></span>
-		          </div>
+		        
 		         </li>
 		         <li class="nav-item">
 		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}"><span class="point">마이페이지</span> </a>
+		           <hr>
 		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}"><span class="point">찜리스트</span></a>
-	        
-		         <li class="nav-item dropdown">
+	        	  <hr>
+		         <li >
+		           
 		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 		         	<span class="point">고객센터</span>
 		           </a>
@@ -276,17 +273,19 @@
 		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${member_num}"><span class="point">문의게시판</span></a></li>
 		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/w_write.do?num=${member_num}"><span class="point2">1:1문의하기</span></a></li>
 		             <li>
-		     
+		     		
 		             </li>
-		       			
+		       		
 		           </ul>
-		    
+		    			 <hr>
 		    
 		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do"><span class="point">로그아웃</span></a>
+					 <hr>
 		         </li>
 		       </ul>
 		      
 		     </div>
+		     <button class="loyalty-modal__close-button" id="close-button" aria-label="메뉴 닫기"><svg fill="none" focusable="false" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12.0002 13.4144L16.9499 18.3642L18.3642 16.9499L13.4144 12.0002L18.3642 7.05044L16.95 5.63623L12.0002 10.586L7.05044 5.63623L5.63623 7.05044L10.586 12.0002L5.63624 16.9499L7.05046 18.3642L12.0002 13.4144Z" fill="currentColor" fill-rule="evenodd"></path></svg></button>
 		   </div>
 		   </c:if>
 		

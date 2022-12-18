@@ -108,7 +108,7 @@ input {
   color: #fff;
   transform: translateY(-7px);
 }
-.find_addr{
+.find_file{
 	margin-left: 50px;
 }
 .input_addr{
@@ -189,46 +189,26 @@ margin-top: 150px;
 		</div>
 		
 		<div class="side">
-			<c:if test="${dto.getMember_addr2() ne null }" >
-				<h1>새로운 주소 수정</h1>
-			</c:if>
-			<c:if test="${dto.getMember_addr2() eq null }" >
+			
 				<h1 class="h1_text">
-						<span class="span_text">새로운
+						<span class="span_text">프로필 사진
 						</span> 
-					주소 추가</h1>
-			</c:if>
+					추가</h1>
+	
 		</div>   	
 	</div>
 	<div class="form-main">
 		<div class="desc">
-		<form class="desx" action="<%=request.getContextPath()%>/addr_modify_ok.do" method="post">
-				
+		<form class="desx"  action="<%=request.getContextPath()%>/addr_imgmodify_ok.do" method="post">
+			
 				<input type="hidden" value="${member_num }" name="member_num">
 					<div class="find_addr">
-				<input type="button" onclick="sample6_execDaumPostcode()" id="button" value="우편번호 찾기"><br>
+				
 					</div>
 				<br><br>
-						<div class="input_addr">
-							<div>
-								<label class="input_label">우편번호</label>
-							</div>
-							<input type="text" id="sample6_postcode" name="member_addr" placeholder="우편번호" readonly><br>
-							<br>
-							<div>
-								<label class="input_label">도로명주소</label>
-							</div>
-							<input type="text" id="sample6_address" name="member_addr" placeholder="주소" readonly><br>
-							<br>
-							<div>
-								
-							</div>
-							<input type="text" id="sample6_extraAddress"  name="member_addr" placeholder="참고항목" readonly><br>
-							<br>
-							<div>
-								<label class="input_label">상세주소</label>
-							</div>
-							<input type="text" id="sample6_detailAddress"  name="member_addr" placeholder="상세주소">
+						<div class="input_file">
+							
+						<!--파일 어떻게 할까????  -->
 						</div>
 				<br>
 					<div class="last_btn">
