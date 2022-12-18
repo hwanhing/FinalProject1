@@ -90,4 +90,36 @@
 		     on co.beans_num = be.beans_num 
 		  where order_num = #{order_num}
 	</select>
+	
+	<sql id="order_product">
+		select order_num
+             , min(order_row) as order_row
+             , count(order_num) as order_product_cnt
+             , sum(order_price) as order_price
+             , min(order_date) as order_date
+             , min(to_char(order_date,'yyyy.mm')) as order_month 
+         from coffee_order
+         where member_num = #{member_num}
+        group by order_num
+        order by order_num desc
+	</sql>
+	
+	<select id="getOrderList" parameterType="int" resultType="coffeeOrderDTO">
+		with order_product as ( <include refid="order_product"/>
+				)select op.order_month
+				      , op.order_date
+				      , op.order_num
+				      , op.order_price
+				      , co.beans_num
+				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
+				      , be.beans_img
+				  from coffee_order co
+				  join order_product op
+				    on co.order_num = op.order_num
+				   and co.order_row = op.order_row
+				  join coffee_beans be
+				    on co.beans_num = be.beans_num 
+				 order by order_num desc
+	</select>
+	
 </mapper>

@@ -33,5 +33,6 @@ public interface CoffeeOrderDAO {
 	// 주문목록 가져오기
 	List<CoffeeOrderDTO> getNowOrderList(String order_num);
 	
-
+	// 주문목록 가져오기(list)
+	List<CoffeeOrderDTO> getOrderList(int member_num);
 }

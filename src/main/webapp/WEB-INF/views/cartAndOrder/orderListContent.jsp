@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderListC.css">
+        <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	
@@ -41,8 +42,8 @@
                                 <c:set var="summary" value="${summaryOrder }"/>
                                 <div class="m_order_num">
                                     <ul class="list">
-                                        <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
                                         <li>주문번호 | <span><b>${summary.order_num }</b></span> </li>
+                                        <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
                                     </ul>
                                 </div>
                                 <table class="m_table m_s_t">
@@ -70,7 +71,7 @@
 	                                        <td class="p_cont_area">
 	                                            <div class="p_cont_imgcont">
 	                                                <div class="p_img">
-	                                                    <a class="p_img_a" href="">
+	                                                   <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="p_img_a">
 	                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }">
 	                                                    </a>
 	                                                </div>

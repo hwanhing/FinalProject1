@@ -132,6 +132,7 @@
 .disable{
 	color: gray !important;
 	cursor: none;
+	font-size: 14px;
 }
 
 /* 

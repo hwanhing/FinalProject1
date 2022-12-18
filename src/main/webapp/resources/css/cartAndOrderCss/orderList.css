@@ -2,6 +2,7 @@
 
 /* m_search 
     ㄴ m_table
+       	ㄴ search_term
         ㄴ search_month
         ㄴ search_date
         ㄴ search_btn
@@ -10,8 +11,37 @@
     margin-bottom: var(--margin);
 }
 
+/* 기간 텀별 */
+.s_term{
+	width: 60%;
+	padding: 5px 10px 5px 10px;
+	border-radius: 20px;
+	box-shadow: var(--box_shadow);
+}
+
+.s_term_btn{
+	width: 100%;
+	display: flex !important;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.s_term_btn p{
+	width: 80%;
+}
+
+.sel_term .btn{
+	width: 100%;
+	text-align: center;
+}
+
+.sel_term .btn:hover{
+	font-weight: bold;
+}
+
 /* 월별 */
-.s_month{
+/* .s_month{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -29,16 +59,28 @@
 .s_month button:hover{
     font-weight: bold;
 }
-
+ */
 /* 일자별 */
+.search_date{
+	display: flex;
+	justify-content: right;
+	align-items: center;
+}
+
+.s_date{
+	height: 100%;
+}
+
 .s_date input{
     border: none;
     outline: none;
+    margin: 10px;
 } 
 
-.clicked{
-    background-color: var(--color_begie);
-    font-weight: bold;
+
+/* 조회 버튼 */
+.s_date .etc_btn{
+	margin-top: 5px;
 }
 
 /* m_main 
@@ -55,17 +97,17 @@
 }
 
 .m_order_month{
-    margin-bottom: var(--margin);
+    padding-bottom: var(--margin);
     display: flex;
     justify-content: center;
     border-bottom: 2px solid var(--color_begie);
 }
 
-.m_order_month h4{
+.m_order_month .point_text{
     padding: 10px 20px 10px 20px;
     border: 2px solid var(--color_begie);
     box-shadow: var(--box_shadow);
-    border-radius: 20px;
+    border-radius: 20px ;
 }
 
 /* row 테이블 */

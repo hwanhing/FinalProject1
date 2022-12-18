@@ -70,6 +70,12 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.selectList("nowOrderList", order_num);
 	}
 
+	// 주문내역 리스트
+	@Override
+	public List<CoffeeOrderDTO> getOrderList(int member_num) {
+		return this.sqlSession.selectList("getOrderList", member_num);
+	}
+
 	
 
 	
