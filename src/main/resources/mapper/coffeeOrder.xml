@@ -122,4 +122,23 @@
 				 order by order_num desc
 	</select>
 	
+	<select id="getOrderListDate" parameterType="hashmap" resultType="coffeeOrderDTO">
+		with order_product as ( <include refid="order_product"/>
+				)select op.order_month
+				      , op.order_date
+				      , op.order_num
+				      , op.order_price
+				      , co.beans_num
+				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
+				      , be.beans_img
+				  from coffee_order co
+				  join order_product op
+				    on co.order_num = op.order_num
+				   and co.order_row = op.order_row
+				  join coffee_beans be
+				    on co.beans_num = be.beans_num 
+				   and co.order_date between to_date(#{start},'yyyy-mm-dd') and to_date(#{end},'yyyy-mm-dd')
+				 order by order_num desc
+	</select>
+	
 </mapper>

@@ -11,6 +11,13 @@
     margin-bottom: var(--margin);
 }
 
+/* 화면 크기 830px 미만 부터 적용 */
+@media screen and (max-width: 820px) { 
+    .m_search{
+        height: 110px;
+    }
+}
+
 /* 기간 텀별 */
 .s_term{
 	width: 60%;
@@ -144,3 +151,23 @@
 .m_page div .btn:hover{
     font-weight: bold;
 }
+
+/* 알림창 */
+.modal_body {
+     position: absolute;
+     top: 60%;
+     left: 50%;
+
+     width: 500px;
+     height: 600px;
+
+     padding: 20px;
+
+     text-align: center;
+
+     background-color: rgb(255, 255, 255);
+     border-radius: 10px;
+     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+
+     transform: translateX(-50%) translateY(-50%);
+ }

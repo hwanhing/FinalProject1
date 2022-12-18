@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderList.css">
     <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
-
+	
      <%-- 해더 --%>
   	 <jsp:include page="../layout/header.jsp" />
   
@@ -82,29 +83,29 @@
 					                    </div>
 					                </ul>
 					            </td>
-					            <!-- <td class="search_month"> -->
-                                     <!-- 현재월의 -6개월 -->
-                                     <!-- <ul class="list s_month">
-                                         <li><button class="btn sel_month clicked">7월</button></li>
-                                         <li><button class="btn sel_month">8월</button></li>
-                                         <li><button class="btn sel_month">9월</button></li>
-                                         <li><button class="btn sel_month">10월</button></li>
-                                         <li><button class="btn sel_month">11월</button></li>
-                                         <li><button class="btn sel_month">12월</button></li>
-                                     </ul> -->
-                                 <!-- </td> -->
                                  <td class="search_date">
                                      <div class="s_date">
                                      	 
-                                         <input type="date" class="start_date">
-                                         <span>-</span>
-                                         <input type="date" class="end_date">
-                                     
+                                     	  <c:set var="now" value="<%=new java.util.Date()%>" />
+        								  <c:set var="nowFormat"><fmt:formatDate value="${now}" pattern="yyyy/MM/dd" /></c:set>
+                                     	 <c:if test="${empty dateMap }">
+                                     	 	 <input type="date" class="start_date" value="${nowFormat }">
+	                                         <span>-</span> 
+	                                         <input type="date" class="end_date" value="${nowFormat }">
+                                     	 </c:if>
+                                     	 
+                                     	 <c:if test="${!empty dateMap }">
+                                     	 	 <input type="date" class="start_date" value="${dateMap.get('start') }">
+	                                         <span>-</span> 
+	                                         <input type="date" class="end_date" value="${dateMap.get('end') }">
+                                     	 </c:if>
+                                       
                                      </div>
                                  </td>
                                  <td class="search_btn">
                                		<div class="s_date">
-                                    	 <button class="btn etc_btn sub_middle_text">조회</button>
+                                    	 <button class="btn etc_btn sub_middle_text" onclick="searchData()">조회</button>
+	                                     <!-- <button class="btn etc_btn sub_middle_text" onclick="searchData()">조회</button> -->
                                      </div>
                                  </td>
                              </tr>

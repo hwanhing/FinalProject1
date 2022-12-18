@@ -602,5 +602,43 @@ public class CoffeeOrderController {
 		
 		return "./cartAndOrder/orderList";
 	}
+	
+	@RequestMapping("order_list_selectDate.do")
+	public String orderListDate(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		System.out.println("--order_list_selectDate.do------------------------------------------------------");
+
+		int member_num = (Integer) session.getAttribute("member_num");
+		System.out.println("member_num : " + member_num);
+
+		// 받아온 카트번호
+		String startEndS = request.getParameter("startEnd");
+		String[] startEndA = startEndS.split(",");
+
+		Map<String, Object> dateMap = new HashMap<String, Object>();
+		dateMap.put("member_num", member_num);
+		dateMap.put("start", startEndA[0]);
+		dateMap.put("end", startEndA[1]);
+		
+		////////////////////////////////////
+		List<CoffeeOrderDTO> orderList = orderDao.getOrderListDate(dateMap);
+		List<String> orderMonArr = setArr(orderList);
+		
+		System.out.println("orderList.size() : " + orderList.size());
+		for(int i=0; i<orderMonArr.size(); i++) {
+			System.out.println(orderMonArr.get(i));
+		}
+		
+		PrintWriter out = response.getWriter();
+		
+		model.addAttribute("dateMap",dateMap);
+		model.addAttribute("orderMonArr",orderMonArr);
+		model.addAttribute("orderList", orderList);
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		return "./cartAndOrder/orderList";
+		//return null;
+	}
+	
+	
 }
 

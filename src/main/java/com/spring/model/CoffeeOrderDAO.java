@@ -35,4 +35,7 @@ public interface CoffeeOrderDAO {
 	
 	// 주문목록 가져오기(list)
 	List<CoffeeOrderDTO> getOrderList(int member_num);
+	
+	// 주문목록 가져오기(일자설정)
+	List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap);
 }

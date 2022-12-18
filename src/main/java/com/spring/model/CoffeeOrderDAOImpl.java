@@ -75,6 +75,12 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public List<CoffeeOrderDTO> getOrderList(int member_num) {
 		return this.sqlSession.selectList("getOrderList", member_num);
 	}
+	
+	// 주문내역 리스트(일자지정)
+	@Override
+	public List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap) {
+		return this.sqlSession.selectList("getOrderListDate", dateMap);
+	}
 
 	
 
