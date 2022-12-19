@@ -48,4 +48,6 @@ public interface MemberDAO {
 
 	int joinIdCheck(FinalMemberDTO dto);
 
+	int Memberupdate(FinalMemberDTO fmdto);
+
 }

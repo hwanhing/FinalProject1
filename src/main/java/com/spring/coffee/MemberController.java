@@ -1,9 +1,12 @@
 package com.spring.coffee;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.http.HttpResponse;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.spring.model.BoardMemberDTO;
@@ -556,7 +561,70 @@ public class MemberController {
 		  
 		  return "./member/mypage_img";
 	  }
+	  
+	  @RequestMapping("addr_imgmodify_ok.do")
+	  public void addr_imgmodfiy_ok(MultipartHttpServletRequest mRequest, @RequestParam("member_num") int member_num,
+			  @RequestParam(value="img", required = false , defaultValue = "") String img,
+			  HttpServletResponse response) throws IOException {
+		  System.out.println("dddd222dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+		  	FinalMemberDTO fmdto = this.dao.MemberMyPage(member_num);
+			String uploadPath = "C:\\Users\\user\\Desktop\\spring\\img\\";
+			
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int day = cal.get(Calendar.DAY_OF_MONTH);
+			
+			// 업로드된 파일들의 이름 목록을 제공하는 메서드.
+			Iterator<String> iterator = mRequest.getFileNames();
+			
+			while(iterator.hasNext()) {
+				System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+				String uploadFileName = iterator.next();
+				
+				MultipartFile mFile = mRequest.getFile(uploadFileName);
+				
+				String originalFileName = mFile.getOriginalFilename();
+				
+				// 실제 폴더를 만들어 보자.
+				// ...................\\resources\\upload\\2022-11-25\\
+				String homedir = uploadPath + year + "-" + month + "-" + day;
+				
+				File path1 = new File(homedir);
+				
+				if(!path1.exists()) {
+					path1.mkdirs();
+				}
+				
+				// 실제 파일을 만들어 보자.(파일복사느낌임)
+				String saveFileName = originalFileName;
+
+				if(!saveFileName.equals(null)) {
+					saveFileName = System.currentTimeMillis()+"_"+saveFileName;		// 현재 시간을 천분의 1초단위로 계산하고 있는 메소드래..
+					
+					try {
+						// ...................\\resources\\upload\\2022-11-25\\실제파일
+						File origin = new File(homedir+"/"+saveFileName);
+						
+						// transferTo() : 파일 데이터를 지정한 폴더로 실제 저장시키는 메서드.
+						if(!img.equals("")) new File(homedir+"/"+img).delete();
+						
+						mFile.transferTo(origin);
+						fmdto.setMember_img(homedir+"\\"+saveFileName);						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				int i = dao.Memberupdate(fmdto);			
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out=response.getWriter();
+				
+				out.println("<script>location.href='"+mRequest.getContextPath()+"/member_mypage.do?num="+member_num+"';</script>");
+			}
+			
+		  
 	  }
+}
 	
 
 

@@ -199,16 +199,11 @@ margin-top: 150px;
 	</div>
 	<div class="form-main">
 		<div class="desc">
-		<form class="desx"  action="<%=request.getContextPath()%>/addr_imgmodify_ok.do" method="post">
+		<form class="desx"  action="<%=request.getContextPath()%>/addr_imgmodify_ok.do" method="post" enctype="multipart/form-data">
 			
 				<input type="hidden" value="${member_num }" name="member_num">
-					<div class="find_addr">
-				
-					</div>
-				<br><br>
 						<div class="input_file">
-							
-						<!--파일 어떻게 할까????  -->
+								<input type="file" name="file1">
 						</div>
 				<br>
 					<div class="last_btn">
