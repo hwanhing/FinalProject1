@@ -133,6 +133,12 @@ public class MemberDAOImpl implements MemberDAO{
 		return this.sqlSession.selectOne("joinIdCheck", dto);
 	}
 
+	@Override
+	public int Memberupdate(FinalMemberDTO fmdto) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.update("memberUpdateImg", fmdto);
+	}
+
 
 
 

@@ -232,7 +232,8 @@ margin-top: 50px;
 							 		 <br><br>
 							 		 </div>
 							             <label for="image"></label>
-							          <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><img id="img-preview1" class="img_no" src="${dto.getMember_img() }" /></a> 											
+							        <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}"><img alt="이미지없음" id="img-preview1" class="img_no" src="${dto.getMember_img()}" /></a>										
+							       
 											<%-- 	<a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}"><i class="fa-solid fa-gears"></i></a> --%>
 										<br><br>	
 										<div>
