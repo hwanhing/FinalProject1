@@ -82,6 +82,20 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.selectList("getOrderListDate", dateMap);
 	}
 
+	// 전체 주문취소
+	@Override
+	public int updateOrderAllCancel(String order_num) {
+		return this.sqlSession.update("updateOrderAllCancel", order_num);
+	}
+
+	// 포인트 사용시 사용 취소
+	@Override
+	public int updateUsePointCancel(Map<String, Integer> memMap) {
+		return this.sqlSession.update("updateUsePointCancel", memMap);
+	}
+	
+	
+
 
 	
 

@@ -195,12 +195,19 @@ public class CoffeeOrderController {
 		// 사용 포인트
 		int use_point = orderList.get(0).getUse_point();
 		
+		// 현 배달상황 및 취소확인
+		int type_num = orderList.get(0).getType_num();
+		System.out.println("summary type_num : " + type_num);
+		
+		
 		summaryOrder.put("order_num", order_num);
 		summaryOrder.put("order_date", order_date);
 		summaryOrder.put("order_img", order_img);
 		summaryOrder.put("order_product", order_product);
 		summaryOrder.put("order_price_total", order_price_total);
 		summaryOrder.put("use_point", use_point);
+		summaryOrder.put("type_num", type_num);
+		
 		
 		return summaryOrder;
 	}
@@ -435,8 +442,8 @@ public class CoffeeOrderController {
 		LocalDateTime now = LocalDateTime.now();
 		String formatNow24 = now.format(DateTimeFormatter.ofPattern("yyyyMMddkkmmss"));
 		// 24시일경우 00으로 변경
-		if(formatNow24.substring(9,11).equals("24")) {
-			formatNow24 = formatNow24.replace(formatNow24.substring(9,11), "00");
+		if(formatNow24.substring(8,10).equals("24")) {
+			formatNow24 = formatNow24.replace(formatNow24.substring(8,10), "00");
 			System.out.println("24시 일경우 변경 order_num : " + formatNow24);
 		}else {
 			System.out.println("24시가 아닐경우 order_num : " + formatNow24);	
@@ -659,6 +666,47 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		return "./cartAndOrder/orderList";
+	}
+	
+	@RequestMapping("order_all_cancel.do")
+	public String orderAllCancel(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+		
+		System.out.println("--order_all_cancel.do-----------------------------------------------------------");
+		int member_num = (Integer) session.getAttribute("member_num");
+		String order_num = request.getParameter("onum");
+		
+		System.out.println("member_num : " + member_num);
+		System.out.println("order_num : " + order_num);
+		
+		// 주문 타입 취소건으로 수정하기
+		int result = orderDao.updateOrderAllCancel(order_num);
+		System.out.println("주문타입 4번으로 수정 결과 : " + result);
+		
+		// 주문 테이블 가져오기
+		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
+		
+		// 포인트를 사용했으면 사용 포인트 취소하기
+		if(orderList.get(0).getUse_point()>0) {
+			
+			int use_point = orderList.get(0).getUse_point();
+			System.out.println("사용한 포인트 : " + use_point);
+			
+			Map<String, Integer> memMap = new HashMap<String, Integer>();
+			memMap.put("member_num", member_num);
+			memMap.put("use_point", use_point);
+			
+			result = orderDao.updateUsePointCancel(memMap);
+		}
+		
+		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryOrder", summaryOrder);
+		
+		
+		
+		System.out.println("--------------------------------------------------------------------------------");
+		return "./cartAndOrder/orderOk";
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////// 

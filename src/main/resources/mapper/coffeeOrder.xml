@@ -113,6 +113,7 @@
 				      , co.beans_num
 				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
 				      , be.beans_img
+				      , co.type_num
 				  from coffee_order co
 				  join order_product op
 				    on co.order_num = op.order_num
@@ -131,6 +132,7 @@
 				      , co.beans_num
 				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
 				      , be.beans_img
+				      , co.type_num
 				  from coffee_order co
 				  join order_product op
 				    on co.order_num = op.order_num
@@ -141,5 +143,17 @@
 				 order by order_num desc
 	</select>
 	
+	<!-- 전체 취소 -->
+	<update id="updateOrderAllCancel" parameterType="String">
+		update coffee_order
+		   set type_num = 4
+		 where order_num = #{order_num}
+	</update>
 	
+	<!-- 포인트 취소 -->
+	<update id="updateUsePointCancel" parameterType="hashmap">
+		update final_member
+		   set member_point = member_point + #{use_point}
+		 where member_num = #{member_num}
+	</update>
 </mapper>

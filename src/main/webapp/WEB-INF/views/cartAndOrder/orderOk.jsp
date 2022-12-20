@@ -66,8 +66,17 @@
 	                                <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
 	                            </ul>
 	                            
+	                            
 	                            <div class="m_order_cancel">
-	                            	<button>전체 주문 취소하기</button>
+	                            
+	                            	<c:if test="${summary.type_num==4 }">
+	                                	<p>(주문 취소건)</p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num!=4 }">
+                                		<button onclick="location.href='order_all_cancel.do?onum=${summary.order_num }'">전체 주문 취소하기</button>
+                                	</c:if>
+                                	
 	                            </div>
 	                            
 	                        </div>
@@ -126,7 +135,7 @@
 	                                 </td>
 	                                 <td class="p_reorder">
 	                                     <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매</button>
-	                                     <button class="btn small_txt" onclick="">주문취소</button>
+	                                     <!-- <button class="btn small_txt" onclick="">주문취소</button> -->
 	                                 </td>
 	                                </c:forEach>
 	                            </tr>

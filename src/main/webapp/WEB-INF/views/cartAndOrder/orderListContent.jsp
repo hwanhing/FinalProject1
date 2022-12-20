@@ -111,8 +111,8 @@
 	                                        <td class="p_reorder">
 	                                            <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매</button>
 	                                            
-	                                            <button class="btn small_txt" onclick="">반품</button>
-	                                            <button class="btn small_txt" onclick="">환불</button>
+	                                            <!-- <button class="btn small_txt" onclick="">반품</button>
+	                                            <button class="btn small_txt" onclick="">환불</button> -->
 	                                        </td>
                                         </c:forEach>
                                     </tr>
