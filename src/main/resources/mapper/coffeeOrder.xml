@@ -48,7 +48,7 @@
 	<update id="insertOrder" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=" " open="insert all" close="select * from dual">
 			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
-			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point})
+			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point}, default)
 		</foreach>
 	</update>
 	
@@ -62,7 +62,7 @@
 	<insert id="insertOneOrder" parameterType="coffeeOrderDTO">
 		insert into coffee_order 
 		values(#{order_num}, #{order_row}, #{order_cnt}, #{order_price}, to_date(#{order_date},'yyyyMMddhhmiss'), 
-			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point})
+			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point}, default)
 	</insert>
 	
 	<update id="updateOneBeanCnt" parameterType="coffeeOrderDTO">

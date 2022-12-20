@@ -586,6 +586,19 @@ public class CoffeeOrderController {
 		return "./cartAndOrder/orderOk";
 	}
 	
+	@RequestMapping("bean_order_cont.do")
+	public String orderListCont(@RequestParam("order") String order_num, Model model) throws IOException {
+		
+		// 주문 테이블 가져오기
+		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
+		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
+		
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryOrder", summaryOrder);
+		
+		return "./cartAndOrder/orderListContent";
+	}
+	
 	@RequestMapping("order_list.do")
 	public String orderList(HttpSession session, Model model) {
 		

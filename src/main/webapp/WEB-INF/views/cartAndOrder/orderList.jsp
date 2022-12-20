@@ -28,10 +28,41 @@
              <!-- 주문 완료 목록 -->
              <section class="order_main"> 
                  <div class="order_main_in">
+                 
                      <!-- head -->
                      <div class="m_header">
                          <h3>주문내역</h3>
                      </div>
+                     
+                     <!-- 배달 현황 요약 -->
+	                <div class="m_summary">
+	                    <div class="m_summary_in">
+	                    
+	                        <div class="m_s_delivery m_s_delivery_ok">
+	                            <h3 class="point_text">배송완료</h3>
+	                            <h4 class="cnt_txt">
+	                            	<a href="" class="a">5</a>
+	                            </h4>
+	                        </div>
+	                        <div class="hr_div"></div>
+	                        <div class="m_s_delivery m_s_delivery_ing">
+	                            <h3 class="point_text">배송중</h3>
+	                            <h4 class="cnt_txt">
+	                            	<a href="" class="a">3</a>
+	                            </h4>
+	                        </div>
+	                        <div class="hr_div"></div>
+	                        <div class="m_s_delivery m_s_delivery_before">
+	                            <h3 class="point_text">배송대기</h3>
+	                            <h4 class="cnt_txt">
+	                            	<a href="" class="a">5</a>
+	                            </h4>
+	                        </div>
+	                        
+	                    </div>
+	                </div>
+                     
+                     
                      <!-- search -->
                      <div class="m_search">
                          <table class="m_table">
@@ -110,7 +141,7 @@
 	                             
 		                                 <tr class="m_order_row">
 		                                     <td class="p_date_area txt_center">
-		                                         <a class="a p_date" href="<%=request.getContextPath() %>/bean_order_ok.do?order=${list.getOrder_num() }">${list.getOrder_num() }</a>
+		                                         <a class="a p_date" href="<%=request.getContextPath() %>/bean_order_cont.do?order=${list.getOrder_num() }">${list.getOrder_num() }</a>
 		                                         <p>(${list.getOrder_date().substring(0,10) })</p> 
 		                                     </td>
 		                                  
@@ -128,6 +159,9 @@
 		                                     </td>
 		                                     <td class="txt_right">
 		                                     	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
+		                                     </td>
+		                                     <td>
+		                                     	
 		                                     </td>
 		                                 </tr>
 	                                 

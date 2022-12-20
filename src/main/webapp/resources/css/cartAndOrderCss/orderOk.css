@@ -154,3 +154,18 @@ table td:not(.sep_tr td){
     padding: 0px;
 }
 
+/* 전체 취소 버튼 */
+.m_order_num{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.m_order_cancel button{
+	color: var(--color_begie);
+}
+
+.m_order_cancel button:hover{
+	color: var(--color_milk_brown);
+}
+

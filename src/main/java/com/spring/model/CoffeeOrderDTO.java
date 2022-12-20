@@ -18,6 +18,7 @@ public class CoffeeOrderDTO {
 	private int cart_grind;
 	private int member_num;
 	private int use_point;
+	private int type_num;			// 배송 특이사항
 	
 	// 테이블 외 필요
 	private int cart_num;			// 장바구니 번호

@@ -31,7 +31,7 @@
                         <div class="m_header">
                             <h3 class="point_text">주문 내역</h3>
                             <div class="e_btn_area">
-                                <button class="btn etc_btn small_txt">더보기</button>
+                                 <button class="btn etc_btn small_txt" onclick="location.href='order_list.do'">더보기</button>
                             </div>
                         </div>
 
@@ -45,6 +45,12 @@
                                         <li>주문번호 | <span><b>${summary.order_num }</b></span> </li>
                                         <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
                                     </ul>
+                                    
+                                    <!-- 배송전일때만 주문 취소 가능 -->
+                                    <div class="m_order_cancel">
+	                            		<button>전체 주문 취소하기</button>
+	                            	</div>
+	                            	
                                 </div>
                                 <table class="m_table m_s_t">
                                     <colgroup>
@@ -75,6 +81,9 @@
 	                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }">
 	                                                    </a>
 	                                                </div>
+	                                                
+	                                                <!-- 해야할 기능 : 주문 취소된 상품일 경우 삭선 처리 필 -->
+	                                                
 	                                                <div class="p_cont">
 	                                                    <p class="sub_middle_text">${list.getBeans_name() }</p>
 	                                                    <p class="small_txt">그람 : <span> ${list.getCart_weight() }</span> </p>
@@ -100,7 +109,10 @@
 	                                        	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 	                                        </td>
 	                                        <td class="p_reorder">
-	                                            <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매하기</button>
+	                                            <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매</button>
+	                                            
+	                                            <button class="btn small_txt" onclick="">반품</button>
+	                                            <button class="btn small_txt" onclick="">환불</button>
 	                                        </td>
                                         </c:forEach>
                                     </tr>
