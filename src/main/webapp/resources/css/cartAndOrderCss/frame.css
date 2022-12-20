@@ -41,6 +41,10 @@
 	padding-bottom: 5px;
 }
 
+.small_txt{
+	font-size: 14px !important;
+}
+
 .btn_text{
 	font-size: 20px !important;
 }
@@ -121,13 +125,14 @@
     padding-left: 10px;
 }
 
-.a:not(.last):after{
+.order_path_a:not(.last):after{
     content: " > ";
 }
 
 .disable{
 	color: gray !important;
 	cursor: none;
+	font-size: 14px;
 }
 
 /* 
@@ -246,4 +251,9 @@
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+}
+
+/* ----------------- 삭제시 display none --------------------------- */
+.display_none{
+    display: none;
 }

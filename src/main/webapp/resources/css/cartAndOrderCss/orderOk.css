@@ -1,26 +1,50 @@
-@charset "UTF-8";
+.order_main_in{
+    overflow: scroll;
+}
+
+.point_text{
+	padding-bottom: 0px;
+}
+
+.middle_text{
+	padding-bottom: 0px;
+}
+
+.sub_middle_text{
+	padding-bottom: 0px;
+}
+
+table th{
+	text-align: center !important;
+}
+
+table td:not(.sep_tr td){
+	padding: 5px 10px 5px 10px !important;
+}
 
 /* head ---------------------------------------------------- */
 .m_header{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: var(--margin);
 }
 /* 더보기 버튼 */
 .e_btn_area{
-    display: flex;
-    justify-content: right;
-    padding: 5px 20px 5px 20px;
+    display: flex !important;
+    justify-content: right !important;
+   /*  padding: 3px 20px 3px 20px !important; */
 }
 
 .etc_btn{
-    padding: 5px 20px 5px 20px !important;
-    border: 3px solid var(--color_begie) !important;
+    width: 100px !important;
+    padding: 3px 20px 3px 20px;
+    border: 3px solid var(--color_begie)!important ;
     border-radius: 15px !important;
-    font-size: 13px !important;
 }
 
 .etc_btn:hover{
-    background-color: var(--color_greyish) !important;
+    background-color:  var(--color_greyish)!important ;
     color: white !important;
     font-weight: bold !important;
 }
@@ -41,6 +65,10 @@
     border-spacing: 2px;
 }
 
+.m_s_t{
+    border-bottom: 1px solid var(--color_begie);
+}
+
 .t_hr{
     background-color: #d9cec16d;
 }
@@ -48,7 +76,6 @@
 .m_table th{
     height: 40px;
     background-color: var(--color_begie);
-    text-align: center !important;
 }
 
 .m_table td{
@@ -64,7 +91,66 @@
     text-align: right;
 }
 
-/* 주문요약 테이블만 적용 */
-.m_s_t{
-    border-bottom: 1px solid var(--color_begie);
+/* 주문내역, 주문상세 공통 부분 */
+
+/* 주문상품 이미지, 이름 구역 */
+.p_cont_imgcont{
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
+
+/* 주문상품 이름 구역 */
+.p_cont{
+    width: 100%;
+    margin: 0px 20px 0px 20px;
+}
+
+/* 주문내역, 주문상세 내역 이미지 공통 */
+.p_img{
+    width: 100px !important;
+    height: 100px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 화면 크기 1150px 미만 부터 적용 */
+@media screen and (max-width: 1150px) { 
+    .p_img{
+        width: 90px !important;
+        height: 90px !important;
+    }
+}
+/* 화면 크기 700px 미만 부터 적용 */
+@media screen and (max-width: 700px) { 
+    .p_img{
+        width: 80px !important;
+        height: 80px !important;
+    }
+}
+
+.p_img_a{
+    width: 95% !important;
+    height: 95% !important;
+    margin: auto;
+    display: block;
+    transition: .4s ease-in-out;
+}
+
+.p_img_a img{
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.p_img_a:hover{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* 리스트 공통 */
+.list{
+    margin: 0px;
+    padding: 0px;
+}
+
