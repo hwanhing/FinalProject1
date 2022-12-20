@@ -36,6 +36,7 @@ public class CoffeeBeanController {
 	@Inject
 	private BeanDAO dao;
 
+	
 	@RequestMapping("bean_list.do")
 	public String list(Model model, CoffeeBeanDTO dto) {
 

@@ -155,6 +155,12 @@
 	</select>
 	
 
+	<!-- 지혜  -->
+	
+	<select id="joinCheckId" resultType="int" parameterType="String">
+		select count(member_id) from final_member where member_id=#{member_id}
+	</select>
+	
 </mapper>  
 
 

@@ -36,5 +36,6 @@ public interface MemberDAO {
 
 	int myheartdelete(int num);
 
-	int joinIdCheck(FinalMemberDTO dto);
+	int joinIdCheck(String joinId);
+	
 }

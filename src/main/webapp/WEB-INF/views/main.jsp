@@ -38,7 +38,7 @@
 				</video>
 			<div class="main-title">
 				<h2 class="visual-title" >내 입맛에 맞추는<br>나만의 커피</h2>
-				<a href="<%=request.getContextPath()%>/views/test/coffeeTest.do"><button type="button" class="btn btn-outline-light">추천받기</button></a>
+				<a href="<%=request.getContextPath()%>/coffeeTest.do?no=${member_num}"><button type="button" class="btn btn-outline-light">추천받기</button></a>
 			</div>
 		</div>
 	</div>

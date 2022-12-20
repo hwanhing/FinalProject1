@@ -70,7 +70,7 @@
 	<update id="updateHeart1" parameterType="map">
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
-	
+
 <!--<update id="heartUp" parameterType="map">
 		update coffee_beans set beans_heart = #{beans_heart} + 1 where beans_num = #{beans_num}
 	</update>
@@ -101,6 +101,7 @@
 	<delete id="deleteWrite" parameterType="int">
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
+
 
 
 	<!-- 홍기 -->
@@ -154,13 +155,13 @@
 	</select>
 	
 
-<!-- 지ㅎ ㅖ  -->
-
-	<select id="joinIdCheck" parameterType="finalMemberDTO" resultType="int">
-		select count(*) from final_member where member_id = #{member_id};
+	<!-- 지혜  -->
+	
+	<select id="joinCheckId" resultType="int" parameterType="String">
+		select count(member_id) from final_member where member_id=#{member_id}
 	</select>
+	
 </mapper>  
-
 
 
 

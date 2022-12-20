@@ -18,8 +18,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
 <script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
- <link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+<script src="<%=request.getContextPath()%>/resources/js/layout/header.js"></script>
+<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
 
 
         <header class="header">
@@ -27,7 +27,7 @@
                 <div class="h-logo">
                     <a href=""><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
                 </div>
-        
+    
                 <div class="h-gnb">
                     <nav class="h-nav">
                         <ul class="h-menu">
@@ -140,17 +140,17 @@
                                             
                                                 <label class="label-id" for="member_id">아이디</label>
                                                     <p><input type="text" id="join-id" placeholder="영문,숫자 조합 최소 5자 이상" autofocus></p>
-                                                    <p class="id-error error">잘못된 아이디 형식입니다.</p>
+                                                    <p class="id-error error"></p>
 
                                                 <label class="label-pw" for="member_pw">비밀번호</label>
                                                     <p><input type="text" id="join-pw" placeholder="숫자, 영문,특수조합 최소 8자 이상"></p>
-                                                    <p class="pw-error error">잘못된 비밀번호 형식입니다.</p>
+                                                    <p class="pw-error error"></p>
 
                                                     <p><input type="text" placeholder="비밀번호 재입력"></p>
 
                                                 <label class="label-email" for="member_email">이메일</label>
                                                     <p><input type="text" id="join-email" placeholder="사용 가능한 이메일을 입력하세요"></p>
-                                                    <p class="email-error error">잘못된 이메일 형식입니다.</p>
+                                                    <p class="email-error error"></p>
                                             </div>
 
 
