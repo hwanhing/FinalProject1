@@ -45,6 +45,11 @@ public class CoffeeOrderController {
 	@Inject
 	private CoffeeOrderDAO orderDao;
 	
+	// 페이지 관련 변수들 -----------------------------------------------
+	private final int rowsize = 8;		// 한 페이지당 보여질 게시물 수 
+	private int totalRecord = 0;		// DB전체 게시물 수
+	// --------------------------------------------------------------
+		
 	// 장바구니에서 주문서 작성 페이지로 이동할 경우 사용
 	public Map<String, Object> cartMapM(String[] cartNumArr){
 		
@@ -610,14 +615,16 @@ public class CoffeeOrderController {
 		int member_num = (Integer) session.getAttribute("member_num");
 		System.out.println("member_num : " + member_num);
 
-		// 받아온 카트번호
+		// 받아온 시작일, 종료일
 		String startEndS = request.getParameter("startEnd");
 		String[] startEndA = startEndS.split(",");
-
+		
 		Map<String, Object> dateMap = new HashMap<String, Object>();
 		dateMap.put("member_num", member_num);
-		dateMap.put("start", startEndA[0]);
-		dateMap.put("end", startEndA[1]);
+		dateMap.put("start", startEndA[0]+" 00:00:00");
+		dateMap.put("end", startEndA[1] + " 23:59:59");
+		System.out.println("start date : " + startEndA[0] );
+		System.out.println("end date : " + startEndA[1] );
 		
 		////////////////////////////////////
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderListDate(dateMap);
@@ -630,15 +637,22 @@ public class CoffeeOrderController {
 		
 		PrintWriter out = response.getWriter();
 		
+		dateMap.put("start", startEndA[0]);
+		dateMap.put("end", startEndA[1]);
+		
 		model.addAttribute("dateMap",dateMap);
 		model.addAttribute("orderMonArr",orderMonArr);
 		model.addAttribute("orderList", orderList);
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		return "./cartAndOrder/orderList";
-		//return null;
 	}
 	
-	
+	/////////////////////////////////////////////////////////////////////////////////////// 
+	// 관리자 배송
+	@RequestMapping("admin_orderlist.do")
+	public String adminOrderDelivery() {
+		return "./Admin/admin_delivery";
+	}
 }
 

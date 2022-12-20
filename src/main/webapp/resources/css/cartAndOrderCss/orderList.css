@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+.order_wrap{
+	height: 1200px;
+	overflow: scroll;
+}
+
 /* m_search 
     ㄴ m_table
        	ㄴ search_term
@@ -12,61 +17,12 @@
 }
 
 /* 화면 크기 830px 미만 부터 적용 */
-@media screen and (max-width: 820px) { 
+@media screen and (max-width: 480px) { 
     .m_search{
         height: 110px;
     }
 }
 
-/* 기간 텀별 */
-.s_term{
-	width: 60%;
-	padding: 5px 10px 5px 10px;
-	border-radius: 20px;
-	box-shadow: var(--box_shadow);
-}
-
-.s_term_btn{
-	width: 100%;
-	display: flex !important;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-.s_term_btn p{
-	width: 80%;
-}
-
-.sel_term .btn{
-	width: 100%;
-	text-align: center;
-}
-
-.sel_term .btn:hover{
-	font-weight: bold;
-}
-
-/* 월별 */
-/* .s_month{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-.s_month button{
-    width: 50px;
-    margin: 5px 10px 10px 10px;
-    border-radius: var(--radius);
-    box-shadow: var(--box_shadow);
-}
-
-.s_month button:hover{
-    font-weight: bold;
-}
- */
 /* 일자별 */
 .search_date{
 	display: flex;

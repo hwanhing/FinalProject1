@@ -137,8 +137,9 @@
 				   and co.order_row = op.order_row
 				  join coffee_beans be
 				    on co.beans_num = be.beans_num 
-				   and co.order_date between to_date(#{start},'yyyy-mm-dd') and to_date(#{end},'yyyy-mm-dd')
+				   and co.order_date between to_date(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date(#{end},'yyyy-mm-dd hh24:mi:ss')
 				 order by order_num desc
 	</select>
+	
 	
 </mapper>

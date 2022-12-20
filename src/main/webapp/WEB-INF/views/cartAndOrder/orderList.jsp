@@ -36,58 +36,22 @@
                      <div class="m_search">
                          <table class="m_table">
                              <colgroup>
-                                 <col style="width: 40%">
-                                 <col style="width: 50%">
+                                 <col style="width: 20%">
+                                 <col style="width: 70%">
                                  <col style="width: 10%">
-                                 <%-- 
-                                 <col style="width: 50%">
-                                 <col style="width: 40%">
-                                 <col style="width: 10%">
-                                  --%>
                              </colgroup>
-                             <tr>
-                                  <td class="search_term">
-					                <ul class="list s_term">
-					                    <div>
-					                        <li class="sel">
-					                            <button class="btn s_term_btn" onclick="openLi()">
-					                                <p>기간 선택</p>
-					                                <i class="fa-solid fa-caret-down"></i>
-					                            </button>
-					                        </li>
-					                        <li class="sel_term display_none" value="-">
-					                            <button class="btn" >
-					                                <p>-</p>
-					                            </button >
-					                        </li>
-					                        <li class="sel_term display_none" value="1">
-					                            <button class="btn" >
-					                                <p>1개월 전</p>
-					                            </button >
-					                        </li>
-					                        <li class="sel_term display_none" value="3">
-					                            <button class="btn" >
-					                                <p>3개월 전</p>
-					                            </button >
-					                        </li>
-					                        <li class="sel_term display_none" value="6">
-					                            <button class="btn" >
-					                                <p>6개월 전</p>
-					                            </button>
-					                        </li>
-					                        <li class="sel_term display_none" value="12">
-					                            <button class="btn" >
-					                                <p>12개월 전</p>
-					                            </button>
-					                        </li>
-					                    </div>
-					                </ul>
-					            </td>
+                             <tr>	
+                             	<td>
+                             		<div class="s_date">
+                                    	 <button class="btn etc_btn sub_middle_text" onclick="location.href='order_list.do'">전체보기</button>
+                                     </div>
+                             	</td>
                                  <td class="search_date">
                                      <div class="s_date">
                                      	 
                                      	  <c:set var="now" value="<%=new java.util.Date()%>" />
-        								  <c:set var="nowFormat"><fmt:formatDate value="${now}" pattern="yyyy/MM/dd" /></c:set>
+        								  <c:set var="nowFormat"><fmt:formatDate value="${now}" pattern="yyyy-MM-dd" /></c:set>
+                                     	
                                      	 <c:if test="${empty dateMap }">
                                      	 	 <input type="date" class="start_date" value="${nowFormat }">
 	                                         <span>-</span> 
@@ -105,7 +69,6 @@
                                  <td class="search_btn">
                                		<div class="s_date">
                                     	 <button class="btn etc_btn sub_middle_text" onclick="searchData()">조회</button>
-	                                     <!-- <button class="btn etc_btn sub_middle_text" onclick="searchData()">조회</button> -->
                                      </div>
                                  </td>
                              </tr>
@@ -113,6 +76,14 @@
                      </div>
                      <!-- main -->
                      <div class="m_main">                
+                       
+                        <c:if test="${empty orderList }">
+                        	<table class="m_table m_rows_table">
+                        		<tr>
+                        			<th>주문 내역이 없습니다.</th>
+                        		</tr>
+                        	</table>
+                        </c:if>
                        
                         <c:forEach items="${orderMonArr }" var="month">
                         <c:set var="orderMonth" value="${month}" />
@@ -167,14 +138,40 @@
                              </table>
                          </div>
 
-                        <!--  <div class="m_page">
-                             <div>
-                                 페이지
-                                 <button class="btn">더보기</button>
-                             </div>
-                         </div> -->
-                     
                      </c:forEach>
+                     
+                      <div class="m_page">
+                         <div>
+                             <!-- 페이징 -->
+							<%-- 
+							<c:if test="${paging.getPage() > paging.getBlock() }">
+								<a href="board_list.do?page=1">
+									 <i class="fa-solid fa-backward"></i>
+								</a>
+								<a href="board_list.do?page=${paging.getStartBlock() - 1}">
+									 <i class="fa-solid fa-caret-left"></i>
+								</a>
+							</c:if>
+							
+							<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
+								<c:if test="${i == paging.getPage() }">
+									<b><a href="board_list.do?page=${i }">[${i }]</a></b>
+								</c:if>
+								<c:if test="${i != paging.getPage() }">
+									<a href="board_list.do?page=${i }">[${i }]</a>
+								</c:if>
+							</c:forEach>
+							
+							<c:if test="${paging.getEndBlock() < paging.getAllPage() }">
+								<a href="board_list.do?page=${paging.getEndBlock()+1 }">
+									<i class="fa-solid fa-caret-right"></i>
+								</a>
+								<a href="board_list.do?page=${paging.getAllPage() }">
+									<i class="fa-solid fa-forward"></i>
+								</a>
+							</c:if>  
+							--%>  
+                         </div> 
                      </div>
                      <%-- m_main 끝 -----------------------------------------------------------%>
                  </div>
