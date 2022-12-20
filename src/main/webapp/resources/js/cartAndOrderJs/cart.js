@@ -20,7 +20,9 @@ console.log('js')
    let finSum = 0;
  
    // 버튼 변수 
+   let btnUp = document.querySelectorAll(".btn_up")
    let btnDown = document.querySelectorAll(".btn_down")
+   let gbtnUp = document.querySelectorAll(".gram_btn_up")
    let gbtnDown = document.querySelectorAll(".gram_btn_down")
    
    // 구매가능한 상품만
