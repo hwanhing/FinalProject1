@@ -39,9 +39,9 @@ public interface CoffeeOrderDAO {
 	// 주문목록 가져오기(일자설정)
 	List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap);
 	
-	// 주문 취소건(전체취소)
-	int updateOrderAllCancel(String order_num);
+	// 주문 타입 수정
+	int updateOrderType(Map<String, Object> typeMap);
 	
 	// 포인트 사용시 포인트 취소
-	int updateUsePointCancel(Map<String, Integer> memMap);
+	int updateUsePointCancel(Map<String, Object> typeMap);
 }

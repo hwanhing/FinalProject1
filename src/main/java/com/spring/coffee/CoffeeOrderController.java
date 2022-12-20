@@ -678,9 +678,13 @@ public class CoffeeOrderController {
 		System.out.println("member_num : " + member_num);
 		System.out.println("order_num : " + order_num);
 		
+		Map<String, Object> typeMap = new HashMap<String, Object>();
+		typeMap.put("order_num", order_num);
+		typeMap.put("type_num", 3);
+		
 		// 주문 타입 취소건으로 수정하기
-		int result = orderDao.updateOrderAllCancel(order_num);
-		System.out.println("주문타입 4번으로 수정 결과 : " + result);
+		int result = orderDao.updateOrderType(typeMap);
+		System.out.println("주문타입 "+ typeMap.get("type_num") +" 번으로 수정 결과 : " + result);
 		
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
@@ -691,11 +695,10 @@ public class CoffeeOrderController {
 			int use_point = orderList.get(0).getUse_point();
 			System.out.println("사용한 포인트 : " + use_point);
 			
-			Map<String, Integer> memMap = new HashMap<String, Integer>();
-			memMap.put("member_num", member_num);
-			memMap.put("use_point", use_point);
+			typeMap.put("member_num", member_num);
+			typeMap.put("use_point", use_point);
 			
-			result = orderDao.updateUsePointCancel(memMap);
+			result = orderDao.updateUsePointCancel(typeMap);
 		}
 		
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);

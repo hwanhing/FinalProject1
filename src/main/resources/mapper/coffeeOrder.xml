@@ -144,9 +144,9 @@
 	</select>
 	
 	<!-- 전체 취소 -->
-	<update id="updateOrderAllCancel" parameterType="String">
+	<update id="updateOrderAllCancel" parameterType="hashmap">
 		update coffee_order
-		   set type_num = 4
+		   set type_num = #{type_num}
 		 where order_num = #{order_num}
 	</update>
 	

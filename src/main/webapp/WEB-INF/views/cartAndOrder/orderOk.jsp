@@ -69,11 +69,11 @@
 	                            
 	                            <div class="m_order_cancel">
 	                            
-	                            	<c:if test="${summary.type_num==4 }">
+	                            	<c:if test="${summary.type_num==3 }">
 	                                	<p>(주문 취소건)</p>
                                 	</c:if>
                                 	
-                                	<c:if test="${summary.type_num!=4 }">
+                                	<c:if test="${summary.type_num!=3 }">
                                 		<button onclick="location.href='order_all_cancel.do?onum=${summary.order_num }'">전체 주문 취소하기</button>
                                 	</c:if>
                                 	
