@@ -20,7 +20,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +46,7 @@ public class MemberController {
 	@Inject
 	private MemberDAO dao;
 
+	
 	
 	
 	@RequestMapping("member_login_check.do")
@@ -81,16 +84,19 @@ public class MemberController {
 			 
 			}
 	
-	@RequestMapping("member_join_check.do")
+	
+	
 	@ResponseBody
-	public void joinCheck(@RequestParam("joinId")String joinId, FinalMemberDTO dto, HttpResponse response) {
+	@RequestMapping("member_Id_check.do")
+	public int joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse response) {
 		
-		dto.setMember_id(joinId);
-		
-		int res = this.dao.joinIdCheck(dto);
-		
-		System.out.println("ssss"+res);
-		
+			System.out.println("controller id: " + joinId);
+			
+			int result = dao.joinIdCheck(joinId);
+			
+			System.out.println("controller result: " + result);
+
+			return result;
 		
 	}
 		
@@ -101,6 +107,7 @@ public class MemberController {
 		 mav.addObject("message", "logout"); 
 		  return mav;
 		  }
+	
 	
 	@RequestMapping("member_mypage.do")
 	public String Mypage(@RequestParam("num") int num ,Model model,HttpSession session ) {
@@ -124,6 +131,7 @@ public class MemberController {
 		  
 		  return "./member/addr_modify";
 	  }
+	  
 	  
 	 @RequestMapping("addr_modify_ok.do")
 	 public void addr_modify_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {

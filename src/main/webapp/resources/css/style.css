@@ -265,14 +265,38 @@ header {
     justify-content: center;
     align-items: center;
 }
-s
+
+.header .h-wrap .h-nav .nav-toggle {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header .h-wrap .h-gnb .h-nav{
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 24px;
+    }
+
+    .header .h-wrap .h-gnb .h-nav .h-menu {
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        width: 100%;
+    }
+
+    .header .h-wrap .h-nav ul li a {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
 
 .header .h-wrap .h-gnb .h-nav { 
     padding: 0;
     padding-right: 10px;
     align-items: center;
 }
-
 
 
 .header .h-wrap .h-nav .h-menu {
@@ -298,6 +322,9 @@ s
 
 }
 
+.header .h-wrap .h-nav .nav-toggle {
+    color: #734338;
+}
 
 .header .h-wrap .menu-etc {
 	display: flex;
