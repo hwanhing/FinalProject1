@@ -203,8 +203,22 @@ public class CoffeeCartController {
 	
 	
 	@RequestMapping("bean_cart.do")
-	public String goCart(HttpSession session, Model model) {
+	public String goCart(HttpSession session,HttpServletResponse response, Model model) throws IOException{
+		
+		System.out.println("--approvalpay.do----------------------------------------------------------------");
+		System.out.println("session member_num : " + session.getAttribute("member_num"));
+		
+		PrintWriter out = response.getWriter();
+		if(session.getAttribute("member_num")==null) {
+			out.println("<script>");
+			out.println("location.href='go_login.do'");
+			out.println("</script>");
+		}
+		
 		int member_num = (Integer) session.getAttribute("member_num");
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);
 		
 		// 추천 상품 가져오기
