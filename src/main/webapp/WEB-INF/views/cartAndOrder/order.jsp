@@ -197,7 +197,7 @@
 		                    </c:if>
                            
                             <!-- 주문 요약 -->
-                            <div class="summary_order">
+                            <div class="summary_order deliverInfo">
                               
                                 <!-- 주문정보 -->
                                 <input type="hidden" class="itemName" value="${itemName }">
@@ -533,9 +533,7 @@
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />
         
-        <c:set var="path" value="${pageContext.request.contextPath}"/>
-        
-        <script type="text/javascript" src="${path }/resources/js/cartAndOrderJs/kakaoapi.js"></script>
+        <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/kakaoapi.js"></script>
 		<script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/order.js"></script>
 
 </body>
