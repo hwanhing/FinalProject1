@@ -103,6 +103,26 @@ public class BeanDAOImpl implements BeanDAO{
 	}
 
 
+	@Override
+	public void updateStar(CoffeeStarDTO dto_1) {
+		this.sqlSession.update("updateStar", dto_1);
+		
+	}
+
+
+	@Override
+	public void insertStar(CoffeeStarDTO dto_1) {
+		this.sqlSession.insert("insertStar", dto_1);
+	}
+
+
+	@Override
+	public int deleteStar(Map<String, Integer> map) {
+		return this.sqlSession.update("deleteStar", map);
+		
+	}
+
+
 
 
 

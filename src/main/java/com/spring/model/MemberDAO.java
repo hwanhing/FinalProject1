@@ -35,7 +35,19 @@ public interface MemberDAO {
 	List<FinalMemberDTO> member_heart(int num);
 
 	int myheartdelete(int num);
-
-	int joinIdCheck(String joinId);
 	
+	List<FinalMemberDTO> BoardList(int num);
+	
+	FinalMemberDTO boardcont(int num);
+	
+	BoardReplyDTO replycont(int num);
+	
+	int myboard_delete(int no);
+
+	int w_writeok(FinalMemberDTO dto);
+
+	int joinIdCheck(FinalMemberDTO dto);
+
+	int Memberupdate(FinalMemberDTO fmdto);
+
 }

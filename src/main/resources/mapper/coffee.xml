@@ -13,22 +13,27 @@
 <mapper namespace="beanDAO">
 
 	<!-- 환희 -->
+	<!-- 전체 원두 목록 뽑는 문 -->
 	<select id="list" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_num
 	</select>
 	
+	<!-- 찜많은 목록 뽑는 문 -->	
 	<select id="heartlist" resultType="coffeeBeanDTO">
-		select * from coffee_beans order by beans_heart desc
+		select * from coffee_beans order by count_h desc
 	</select>
-	
+
+	<!-- 가격이 낮은 원두 뽑는 문 -->	
 	<select id="pricedownlist" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_price
 	</select>
-	
+
+	<!-- 가격이 높은 원두 뽑는 문 -->	
 	<select id="priceuplist" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by beans_price desc
 	</select>
 
+	<!-- 원두 상세페이지 정보 뽑는 문 -->	
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
 		<!-- select * from coffee_write where beans_num = #{beans_num} -->
 		select cw.write_num,cw.write_cont,cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
@@ -71,13 +76,6 @@
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 
-<!--<update id="heartUp" parameterType="map">
-		update coffee_beans set beans_heart = #{beans_heart} + 1 where beans_num = #{beans_num}
-	</update>
-	
-	<update id="heartDown" parameterType="map">
-		update coffee_beans set beans_heart = #{beans_heart} - 1 where beans_num = #{beans_num}
-	</update>  -->
 	<select id="writeCount" parameterType="int" resultType="int">
 		select count(beans_num) from coffee_write where beans_num = #{beans_num}
 	</select>
@@ -102,6 +100,14 @@
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
 
+	<insert id="insertStar" parameterType="coffeeStarDTO">
+		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
+	</insert>
+
+
+	<update id="deleteStar" parameterType="map">
+		update member_star set coffee_star = 0 where member_num = #{member_num} and beans_num = #{beans_num}
+	</update>
 
 
 	<!-- 홍기 -->
@@ -134,6 +140,8 @@
 	</insert>
 
 
+
+
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}
 	</update>
@@ -154,15 +162,59 @@
 		select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
 	</select>
 	
-
-	<!-- 지혜  -->
-	
-	<select id="joinCheckId" resultType="int" parameterType="String">
-		select count(member_id) from final_member where member_id=#{member_id}
+	<select id="board_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
+		select fm.*, mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where fm.member_num=#{member_num}
 	</select>
 	
+	<select id="board_cont" resultType="finalMemberDTO"  parameterType="finalMemberDTO">
+		select * from member_board where board_num=#{board_num}
+	</select>
+	
+	<select id="board_reply" resultType="boardReplyDTO"  parameterType="boardReplyDTO">
+		select * from admin_reply where board_num=#{board_num}
+	</select>
+	<delete id="myboard_delete"  parameterType="int" > 
+		delete  from member_board where board_num=#{board_num}
+	</delete>
+	
+	
+	
+	<insert id="w_write_ok" parameterType="finalMemberDTO" >
+		<selectKey resultType="int" keyProperty="board_num" order="BEFORE">
+			select nvl(max(board_num),0) from member_board
+		</selectKey>	
+		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,0,#{member_num})
+	</insert>
+	
+	<update id="memberUpdateImg" parameterType="finalMemberDTO">
+		update final_member set member_img = #{member_img} where member_num=#{member_num}
+	</update>
+	
+	
+<!--관리자   -->
+	
+	<select id="count" resultType="int">
+        select  count(*) from final_member
+    </select>
+	
+	<select id="admin_check" resultType="finalAdminDTO" parameterType="finalAdminDTO">
+		select * from final_admin where admin_id=#{admin_id} and admin_pwd=#{admin_pwd}
+	</select>
+	
+	<select id="memberList" resultType="finalMemberDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by member_num desc) rnum from final_member b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	<select id="admin_cont"  parameterType="int" resultType="finalMemberDTO">
+		select * from final_member where member_num=#{member_num}
+	</select>
+	
+	<select id="admin_beans" resultType="coffeeBeanDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by beans_num) rnum from coffee_beans b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	
+	<select id="countb" resultType="int">
+		select count(*) from coffee_beans
+	</select>
 </mapper>  
-
-
 
   

@@ -92,7 +92,7 @@
 		}
 		
 		.bean_star{
-			margin-bottom: 5%;
+			margin-top: 1%;
 		}
 		
 		.grind_q{
@@ -181,7 +181,7 @@
 		#mi_box{
 			display: block;
 			width: 1em;
-			height: 1em;
+			height: 22.5px;
 			border: 1px solid lightgray;
 			padding: 0;
 			margin: 0;
@@ -513,6 +513,8 @@
 #star_ul_fix ul:after {content:''; display:block; clear:both;}
 #star_ul_fix ul li {width:20px; height:15px; float:left; background:url('resources/images/bgStarSolo.png') no-repeat; cursor:pointer;}
 
+
+#star_ul_title ul li{width:20px; height:15px; float:left; background:url('resources/images/bgStarSolo.png') no-repeat; cursor:pointer;}
 </style>
 	
 	
@@ -602,7 +604,81 @@
 		    			아직 평가가 없습니다.
 		    		</c:if>
 		    		<c:if test="${i.getWrite_count() != 0 }">
-			    		⭐⭐⭐⭐⭐ <%--여기 --%><span>${i.getWrite_count() }개 상품평</span>
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1"></li>
+								<li class="c2"></li>
+								<li class="c3"></li>
+								<li class="c4"></li>
+								<li class="c5"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>		    		
+		    <%-- 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.
+		    
+		    		<c:if test="${t.get땡땡() < 2 }">
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1" style="background-position:0 -15px;"></li>
+								<li class="c2"></li>
+								<li class="c3"></li>
+								<li class="c4"></li>
+								<li class="c5"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>				    			    		
+		    		</c:if>
+		    		<c:if test="${t.get땡땡() < 3 }">
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1" style="background-position:0 -15px;"></li>
+								<li class="c2" style="background-position:0 -15px;"></li>
+								<li class="c3"></li>
+								<li class="c4"></li>
+								<li class="c5"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>				    			    		
+		    		</c:if>
+		    		<c:if test="${t.get땡땡() < 4 }">
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1" style="background-position:0 -15px;"></li>
+								<li class="c2" style="background-position:0 -15px;"></li>
+								<li class="c3" style="background-position:0 -15px;"></li>
+								<li class="c4"></li>
+								<li class="c5"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>				    			    		
+		    		</c:if>
+		    		<c:if test="${t.get땡땡() < 5 }">
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1" style="background-position:0 -15px;"></li>
+								<li class="c2" style="background-position:0 -15px;"></li>
+								<li class="c3" style="background-position:0 -15px;"></li>
+								<li class="c4" style="background-position:0 -15px;"></li>
+								<li class="c5"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>				    			    		
+		    		</c:if>
+		    		<c:if test="${t.get땡땡() < 6 }">
+						<div id="star_ul_title" style="width: 50%;">
+							<ul>
+								<li class="c1" style="background-position:0 -15px;"></li>
+								<li class="c2" style="background-position:0 -15px;"></li>
+								<li class="c3" style="background-position:0 -15px;"></li>
+								<li class="c4" style="background-position:0 -15px;"></li>
+								<li class="c5" style="background-position:0 -15px;"></li>
+			    		<span>${i.getWrite_count() }개 상품평</span>
+							</ul>
+						</div>				    			    		
+		    		</c:if>
+------------------------------------------------------------------------------------------------------------------ --%>		    		
+		    		
+						
 		    		</c:if>
 		    		 
 		    		<span class="heart_count">
@@ -812,7 +888,7 @@
 					
 					<div class="write_click_img2">
 					${w.getWrite_img() }
-						<img class="write_img2" src="<%=request.getContextPath() %>${w.getWrite_img() }">
+						<img class="write_img2" src="${w.getWrite_img() }">
 					</div>
 					
 					<div class="write_contbox">
@@ -822,7 +898,8 @@
 					<c:if test="${member_id eq w.getMember_id() && member_id ne null}">
 						<div align="right" class="write_singobox">
 
-							<button onclick="if(confirm('정말 삭제 하시겠습니까?')){location.href='write_delete.do?no=${w.getWrite_num()}&num=${w.getBeans_num() }'}else{return;}"><span style="color: #000;">❌삭제하기</span></button>
+							<button onclick="if(confirm('정말 삭제 하시겠습니까?')){location.href='write_delete.do?no=${w.getWrite_num()}&num=${w.getBeans_num() }&m_num=${member_num }'}else{return;}"><span style="color: #000;">❌삭제하기</span></button>
+
 						</div>
 					</c:if>	
 					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">

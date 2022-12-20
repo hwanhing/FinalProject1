@@ -1,9 +1,12 @@
 package com.spring.coffee;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.http.HttpResponse;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +26,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.spring.model.BoardMemberDTO;
+import com.spring.model.BoardReplyDTO;
 import com.spring.model.CoffeeTestDAO;
 import com.spring.model.CoffeeTestDTO;
 import com.spring.model.FinalAdminDTO;
@@ -38,22 +45,23 @@ public class MemberController {
 	
 	@Inject
 	private MemberDAO dao;
-	private CoffeeTestDAO c_dao;
+
 	
 	
 	
 	@RequestMapping("member_login_check.do")
-
 	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
+
 		
 		PrintWriter out = response.getWriter();
 		
 		FinalMemberDTO f_dto = this.dao.checkMember(dto);
-
 		
-		 if (f_dto != null) { // 세션 변수 저장
+			
+				if (f_dto != null) { // 세션 변수 저장
 			
 			 session.setAttribute("member_num", f_dto.getMember_num());
+			 
 			 session.setAttribute("member_id", f_dto.getMember_id());
 
 			  session.setAttribute("member_name", f_dto.getMember_name());
@@ -64,13 +72,14 @@ public class MemberController {
 			  session.setAttribute("test_num", f_dto.getTest_num());
 			  session.setAttribute("test_img", f_dto.getTest_img());
 			  session.setAttribute("test_name", f_dto.getTest_name());
-
+			 
 			}else if(f_dto == null) {
 				out.println("<script>");
 				out.println("alert('로그인안됨;;')");
 				out.println("history.back()");
 				out.println("</script>");
 			}
+		
 			 return "main"; 
 			 
 			}
@@ -101,7 +110,9 @@ public class MemberController {
 	
 	
 	@RequestMapping("member_mypage.do")
-	public String Mypage(@RequestParam("num") int num ,Model model ) {
+	public String Mypage(@RequestParam("num") int num ,Model model,HttpSession session ) {
+		
+		session.getAttribute("member_num");
 		
 		FinalMemberDTO dto = this.dao.MemberMyPage(num);
 		
@@ -464,9 +475,171 @@ public class MemberController {
 					out.println("</script>");
 			 }
 	  }
-	  
+		
+		  @RequestMapping("board_list.do") public String
+		  board_list(@RequestParam("num")int num ,Model model) {
+		  
+		  List<FinalMemberDTO> dto = this.dao.BoardList(num);
+		  
+		  model.addAttribute("board_list", dto);
+		  
+		  return "./member/board_list";
+		  
+		  
+		  }
+		  
+		  @RequestMapping("board_cont.do")
+		public String board_cont(@RequestParam("num")int num,Model model ) {
+			
+			 FinalMemberDTO dto = this.dao.boardcont(num);
+			 
+			
+			 BoardReplyDTO dto1 = this.dao.replycont(num);
+	
+			  model.addAttribute("board_cont", dto);
+			  
+			  model.addAttribute("admin_reply", dto1);
+			
+			  return "./member/board_cont";
+			  
+		  }
+	  @RequestMapping("myboard_delete.do")
+	  public void myboarddelete(@RequestParam("no") int no,@RequestParam("num") int num, FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		  
+		  int check = this.dao.myboard_delete(no);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			 System.out.println(">>>>>>>>"+num);
+			 if(check>0) {
+				 
+					out.println("<script>");
+					/* out.println("alert('삭제')"); */
+					out.println("location.href='board_list.do?num="+num+"'");
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
+	  }
+	  @RequestMapping("w_write.do")
+	  public String w_write(FinalMemberDTO dto,Model model) {
+		
+		  
+		
+		
+		  return "./member/w_write";
+		  
+	  }
+	  @RequestMapping("write_ok.do")
+	  public void write_ok(HttpSession session,FinalMemberDTO dto,HttpServletResponse response) throws IOException {
+		  
+		  Object num = session.getAttribute("member_num");
+		  
+		  System.out.println("세션>>>>>>>"+session.getAttribute("member_num"));
+		  int check = this.dao.w_writeok(dto);
+		  
+		
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  
+			 PrintWriter out = response.getWriter();
+			
+			 if(check>0) {
+				
+					out.println("<script>");
+					out.println("location.href='board_list.do?num="+num+"'");					
+					out.println("</script>");
+			 }else {
+					out.println("<script>");
+					out.println("alert('데이터 통신오류')");
+					out.println("history.back()");
+					out.println("</script>");
+			 }
+	  }
+	  @RequestMapping("imgchang.do")	
+	 public String imgchange(@RequestParam("num")int num,Model model) {
+		  FinalMemberDTO dto =this.dao.MemberMyPage(num);
+		
+		  model.addAttribute("hana", dto);
+		  
+		  return "./member/mypage_img";
 	  }
 	  
+	  @RequestMapping("addr_imgmodify_ok.do")
+	  public void addr_imgmodfiy_ok(MultipartHttpServletRequest mRequest, @RequestParam("member_num") int member_num,
+			  @RequestParam(value="img", required = false , defaultValue = "") String img,
+			  HttpServletResponse response, HttpServletRequest request) throws IOException {
+		  	
+		    System.out.println("dddd222dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+		  	FinalMemberDTO fmdto = this.dao.MemberMyPage(member_num);
+			//String uploadPath = "C:\\Users\\user\\Desktop\\spring\\img\\";
+		  	////////////////////////// 572줄 공란
+		  	String uploadPath = request.getRealPath("/resources/res/img/"); 
+			System.out.println(uploadPath);
+			
+			// 업로드된 파일들의 이름 목록을 제공하는 메서드.
+			Iterator<String> iterator = mRequest.getFileNames();
+			System.out.println("iterator : " + iterator);
+		      // 실제 폴더를 만들어 보자.
+           
+            String homedir = uploadPath;
+            System.out.println("homedir : " + homedir);
+
+            File path1 = new File(homedir);
+            System.out.println("path1 : " + path1);
+
+            if(!path1.exists()) {
+                path1.mkdirs();
+            }
+			while(iterator.hasNext()) {
+				System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+				String uploadFileName = iterator.next();
+				System.out.println("uploadFileName : " + uploadFileName);
+				
+				MultipartFile mFile = mRequest.getFile(uploadFileName);
+				System.out.println("mFile : " + mFile);
+				
+				String originalFileName = mFile.getOriginalFilename();
+				System.out.println("originalFileName : " + originalFileName);
+				
+				// 실제 파일을 만들어 보자.(파일복사느낌임)
+				String saveFileName = originalFileName;
+				System.out.println("saveFileName : " + saveFileName);
+				
+				if(!saveFileName.equals(null)) {
+					saveFileName = System.currentTimeMillis()+"_"+saveFileName;		// 현재 시간을 천분의 1초단위로 계산하고 있는 메소드래..
+					System.out.println("saveFileName : "+saveFileName);
+					
+					try {
+						// ...................\\resources\\upload\\2022-11-25\\실제파일
+						File origin = new File(uploadPath+"/"+saveFileName);
+						
+						// transferTo() : 파일 데이터를 지정한 폴더로 실제 저장시키는 메서드.
+						if(!img.equals("")) new File(img).delete();
+						
+						mFile.transferTo(origin);
+						fmdto.setMember_img(saveFileName);		
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				int i = dao.Memberupdate(fmdto);			
+				response.setContentType("text/html; charset=utf-8");
+				PrintWriter out=response.getWriter();
+				
+				out.println("<script>location.href='"+mRequest.getContextPath()+"/member_mypage.do?num="+member_num+"';</script>");
+			}
+			
+		  
+	  }
+}
+	
 
 
 	 

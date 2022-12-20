@@ -9,6 +9,28 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+let noimage =
+	  "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimweb.me%2Fcommon%2Fimg%2Fdefault_profile.png&imgrefurl=https%3A%2F%2Fimweb.me%2Fmysite&tbnid=Vd7XhdBNSjYZIM&vet=12ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ..i&docid=3sDQ3orzKXesmM&w=200&h=200&itg=1&q=%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%B6%81%20%ED%94%84%EB%A1%9C%ED%95%84%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%97%86%EC%9D%8C&hl=ko&ved=2ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ";
+
+function readURL1(input) {
+	  console.log(input.files);
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+	    reader.onload = function (e) {
+	      $("#img-preview1").attr("src", e.target.result);
+	    };
+
+	    reader.readAsDataURL(input.files[0]);
+	  } else {
+	    $("#img-preview1").attr("src", noimage);
+	  }
+	}
+
+</script>
+
 
 <style>
 .zero{
@@ -121,6 +143,24 @@ text-align: center;
 	font-size: 30px;
 	
 }
+img{		
+margin-left:50px;
+border: 1px solid black;
+border-radius: 100%;
+height: 200px;
+width: 200PX;
+ }
+        
+.profile{
+margin-top: 50px;
+}
+.fa-cogs:before, .fa-gears:before {
+    content: "\f085";
+    font-size: 60px;
+    margin-bottom: 30px;
+	position: absolute;
+	float: right;
+}
 
 </style>
 </head>
@@ -139,12 +179,12 @@ text-align: center;
 <br>
 <h1>계정 관리</h1>
 <div class="logout">
-<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal" >로그아웃</a>
+<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal">로그아웃</a>
 </span>
 	</div>
 </div>
 </div>
-
+<br><br>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -163,6 +203,8 @@ text-align: center;
     </div>
   </div>
 </div>
+
+
 
 <div class="container">
   <div class="row">
@@ -183,14 +225,31 @@ text-align: center;
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_default_1">
-							<div>
+							<div>				
+								<div class="field">
+									<div class="profile">
+							 		  <span class="first-span">프로필사진</span>
+							 		 <br><br>
+							 		 </div>
+							             <label for="image"></label>
+							     <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">
+                                            <img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
+                                            </a>
+										<br><br>	
+										<div>
+										
+										</div>
+							        </div>
+										<hr width="1280px" color="gray">
 								  <div>
+				  
 								  <div>
 								  <span class="first-span">개인정보</span>
 								  
 								
 								</div>
 								<div>
+									<br><br>
 									<span>${dto.getMember_name() }</span>
 								</div>
 								<div>
