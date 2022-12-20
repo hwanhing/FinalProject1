@@ -565,52 +565,58 @@ public class MemberController {
 	  @RequestMapping("addr_imgmodify_ok.do")
 	  public void addr_imgmodfiy_ok(MultipartHttpServletRequest mRequest, @RequestParam("member_num") int member_num,
 			  @RequestParam(value="img", required = false , defaultValue = "") String img,
-			  HttpServletResponse response) throws IOException {
-		  System.out.println("dddd222dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+			  HttpServletResponse response, HttpServletRequest request) throws IOException {
+		  	
+		    System.out.println("dddd222dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 		  	FinalMemberDTO fmdto = this.dao.MemberMyPage(member_num);
-			String uploadPath = "C:\\Users\\user\\Desktop\\spring\\img\\";
-			
-			Calendar cal = Calendar.getInstance();
-			int year = cal.get(Calendar.YEAR);
-			int month = cal.get(Calendar.MONTH) + 1;
-			int day = cal.get(Calendar.DAY_OF_MONTH);
+			//String uploadPath = "C:\\Users\\user\\Desktop\\spring\\img\\";
+		  	////////////////////////// 572줄 공란
+		  	String uploadPath = request.getRealPath("/resources/res/img/"); 
+			System.out.println(uploadPath);
 			
 			// 업로드된 파일들의 이름 목록을 제공하는 메서드.
 			Iterator<String> iterator = mRequest.getFileNames();
-			
+			System.out.println("iterator : " + iterator);
+		      // 실제 폴더를 만들어 보자.
+           
+            String homedir = uploadPath;
+            System.out.println("homedir : " + homedir);
+
+            File path1 = new File(homedir);
+            System.out.println("path1 : " + path1);
+
+            if(!path1.exists()) {
+                path1.mkdirs();
+            }
 			while(iterator.hasNext()) {
 				System.out.println("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
 				String uploadFileName = iterator.next();
+				System.out.println("uploadFileName : " + uploadFileName);
 				
 				MultipartFile mFile = mRequest.getFile(uploadFileName);
+				System.out.println("mFile : " + mFile);
 				
 				String originalFileName = mFile.getOriginalFilename();
-				
-				// 실제 폴더를 만들어 보자.
-				// ...................\\resources\\upload\\2022-11-25\\
-				String homedir = uploadPath + year + "-" + month + "-" + day;
-				
-				File path1 = new File(homedir);
-				
-				if(!path1.exists()) {
-					path1.mkdirs();
-				}
+				System.out.println("originalFileName : " + originalFileName);
 				
 				// 실제 파일을 만들어 보자.(파일복사느낌임)
 				String saveFileName = originalFileName;
-
+				System.out.println("saveFileName : " + saveFileName);
+				
 				if(!saveFileName.equals(null)) {
 					saveFileName = System.currentTimeMillis()+"_"+saveFileName;		// 현재 시간을 천분의 1초단위로 계산하고 있는 메소드래..
+					System.out.println("saveFileName : "+saveFileName);
 					
 					try {
 						// ...................\\resources\\upload\\2022-11-25\\실제파일
-						File origin = new File(homedir+"/"+saveFileName);
+						File origin = new File(uploadPath+"/"+saveFileName);
 						
 						// transferTo() : 파일 데이터를 지정한 폴더로 실제 저장시키는 메서드.
-						if(!img.equals("")) new File(homedir+"/"+img).delete();
+						if(!img.equals("")) new File(img).delete();
 						
 						mFile.transferTo(origin);
-						fmdto.setMember_img(homedir+"\\"+saveFileName);						
+						fmdto.setMember_img(saveFileName);		
+						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -63,6 +63,7 @@
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
 
+
 	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
 		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
 	</select>
@@ -99,7 +100,6 @@
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
 
-
 	<insert id="insertStar" parameterType="coffeeStarDTO">
 		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
 	</insert>
@@ -108,6 +108,7 @@
 	<update id="deleteStar" parameterType="map">
 		update member_star set coffee_star = 0 where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
+
 
 	<!-- 홍기 -->
 	<select id="MyPage" parameterType="int" resultType="finalMemberDTO">
@@ -138,6 +139,9 @@
 		insert into member_star(coffee_heart, member_num) values(#{heart} + 1, #{no})
 	</insert>
 
+
+
+
 	<update id="member_Delete" parameterType="int">
 		update final_member set member_use = 1 where member_num=#{member_num}
 	</update>
@@ -158,7 +162,6 @@
 		select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
 	</select>
 	
-
 	<select id="board_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select fm.*, mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where fm.member_num=#{member_num}
 	</select>
@@ -183,6 +186,11 @@
 		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,0,#{member_num})
 	</insert>
 	
+	<update id="memberUpdateImg" parameterType="finalMemberDTO">
+		update final_member set member_img = #{member_img} where member_num=#{member_num}
+	</update>
+	
+	
 <!--관리자   -->
 	
 	<select id="count" resultType="int">
@@ -200,17 +208,6 @@
 		select * from final_member where member_num=#{member_num}
 	</select>
 	
-
-
-<!-- 지ㅎ ㅖ  -->
-
-	<select id="joinIdCheck" parameterType="finalMemberDTO" resultType="int">
-		select count(*) from final_member where member_id = #{member_id};
-	</select>
-
 </mapper>  
-
-
-
 
   

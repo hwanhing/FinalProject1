@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!-- 
@@ -186,6 +185,11 @@
 		</selectKey>	
 		insert into member_board values(#{board_num}+1,#{board_title},#{board_cont},'',sysdate,0,#{member_num})
 	</insert>
+	
+	<update id="memberUpdateImg" parameterType="finalMemberDTO">
+		update final_member set member_img = #{member_img} where member_num=#{member_num}
+	</update>
+	
 	
 <!--관리자   -->
 	
