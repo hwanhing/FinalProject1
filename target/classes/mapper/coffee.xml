@@ -208,6 +208,15 @@
 		select * from final_member where member_num=#{member_num}
 	</select>
 	
+
+	<select id="admin_beans" resultType="coffeeBeanDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by beans_num) rnum from coffee_beans b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	
+	<select id="countb" resultType="int">
+		select count(*) from coffee_beans
+	</select>
+
 </mapper>  
 
   

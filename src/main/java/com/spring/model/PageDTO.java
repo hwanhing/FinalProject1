@@ -12,7 +12,7 @@ public class PageDTO {
     private int startBlock;        // 해당 페이지의 시작 블럭
     private int endBlock;        // 해당 페이지의 끝 블럭
     private int allPage;        // 전체 페이지 수
-    private int block = 5;        // 아래에 보여질 페이지 수
+    private int block = 7;        // 아래에 보여질 페이지 수
 
 
     // 검색 관련 멤버 선언
@@ -23,7 +23,8 @@ public class PageDTO {
     public PageDTO() {    }    // 기본 생성자
 
     public PageDTO(int page, int rowsize, int totalRecord) {
-
+    	rowsize = 15;
+    	
         this.page = page;
         this.rowsize = rowsize;
         this.totalRecord = totalRecord;
