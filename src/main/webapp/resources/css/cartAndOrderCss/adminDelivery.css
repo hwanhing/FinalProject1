@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+/* -- 공간 구분용 --------------------------- */
+.header{
+	border: 1px solid black;
+}
+
+.main{
+	border: 1px solid black;
+}
+
+.main_in{
+	border: 1px solid black;
+	background-color: pink;
+}
+
+/* --------------------------------------- */
+
+.wrap{
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+}
+
+.header{
+	width: 400px;
+	display: block;
+}
+
+.main{
+	width: 60%;
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	justify-content: left;
+}
+
+.main_in{
+	width: 90%;
+	border: 1px solid black;
+}
+
+.m_summary{
+	padding: 10px;
+	display: flex;
+	border: 1px solid black;
+	
+}
+
+.hr_div{
+	width: 10px;
+	height: 100%;
+	margin-top: 0px;
+	margin-bottom: 0px; 
+}
