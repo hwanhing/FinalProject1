@@ -234,7 +234,7 @@
 	<!-- 사이드바 -->
 	     <c:if test="${!empty member_id  }">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-		     <div class="header__content"><img src="${member_img }" class="img_no"><h5><span class="header__username">${member_name }</span></h5> 
+		     <div class="header__content"><img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" /><h5><span class="header__username">${member_name }</span></h5> 
 		     
 		     	</div>
 		     	  <div class="point-banner">
