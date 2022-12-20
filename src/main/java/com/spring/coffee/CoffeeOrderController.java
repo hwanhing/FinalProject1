@@ -10,15 +10,10 @@ import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -45,11 +40,6 @@ public class CoffeeOrderController {
 	@Inject
 	private CoffeeOrderDAO orderDao;
 	
-	// 페이지 관련 변수들 -----------------------------------------------
-	private final int rowsize = 8;		// 한 페이지당 보여질 게시물 수 
-	private int totalRecord = 0;		// DB전체 게시물 수
-	// --------------------------------------------------------------
-		
 	// 장바구니에서 주문서 작성 페이지로 이동할 경우 사용
 	public Map<String, Object> cartMapM(String[] cartNumArr){
 		
@@ -177,9 +167,6 @@ public class CoffeeOrderController {
 		// 주문일
 		String order_date = orderList.get(0).getOrder_date().substring(0,10);
 		
-		// 주문상품(대표사진)
-		String order_img = orderList.get(0).getBeans_img();
-		
 		// 주문명 주문상품이 1개 이상일경우 oo상품 외 2
 		String order_product = orderList.get(0).getBeans_name();
 		if(orderList.size()>1) {
@@ -197,7 +184,6 @@ public class CoffeeOrderController {
 		
 		summaryOrder.put("order_num", order_num);
 		summaryOrder.put("order_date", order_date);
-		summaryOrder.put("order_img", order_img);
 		summaryOrder.put("order_product", order_product);
 		summaryOrder.put("order_price_total", order_price_total);
 		summaryOrder.put("use_point", use_point);
@@ -205,27 +191,6 @@ public class CoffeeOrderController {
 		return summaryOrder;
 	}
 	
-	// 주문내역 리스트 주문월(중복제외)
-	public List<String> setArr(List<CoffeeOrderDTO> orderList) {
-		
-		System.out.println("--setArr(중복 월 제거)-------------------------------------------------------------");
-		
-		String[] orderMonArr = new String[orderList.size()];
-		
-		for(int i=0; i<orderList.size(); i++) {
-			orderMonArr[i] = orderList.get(i).getOrder_month();
-		}
-		
-		HashSet<String> hashSet = new HashSet<String>(Arrays.asList(orderMonArr));
-		List<String> orderMonths = new ArrayList<String>(hashSet);
-		
-		// 내림차순
-		Collections.sort(orderMonths, Collections.reverseOrder());
-		
-		System.out.println("--------------------------------------------------------------------------------");
-		
-		return orderMonths;
-	}
 	// --------------------------------------------------------------------------------------------------
 	
 	// 장바구니에서 넘어옴
@@ -400,7 +365,7 @@ public class CoffeeOrderController {
 	}
 	
 	@RequestMapping("approvalpay.do")
-	public void approvalPay(HttpSession session,HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void approvalPay(HttpSession session, HttpServletResponse response) throws IOException {
 		
 		System.out.println("--approvalpay.do----------------------------------------------------------------");
 		
@@ -434,14 +399,6 @@ public class CoffeeOrderController {
 		// 오늘 날짜 현재시간 (order_num: 24시간 표기 / order_date : 12시간 표기
 		LocalDateTime now = LocalDateTime.now();
 		String formatNow24 = now.format(DateTimeFormatter.ofPattern("yyyyMMddkkmmss"));
-		// 24시일경우 00으로 변경
-		if(formatNow24.substring(9,11).equals("24")) {
-			formatNow24 = formatNow24.replace(formatNow24.substring(9,11), "00");
-			System.out.println("24시 일경우 변경 order_num : " + formatNow24);
-		}else {
-			System.out.println("24시가 아닐경우 order_num : " + formatNow24);	
-		}
-		
 		String formatNow12 = now.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
 		String order_num = "O"+formatNow24+member_num;
 		
@@ -544,15 +501,9 @@ public class CoffeeOrderController {
 		
 		// 6. 주문내역 페이지로 이동
 		PrintWriter out = response.getWriter();
-		if(request.getParameter("nonePay")!=null) {
-			out.println(order_num);
-		}else {
-			out.println("<script>");
-			out.println("location.href='bean_order_ok.do?order="+order_num+"'");
-			out.println("</script>");
-		}
-		
-		
+		out.println("<script>");
+		out.println("location.href='bean_order_ok.do?order="+order_num+"'");
+		out.println("</script>");
 		
 		System.out.println("--------------------------------------------------------------------------------");
 	}
@@ -584,75 +535,6 @@ public class CoffeeOrderController {
 		model.addAttribute("summaryOrder", summaryOrder);
 		
 		return "./cartAndOrder/orderOk";
-	}
-	
-	@RequestMapping("order_list.do")
-	public String orderList(HttpSession session, Model model) {
-		
-		System.out.println("--order_list.do-----------------------------------------------------------------");
-		int member_num = (Integer) session.getAttribute("member_num");
-		System.out.println("member_num : " + member_num);
-		
-		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(member_num);
-		List<String> orderMonArr = setArr(orderList);
-		
-		System.out.println("orderList.size() : " + orderList.size());
-		for(int i=0; i<orderMonArr.size(); i++) {
-			System.out.println(orderMonArr.get(i));
-		}
-		System.out.println("--------------------------------------------------------------------------------");
-		
-		model.addAttribute("orderMonArr",orderMonArr);
-		model.addAttribute("orderList", orderList);
-		
-		return "./cartAndOrder/orderList";
-	}
-	
-	@RequestMapping("order_list_selectDate.do")
-	public String orderListDate(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
-		System.out.println("--order_list_selectDate.do------------------------------------------------------");
-
-		int member_num = (Integer) session.getAttribute("member_num");
-		System.out.println("member_num : " + member_num);
-
-		// 받아온 시작일, 종료일
-		String startEndS = request.getParameter("startEnd");
-		String[] startEndA = startEndS.split(",");
-		
-		Map<String, Object> dateMap = new HashMap<String, Object>();
-		dateMap.put("member_num", member_num);
-		dateMap.put("start", startEndA[0]+" 00:00:00");
-		dateMap.put("end", startEndA[1] + " 23:59:59");
-		System.out.println("start date : " + startEndA[0] );
-		System.out.println("end date : " + startEndA[1] );
-		
-		////////////////////////////////////
-		List<CoffeeOrderDTO> orderList = orderDao.getOrderListDate(dateMap);
-		List<String> orderMonArr = setArr(orderList);
-		
-		System.out.println("orderList.size() : " + orderList.size());
-		for(int i=0; i<orderMonArr.size(); i++) {
-			System.out.println(orderMonArr.get(i));
-		}
-		
-		PrintWriter out = response.getWriter();
-		
-		dateMap.put("start", startEndA[0]);
-		dateMap.put("end", startEndA[1]);
-		
-		model.addAttribute("dateMap",dateMap);
-		model.addAttribute("orderMonArr",orderMonArr);
-		model.addAttribute("orderList", orderList);
-		System.out.println("--------------------------------------------------------------------------------");
-		
-		return "./cartAndOrder/orderList";
-	}
-	
-	/////////////////////////////////////////////////////////////////////////////////////// 
-	// 관리자 배송
-	@RequestMapping("admin_orderlist.do")
-	public String adminOrderDelivery() {
-		return "./Admin/admin_delivery";
 	}
 }
 
