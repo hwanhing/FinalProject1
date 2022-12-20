@@ -99,6 +99,8 @@ private int totalRecord=0;
 		
 		FinalMemberDTO dto = this.dao.admin_cont(num);
 		
+		
+		
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
 		

@@ -12,6 +12,7 @@
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
 <link href="<%=request.getContextPath()%>/resources/css/admin_member_cont.css" rel="stylesheet" />
+<script src="https://kit.fontawesome.com/8cabb9ab88.js" crossorigin="anonymous"></script>
 </head>
 <script type="text/javascript">
 	function readURL(input) {
@@ -40,20 +41,161 @@ crossorigin="anonymous"></script>
 					<div>
 							<div class="navi">
 							<img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
+						<div class="you">
+							  <span class=tr-span>ID</span>&nbsp;&nbsp;&nbsp;
+									 <span class="td-span">${dto.getMember_id() }</span>
+								<br><br>
+									 <span class=tr12-span>이름</span>&nbsp;&nbsp;&nbsp;
+									 <span class="td1-span">${dto.getMember_name() }</span>
+							</div>
 						<div>	
 						
-						  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery"  name="file1"/>
+						 <!--  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery"  name="file1"/> -->
 						  </div>
-							  <div class="user_id">
-							  <span class="first-span">ID</span>
-							  <input type="text" name="member_id" value="${dto.getMember_id() }">
+								<div class="user_id">
+									
+									 	
+									 	<br><br><br>
+								<div class="user_name">
+							   			<span class=tr-span><i class="fa-sharp fa-solid fa-coins"></i>포인트</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_point() }P</span>
+										
+									 <span class=tr1-span><i class="fa-regular fa-calendar-days"></i>가입일</span>&nbsp;&nbsp;&nbsp;
+									 <span class="td1-span">${dto.getMember_date().substring(0,10) }</span>
+									 	
+									 	<br><br><br>
+							 	</div>
+							 	
+							 		<div class="user_name">
+							   			<span class=tr-span><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_email() }</span>
+										
+									 <span class=phone-span><i class="fa-solid fa-phone"></i>휴대폰</span>&nbsp;&nbsp;&nbsp;
+									 <span class="td1-span">${dto.getMember_phone() }</span>
+									 	
+									 	<br><br><br>
+							 	</div>
+							 	
+							 	 	
+							   		
+							 		<div class="user_name">		
+							 	<c:if test="${dto.getMember_addr() ne '주소를 넣어주세요' }">
+								
+							   			<span class=tr-span><i class="fa-solid fa-map-location-dot"></i>주소</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_addr() }</span>
+								</c:if>
+								
+								<c:if test="${dto.getMember_addr() == '주소를 넣어주세요' }">
+								
+								</c:if>
+							 				
+							 
+					
+						
+							 	<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
+								
+							   			<span class=addr-span><i class="fa-solid fa-map-location-dot"></i>주소2</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_addr2() }</span>
+								</c:if>
+								
+								<c:if test="${dto.getMember_addr2() == '주소를 넣어주세요' }">
+								
+								</c:if>
+							 				
+							 	
+							</div>
+							
+							</div>
+							<br><br><br>
+								 		<div class="user_name">		
+							 	<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
+								
+							   			<span class=tr-span><i class="fa-solid fa-map-location-dot"></i>주소3</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_addr3() }</span>
+								</c:if>
+								
+								<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
+								
+								</c:if>
+							 	
+					
+							 	<c:if test="${dto.getMember_addr4() ne '주소를 넣어주세요' }">
+								
+							   			<span class=addr-span><i class="fa-solid fa-map-location-dot"></i>주소4</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_addr4() }</span>
+								</c:if>
+								
+								<c:if test="${dto.getMember_addr4() == '주소를 넣어주세요' }">
+								
+								</c:if>
+							 				
+							 	
+							</div>
+							
+							
+						
+							<br><br><br>
+								 		<div class="user_name">		
+							 	<c:if test="${dto.getMember_addr5() ne '주소를 넣어주세요' }">
+								
+							   			<span class=tr-span><i class="fa-solid fa-map-location-dot"></i>주소5</span>&nbsp;&nbsp;&nbsp;
+										<span class="td-span">${dto.getMember_addr2() }</span>
+								</c:if>
+								
+								<c:if test="${dto.getMember_addr5() == '주소를 넣어주세요' }">
+								
+								</c:if>
+							 				
+							 	
+							</div>
+							 			
 							  </div>
+		<table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+						<th>원두번호</th>
+                        <th>원두이미지</th>
+                        <th>원두이름</th>
+						<th>원두가격</th>
+                    </tr>
+                </thead>
+                <tbody>
+                	<c:if test="${!empty myheart }">
+					<c:forEach items="${myheart}" var="dto">
+                    <tr>
+                        <td>${dto.getBeans_num() }</td>
+                        <td><img width="70px" height="70px" src="${dto.getBeans_img() }"></td>
+						<td>${dto.getBeans_name() }</td>
+                        <td>${dto.getBeans_price() }</td>
+                        <td align="center">
+                           <a  href="<%=request.getContextPath() %>/myheart_delete.do?num=${dto.getMember_num()}" class="delete" ><i class="fa-solid fa-trash"></i></a>
+                           
+                       	 </td>
+				    </tr>  	
+				    </c:forEach>
+					</c:if>	
+        
+          
+        
+   
+					   
+						<c:if test="${empty myheart }">
+						
+						 
+					                     	<td colspan="5" align="center">
+					                     	<h3>찜목록이 비었습니다.....</h3>
+					                          
+					                          
+					                        </td>
+
+	</c:if>
+	        </tbody>
+            </table>
 						</div>
 					  
 							
 						</div>
 				</div>
-			</div>
-		</div>
+	</div>
 </body>
 </html>
