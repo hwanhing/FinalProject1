@@ -10,30 +10,30 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
     <meta name="robots" content="noindex">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" >
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
-<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="<%=request.getContextPath()%>/resources/js/layout/header.js"></script>
-<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+	<script src= "<%=request.getContextPath()%>/resources/js/jquery-3.5.1.min.js"></script>
+	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<link href="<%=request.getContextPath()%>/resources/css/style.css" rel="stylesheet" />
+
 
 
         <header class="header">
             <div class="h-wrap" style="height: 80px">
                 <div class="h-logo">
-                    <a href=""><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
+                    <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
                 </div>
-    
+        
                 <div class="h-gnb">
                     <nav class="h-nav">
                         <ul class="h-menu">
-                            <li><a href="">나만의 커피</a></li>
-                            <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 커피</a></li>
-                            <li><a href="">추천 커피</a></li>
+                            <li><a href="">원두취향테스트</a></li>
+                            <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 원두</a></li>
+                            <li><a href="">장바구니</a></li>
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>
@@ -42,8 +42,18 @@
 					<div>
 						<b>${member_name }님</b>
 						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+						  <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
 					</div>
 				</c:if>
+				<c:if test="${member_name eq null }">	
+                  <!--   <div class="menu-etc">
+                        <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+					   </button>
+                    </div> -->
+                </c:if>    				
 
             <!--------------비회원 c:if 문 START------------->
                     <c:if test="${member_name eq null }">	
@@ -61,13 +71,16 @@
                                             <span class="icon-close"></span>
                                         </div>
 
-                                        <form id="log-form" name="log-form" type="post" action="<%=request.getContextPath()%>/member_login_check.do">
+
+                                        <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
 
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
                                                     <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+
                                                     <p><input type="password"name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
+
                                                 <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
                                                 </div>
 
@@ -122,7 +135,9 @@
 
 
                             <!------------회원가입 모달 창 START ---------------->
+
                             <a href="#" class="join-pop" >Join</a>
+
                             <div class="join-modal join-bg" id="join-modal">
 
                                 <div class="join-form">
@@ -140,17 +155,17 @@
                                             
                                                 <label class="label-id" for="member_id">아이디</label>
                                                     <p><input type="text" id="join-id" placeholder="영문,숫자 조합 최소 5자 이상" autofocus></p>
-                                                    <p class="id-error error"></p>
+                                                    <p class="id-error error">잘못된 아이디 형식입니다.</p>
 
                                                 <label class="label-pw" for="member_pw">비밀번호</label>
                                                     <p><input type="text" id="join-pw" placeholder="숫자, 영문,특수조합 최소 8자 이상"></p>
-                                                    <p class="pw-error error"></p>
+                                                    <p class="pw-error error">잘못된 비밀번호 형식입니다.</p>
 
                                                     <p><input type="text" placeholder="비밀번호 재입력"></p>
 
                                                 <label class="label-email" for="member_email">이메일</label>
                                                     <p><input type="text" id="join-email" placeholder="사용 가능한 이메일을 입력하세요"></p>
-                                                    <p class="email-error error"></p>
+                                                    <p class="email-error error">잘못된 이메일 형식입니다.</p>
                                             </div>
 
 
@@ -166,6 +181,7 @@
                                                     <label for="agr-per">[필수]개인정보 수집 및 이용 동의</label>
                                                 </div>
 
+
                                                 <div class="join-agr-shop">
                                                     <input type="checkbox" class="checkbox-group" >
                                                     <label for="agr-shop">[필수]커퍼커피 스토어 이용 동의</label>
@@ -176,6 +192,7 @@
                                                     <input type="checkbox" class="checkbox-group" >
                                                     <label for="agr-age">[필수]만 14세 미만 가입 제한</label>
                                                 </div>
+
 
 
                                                 <div class="join-agr-mak">
@@ -203,23 +220,20 @@
             </div>
         </header>
 
+	<!-- 사이드바 -->
 	     <c:if test="${!empty member_id  }">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-		     <div class="offcanvas-header">
-		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">${member_name} 님 환영합니다.</h5>
-		    	<div>
-		    	
-		    	
-		    	</div>
-	       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		     </div>
-		     <div class="offcanvas-body">
-		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+		     <div class="header__content"><img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" /><h5><span class="header__username">${member_name }</span></h5> 
 		     
-		       
+		     	</div>
+		     	  <div class="point-banner">
+		          		<span class="point"> 💰포인트 : <span>${member_point }p</span></span>
+		          </div>
+		     <div class="offcanvas-body">
+		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">	       
 		         <li class="nav-item">
 	          	<div>
-	          	<div >
+	          		<div>
 	          		<c:if test="${!empty test_img }">
 	          			 <img class="result-img" src="${test_img }" width=200>
 	          		</c:if>
@@ -233,71 +247,57 @@
 	          	</div>
 	          	
 	          	</div>
-		          <div>
-		          		<span> 💰포인트 : ${member_point }p</span>
-		          </div>
+		        
 		         </li>
 		         <li class="nav-item">
-		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}">마이페이지</a>
-		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}">찜리스트</a>
-	        
-		         <li class="nav-item dropdown">
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_mypage.do?num=${member_num}"><span class="point">마이페이지</span> </a>
+		           <hr>
+		           <a class="nav-link" href="<%=request.getContextPath()%>/member_heart.do?num=${member_num}"><span class="point">찜리스트</span></a>
+	        	  <hr>
+		         <li >
+		           
 		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		         	고객센터
+		         	<span class="point">고객센터</span>
 		           </a>
 		           <ul class="dropdown-menu">
-		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${dto.getMember_num()}">문의게시판</a></li>
-		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/">1:1문의하기</a></li>
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/board_list.do?num=${member_num}"><span class="point">문의게시판</span></a></li>
+		             <li><a class="dropdown-item" href="<%=request.getContextPath()%>/w_write.do?num=${member_num}"><span class="point2">1:1문의하기</span></a></li>
 		             <li>
-		     
+		     		
 		             </li>
-		       
+		       		
 		           </ul>
+		    			 <hr>
 		    
-		    
-		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do">로그아웃</a>
+		           <a class="nav-link" href="<%=request.getContextPath() %>/member_logout.do"><span class="point">로그아웃</span></a>
+					 <hr>
 		         </li>
 		       </ul>
 		      
 		     </div>
+		     <button class="loyalty-modal__close-button" id="close-button" aria-label="메뉴 닫기"><svg fill="none" focusable="false" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12.0002 13.4144L16.9499 18.3642L18.3642 16.9499L13.4144 12.0002L18.3642 7.05044L16.95 5.63623L12.0002 10.586L7.05044 5.63623L5.63623 7.05044L10.586 12.0002L5.63624 16.9499L7.05046 18.3642L12.0002 13.4144Z" fill="currentColor" fill-rule="evenodd"></path></svg></button>
 		   </div>
 		   </c:if>
 		
-		  <c:if test="${empty member_id }">
+		<%--   <c:if test="${empty member_id }">
 		  	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="offcanvas-header">
-		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">로그인하셈</h5>
-		       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Cuppa Coffee에 오신걸 환영합니다</h5>
+		       <button type="button" class="btn-close" data-bs-dismiss="offcanvas"  aria-label="Close"></button>
 		     </div>
 		     <div class="offcanvas-body">
 		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
 		         <li class="nav-item">
-		           <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>/">Home</a>
-		         </li>
-		         <li class="nav-item">
-		           <a class="nav-link" href="#">Link</a>
-		         </li>
-		         <li class="nav-item dropdown">
-		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-		           로그인안댐
-		           </a>
-		           <ul class="dropdown-menu">
-		             <li><a class="dropdown-item" href="#">Action</a></li>
-		             <li><a class="dropdown-item" href="#">Another action</a></li>
-		             <li>
-		               <hr class="dropdown-divider">
-		             </li>
-		             <li><a class="dropdown-item" href="#">Something else here</a></li>
-		           </ul>
-		         </li>
+		         <button class="nav-link active login-pop" aria-current="page" id="unlogin" onclick="loaction.href='login.do'">Login
+		         
+		         
+		           <a class="nav-link active" aria-current="page" id="unlogin" href="<%=request.getContextPath()%>/login.do">Login</a>
+		       	 </button>	
 		       </ul>
-		       <form class="d-flex mt-3" role="search">
-		         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-		         <button class="btn btn-outline-success" type="submit">Search</button>
-		       </form>
 		     </div>
 		   </div>
-		   </c:if>
+		   </c:if> --%>
+
 
 
     </body>
