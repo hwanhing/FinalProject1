@@ -72,12 +72,6 @@ public class CoffeeBeanController {
 		
 		map.put("coffee_heart", updateHeart);
 
-//		if (updateHeart == 0) {
-//			this.dao.beanHeartDown(map);
-//		} else {
-//			this.dao.beanHeartUp(map);
-//		}
-
 		PrintWriter out = response.getWriter();
 
 		if (insertHeart == 0) {
