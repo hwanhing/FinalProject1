@@ -105,9 +105,6 @@ private int totalRecord=0;
 		
 		List<CoffeeOrderDTO> dto1 =this.dao.admin_order(num);
 		
-	
-	
-		
 		model.addAttribute("member_order", dto1);
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
@@ -157,7 +154,7 @@ private int totalRecord=0;
 		
 		return "./Admin/Admin_beans_List";
 	}
-	
+
 		@RequestMapping("admin_center.do")
 		public String order_list(HttpServletRequest request, Model model) {
 			
@@ -188,4 +185,49 @@ private int totalRecord=0;
 			
 			return "./Admin/Admin_Member_board";
 		}
+
+	@RequestMapping("admin_beans_cont.do")
+	public String admin_bean_cont(@RequestParam("no") int beans_num, Model model) {
+		
+		CoffeeBeanDTO dto = this.dao.getBeanContent(beans_num);
+		
+		model.addAttribute("cont", dto);
+		
+		return "./Admin/Admin_beans_cont";
+	}
+	
+	
+	
+	  @RequestMapping("admin_beans_modify.do")
+	  public String admin_bean_modify(@RequestParam("no") int beans_num, Model model) {
+	  
+		  CoffeeBeanDTO dto = this.dao.getBeanContent(beans_num);
+		  model.addAttribute("cont", dto);
+		  
+	  
+		  return "./Admin/Admin_beans_modify";
+	  }
+	  
+	  @RequestMapping("admin_beans_modify_ok.do")
+	  public void admin_bean_modify_ok(CoffeeBeanDTO dto, HttpServletResponse response) throws IOException {
+		  
+		  int res = this.dao.adminBeanModify(dto);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  PrintWriter out = response.getWriter();
+		  
+			if(res > 0) {
+				out.println("<script>");
+				out.println("alert('사원 정보 수정 성공!!!')");
+				out.println("location.href='admin_beans_cont.do?no="+dto.getBeans_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('사원 정보 수정 실패~~~')");
+				out.println("history.back()");
+				out.println("</script>");
+			}		  
+	  }
+
 }

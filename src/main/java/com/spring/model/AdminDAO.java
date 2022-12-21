@@ -22,6 +22,13 @@ public interface AdminDAO {
 
 	String getBeansCount();
 
+
 	int boardList();
+
+
+	
+	CoffeeBeanDTO getBeanContent(int no);
+	
+	int adminBeanModify(CoffeeBeanDTO dto);
 
 }
