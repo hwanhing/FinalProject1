@@ -33,10 +33,51 @@ function readURL1(input) {
 
 
 <style>
+
+
+.row {
+    --bs-gutter-x: 1.5rem;
+    --bs-gutter-y: 0;
+    display: flex;
+    flex-wrap: nowrap;    
+	justify-content: center;
+    margin-top: calc(-1 * var(--bs-gutter-y));
+    margin-right: calc(-.5 * var(--bs-gutter-x));
+    margin-left: calc(-.5 * var(--bs-gutter-x));
+    justify-content: center;
+
+}
+.header__content{
+	background-color: #D9CEC1;
+    -webkit-text-size-adjust: 100%;
+    font: 100% sans-serif;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+    font-size: .875rem;
+    line-height: 1.571;
+    visibility: visible;
+    text-align: left;
+    pointer-events: all;
+    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+    box-sizing: inherit;
+    outline: none;
+    margin: 0;
+    display: flex;
+	align-items: center;
+    justify-content: space-around;
+    padding: 100px 100px 50px 0.1px;
+}	
+.img_no{		
+margin-left:50px;
+border: 1px solid #FFF;
+border-radius: 100%;
+height: 100px;
+width: 100PX;
+ }
+
 .zero{
 	margin-top: 200px;
-	margin-left:350px;
-	
+	margin-left:230px;
 	width:75%;
 	height: 100px;
 
@@ -130,7 +171,6 @@ text-align: center;
   margin-top: -3px;
   background-color: #fff;
   border: 0;
-  border-top: 1px solid #eee;
   padding: 15px 0;
 }
 .portlet .tabbable-line > .tab-content {
@@ -161,6 +201,8 @@ margin-top: 50px;
 	position: absolute;
 	float: right;
 }
+.ap{
+margin-left: 130px;}
 
 </style>
 </head>
@@ -170,6 +212,7 @@ margin-top: 50px;
 
 <c:set var="dto" value="${Mypage }" />
 
+<div class="ap">
 <div>
 	
 	
@@ -435,7 +478,7 @@ margin-top: 50px;
 					</div>
 			    </div>
 			  </div>
-
+</div>
 
 <jsp:include page="../layout/footer.jsp" />
 </body>

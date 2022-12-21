@@ -215,6 +215,9 @@
 	<select id="countb" resultType="int">
 		select count(*) from coffee_beans
 	</select>
+	<select id="admin_order" parameterType="coffeeOrderDTO" resultType="coffeeOrderDTO">
+	select fm.*,co.* from final_member fm join coffee_order co on fm.member_num = co.member_num where fm.member_num=#{member_num}
+	</select>
 </mapper>  
 
   

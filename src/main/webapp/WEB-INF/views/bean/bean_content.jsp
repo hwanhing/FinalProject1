@@ -1242,7 +1242,7 @@
 
 	});	
 	
-	$(".cart_btn1").on("click",function(){
+	$(".cart_btn2").on("click",function(){
 
 
 		if('<%=session.getAttribute("member_id")%>' != "null" && grind_total != undefined){

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.model.AdminDAO;
 import com.spring.model.CoffeeBeanDTO;
+import com.spring.model.CoffeeOrderDTO;
 import com.spring.model.FinalAdminDTO;
 import com.spring.model.FinalMemberDTO;
 import com.spring.model.PageDTO;
@@ -100,6 +101,12 @@ private int totalRecord=0;
 		
 		FinalMemberDTO dto = this.dao.admin_cont(num);
 		
+		List<CoffeeOrderDTO> dto1 =this.dao.admin_order(num);
+		
+	
+	
+		
+		model.addAttribute("member_order", dto1);
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
 		
