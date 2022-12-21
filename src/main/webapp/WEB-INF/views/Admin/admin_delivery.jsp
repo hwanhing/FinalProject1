@@ -10,6 +10,7 @@
 	<title>CuppACoffee</title>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/adminDelivery.css">
+	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
 		<section class="header">
@@ -32,28 +33,28 @@
 	                        <div class="m_s_delivery m_s_delivery_ok">
 	                            <h3 class="point_text">배송완료</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">${delivery.deliveryOk }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=2" class="a">${delivery.deliveryOk }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_ing">
 	                            <h3 class="point_text">배송중</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">${delivery.deliveryIng }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=1" class="a delivery_ing_a">${delivery.deliveryIng }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">배송대기</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">${delivery.deliveryBefore }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=0" class="a delivery_before_a">${delivery.deliveryBefore }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">주문취소</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">${delivery.cancelOrder }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=3" class="a">${delivery.cancelOrder }</a>
 	                            </h4>
 	                        </div>
 	                        
@@ -65,9 +66,40 @@
 					</div>
 					
 					<div class="m_content">
-						<div>
-							<button class="btn all_btn">전체 배송처리 하기</button>
+						
+						<!-- 전체주문건보기, 전체 배송처리하기 버튼 구역 + 어떤 페이지인지 -->
+						<div class="m_head">
+							<div class="m_h_btn_area">
+								
+								<c:if test="${! empty clikedType }">
+									<div>
+										<button class="btn c_delivery_btn btn_hover" onclick="location.href='admin_orderlist.do'">전체 주문건 보기</button>
+									</div>
+								</c:if>
+								
+								<c:if test="${clikedType ==0 || empty clikedType }">
+									<div>
+										<button class="btn c_delivery_btn c_all_btn btn_hover" onclick="allDeliveryIng()">전체 배송처리 하기</button>
+									</div>
+								</c:if>
+								
+							</div>
+							
+							<div class="m_h_content">
+								<c:if test="${! empty clikedType }">
+									<p>  
+										<c:choose>
+											<c:when test="${clikedType==2 }"><b>배송완료 </b></c:when>
+											<c:when test="${clikedType==1 }"><b>배송중 </b></c:when>
+											<c:when test="${clikedType==0 }"><b>배송대기 </b></c:when>
+											<c:otherwise><b>주문취소</b></c:otherwise>
+										</c:choose>
+										주문건 입니다.
+									</p>
+								</c:if>
+							</div>
 						</div>
+						
 	                    <table class="m_content_t">
 	                        <colgroup>
 	                            <col style="width: 20%">
@@ -84,7 +116,11 @@
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-
+								<c:if test="${empty orderListAdmin }">
+									<tr>
+										<th colspan="4">해당하는 주문건이 없습니다.</th>
+									</tr>
+								</c:if>
 	                            <c:forEach items="${orderListAdmin }" var="list" >
 		                            
 		                            <tr>
@@ -93,15 +129,15 @@
 		                                <td>
 		                                	 <!-- 0: 배송대기, 1: 배송중, 2: 배송완료, 3:주문취소, 4:교환, 5:반품&환불 -->
 		                                	<c:if test="${list.getType_num() == 0 }">
-		                                    	<button class="btn c_delivery_btn js_delivery_btn_b">${list.getType_name() }</button>
+		                                    	<button class="btn c_delivery_btn btn_hover c_delivery_before js_delivery_btn_b" value="${list.getOrder_num() }">${list.getType_name() }</button>
 		                                	</c:if>
 		                                	
 		                                	<c:if test="${list.getType_num() == 1 }">
-		                                    	<button class="btn c_delivery_btn c_delivery_ing" disabled>${list.getType_name() }</button>
+		                                    	<button class="btn c_delivery_btn cur_none c_delivery_ing" disabled>${list.getType_name() }</button>
 		                                	</c:if>
 		                                	
 		                                   	<c:if test="${list.getType_num() > 1 }">
-		                                    	<button class="btn c_delivery_btn js_delivery_btn_o" disabled>${list.getType_name() }</button>
+		                                    	<button class="btn c_delivery_btn cur_none js_delivery_btn_o" disabled>${list.getType_name() }</button>
 		                                	</c:if>
 		                                   
 		                                </td>

@@ -235,7 +235,12 @@ public class CoffeeOrderController {
 	}
 	
 	// 배송 현황 갯수
-	public Map<String, Integer> summaryDelivery(List<CoffeeOrderDTO> orderListAdmin) {
+	public Map<String, Integer> summaryDelivery(HttpSession session ,List<CoffeeOrderDTO> orderListAdmin) {
+		
+		if(session.getAttribute("summaryDeliMap")!=null){
+			System.out.println("이미 summaryDeliMap 세션이 있습니다.");
+			session.removeAttribute("summaryDeliMap");
+		}
 		
 		Map<String, Integer> summaryDeliMap = new HashMap<String, Integer>();  
 		int deliveryBefore = 0;	// 배송대기
@@ -256,6 +261,8 @@ public class CoffeeOrderController {
 		summaryDeliMap.put("deliveryIng", deliveryIng);
 		summaryDeliMap.put("deliveryOk", deliveryOk);
 		summaryDeliMap.put("cancelOrder", cancelOrder);
+		
+		session.setAttribute("summaryDeliMap", summaryDeliMap);
 		
 		return summaryDeliMap;
 	}
@@ -757,8 +764,10 @@ public class CoffeeOrderController {
 	
 	/////////////////////////////////////////////////////////////////////////////////////// 
 	// 관리자 배송
+	
+	// 주문리스트 
 	@RequestMapping("admin_orderlist.do")
-	public String adminOrderDelivery(Model model) {
+	public String adminOrderDelivery(HttpSession session, Model model) {
 		
 		System.out.println("--admin_orderlist.do------------------------------------------------------------");
 		System.out.println("관리자 주문내역 갯수 확인");
@@ -766,7 +775,7 @@ public class CoffeeOrderController {
 		System.out.println("orderListAdmin.size() : " + orderListAdmin.size() );
 		
 		// 배송 타입 갯수
-		Map<String, Integer> summaryDeliveryMap = summaryDelivery(orderListAdmin);
+		Map<String, Integer> summaryDeliveryMap = summaryDelivery(session, orderListAdmin);
 		
 		// 타입명 추가
 		orderListAdmin = orderListAddTypeName(orderListAdmin);
@@ -777,5 +786,51 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./Admin/admin_delivery";
 	}
+	
+	// 배송 타입별 주문 리스트
+	@RequestMapping("admin_type_list.do")
+	public String typeList(@RequestParam("type") int type_num, HttpSession session, Model model) {
+		
+		// 배송 타입 갯수(세션값 가져옴)
+		Map<String, Integer> summaryDeliveryMap = (Map<String, Integer>) session.getAttribute("summaryDeliMap");
+		
+		// 주문 목록 리스트 가져오기
+		List<CoffeeOrderDTO> orderListAdmin = orderDao.getTypeOrderListAdmin(type_num);
+		
+		// 타입명 추가
+		orderListAdmin = orderListAddTypeName(orderListAdmin);
+		
+		model.addAttribute("orderListAdmin", orderListAdmin);
+		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+		model.addAttribute("clikedType", type_num);
+		
+		return "./Admin/admin_delivery";
+	}
+	
+	@RequestMapping("update_row_type_num.do")
+	public void updateRowTypeNum(@RequestParam("orderNum") String orderNum, HttpServletResponse response) throws IOException {
+		
+		System.out.println("--update_row_type_num.do--------------------------------------------------------");
+		int result = orderDao.updateRowTypeNum(orderNum);
+		System.out.println("배송중으로 업데이트 결과 : " + result);
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
+		System.out.println("--------------------------------------------------------------------------------");
+	}
+	
+	@RequestMapping("update_all_type_num.do")
+	public void updateAllTypeNum(HttpServletResponse response) throws IOException {
+		
+		System.out.println("--update_all_type_num.do--------------------------------------------------------");
+		int result = orderDao.updateAllTypeNum();
+		System.out.println("배송중으로 전체 업데이트 결과 : " + result);
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
+		System.out.println("--------------------------------------------------------------------------------");
+	}
+	
+	
 }
 

@@ -103,6 +103,24 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.selectList("getOrderListAdmin");
 	}
 	
+	@Override
+	public List<CoffeeOrderDTO> getTypeOrderListAdmin(int type_num) {
+		return this.sqlSession.selectList("getTypeOrderListAdmin", type_num);
+	}
+
+	@Override
+	public int updateRowTypeNum(String order_num) {
+		return this.sqlSession.update("updateRowTypeNum",order_num);
+	}
+
+	@Override
+	public int updateAllTypeNum() {
+		return this.sqlSession.update("updateAllTypeNum");
+	}
+
+	
+	
+	
 	
 
 
