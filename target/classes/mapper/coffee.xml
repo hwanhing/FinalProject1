@@ -18,6 +18,11 @@
 		select * from coffee_beans order by beans_num
 	</select>
 	
+	<select id="beansCount" resultType="String">
+		select count(*) from coffee_beans
+	</select>
+	
+	
 	<!-- 찜많은 목록 뽑는 문 -->	
 	<select id="heartlist" resultType="coffeeBeanDTO">
 		select * from coffee_beans order by count_h desc
@@ -33,16 +38,19 @@
 		select * from coffee_beans order by beans_price desc
 	</select>
 
-	<!-- 원두 상세페이지 정보 뽑는 문 -->	
+		
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
-		<!-- select * from coffee_write where beans_num = #{beans_num} -->
-		select cw.write_num,cw.write_cont,cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
-		ms.coffee_star from coffee_write cw join member_star ms on cw.beans_num = ms.beans_num
-		where cw.beans_num = #{beans_num}
+		select cw.write_num, cw.write_cont, cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
+		ms.coffee_star from coffee_write cw join member_star ms on cw.member_num = ms.member_num where cw.beans_num = #{beans_num}
+		
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select fm.*, ct.*from final_member fm join coffee_test ct on fm.test_num = ct.test_num where member_id=#{member_id} and member_pwd=#{member_pwd}
+	</select>
+	
+	<select id="a_check" resultType="finalAdminDTO" parameterType="finalMemberDTO">
+		select * from final_admin where admin_id = #{admin_id} and admin_pwd = #{admin_pwd}
 	</select>
 	
 	<select id="Cont" parameterType="int" resultType="coffeeBeanDTO">
@@ -81,18 +89,22 @@
 	</select>
 	
 	
-	<insert id="insertWrite" parameterType="coffeeWriteDTO">
+	<insert id="insertWrite" parameterType="map">
 		<selectKey resultType="int" keyProperty="write_num" order="BEFORE">
 			select max(write_num) from coffee_write
-		</selectKey>	
-		insert into coffee_write values(#{write_num} + 1, #{write_cont}, sysdate, #{write_img}, #{member_id}, #{beans_num})
+		</selectKey>
+		insert into coffee_write values(#{write_num} + 1, #{write_cont}, sysdate, #{write_img}, #{member_num}, #{beans_num},#{member_id})
 	</insert>
 
-	<update id="updateStar" parameterType="coffeeStarDTO">
+	<insert id="writeStar" parameterType="map">
+		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
+	</insert>
+	
+	<update id="writeUpdateStar" parameterType="map">
 		update member_star set coffee_star = #{coffee_star} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
-
-	<select id="checkWrite" parameterType="coffeeStarDTO" resultType="int">
+	
+	<select id="checkWrite" parameterType="map" resultType="int">
 		select count(*) from member_star where member_num = #{member_num} and beans_num = #{beans_num}
 	</select>
 
@@ -100,14 +112,13 @@
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
 
-	<insert id="insertStar" parameterType="coffeeStarDTO">
-		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
-	</insert>
-
-
 	<update id="deleteStar" parameterType="map">
 		update member_star set coffee_star = 0 where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
+
+	<select id="starAvg" parameterType="int" resultType="int">
+		select avg(coffee_star) from member_star where beans_num = #{beans_num}
+	</select>
 
 
 	<!-- 홍기 -->
@@ -197,9 +208,9 @@
         select  count(*) from final_member
     </select>
 	
-	<select id="admin_check" resultType="finalAdminDTO" parameterType="finalAdminDTO">
+<!-- 	<select id="admin_check" resultType="finalAdminDTO" parameterType="finalAdminDTO">
 		select * from final_admin where admin_id=#{admin_id} and admin_pwd=#{admin_pwd}
-	</select>
+	</select> -->
 	
 	<select id="memberList" resultType="finalMemberDTO" parameterType="pageDTO">
 		<![CDATA[select * from (select b.*, row_number() over(order by member_num desc) rnum from final_member b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
@@ -215,9 +226,11 @@
 	<select id="countb" resultType="int">
 		select count(*) from coffee_beans
 	</select>
+
 	<select id="admin_order" parameterType="coffeeOrderDTO" resultType="coffeeOrderDTO">
 	select fm.*,co.* from final_member fm join coffee_order co on fm.member_num = co.member_num where fm.member_num=#{member_num}
 	</select>
+
 </mapper>  
 
   

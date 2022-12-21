@@ -33,7 +33,7 @@ private final int rowsize=5;
 //DB상의 전체 게시물 수
 private int totalRecord=0;
 
-
+/*
 	@RequestMapping("adminlogin.do")
 	public String adminlogPage() {
 		
@@ -59,6 +59,8 @@ private int totalRecord=0;
 		
 		return "./Admin/admin_main";
 	}
+*/	
+	
 	@RequestMapping("admin_main.do")
 	public String main() {
 		return "./Admin/admin_main";
@@ -137,6 +139,11 @@ private int totalRecord=0;
         PageDTO dto = new PageDTO(page, this.rowsize,this.totalRecord);		
 		
 		List<CoffeeBeanDTO> list = this.dao.getBeanList(dto);
+		
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);
 		
 		model.addAttribute("beans_list", list);
 		model.addAttribute("Paging", dto);

@@ -20,6 +20,12 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return this.sqlSession.selectOne("check",dto);
 	}
+	
+
+	@Override
+	public FinalAdminDTO checkAdmin(FinalMemberDTO a_dto) {
+		return this.sqlSession.selectOne("a_check", a_dto);
+	}
 
 	@Override
 	public void logout(HttpSession session) {
@@ -138,6 +144,7 @@ public class MemberDAOImpl implements MemberDAO{
 		// TODO Auto-generated method stub
 		return this.sqlSession.update("memberUpdateImg", fmdto);
 	}
+
 
 
 
