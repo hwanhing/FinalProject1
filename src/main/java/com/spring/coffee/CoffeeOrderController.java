@@ -609,8 +609,6 @@ public class CoffeeOrderController {
 			out.println("</script>");
 		}
 		
-		
-		
 		System.out.println("--------------------------------------------------------------------------------");
 	}
 	
@@ -707,6 +705,9 @@ public class CoffeeOrderController {
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderListDate(dateMap);
 		List<String> orderMonArr = setArr(orderList);
 		
+		// 타입명 추가
+		orderList = orderListAddTypeName(orderList);
+		
 		System.out.println("orderList.size() : " + orderList.size());
 		for(int i=0; i<orderMonArr.size(); i++) {
 			System.out.println(orderMonArr.get(i));
@@ -717,9 +718,13 @@ public class CoffeeOrderController {
 		dateMap.put("start", startEndA[0]);
 		dateMap.put("end", startEndA[1]);
 		
+		// 배송 타입 갯수(세션값 가져옴)
+		Map<String, Integer> summaryDeliveryMap = (Map<String, Integer>) session.getAttribute("summaryDeliMap");
+		
 		model.addAttribute("dateMap",dateMap);
 		model.addAttribute("orderMonArr",orderMonArr);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		return "./cartAndOrder/orderList";
@@ -773,11 +778,16 @@ public class CoffeeOrderController {
 	@RequestMapping("delivery_ok.do")
 	public void deliveryOk(@RequestParam("orderNum") String order_num, HttpServletResponse response) throws IOException {
 		
+		System.out.println("--delivery_ok.do----------------------------------------------------------------");
 		Map<String, Object> typeMap = new HashMap<String, Object>();
 		typeMap.put("order_num", order_num);
 		typeMap.put("type_num", 2);
+		System.out.println("type_num : "+typeMap.get("type_num"));
 		
 		int result = orderDao.updateOrderType(typeMap);
+		
+		System.out.println("--------------------------------------------------------------------------------");
+
 		PrintWriter out = response.getWriter();
 		out.print(result);
 	}

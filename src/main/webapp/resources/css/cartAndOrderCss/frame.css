@@ -255,7 +255,7 @@ input::-webkit-inner-spin-button {
 
 /* ----------------- 삭제시 display none --------------------------- */
 .display_none{
-    display: none !important;
+    display: none;
 }
 
 

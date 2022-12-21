@@ -57,9 +57,34 @@
 			let orderNum = deliveryOkBtn[index].value
 			console.log('구매완료 버튼 클릭')
 			console.log(orderNum)
+			
+			// ajax 타입 변경 함수
+			updateRowTypeNum(orderNum)
+			
+			// 버튼 텍스트 변경 함수
+			changeTxt(orderNum)
+			
+			// 배송중, 배송완료 수량 변경 함수
+			changeDeliveryCnt()
 		})
 		
 	})
+	
+	// 구매버튼 클릭시 구매버튼 변경 하기
+	function changeTxt(orderNum){
+		console.log('배송완료로 텍스트를 변경합니다.')
+		let changeDiv = document.querySelector(".js_delivery_"+orderNum)
+		changeDiv.innerHTML = "<b>배송완료</b>"
+	}
+	
+	// 배송중 수량, 배송완료 수량 변경
+	function changeDeliveryCnt(){
+		let deliveryOk = document.querySelector('.delivery_ok_a')
+		let deliveryIng = document.querySelector('.delivery_ing_a')
+		
+		deliveryOk.textContent = parseInt(deliveryOk.textContent) + 1
+		deliveryIng.textContent = parseInt(deliveryIng.textContent) - 1
+	}
 	
 	 // ajax ----------------------------------------------------------
 	 $.ajaxSetup({	

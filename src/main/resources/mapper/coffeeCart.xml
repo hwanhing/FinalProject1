@@ -249,7 +249,7 @@
 		       , beans_taste
 		       , beans_img
 		    from fin
-		   where row_pri between 1 and 10
+		   where row_pri between 1 and 8
 	</select>
 	
 </mapper>
