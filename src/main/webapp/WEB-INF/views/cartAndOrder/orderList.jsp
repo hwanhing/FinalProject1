@@ -58,6 +58,13 @@
 	                            	<a href="" class="a">5</a>
 	                            </h4>
 	                        </div>
+	                        <div class="hr_div"></div>
+	                        <div class="m_s_delivery m_s_delivery_before">
+	                            <h3 class="point_text">주문취소</h3>
+	                            <h4 class="cnt_txt">
+	                            	<a href="" class="a">5</a>
+	                            </h4>
+	                        </div>
 	                        
 	                    </div>
 	                </div>

@@ -1,55 +1,79 @@
-@charset "UTF-8";
-
-/* -- 공간 구분용 --------------------------- */
-.header{
-	border: 1px solid black;
+body{
+    width: 100%;
 }
-
-.main{
-	border: 1px solid black;
-}
-
-.main_in{
-	border: 1px solid black;
-	background-color: pink;
-}
-
-/* --------------------------------------- */
 
 .wrap{
-	width: 100%;
-	display: flex;
-	flex-direction: row;
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 370px 2fr;
 }
 
-.header{
-	width: 400px;
-	display: block;
+.blank{
+	width: 370px;
 }
 
 .main{
-	width: 60%;
-	margin: 0px;
-	padding: 0px;
-	display: flex;
-	justify-content: left;
-}
+	width: 100%;
+	padding-top: 30px;
+	overflow: scroll;
+}	
 
 .main_in{
-	width: 90%;
-	border: 1px solid black;
+	width: 95%;
+	padding-right: 20px;
+    margin: auto;
 }
 
+/* 배달 현황 요약 adminDelivery 배달현황만 적용 (나머지 적용사항은 frame.css에 있음)*/
 .m_summary{
-	padding: 10px;
-	display: flex;
-	border: 1px solid black;
-	
+    height: 130px;
 }
 
-.hr_div{
-	width: 10px;
-	height: 100%;
-	margin-top: 0px;
-	margin-bottom: 0px; 
+.m_summary_in{
+    height: 120px;
+}
+
+.cnt_txt{
+	margin-top: 10px;
+}
+
+/* 주문 현황 표 */
+.m_content_t{
+    width: 100%; 
+    border-collapse: collapse;
+    border-bottom: 1px solid var(--color_begie);
+}
+
+.m_content_t thead tr{
+    height: 40px;
+    background-color: var(--color_begie);
+}
+
+.m_content_t tbody tr{
+    height: 50px;
+}
+
+.m_content_t tbody td{
+    padding: 10px;
+    border-bottom: 1px solid var(--color_begie);
+}
+
+.m_content_t td:nth-child(1),
+.m_content_t td:nth-child(3){
+    text-align: center;
+}
+
+.m_content_t th{
+    border-left: 2px solid white;
+}
+
+/* 배송 현황 버튼 */
+.c_delivery_btn{
+    border: 1px solid var(--color_begie) !important;
+    border-radius: var(--radius) !important;
+}
+
+.c_delivery_btn:hover{
+    background-color: var(--color_greyish) !important;
+    color: white !important;
 }
