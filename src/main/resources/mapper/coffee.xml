@@ -218,6 +218,14 @@
 	<select id="admin_order" parameterType="coffeeOrderDTO" resultType="coffeeOrderDTO">
 	select fm.*,co.* from final_member fm join coffee_order co on fm.member_num = co.member_num where fm.member_num=#{member_num}
 	</select>
+	
+	<select id="counto" resultType="int">
+		select count(*) from member_board
+	</select>
+	
+		<select id="admin_board" resultType="finalMemberDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by board_num) rnum from member_board b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+		</select>
 </mapper>  
 
   

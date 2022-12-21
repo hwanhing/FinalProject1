@@ -149,4 +149,37 @@ private int totalRecord=0;
 		
 		return "./Admin/Admin_beans_List";
 	}
+	
+		@RequestMapping("admin_orderlist.do")
+		public String order_list(HttpServletRequest request, Model model) {
+			
+			
+			 // 페이징 처리 작업
+	        int page;    // 현재 페이지 변수
+
+	        if(request.getParameter("page") != null) {
+
+	            page = Integer.parseInt(request.getParameter("page"));
+
+	        }else {
+
+	            // 처음으로 게시물 전체 목록을 클릭한 경우.
+	            page = 1;
+	        }
+
+	        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
+	        totalRecord = this.dao.orderList();
+
+	        PageDTO dto = new PageDTO(page, this.rowsize,this.totalRecord);
+	             
+	        List<FinalMemberDTO> list = this.dao.boardList(dto);
+	        // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+	     
+
+	        model.addAttribute("Paging", dto);
+				
+			model.addAttribute("orderList", list);
+			
+			return "./Admin/Admin_Member_Order";
+		}
 }

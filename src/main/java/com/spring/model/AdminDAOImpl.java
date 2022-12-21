@@ -54,6 +54,17 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectList("admin_order",num);
 	}
 
+	@Override
+	public int orderList() {
+		return this.sqlSession.selectOne("counto");
+	}
+
+	@Override
+	public List<FinalMemberDTO> boardList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_board",dto);
+	}
+
 
 
 	

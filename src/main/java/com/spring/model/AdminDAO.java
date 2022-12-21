@@ -17,6 +17,12 @@ public interface AdminDAO {
 	int beansList();
 
 	List<CoffeeOrderDTO> admin_order(int num);
+
+	int orderList();
+
+	List<FinalMemberDTO> boardList(PageDTO dto);
+
+	
 	
 	
 }
