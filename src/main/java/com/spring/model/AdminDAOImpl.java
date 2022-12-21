@@ -59,6 +59,17 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public int boardList() {
+		return this.sqlSession.selectOne("counto");
+	}
+
+	@Override
+	public List<FinalMemberDTO> boardList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_board",dto);
+  }
+  
+  @Override
 	public CoffeeBeanDTO getBeanContent(int no) {
 		return this.sqlSession.selectOne("beans_cont", no);
 	}
@@ -66,6 +77,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public int adminBeanModify(CoffeeBeanDTO dto) {
 		return this.sqlSession.update("bean_modify", dto);
+
 	}
 
 
