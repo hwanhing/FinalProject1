@@ -138,8 +138,9 @@
                              <table class="m_table m_rows_table">
                                  <colgroup>
                                      <col style="width: 20%">
-                                     <col style="width: 60%">
+                                     <col style="width: 50%">
                                      <col style="width: 20%">
+                                     <col style="width: 10%">
                                  </colgroup>
                                  
                                  <c:forEach items="${orderList }" var="list">
@@ -167,8 +168,12 @@
 		                                     <td class="txt_right">
 		                                     	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 		                                     </td>
-		                                     <td>
-		                                     	
+		                                     
+		                                     <%-- 만약 배송중이면 배송완료 버튼을 누를 수 있음 --%>
+		                                     <c:if test="">
+		                                     </c:if>
+		                                     <td class="txt_center">
+		                                     	배송현황
 		                                     </td>
 		                                 </tr>
 	                                 

@@ -44,4 +44,12 @@ public interface CoffeeOrderDAO {
 	
 	// 포인트 사용시 포인트 취소
 	int updateUsePointCancel(Map<String, Object> typeMap);
+	
+	
+	//////////////////////////////////////////////////////////////////////////////
+	// 관리자 배송
+	
+	// 주문리스트
+	List<CoffeeOrderDTO> getOrderListAdmin();
+	
 }

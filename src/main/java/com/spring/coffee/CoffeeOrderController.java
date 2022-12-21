@@ -168,7 +168,7 @@ public class CoffeeOrderController {
 	}
 	
 	// 결제 완료후
-	// 주문완료 정보 요약
+	// 주문완료 정보 요약(주문번호 1개에 대한 요약)
 	public Map<String, Object> summaryOrder(String order_num, List<CoffeeOrderDTO> orderList){
 		
 		// 요약 정보
@@ -232,6 +232,49 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		return orderMonths;
+	}
+	
+	// 배송 현황 갯수
+	public Map<String, Integer> summaryDelivery(List<CoffeeOrderDTO> orderListAdmin) {
+		
+		Map<String, Integer> summaryDeliMap = new HashMap<String, Integer>();  
+		int deliveryBefore = 0;	// 배송대기
+		int deliveryIng = 0;	// 배송중
+		int deliveryOk = 0;		// 배송완료
+		int cancelOrder = 0; 	// 주문취소
+		
+		for(int i=0; i<orderListAdmin.size(); i++) {
+			switch(orderListAdmin.get(i).getType_num()) {
+				case 0 : deliveryBefore ++; break;
+				case 1 : deliveryIng++; break;
+				case 2 : deliveryOk++; break;
+				case 3 : cancelOrder++; break;
+			}
+		}
+		
+		summaryDeliMap.put("deliveryBefore", deliveryBefore);
+		summaryDeliMap.put("deliveryIng", deliveryIng);
+		summaryDeliMap.put("deliveryOk", deliveryOk);
+		summaryDeliMap.put("cancelOrder", cancelOrder);
+		
+		return summaryDeliMap;
+	}
+	
+	// 배송 현황 type name 지정
+	public List<CoffeeOrderDTO> orderListAddTypeName(List<CoffeeOrderDTO> orderListAdmin) {
+		
+		for(int i=0; i<orderListAdmin.size(); i++) {
+			switch(orderListAdmin.get(i).getType_num()) {
+				case 0 : orderListAdmin.get(i).setType_name("배송대기"); break;
+				case 1 : orderListAdmin.get(i).setType_name("배송중"); break;
+				case 2 : orderListAdmin.get(i).setType_name("배송완료"); break;
+				case 3 : orderListAdmin.get(i).setType_name("주문취소"); break;
+				case 4 : orderListAdmin.get(i).setType_name("교환"); break;
+				case 5 : orderListAdmin.get(i).setType_name("반품&환불"); break;
+			}
+		}
+		
+		return orderListAdmin;
 	}
 	// --------------------------------------------------------------------------------------------------
 	
@@ -669,7 +712,7 @@ public class CoffeeOrderController {
 	}
 	
 	@RequestMapping("order_all_cancel.do")
-	public String orderAllCancel(HttpSession session,HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public String orderAllCancel(HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
 		
 		System.out.println("--order_all_cancel.do-----------------------------------------------------------");
 		int member_num = (Integer) session.getAttribute("member_num");
@@ -715,7 +758,23 @@ public class CoffeeOrderController {
 	/////////////////////////////////////////////////////////////////////////////////////// 
 	// 관리자 배송
 	@RequestMapping("admin_orderlist.do")
-	public String adminOrderDelivery() {
+	public String adminOrderDelivery(Model model) {
+		
+		System.out.println("--admin_orderlist.do------------------------------------------------------------");
+		System.out.println("관리자 주문내역 갯수 확인");
+		List<CoffeeOrderDTO> orderListAdmin = orderDao.getOrderListAdmin();
+		System.out.println("orderListAdmin.size() : " + orderListAdmin.size() );
+		
+		// 배송 타입 갯수
+		Map<String, Integer> summaryDeliveryMap = summaryDelivery(orderListAdmin);
+		
+		// 타입명 추가
+		orderListAdmin = orderListAddTypeName(orderListAdmin);
+				
+		model.addAttribute("orderListAdmin", orderListAdmin);
+		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+		
+		System.out.println("--------------------------------------------------------------------------------");
 		return "./Admin/admin_delivery";
 	}
 }

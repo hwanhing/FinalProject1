@@ -418,8 +418,8 @@ console.log('js')
 	}
  
   // 결제하기 버튼 클릭
-  let order_btn = document.querySelector(".order_btn")
-  order_btn.addEventListener("click",function(){
+  let order_btn = document.querySelector('.order_btn')
+  order_btn.addEventListener('click',function(){
   		
   		// 장바구니 번호 넘겨줌
   		let rowCartArr = makeCartNumArr()

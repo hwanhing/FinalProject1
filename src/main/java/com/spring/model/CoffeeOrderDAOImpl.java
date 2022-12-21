@@ -93,6 +93,15 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public int updateUsePointCancel(Map<String, Object> typeMap) {
 		return this.sqlSession.update("updateUsePointCancel", typeMap);
 	}
+
+	
+	//////////////////////////////////////////////////////////////////////////////
+	// 관리자 배송
+	
+	@Override
+	public List<CoffeeOrderDTO> getOrderListAdmin() {
+		return this.sqlSession.selectList("getOrderListAdmin");
+	}
 	
 	
 

@@ -77,3 +77,8 @@ body{
     background-color: var(--color_greyish) !important;
     color: white !important;
 }
+
+.c_delivery_ing{
+	background-color: var(--color_greyish) !important;
+    color: white !important;
+}

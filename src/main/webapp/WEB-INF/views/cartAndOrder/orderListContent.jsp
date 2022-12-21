@@ -47,9 +47,13 @@
                                     </ul>
                                     
                                     <!-- 배송전일때만 주문 취소 가능 -->
-                                    <div class="m_order_cancel">
-	                            		<button>전체 주문 취소하기</button>
-	                            	</div>
+                                    <c:if test="${summary.type_num==3 }">
+	                                	<p>(주문 취소건)</p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num!=3 && summary.type_num == 0  }">
+                                		<button onclick="location.href='order_all_cancel.do?onum=${summary.order_num }'">전체 주문 취소하기</button>
+                                	</c:if>
 	                            	
                                 </div>
                                 <table class="m_table m_s_t">
