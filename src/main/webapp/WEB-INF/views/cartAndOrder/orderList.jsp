@@ -44,7 +44,7 @@
 	                        <div class="m_s_delivery m_s_delivery_ok">
 	                            <h3 class="point_text">배송완료</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=2" class="a">${delivery.deliveryOk }</a>
+	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=2" class="a delivery_ok_a">${delivery.deliveryOk }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
@@ -172,8 +172,9 @@
 		                                     	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 		                                     </td>
 		                                     
-		                                     <td class="txt_center">
-			                                     <%-- 만약 배송중이면 배송완료 버튼을 누를 수 있음 --%>
+		                                     <td class="txt_center js_delivery_${list.getOrder_num() }">
+		                                     
+			                                     <%-- 만약 배송중이면 구매완료 버튼 생성 버튼 클릭시 >> 배송완료로 변경 --%>
 			                                     <c:choose>
 													<c:when test="${list.getType_num()!=1 }"><b>${list.getType_name() }</b></c:when>
 													<c:otherwise>
