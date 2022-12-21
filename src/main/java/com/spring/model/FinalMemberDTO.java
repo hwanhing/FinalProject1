@@ -75,6 +75,7 @@ public class FinalMemberDTO {
 	private String admin_date;
 	
 	
+	
 
 	
 }

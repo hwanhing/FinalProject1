@@ -130,6 +130,7 @@ private int totalRecord=0;
             // 처음으로 게시물 전체 목록을 클릭한 경우.
             page = 1;
         }
+        
 
         // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
         totalRecord = this.dao.beansList();
