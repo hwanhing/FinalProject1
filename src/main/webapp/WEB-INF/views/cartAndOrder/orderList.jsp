@@ -40,31 +40,32 @@
 	                <div class="m_summary">
 	                    <div class="m_summary_in">
 	                    
+	                        <c:set var="delivery" value="${summaryDeliveryMap }"/>
 	                        <div class="m_s_delivery m_s_delivery_ok">
 	                            <h3 class="point_text">배송완료</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">5</a>
+	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=2" class="a">${delivery.deliveryOk }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_ing">
 	                            <h3 class="point_text">배송중</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">3</a>
+	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=1" class="a delivery_ing_a">${delivery.deliveryIng }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">배송대기</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">5</a>
+	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=0" class="a delivery_before_a">${delivery.deliveryBefore }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">주문취소</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="" class="a">5</a>
+	                            	<a href="<%=request.getContextPath() %>/type_list.do?type=3" class="a">${delivery.cancelOrder }</a>
 	                            </h4>
 	                        </div>
 	                        
@@ -171,11 +172,16 @@
 		                                     	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 		                                     </td>
 		                                     
-		                                     <%-- 만약 배송중이면 배송완료 버튼을 누를 수 있음 --%>
-		                                     <c:if test="">
-		                                     </c:if>
 		                                     <td class="txt_center">
-		                                     	배송현황
+			                                     <%-- 만약 배송중이면 배송완료 버튼을 누를 수 있음 --%>
+			                                     <c:choose>
+													<c:when test="${list.getType_num()!=1 }"><b>${list.getType_name() }</b></c:when>
+													<c:otherwise>
+														<div>
+															<button class="btn c_delivery_ok js_delivery_ok" value="${list.getOrder_num()}">구매완료</button>
+														</div>
+													</c:otherwise>
+												</c:choose>
 		                                     </td>
 		                                 </tr>
 	                                 

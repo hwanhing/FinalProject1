@@ -672,8 +672,15 @@ public class CoffeeOrderController {
 		}
 		System.out.println("--------------------------------------------------------------------------------");
 		
+		// 배송 타입 갯수
+		Map<String, Integer> summaryDeliveryMap = summaryDelivery(session, orderList);
+		
+		// 타입명 추가
+		orderList = orderListAddTypeName(orderList);
+		
 		model.addAttribute("orderMonArr",orderMonArr);
 		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
 		
 		return "./cartAndOrder/orderList";
 	}
@@ -760,6 +767,19 @@ public class CoffeeOrderController {
 		
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderOk";
+	}
+	
+	// 구매완료 버튼 클릭시 배송완료 처리
+	@RequestMapping("delivery_ok.do")
+	public void deliveryOk(@RequestParam("orderNum") String order_num, HttpServletResponse response) throws IOException {
+		
+		Map<String, Object> typeMap = new HashMap<String, Object>();
+		typeMap.put("order_num", order_num);
+		typeMap.put("type_num", 2);
+		
+		int result = orderDao.updateOrderType(typeMap);
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 	
 	/////////////////////////////////////////////////////////////////////////////////////// 

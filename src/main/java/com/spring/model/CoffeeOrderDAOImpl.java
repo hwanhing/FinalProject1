@@ -82,10 +82,10 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.selectList("getOrderListDate", dateMap);
 	}
 
-	// 주문타입 수정
+	// 주문타입 수정 (주문취소처리, 배송완료처리)
 	@Override
 	public int updateOrderType(Map<String, Object> typeMap) {
-		return this.sqlSession.update("updateOrderAllCancel", typeMap);
+		return this.sqlSession.update("updateOrderType", typeMap);
 	}
 
 	// 포인트 사용시 사용 취소
@@ -95,28 +95,35 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	}
 
 	
+	
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
 	
+	// 주문리스트
 	@Override
 	public List<CoffeeOrderDTO> getOrderListAdmin() {
 		return this.sqlSession.selectList("getOrderListAdmin");
 	}
 	
+	// 타입별 주문리스트
 	@Override
 	public List<CoffeeOrderDTO> getTypeOrderListAdmin(int type_num) {
 		return this.sqlSession.selectList("getTypeOrderListAdmin", type_num);
 	}
 
+	// row 타입번호 변경
 	@Override
 	public int updateRowTypeNum(String order_num) {
 		return this.sqlSession.update("updateRowTypeNum",order_num);
 	}
 
+	// 배송대기중인 전체 타입번호 1:배송중으로 변경
 	@Override
 	public int updateAllTypeNum() {
 		return this.sqlSession.update("updateAllTypeNum");
 	}
+
+	
 
 	
 	

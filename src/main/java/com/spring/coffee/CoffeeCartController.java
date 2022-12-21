@@ -216,9 +216,6 @@ public class CoffeeCartController {
 		}
 		
 		int member_num = (Integer) session.getAttribute("member_num");
-		System.out.println("--------------------------------------------------------------------------------");
-		
-		
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);
 		
 		// 추천 상품 가져오기

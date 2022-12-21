@@ -46,6 +46,8 @@ public interface CoffeeOrderDAO {
 	int updateUsePointCancel(Map<String, Object> typeMap);
 	
 	
+	
+	
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
 	
@@ -55,10 +57,10 @@ public interface CoffeeOrderDAO {
 	// 타입별 주문리스트
 	List<CoffeeOrderDTO> getTypeOrderListAdmin(int type_num);
 	
-	// row 타입번호 변경
+	// row 배송 타입번호(type_num) 변경
 	int updateRowTypeNum(String order_num);
 	
-	// 배송대기중인 전체 타입번호 1:배송중으로 변경
+	// 배송대기중인 전체 배송 타입번호(type_num) 1:배송중으로 변경
 	int updateAllTypeNum();
 	
 }
