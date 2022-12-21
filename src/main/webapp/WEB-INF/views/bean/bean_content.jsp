@@ -598,25 +598,27 @@
 		    		<span>${i.getBeans_name() } 
 		    		</span>
 		    	</div>
+		    	
 		    	<div class="bean_star">
 
 		    		<c:if test="${i.getWrite_count() == 0}">
 		    			아직 평가가 없습니다.
 		    		</c:if>
 		    		<c:if test="${i.getWrite_count() != 0 }">
-						<div id="star_ul_title" style="width: 50%;">
+					<%-- 	<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1"></li>
 								<li class="c2"></li>
 								<li class="c3"></li>
 								<li class="c4"></li>
 								<li class="c5"></li>
+						<span>${i.getStar_avg() }</span>
 			    		<span>${i.getWrite_count() }개 상품평</span>
 							</ul>
 						</div>		    		
-		    <%-- 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.
+		    	 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.--%>
 		    
-		    		<c:if test="${t.get땡땡() < 2 }">
+		    		<c:if test="${i.getStar_avg() == 1 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -628,7 +630,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 3 }">
+		    		<c:if test="${i.getStar_avg() == 2 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -640,7 +642,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 4 }">
+		    		<c:if test="${i.getStar_avg() == 3 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -652,7 +654,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 5 }">
+		    		<c:if test="${i.getStar_avg() == 4 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -664,7 +666,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 6 }">
+		    		<c:if test="${i.getStar_avg() == 5 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -676,7 +678,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
------------------------------------------------------------------------------------------------------------------- --%>		    		
+<!-- ------------------------------------------------------------------------------------------------------------------	  -->   		
 		    		
 						
 		    		</c:if>
@@ -719,7 +721,7 @@
 		    	</div>    
 		    	
 		    	<div class="bean_grind">
-		    		<div class="grind_q"><span>원두 갈아드릴까요?</span></div>
+		    		<div class="grind_q"><span><b>원두 갈아드릴까요?</b></span></div>
 		    		<button class="grind_0" id="grind0" value="0">그대로 주세요</button>
 		    		<button class="grind_1" id="grind1" value="1">갈아주세요</button>
 		    	</div>
@@ -741,14 +743,17 @@
 		
 			<h3 class="que1">후기글</h3>
 			<br>
+			
+			<%-- 여기다가 그거 할거임. 세션 아이디값 받아와서 이사람이 후기글 썼으면 더이상 못쓰게!! --%>
+			<c:set var="w_list" value="${writeList }" />
+			
+
 				<c:if test="${member_id ne null }">
 				<div class="write_box1">
 				<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/write_insert.do">
 
 					<input type="hidden" name="beans_num" value="${i.getBeans_num() }">
 					<input type="hidden" name="member_num" value="${member_num }">
-
-
 
 					<table>
 
@@ -761,15 +766,6 @@
 						<tr>
 							<td>
 								<br>
-<!-- 								<div id="starWrap" style="margin-left: 3%; width: 50%;">
-									<ul>
-										<li class="s1"></li>
-										<li class="s2"></li>
-										<li class="s3"></li>
-										<li class="s4"></li>
-										<li class="s5"></li>
-									</ul> 
-								</div> -->
 								<div id="starWrapClick" style="margin-left: 3%; width: 50%;">
 									<ul>
 										<li class="s1"></li>
@@ -779,7 +775,6 @@
 										<li class="s5"></li>
 									</ul>
 								</div>				
-								
 												
 								<div style="margin-left: 3%; margin-top: 1%; margin-bottom: 1%;">
 								<span style="font-size: 2em;"><input id="star_count" name="coffee_star" value="0"></span>
@@ -790,8 +785,8 @@
 							<td>
 								<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
 	    						<label for="file" class="file_label">파일추가</label> 
-
-						  		<input type="file" id="file" onchange="readURL1(this)" width="280" name="writeimg">
+								
+						  		<input type="file" id="file" accept="image/*" onchange="readURL1(this)" width="280" name="writeimg">
 
 						  <!--  <img id="img-preview1" class="img_no" src="" width="100px">  파일추가 했을때 바로 눈앞에 보이게 하는것.-->		
 						  		<br><br>
@@ -812,11 +807,16 @@
 				</div>	
 				</c:if>	
 			<br>
+
+			
+
 			
 			<div class="write_box2">	
-			<c:set var="w_list" value="${writeList }" />
+			
+			
 			<c:forEach items="${w_list }" var="w">
 			
+			<c:if test="${w.getCoffee_star() != 0 }">
 				<div class="write_list1">
 					
 					<img class="writer2_img" alt="" src="https://cdn-icons-png.flaticon.com/128/5079/5079583.png">
@@ -825,8 +825,8 @@
 					
 					<div class="write_starbox">
 						<span>${w.getWrite_date().substring(0,10) }</span>
-						<br>
-						
+						<br>		
+					
 						<c:if test="${w.getCoffee_star() == 1}">
 							<div id="star_ul_fix" style="width: 50%;">
 								<ul>
@@ -884,12 +884,17 @@
 							</div>							
 						</c:if>
 						${w.getCoffee_star() }
+					
 					</div>
 					
-					<div class="write_click_img2">
-					${w.getWrite_img() }
-						<img class="write_img2" src="${w.getWrite_img() }">
-					</div>
+					<c:if test="${w.getWrite_img() ne null }">
+						<div class="write_click_img2">
+							<img class="write_img2" alt="" src="<%=request.getContextPath() %>/resources/res/img/${w.getWrite_img()}">
+						</div>							
+					</c:if>
+					<c:if test="${w.getWrite_img() eq null }">
+						${w.getWrite_img() }				
+					</c:if>
 					
 					<div class="write_contbox">
 						${w.getWrite_cont() }								
@@ -902,17 +907,18 @@
 
 						</div>
 					</c:if>	
-					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
+<!--					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
 						<div align="right" class="write_singobox">
 
 							<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='ss'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
 
 						</div>
-					</c:if>
+					</c:if> -->
 					<hr>
 				</div>
-			
-			</c:forEach>	
+				</c:if>	
+			</c:forEach>
+	
 				
 				<!-- 팝업 될 곳 -->
 				<div class="modal11">
@@ -1242,7 +1248,7 @@
 
 	});	
 	
-	$(".cart_btn1").on("click",function(){
+	$(".cart_btn2").on("click",function(){
 
 
 		if('<%=session.getAttribute("member_id")%>' != "null" && grind_total != undefined){

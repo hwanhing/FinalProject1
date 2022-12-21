@@ -15,6 +15,13 @@
 <div>
 	<jsp:include page="../layout/Admin_header2.jsp"  />
 	
+	
+	<div align="center">
+	<h1>${admin_num }
+		${admin_id }
+		${admin_name }</h1>
+	</div>
+	
 </div>
 </body>
 </html>

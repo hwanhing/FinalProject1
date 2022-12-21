@@ -48,6 +48,11 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("countb");
 	}
 
+	@Override
+	public String getBeansCount() {
+		return this.sqlSession.selectOne("beansCount");
+	}
+
 	
 	
 	

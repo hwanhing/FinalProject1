@@ -16,5 +16,5 @@ public interface AdminDAO {
 
 	int beansList();
 	
-	
+	String getBeansCount();
 }

@@ -15,8 +15,9 @@ public class CoffeeWriteDTO {
 	private String write_img;
 	private String member_id;
 	private int beans_num;
+	private int member_num;
 	
-	private String coffee_star;
+	private int coffee_star;
 }
 
 
