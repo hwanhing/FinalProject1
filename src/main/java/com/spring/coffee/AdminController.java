@@ -178,15 +178,13 @@ private int totalRecord=0;
 	        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
 	        totalRecord = this.dao.boardList();
 
-	        PageDTO dto = new PageDTO(page, this.rowsize,this.totalRecord);
+	        PageDTO dto = new PageDTO(page, this.rowsize, this.totalRecord);
 	             
 	        List<FinalMemberDTO> list = this.dao.boardList(dto);
 	        // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-	     
 
-	        model.addAttribute("Paging", dto);
-				
-			model.addAttribute("boadrList", list);
+	        model.addAttribute("Paging", dto);				
+			model.addAttribute("boardList", list);
 			
 			return "./Admin/Admin_Member_board";
 		}

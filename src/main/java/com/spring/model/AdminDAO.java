@@ -23,4 +23,5 @@ public interface AdminDAO {
 	String getBeansCount();
 
 	int boardList();
+
 }

@@ -451,7 +451,7 @@
 }
 
 .header__content{
-	background-color: #D9CEC1;
+	background-color: #a69b8d;
     -webkit-text-size-adjust: 100%;
     font: 100% sans-serif;
     --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
@@ -468,10 +468,10 @@
     display: flex;
 	align-items: center;
     justify-content: space-around;
-    padding: 100px 100px 50px 0.1px;
+    padding: 80px 80px 50px 30px;
 }	
 .img_no{		
-margin-left:50px;
+margin-left:15px;
 border: 1px solid #FFF;
 border-radius: 100%;
 height: 100px;
@@ -480,6 +480,11 @@ width: 100PX;
 	
 .header__username{
 	margin-bottom: 40px;
+	font-size: 20px;
+	font-weight: 900;
+	color: #fff;
+	margin-left: 40px;
+	margin-top: 20px;
 }
 
 .navbar-nav {
@@ -527,4 +532,13 @@ width: 100PX;
     right: 2.3125rem;
 }
 
+.offcanvas-body{
+	
+	padding: 0 !important;
+}
+
+.pe-3{
+	padding-right: 0 !important;
+	
+}
 

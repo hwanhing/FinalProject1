@@ -226,9 +226,9 @@
 	<select id="countb" resultType="int">
 		select count(*) from coffee_beans
 	</select>
-	<select id="admin_order" parameterType="coffeeOrderDTO" resultType="coffeeOrderDTO">
+<!-- 	<select id="admin_order" parameterType="coffeeOrderDTO" resultType="coffeeOrderDTO">
 	select fm.*,co.* from final_member fm join coffee_order co on fm.member_num = co.member_num where fm.member_num=#{member_num}
-	</select>
+	</select> -->
 	
 	
 	<select id="counto" resultType="int">
@@ -236,8 +236,16 @@
 	</select>
 	
 		<select id="admin_board" resultType="finalMemberDTO" parameterType="pageDTO">
-		<![CDATA[select * from (select b.*, row_number() over(order by board_num) rnum from member_board b) where rnum >= #{startNo} and rnum <= #{endNo}]]>
+		<![CDATA[select * from (select b.*, row_number() over(order by board_num) rnum from member_board b)a,final_member b where a.member_num = b.member_num and rnum >= #{startNo} and rnum <= #{endNo}]]>	
 		</select>
+		 
+		<select id="yescount" resultType="int">
+			select count(*) from member_board where board_reply =1
+		</select>	
+	
+		<select id="nocount" resultType="int">
+		select count(*) from member_board where board_reply =0
+	</select>
 </mapper>  
 
   
