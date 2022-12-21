@@ -114,19 +114,51 @@
 		border: 1px solid gray;
 		border-radius: 10px;
 	}
-	
-	.paging{
-		border: none;
-	}
-	.page1,
-	.pagination,
-	.page-item{
-		border: none;
-		}
+
+	/* 페이징 버튼 디자인 */
 	.pagination{
-	
 		color: #000;
-	}	
+	}
+	.pagination li a:hover {
+       	color: #666;
+    }	
+    .pagination li.active a, .pagination li.active a.page-link {
+        background: #d9cec1;
+        color: #000;
+    }
+    .pagination li.active a:hover {        
+        background: #A66B56;
+        color: #fff;
+    }
+	.pagination li.disabled i {
+        color: #000;
+    }
+     .pagination li a {
+	     border: none;
+	     font-size: 13px;
+	     min-width: 30px;
+	     min-height: 30px;
+	     color: #000;
+	     margin: 0 2px;
+	     line-height: 30px;
+	     border-radius: 2px !important;
+	     text-align: center;
+	     padding: 0 6px;
+    }	
+    /* ------------------------------------- */
+    
+    table.table tr th, table.table tr td {
+		padding: 12px 15px;
+		vertical-align: middle;
+    }
+    
+    table.table tr:hover{
+    	background-color: #E6DBCD;
+    }
+
+	.btn_1:hover {
+		background-color: #e9e9e9;
+	}
 </style>
 </head>
 
@@ -162,7 +194,7 @@
 	 		 	</div>
 
 		 		<table class="table">
-		 			<tr>
+		 			<tr style="pointer-events: none;">
 		 				<th class="c_check">선택</th>
 		 				<th class="c_num">원두번호</th>
 		 				<th class="c_name">원두이름</th>
@@ -180,7 +212,7 @@
 		 		 		<td>
 		 		 			${e.getBeans_num()}
 		 		 		</td>
-		 		 		<td class="c_name">
+		 		 		<td class="c_name" onclick="location.href='admin_beans_cont.do?no=${e.getBeans_num()}'">
 		 					${e.getBeans_name() }
 		 				</td>
 		 				<td>
@@ -193,8 +225,9 @@
 		 					${e.getBeans_count() }
 		 		 		</td>
 		 		 		<td>
-		 		 			<button class="btn_1">수정</button>
-		 		 			<button class="btn_1">삭제</button>
+		 		 			<button class="btn_1" onclick="location.href='admin_beans_modify.do?no=${e.getBeans_num()}'">수정</button>
+		 		 			<button class="btn_1" onclick="if(confirm('원두를 삭제 하시겠습니까?')){location.href='admin_beans_delete.do?no=${e.getBeans_num()}'}else{return;}">삭제</button>
+		 		 			
 		 		 		</td>
 		 		 	</tr>
 		 		 
@@ -218,7 +251,7 @@
 		                <c:if test="${paging.getPage() != 1 }">
 		                <li>
 		                  <a class="page-link paging_btn" 
-		                        href="admin_beans.do?">Previous</a>
+		                        href="admin_beans.do?">◀</a>
 		                 
 		                </li>
 		                </c:if>

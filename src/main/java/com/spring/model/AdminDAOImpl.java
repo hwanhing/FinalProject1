@@ -58,6 +58,16 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectList("admin_order",num);
 	}
 
+	@Override
+	public CoffeeBeanDTO getBeanContent(int no) {
+		return this.sqlSession.selectOne("beans_cont", no);
+	}
+
+	@Override
+	public int adminBeanModify(CoffeeBeanDTO dto) {
+		return this.sqlSession.update("bean_modify", dto);
+	}
+
 
 	
 

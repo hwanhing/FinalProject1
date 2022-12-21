@@ -19,7 +19,6 @@
 	      <li><a href="<%=request.getContextPath()%>/admin_main.do">메인</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_memeber.do">회원관리</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_beans.do">원두관리</a></li>
-	      <li><a href="<%=request.getContextPath()%>/admin_add.do">상품등록</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_orderlist.do">주문내역</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_after.do">후기글</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_center.do">고객센터</a></li>

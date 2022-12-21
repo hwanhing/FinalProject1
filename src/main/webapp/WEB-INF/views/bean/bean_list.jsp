@@ -179,7 +179,6 @@ width: 100PX;
        <div class="select_box1">
             <select class="box1" name="select_box">
                 <option id="op_name" value="정렬">정렬</option>
-                <option value="찜많은순">찜많은순</option>
                 <option value="낮은가격순">낮은가격순</option>
                 <option value="높은가격순">높은가격순</option>
             </select>
