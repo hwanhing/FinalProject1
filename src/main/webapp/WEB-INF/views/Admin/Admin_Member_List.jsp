@@ -55,7 +55,7 @@ $( "#member_table tr" ).on( "mouseleave", function() {
 											 <span>삭제</span>
 											</button>
 											
-											<!-- Modal -->
+									<!-- Modal -->
 											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 											  <div class="modal-dialog">
 											    <div class="modal-content">
@@ -72,7 +72,7 @@ $( "#member_table tr" ).on( "mouseleave", function() {
 											      </div>
 											    </div>
 											  </div>
-											</div>		<!-- 모달끝 -->						      
+											</div>							      
 								      </td><!--  버튼끝 -->
 								    </tr>
 								    <tr> 

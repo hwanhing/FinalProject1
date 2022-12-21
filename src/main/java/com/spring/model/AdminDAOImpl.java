@@ -38,6 +38,24 @@ public class AdminDAOImpl implements AdminDAO{
 		
 	}
 
+	@Override
+	public List<CoffeeBeanDTO> getBeanList(PageDTO dto) {
+		return this.sqlSession.selectList("admin_beans", dto);
+	}
+
+	@Override
+	public int beansList() {
+		return this.sqlSession.selectOne("countb");
+	}
+
+	@Override
+	public List<CoffeeOrderDTO> admin_order(int num) {
+		
+		return this.sqlSession.selectList("admin_order",num);
+	}
+
+
+
 	
 	
 	

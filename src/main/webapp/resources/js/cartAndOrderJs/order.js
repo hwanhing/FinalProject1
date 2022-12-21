@@ -56,7 +56,6 @@ console.log('order.js')
        // 주소 확인
        checkAddr()
        
-       console.log(document.querySelector('.d_con').value)
     }   
 
 
@@ -265,5 +264,44 @@ console.log('order.js')
 		fadeOutActive()
 		document.querySelector('.modal_body').classList.add('display_none')
 	}
-	  
+	   
+		
+	/////////////////////////////////////////////////////////////////////////////
+	$.ajaxSetup({	
+   			ContentType : "application/x-www-form-urlencoded;charset=UTF-8",
+			type: "post"
+		})
+		
+		let directOrderBean = [];
+ 		for(let i=0; i<$(".d_con").length; i++){
+ 			directOrderBean.push($($(".d_con")[i]).val())
+	 	}
+	 	console.log(directOrderBean)
+		
+	
+ 		let requestType = $(".reqtype").val()
+ 		
+ 		// 장바구니 번호 배열
+ 		function rowCartNum(){
+ 			let rowCartNumArr = [];
+ 			
+ 			for(let i=0; i<$(".row_cart_num").length; i++){
+	 			rowCartNumArr.push(Number($($(".row_cart_num")[i]).val()))
+	 		}
+	 		
+	 		return rowCartNumArr;
+ 		}
+ 		
+ 		// 장바구니 내역의 상품 단가배열
+ 		function rowPrice(){
+ 			
+ 			let rowPriceArr = [];
+	 		for(let i=0; i<$(".row_price").length; i++){
+	 			rowPriceArr.push(Number($($(".row_price")[i]).val()))
+	 		}
+	 		
+	 		return rowPriceArr;
+ 		}
+ 		
+ 	
 	  

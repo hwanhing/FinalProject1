@@ -60,6 +60,13 @@ h1{
 	font-size: 30px;
 	
 }
+.t1-span{
+	font-family: 'YESMyoungjo-Regular';
+	font-size: 30px;
+	margin-left: 345px;
+	
+	
+}
 .td-span{
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 20px;
@@ -76,7 +83,7 @@ h1{
 	
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 30px;
-	margin-left: 500px;
+	margin-left: 400px;
 }
 .td1-span{
 	font-family: 'YESMyoungjo-Regular';
@@ -85,7 +92,7 @@ h1{
 .phone-span{
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 30px;
-	margin-left: 350px;
+	
 	
 }
 .you{
@@ -94,7 +101,7 @@ h1{
 	margin-top: 50px;
 }
 .addr-span{
-	margin-left:80px;
+	
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 30px;
 }

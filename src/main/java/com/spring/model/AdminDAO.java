@@ -12,6 +12,11 @@ public interface AdminDAO {
 
 	FinalMemberDTO admin_cont(int num);
 
-	
+	List<CoffeeBeanDTO> getBeanList(PageDTO dto);
 
+	int beansList();
+
+	List<CoffeeOrderDTO> admin_order(int num);
+	
+	
 }

@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.model.AdminDAO;
+import com.spring.model.CoffeeBeanDTO;
+import com.spring.model.CoffeeOrderDTO;
 import com.spring.model.FinalAdminDTO;
 import com.spring.model.FinalMemberDTO;
 import com.spring.model.PageDTO;
@@ -99,11 +101,52 @@ private int totalRecord=0;
 		
 		FinalMemberDTO dto = this.dao.admin_cont(num);
 		
+		List<CoffeeOrderDTO> dto1 =this.dao.admin_order(num);
 		
+	
+	
 		
+		model.addAttribute("member_order", dto1);
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
 		
 		return "./Admin/Admin_cont";
+	}
+	
+	
+	// 관리자 원두 관리 페이지
+	@RequestMapping("admin_beans.do")
+	public String admin_beans(Model model, HttpServletRequest request) {
+
+		 // 페이징 처리 작업
+        int page;    // 현재 페이지 변수
+
+        if(request.getParameter("page") != null) {
+
+            page = Integer.parseInt(request.getParameter("page"));
+
+        }else {
+
+            // 처음으로 게시물 전체 목록을 클릭한 경우.
+            page = 1;
+        }
+
+        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
+        totalRecord = this.dao.beansList();
+
+        PageDTO dto = new PageDTO(page, this.rowsize,this.totalRecord);		
+		
+		List<CoffeeBeanDTO> list = this.dao.getBeanList(dto);
+		
+		model.addAttribute("beans_list", list);
+		model.addAttribute("Paging", dto);
+		
+		/*
+		 * int totalCoffeeCount = this.dao.totalCoffeeCount();
+		 * 
+		 * select count(*) from coffee_beans;
+		 */
+		
+		return "./Admin/Admin_beans_List";
 	}
 }

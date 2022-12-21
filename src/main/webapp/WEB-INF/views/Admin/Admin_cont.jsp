@@ -33,6 +33,7 @@ crossorigin="anonymous"></script>
 <body>
 	<jsp:include page="../layout/Admin_header2.jsp"  />
 	<c:set var="dto" value="${member_cont }" />
+	<c:set var="member_order" value="${member_order }" />
 		<div class="contanior">
 		<h1>회원 상세보기</h1>
 		<hr class="line" style="height: 10px;">
@@ -67,11 +68,14 @@ crossorigin="anonymous"></script>
 							 	</div>
 							 	
 							 		<div class="user_name">
-							   			<span class=tr-span><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
+				
+							 		<span class="phone-span"><i class="fa-solid fa-phone"></i>휴대폰</span>&nbsp;&nbsp;&nbsp;
+									 <span class="td1-span">${dto.getMember_phone() }</span>
+							 		
+							   			<span class=t1-span><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
 										<span class="td-span">${dto.getMember_email() }</span>
 										
-									 <span class=phone-span><i class="fa-solid fa-phone"></i>휴대폰</span>&nbsp;&nbsp;&nbsp;
-									 <span class="td1-span">${dto.getMember_phone() }</span>
+									 
 									 	
 									 	<br><br><br>
 							 	</div>
@@ -89,8 +93,9 @@ crossorigin="anonymous"></script>
 								
 								</c:if>
 							 				
-							 
-					
+							 	</div>
+							 	<br><br><br>
+								<div class="user_name">		
 						
 							 	<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
 								
@@ -117,8 +122,9 @@ crossorigin="anonymous"></script>
 								<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
 								
 								</c:if>
-							 	
-					
+							 	</div>
+							 	<br><br><br>
+								<div class="user_name">		
 							 	<c:if test="${dto.getMember_addr4() ne '주소를 넣어주세요' }">
 								
 							   			<span class=addr-span><i class="fa-solid fa-map-location-dot"></i>주소4</span>&nbsp;&nbsp;&nbsp;
@@ -131,8 +137,6 @@ crossorigin="anonymous"></script>
 							 				
 							 	
 							</div>
-							
-							
 						
 							<br><br><br>
 								 		<div class="user_name">		
@@ -150,52 +154,41 @@ crossorigin="anonymous"></script>
 							</div>
 							 			
 							  </div>
+	<div style="width:100%; height:400px; overflow:auto">
 		<table class="table table-striped table-hover">
                 <thead>
                     <tr>
-						<th>원두번호</th>
-                        <th>원두이미지</th>
+						<th>주문번호</th>
                         <th>원두이름</th>
 						<th>원두가격</th>
+						 <th width="200px">주문일</th>
                     </tr>
                 </thead>
                 <tbody>
-                	<c:if test="${!empty myheart }">
-					<c:forEach items="${myheart}" var="dto">
+                	<c:if test="${!empty member_order }">
+					<c:forEach items="${member_order}" var="dto1">
                     <tr>
-                        <td>${dto.getBeans_num() }</td>
-                        <td><img width="70px" height="70px" src="${dto.getBeans_img() }"></td>
-						<td>${dto.getBeans_name() }</td>
-                        <td>${dto.getBeans_price() }</td>
-                        <td align="center">
-                           <a  href="<%=request.getContextPath() %>/myheart_delete.do?num=${dto.getMember_num()}" class="delete" ><i class="fa-solid fa-trash"></i></a>
-                           
-                       	 </td>
+                        <td>${dto1.getOrder_num() }</td> 
+                       <td>${dto1.getBeans_name() }</td>
+						<td>${dto1.getBeans_price() }</td>
+                        <td width="200px">${dto1.getOrder_date().substring(0,10) }</td>
+                    
 				    </tr>  	
-				    </c:forEach>
+			 		   </c:forEach>
 					</c:if>	
-        
-          
-        
-   
-					   
-						<c:if test="${empty myheart }">
-						
-						 
-					                     	<td colspan="5" align="center">
-					                     	<h3>찜목록이 비었습니다.....</h3>
-					                          
-					                          
-					                        </td>
+						<c:if test="${empty member_order }">
+				                     	<td colspan="5" align="center">			                          
+					                  </td>
 
-	</c:if>
-	        </tbody>
+					</c:if>
+	        	</tbody>
             </table>
+            </div>
 						</div>
 					  
-							
-						</div>
+										
+									</div>
+							</div>
 				</div>
-	</div>
 </body>
 </html>
