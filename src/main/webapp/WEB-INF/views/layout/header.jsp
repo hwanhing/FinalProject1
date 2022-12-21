@@ -223,30 +223,19 @@
 	<!-- 사이드바 -->
 	     <c:if test="${!empty member_id  }">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-		     <div class="header__content"><img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" /><h5><span class="header__username">${member_name }</span></h5> 
+		     <div class="header__content"><img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" /><span class="header__username">${member_name }님,<br>반갑습니다 😀</span><span> 
 		     
 		     	</div>
+		     	<div  style="background-color: #D9CEC1;">
 		     	  <div class="point-banner">
-		          		<span class="point"> 💰포인트 : <span>${member_point }p</span></span>
+		          		<span class="point"> 💰&nbsp;포인트 &nbsp;:&nbsp; <span>${member_point }&nbsp;p</span></span>
 		          </div>
+		          <hr style="margin: 0; margin-top: 5%;">
+		         </div>
 		     <div class="offcanvas-body">
 		       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">	       
 		         <li class="nav-item">
-	          	<div>
-	          		<div>
-	          		<c:if test="${!empty test_img }">
-	          			 <img class="result-img" src="${test_img }" width=200>
-	          		</c:if>
-	          		 <c:if test="${empty test_img }">
-	          			<button>테스트하기</button>
-	          		</c:if>
-	          		</div>
-	          		
-	          	<div>
-	          		<span class="result_name">${test_name}</span>
-	          	</div>
-	          	
-	          	</div>
+
 		        
 		         </li>
 		         <li class="nav-item">
@@ -256,7 +245,7 @@
 	        	  <hr>
 		         <li >
 		           
-		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+		           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-top: 0;">
 		         	<span class="point">고객센터</span>
 		           </a>
 		           <ul class="dropdown-menu">
@@ -273,7 +262,21 @@
 					 <hr>
 		         </li>
 		       </ul>
-		      
+	          	<div>
+	          		<div>
+	          		<c:if test="${!empty test_img }">
+	          			 <img class="result-img" src="${test_img }" width=200>
+	          		</c:if>
+	          		 <c:if test="${empty test_img }">
+	          			<button>테스트하기</button>
+	          		</c:if>
+	          		</div>
+	          		
+	          	<div>
+	          		<span class="result_name">${test_name}</span>
+	          	</div>
+	          	
+	          	</div>		      
 		     </div>
 		     <button class="loyalty-modal__close-button" id="close-button" aria-label="메뉴 닫기"><svg fill="none" focusable="false" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path clip-rule="evenodd" d="M12.0002 13.4144L16.9499 18.3642L18.3642 16.9499L13.4144 12.0002L18.3642 7.05044L16.95 5.63623L12.0002 10.586L7.05044 5.63623L5.63623 7.05044L10.586 12.0002L5.63624 16.9499L7.05046 18.3642L12.0002 13.4144Z" fill="currentColor" fill-rule="evenodd"></path></svg></button>
 		   </div>

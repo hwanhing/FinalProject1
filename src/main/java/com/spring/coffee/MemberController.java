@@ -98,37 +98,42 @@ public class MemberController {
 
 	}
 
-	@RequestMapping("member_join_check.do")
-	@ResponseBody
-	public void joinCheck(@RequestParam("joinId") String joinId, FinalMemberDTO dto, HttpResponse response) {
-
-		dto.setMember_id(joinId);
-
-		int res = this.dao.joinIdCheck(dto);
-
-		System.out.println("ssss" + res);
-		
-			 return "main"; 
-			 
-			}
+	/*
+	 * @RequestMapping("member_join_check.do")
+	 * 
+	 * @ResponseBody public void joinCheck(@RequestParam("joinId") String joinId,
+	 * FinalMemberDTO dto, HttpResponse response) {
+	 * 
+	 * dto.setMember_id(joinId);
+	 * 
+	 * int res = this.dao.joinIdCheck(dto);
+	 * 
+	 * System.out.println("ssss" + res);
+	 * 
+	 * return "main";
+	 * 
+	 * }
+	 * 
+	 * 
+	 * 
+	 * @ResponseBody
+	 * 
+	 * @RequestMapping("member_Id_check.do") public int
+	 * joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse
+	 * response) {
+	 * 
+	 * System.out.println("controller id: " + joinId);
+	 * 
+	 * int result = dao.joinIdCheck(joinId);
+	 * 
+	 * System.out.println("controller result: " + result);
+	 * 
+	 * return result;
+	 * 
+	 * 
+	 * }
+	 */
 	
-	
-	
-	@ResponseBody
-	@RequestMapping("member_Id_check.do")
-	public int joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse response) {
-		
-			System.out.println("controller id: " + joinId);
-			
-			int result = dao.joinIdCheck(joinId);
-			
-			System.out.println("controller result: " + result);
-
-			return result;
-		
-
-	}
-
 	@RequestMapping("member_logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
 		this.dao.logout(session); 

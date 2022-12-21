@@ -819,8 +819,7 @@ footer{
 
 /*김홍기 수정  */
 .result-img{
-	
-	margin-left: 90px;
+	margin-left: 20%;
 }
 .result_name{
 	margin-top: 30px;
@@ -854,17 +853,27 @@ footer{
   transform: translateY(-7px);
 	
 }
+.header__username{
+
+}
+.point-banner{
+	margin-left: 5%;
+	margin-top: 5%;
+	
+}
 .point{
 	font-size: 18px;
 	font-family: fantasy;
 	
 	
 }
+
 .point2{
 	font-size: 18px;
 }
 .nav-link{
-	margin-top: 0px;
+	margin-top: 5%;
+	margin-left: 5%;
 }
 a{
 	
