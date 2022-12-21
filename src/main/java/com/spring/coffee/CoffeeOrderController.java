@@ -234,6 +234,36 @@ public class CoffeeOrderController {
 		return orderMonths;
 	}
 	
+	// 타입에 따라 재 리스트 작업
+	public List<CoffeeOrderDTO> reOrderList(int type_num, List<CoffeeOrderDTO> orderList){
+		
+		List<CoffeeOrderDTO> reList = new ArrayList<CoffeeOrderDTO>();
+		CoffeeOrderDTO dto = new CoffeeOrderDTO();
+		
+		for(int i=0; i<orderList.size(); i++) {
+			// 배송 타입번호가 요청타입번호와 같은거만 재 리스트 작업
+			if(orderList.get(i).getType_num() == type_num) {
+				
+				dto.setOrder_month(orderList.get(i).getOrder_month());
+				dto.setOrder_date(orderList.get(i).getOrder_date());
+				dto.setOrder_num(orderList.get(i).getOrder_num());
+				dto.setOrder_price(orderList.get(i).getOrder_price());
+				dto.setBeans_num(orderList.get(i).getBeans_num());
+				dto.setBeans_name(orderList.get(i).getBeans_name());
+				dto.setBeans_img(orderList.get(i).getBeans_img());
+				dto.setType_num(orderList.get(i).getType_num());
+				
+				reList.add(dto);
+			}
+			
+		}
+		
+		// 타입 이름 추가
+		reList = orderListAddTypeName(reList);
+		
+		return reList;
+	}
+	
 	// 배송 현황 갯수
 	public Map<String, Integer> summaryDelivery(HttpSession session ,List<CoffeeOrderDTO> orderListAdmin) {
 		
@@ -664,10 +694,6 @@ public class CoffeeOrderController {
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(member_num);
 		List<String> orderMonArr = setArr(orderList);
 		
-		System.out.println("orderList.size() : " + orderList.size());
-		for(int i=0; i<orderMonArr.size(); i++) {
-			System.out.println(orderMonArr.get(i));
-		}
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		// 배송 타입 갯수
@@ -708,10 +734,6 @@ public class CoffeeOrderController {
 		// 타입명 추가
 		orderList = orderListAddTypeName(orderList);
 		
-		System.out.println("orderList.size() : " + orderList.size());
-		for(int i=0; i<orderMonArr.size(); i++) {
-			System.out.println(orderMonArr.get(i));
-		}
 		
 		PrintWriter out = response.getWriter();
 		
@@ -725,6 +747,32 @@ public class CoffeeOrderController {
 		model.addAttribute("orderMonArr",orderMonArr);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		return "./cartAndOrder/orderList";
+	}
+	
+	// 배송 타입별 주문 리스트
+	@RequestMapping("type_list.do")
+	public String typeList(@RequestParam("type") int type_num, HttpSession session, Model model) {
+	
+		System.out.println("--type_list.do------------------------------------------------------------------");
+		int member_num = (Integer) session.getAttribute("member_num");
+		System.out.println("member_num : " + member_num);
+		
+		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(member_num);
+		
+		// 타입에 따라 재 리스트 작업
+		orderList = reOrderList(type_num, orderList);
+		List<String> orderMonArr = setArr(orderList);
+		
+		// 배송 타입 갯수(세션값 가져옴)
+		Map<String, Integer> summaryDeliveryMap = (Map<String, Integer>) session.getAttribute("summaryDeliMap");
+		
+		model.addAttribute("orderMonArr",orderMonArr);
+		model.addAttribute("orderList", orderList);
+		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+		
 		System.out.println("--------------------------------------------------------------------------------");
 		
 		return "./cartAndOrder/orderList";
@@ -819,7 +867,7 @@ public class CoffeeOrderController {
 	
 	// 배송 타입별 주문 리스트
 	@RequestMapping("admin_type_list.do")
-	public String typeList(@RequestParam("type") int type_num, HttpSession session, Model model) {
+	public String adminTypeList(@RequestParam("type") int type_num, HttpSession session, Model model) {
 		
 		// 배송 타입 갯수(세션값 가져옴)
 		Map<String, Integer> summaryDeliveryMap = (Map<String, Integer>) session.getAttribute("summaryDeliMap");
