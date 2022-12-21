@@ -19,4 +19,8 @@ public interface AdminDAO {
 	List<CoffeeOrderDTO> admin_order(int num);
 	
 	String getBeansCount();
+	
+	CoffeeBeanDTO getBeanContent(int no);
+	
+	int adminBeanModify(CoffeeBeanDTO dto);
 }
