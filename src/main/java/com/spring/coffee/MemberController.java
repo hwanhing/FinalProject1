@@ -20,7 +20,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,6 +43,7 @@ public class MemberController {
 
 	@Inject
 	private MemberDAO dao;
+	
 	
 	@RequestMapping("member_login_check.do")
 	public String check(FinalMemberDTO dto, HttpSession session, HttpServletResponse response) throws IOException {
@@ -89,6 +92,7 @@ public class MemberController {
 				out.println("history.back()");
 				out.println("</script>");
 			}
+
 		}
 		return "main";
 
@@ -103,17 +107,36 @@ public class MemberController {
 		int res = this.dao.joinIdCheck(dto);
 
 		System.out.println("ssss" + res);
+		
+			 return "main"; 
+			 
+			}
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("member_Id_check.do")
+	public int joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse response) {
+		
+			System.out.println("controller id: " + joinId);
+			
+			int result = dao.joinIdCheck(joinId);
+			
+			System.out.println("controller result: " + result);
+
+			return result;
+		
 
 	}
 
 	@RequestMapping("member_logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {
-		this.dao.logout(session);
-		mav.setViewName("main");
-		mav.addObject("message", "logout");
-		return mav;
-	}
-
+		this.dao.logout(session); 
+		 mav.setViewName("main"); 
+		 mav.addObject("message", "logout"); 
+		  return mav;
+		  }
+	
 	@RequestMapping("member_mypage.do")
 	public String Mypage(@RequestParam("num") int num, Model model, HttpSession session) {
 
@@ -125,187 +148,191 @@ public class MemberController {
 
 		return "./member/Mypage";
 	}
+	
+	  @RequestMapping("addr_modify.do")
+	  public String Modify(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("AddrModify",dto);
+		  
+		  return "./member/addr_modify";
+	  }
+	  
+	  
+	 @RequestMapping("addr_modify_ok.do")
+	 public void addr_modify_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		 int check = this.dao.addrModify(dto);
+	
+		 PrintWriter out = response.getWriter();
+		 
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('주소 수정 성공')");
+				out.println("location.href='member_mypage.do?num="+dto.getMember_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('주소 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+	 }
+	  
+			
+	 	}
+	 
+	  @RequestMapping("addr_modify2.do")
+	  public String Modify2(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("AddrModify",dto);
+		  
+		  return "./member/addr_modify2";
+	  }
+	 
+	 @RequestMapping("addr_modify2_ok.do")
+	 public void addr_modify2_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		 int check = this.dao.addrModify2(dto);
 
-	@RequestMapping("addr_modify.do")
-	public String Modify(@RequestParam("num") int num, Model model) {
+		 PrintWriter out = response.getWriter();
+		 
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('주소 수정 성공')");
+				out.println("location.href='member_mypage.do?num="+dto.getMember_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('주소 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+	 }
+	  
+	 	}
+	 
+	  @RequestMapping("addr_modify3.do")
+	  public String Modify3(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("AddrModify",dto);
+		  
+		  return "./member/addr_modify3";
+	  }
+	 
+	 
+	 @RequestMapping("addr_modify3_ok.do")
+	 public void addr_modify3_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		 int check = this.dao.addrModify3(dto);
+		
+		 PrintWriter out = response.getWriter();
+		 
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('주소 수정 성공')");
+				out.println("location.href='member_mypage.do?num="+dto.getMember_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('주소 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+	 }
+	  
+	 	}
+	 
+	  @RequestMapping("addr_modify4.do")
+	  public String Modify4(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("AddrModify",dto);
+		  
+		  return "./member/addr_modify4";
+	  }
+	 
+	 @RequestMapping("addr_modify4_ok.do")
+	 public void addr_modify4_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		 int check = this.dao.addrModify4(dto);
 
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		 
+		 PrintWriter out = response.getWriter();
+		 
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('주소 수정 성공')");
+				out.println("location.href='member_mypage.do?num="+dto.getMember_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('주소 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+	 }
+	  
+	 	}
+	 
+	  @RequestMapping("addr_modify5.do")
+	  public String Modify5(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("AddrModify",dto);
+		  
+		  return "./member/addr_modify5";
+	  }
+	 
+	 @RequestMapping("addr_modify5_ok.do")
+	 public void addr_modify5_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		 
+		 response.setContentType("text/html; charset=UTF-8");
+		 
+		 int check = this.dao.addrModify5(dto);
 
-		model.addAttribute("AddrModify", dto);
+		 PrintWriter out = response.getWriter();
+		 
+			if(check>0) {
+				out.println("<script>");
+				out.println("alert('주소 수정 성공')");
+				out.println("location.href='member_mypage.do?num="+dto.getMember_num()+"'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('주소 수정 실패')");
+				out.println("history.back()");
+				out.println("</script>");
+	 }
+	  
+	 }
+	 
+	  @RequestMapping("user_delete.do")
+	  public String delete(@RequestParam("num")int num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.MemberMyPage(num);
+		  
+		  model.addAttribute("delete",dto);
+		  
+		  return "./member/user_delete";
+	  }	
 
-		return "./member/addr_modify";
-	}
 
-	@RequestMapping("addr_modify_ok.do")
-	public void addr_modify_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
-
-		response.setContentType("text/html; charset=UTF-8");
-
-		int check = this.dao.addrModify(dto);
-
-		PrintWriter out = response.getWriter();
-
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('주소 수정 성공')");
-			out.println("location.href='member_mypage.do?num=" + dto.getMember_num() + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('주소 수정 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-
-	}
-
-	@RequestMapping("addr_modify2.do")
-	public String Modify2(@RequestParam("num") int num, Model model) {
-
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
-
-		model.addAttribute("AddrModify", dto);
-
-		return "./member/addr_modify2";
-	}
-
-	@RequestMapping("addr_modify2_ok.do")
-	public void addr_modify2_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
-
-		response.setContentType("text/html; charset=UTF-8");
-
-		int check = this.dao.addrModify2(dto);
-
-		PrintWriter out = response.getWriter();
-
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('주소 수정 성공')");
-			out.println("location.href='member_mypage.do?num=" + dto.getMember_num() + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('주소 수정 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-
-	}
-
-	@RequestMapping("addr_modify3.do")
-	public String Modify3(@RequestParam("num") int num, Model model) {
-
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
-
-		model.addAttribute("AddrModify", dto);
-
-		return "./member/addr_modify3";
-	}
-
-	@RequestMapping("addr_modify3_ok.do")
-	public void addr_modify3_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
-
-		response.setContentType("text/html; charset=UTF-8");
-
-		int check = this.dao.addrModify3(dto);
-
-		PrintWriter out = response.getWriter();
-
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('주소 수정 성공')");
-			out.println("location.href='member_mypage.do?num=" + dto.getMember_num() + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('주소 수정 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-
-	}
-
-	@RequestMapping("addr_modify4.do")
-	public String Modify4(@RequestParam("num") int num, Model model) {
-
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
-
-		model.addAttribute("AddrModify", dto);
-
-		return "./member/addr_modify4";
-	}
-
-	@RequestMapping("addr_modify4_ok.do")
-	public void addr_modify4_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
-
-		response.setContentType("text/html; charset=UTF-8");
-
-		int check = this.dao.addrModify4(dto);
-
-		PrintWriter out = response.getWriter();
-
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('주소 수정 성공')");
-			out.println("location.href='member_mypage.do?num=" + dto.getMember_num() + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('주소 수정 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-
-	}
-
-	@RequestMapping("addr_modify5.do")
-	public String Modify5(@RequestParam("num") int num, Model model) {
-
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
-
-		model.addAttribute("AddrModify", dto);
-
-		return "./member/addr_modify5";
-	}
-
-	@RequestMapping("addr_modify5_ok.do")
-	public void addr_modify5_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
-
-		response.setContentType("text/html; charset=UTF-8");
-
-		int check = this.dao.addrModify5(dto);
-
-		PrintWriter out = response.getWriter();
-
-		if (check > 0) {
-			out.println("<script>");
-			out.println("alert('주소 수정 성공')");
-			out.println("location.href='member_mypage.do?num=" + dto.getMember_num() + "'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('주소 수정 실패')");
-			out.println("history.back()");
-			out.println("</script>");
-		}
-
-	}
-
-	@RequestMapping("user_delete.do")
-	public String delete(@RequestParam("num") int num, Model model) {
-
-		FinalMemberDTO dto = this.dao.MemberMyPage(num);
-
-		model.addAttribute("delete", dto);
-
-		return "./member/user_delete";
-	}
-
-	@RequestMapping("memberDelete.do")
-	public void deleteok(@RequestParam("num") int num, FinalMemberDTO dto, HttpServletRequest request,
-			HttpServletResponse response) throws IOException {
-		System.out.println("num>>>>>>>>>>>>>>>>>>>>" + num);
-
+	  @RequestMapping("memberDelete.do")
+	  public void deleteok(@RequestParam("num")int num,FinalMemberDTO dto ,HttpServletRequest request ,HttpServletResponse response) throws IOException {
+		  System.out.println("num>>>>>>>>>>>>>>>>>>>>" + num);
+		  
 		response.setContentType("text/html; charset=UTF-8");
 
 		int check = this.dao.deletemember(num);

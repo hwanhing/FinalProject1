@@ -11,6 +11,7 @@
 </head>
 <body>
 <div>
+
 	<div class="sidebar">
 		
      <div class="sidebar-brand"> <a href="<%=request.getContextPath()%>/"><img class="img" src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a></div>
@@ -25,4 +26,5 @@
       </ul>
     </div>
 </div>
+
 </body>

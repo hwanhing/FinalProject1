@@ -10,11 +10,8 @@
     <meta http-equiv="Content-Style-Type" content="text/css" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
     <meta name="robots" content="noindex">
 
-    <meta name="robots" content="noindex">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
@@ -139,7 +136,7 @@
 
                             <!------------회원가입 모달 창 START ---------------->
 
-                            <a href="<%=request.getContextPath() %>/adminlogin.do" class="join-pop">Join</a>
+                            <a href="#" class="join-pop" >Join</a>
 
                             <div class="join-modal join-bg" id="join-modal">
 
@@ -174,9 +171,6 @@
 
                                             <div class="join-agr">
 
-
-                                                <p><input type="text" placeholder="비밀번호를 다시 한 번 입력하세요" required></p>
-
                                                 <div class="join-agr-all">
                                                     <input type="checkbox" class="checkbox-group" id="check-all">
                                                     <label for="agr-all">약관 전체 동의</label>
@@ -193,11 +187,6 @@
                                                     <label for="agr-shop">[필수]커퍼커피 스토어 이용 동의</label>
                                                 </div>
 
-
-
-
-
-                                                <button type="submit" class="mf-btn" id="mf-btn">login</button>
 
                                                 <div class="join-agr-age">
                                                     <input type="checkbox" class="checkbox-group" >

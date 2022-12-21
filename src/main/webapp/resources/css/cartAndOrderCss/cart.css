@@ -339,12 +339,6 @@
     transition:all .2s;
 }
 
-/* ----------------- 삭제시 display none --------------------------- */
-.display_none{
-    display: none !important;
-}
-
-
 /* ----------------- 품절 상품 표시 --------------------------- */
 .sold_out_row{
 	position: relative;
