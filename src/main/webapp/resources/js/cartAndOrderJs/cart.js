@@ -322,7 +322,7 @@ console.log('js')
    				+ '<h3 class="point_text">담아둔 상품이 없습니다.</h3>'
 			 	+ '</div>'
 			 	
-			document.querySelector(".total_price_button").classList.add('display_none')
+			document.querySelector(".total_price_button").setAttribute('disabled',true)
    		}
    }
    

@@ -17,9 +17,11 @@
 </head>
 <body>
 	
-     <%-- 해더 --%>
-  	 <jsp:include page="../layout/header.jsp" />
-  
+	 <%-- 해더 --%>
+	 <div class="head">
+      	<jsp:include page="../layout/header.jsp" />
+     </div>
+  	
   	 <div class="blank"></div>
 	 
 	 <!-- 컨텐츠 부분 -->

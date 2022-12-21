@@ -25,9 +25,12 @@
         <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
         
     </head>
-      <body class="body">
-        <%-- 해더 --%>
-        <jsp:include page="../layout/header.jsp" />
+    <body class="body">
+      
+     	 <%-- 해더 --%>
+		<div class="head">
+       		<jsp:include page="../layout/header.jsp" />
+        </div>
         
         <div class="blank"></div>
          <!-- 컨텐츠 부분 -->

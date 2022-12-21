@@ -17,7 +17,9 @@
 <body>
 	
 	 <%-- 해더 --%>
-  	 <jsp:include page="../layout/header.jsp" />
+	 <div class="head">
+      	<jsp:include page="../layout/header.jsp" />
+     </div>
   
   	 <div class="blank"></div>
   	 
