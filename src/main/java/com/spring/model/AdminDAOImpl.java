@@ -49,13 +49,17 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public String getBeansCount() {
+		return this.sqlSession.selectOne("beansCount");
+	}
+
 	public List<CoffeeOrderDTO> admin_order(int num) {
 		
 		return this.sqlSession.selectList("admin_order",num);
 	}
 
 	@Override
-	public int orderList() {
+	public int boardList() {
 		return this.sqlSession.selectOne("counto");
 	}
 
@@ -66,8 +70,7 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 
+	
 
-	
-	
 	
 }

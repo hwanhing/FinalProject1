@@ -12,6 +12,34 @@
 
 <style type="text/css">
 
+.img_no{		
+margin-left:50px;
+border: 1px solid #FFF;
+border-radius: 100%;
+height: 100px;
+width: 100PX;
+ }
+.header__content {
+    background-color: #D9CEC1;
+    -webkit-text-size-adjust: 100%;
+    font: 100% sans-serif;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+    font-size: .875rem;
+    line-height: 1.571;
+    visibility: visible;
+    text-align: left;
+    pointer-events: all;
+    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+    box-sizing: inherit;
+    outline: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 100px 100px 50px 0.1px;
+} 
+
         .top{
             width: 100%;
             height: 4em;
@@ -129,6 +157,7 @@
 			float: left;
 		}
 		
+
 </style>
 </head>
 <body>
@@ -172,6 +201,7 @@
         <hr style="margin: 0;">
         <br>
         <c:set var="list" value="${List }" />
+
         <c:if test="${empty list }">
         	<table>
         		<tr>
@@ -181,14 +211,13 @@
         		</tr>
         	</table>
         </c:if>
-
-        
-        <div class="list_box">
-        	
+         <c:set var="count" value="${Count }" />
         	<div class="title_box">
-        		<a>원두상품 총 개수 : </a>
+        		<a>원두상품 총 개수 : ${count } 개</a>
         	</div>
         
+        <div class="list_box">
+       
         	<c:forEach items="${list }" var="i"  varStatus="status">
 
         	<div class="con1">

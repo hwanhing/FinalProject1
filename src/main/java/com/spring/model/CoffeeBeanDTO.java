@@ -18,6 +18,8 @@ public class CoffeeBeanDTO {
 	private int count_h;
 	
 	private int write_count;
+	
+	private int star_avg;
 }
 
 

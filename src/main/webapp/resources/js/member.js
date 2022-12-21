@@ -81,40 +81,35 @@ $('.icon-close').click(function(){
 
 // 아이디 정규식 확인
 
-$("#join-id").on("input", function(){
+
+$("#join-id").keyup(function(){
+
     let joinId = $("#join-id").val();
-    let id_pattern = /^[a-zA-Z0-9]{5,}$/g;
+    let id_pattern = /^[a-zA-Z0-9]{6,}$/;
     let id_length = joinId.length;
-        
+
     console.log("dddd"+joinId);
 
-    if(id_length==0) {
-        $("#join-id").attr("placeholder", "필수입력 항목입니다.");
-
-    }else if(!id_pattern.test(joinId)) {
-        $(".id-error").show();
-
-    } else {
-        $(".id-error").hide();
-
-        $.ajax({
-            url: "<%=request.getContextPath()%>/member_join_check.do",
-            data: { member_id : joinId },
-            type: "post",
-            dataType : "text",
-            contentType : "application/x-www-form-urlencoded;charset=UTF-8",
-            success : function(result) {
-                if(result > 0 ) {
-                    $("#join-id").show.html("사용할 수 없는 아이디입니다."); 
-                    console.log("success");
-                } else {
-                    $("join-id").show.html("사용 가능한 아이디입니다.");
-                }
-            
+    $.ajax({
+        url: "<%=request.getContextPath()%>/member_Id_check.do",
+        type: "post",
+        data: {
+            member_id: joinId
+        },
+        success: function(result) {
+            if (result==1) {
+                $("#id-error").html("이미 사용 중인 아이디입니다.");
+                $("#jf-btn").attr("disabled", "disabled");
+            } else {
+                $("#id-error").html("사용 가능한 아이디입니다.");
             }
-        });
-    } 
+        }
+    });
+  
 });
+
+
+
 
 
 // // 이메일 정규식 확인

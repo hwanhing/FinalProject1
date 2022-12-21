@@ -10,6 +10,8 @@ public interface BeanDAO {
 
 	List<CoffeeBeanDTO> getBeanList();
 	
+	String getBeansCount();
+	
 	List<CoffeeBeanDTO> getBeanHeartList();
 	
 	List<CoffeeBeanDTO> BeanPriceDownList();
@@ -28,12 +30,16 @@ public interface BeanDAO {
 	int getWriteCount(int num);
 	
 	List<CoffeeWriteDTO> getWriteList(int num);
+	/* List<CoffeeWriteDTO> getWriteListStar(int num); */
 
-	int seWrite(CoffeeWriteDTO dto);
+	int starAvg(int num);
 	
-	void getStar(CoffeeStarDTO dto);
+	int seWrite(Map<String, Object> map);
+	int insertWriteStar(Map<String, Object> map);
+	int updateWriteStar(Map<String, Object> map);
 	
-	int checkWrite(CoffeeStarDTO dto1);
+	int checkWrite(Map<String, Object> map);
+	
 	
 	// 후기글 삭제
 	int deleteWrite(int write_num);

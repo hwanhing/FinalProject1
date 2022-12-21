@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 public interface MemberDAO {
 
 	FinalMemberDTO checkMember(FinalMemberDTO dto);
+	FinalAdminDTO checkAdmin(FinalMemberDTO a_dto);
+	
 	
 	public void logout(HttpSession session);
 	

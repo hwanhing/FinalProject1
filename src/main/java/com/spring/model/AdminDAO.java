@@ -18,11 +18,9 @@ public interface AdminDAO {
 
 	List<CoffeeOrderDTO> admin_order(int num);
 
-	int orderList();
-
 	List<FinalMemberDTO> boardList(PageDTO dto);
 
-	
-	
-	
+	String getBeansCount();
+
+	int boardList();
 }
