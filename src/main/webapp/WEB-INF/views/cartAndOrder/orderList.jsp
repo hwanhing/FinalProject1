@@ -12,6 +12,7 @@
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
     <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderList.css">
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/page.css">
     <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
@@ -195,38 +196,58 @@
 
                      </c:forEach>
                      
+                     <!-- 페이지 ---------------------------------------------------------------------------------------------------- -->
                       <div class="m_page">
-                         <div>
-                             <!-- 페이징 -->
-							<%-- 
-							<c:if test="${paging.getPage() > paging.getBlock() }">
-								<a href="board_list.do?page=1">
-									 <i class="fa-solid fa-backward"></i>
-								</a>
-								<a href="board_list.do?page=${paging.getStartBlock() - 1}">
-									 <i class="fa-solid fa-caret-left"></i>
-								</a>
-							</c:if>
-							
-							<c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
-								<c:if test="${i == paging.getPage() }">
-									<b><a href="board_list.do?page=${i }">[${i }]</a></b>
-								</c:if>
-								<c:if test="${i != paging.getPage() }">
-									<a href="board_list.do?page=${i }">[${i }]</a>
-								</c:if>
-							</c:forEach>
-							
-							<c:if test="${paging.getEndBlock() < paging.getAllPage() }">
-								<a href="board_list.do?page=${paging.getEndBlock()+1 }">
-									<i class="fa-solid fa-caret-right"></i>
-								</a>
-								<a href="board_list.do?page=${paging.getAllPage() }">
-									<i class="fa-solid fa-forward"></i>
-								</a>
-							</c:if>  
-							--%>  
-                         </div> 
+                         <div class="m_page_in">
+                         
+							<c:set var="paging" value="${pageMap }"/> 
+							                        	
+                             <!-- back -->
+                             <c:if test="${paging.page > 1 }">
+	                             <div class="m_page_area back_div">
+	                             	
+		                                 <a href="<%=request.getContextPath() %>/order_list.do?page=1" class="a">
+		                                     <i class="fa-solid fa-angles-left"></i>
+		                                 </a>
+		                             
+		                                 <a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page-1 }" class="a">
+		                                     <i class="fa-solid fa-angle-left"></i>
+		                                 </a> 
+	                             
+	                             </div>
+                             </c:if>   
+                             
+                             <!-- page number -->
+                             <div class="m_page_area num_div">
+                             	<c:forEach begin="${paging.startBlock }" end="${paging.endBlock }" var="i">
+	                                
+	                                <!-- 현재 페이지일때 --> 
+	                                <c:if test="${i == paging.page }">
+										<a href="<%=request.getContextPath() %>/order_list.do?page=${i }" class="a active_a">${i }</a>
+									</c:if>
+									
+									<c:if test="${i != paging.page }">
+										<a href="<%=request.getContextPath() %>/order_list.do?page=${i }" class="a">${i }</a>
+									</c:if>
+									
+	                         	</c:forEach>
+	                         </div>
+                             
+                             <!-- forward -->
+                             <c:if test="${paging.page < paging.allPage }">
+	                             <div class="m_page_area forward_div">
+	                             
+	                                 <a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page +1 }" class="a">
+	                                     <i class="fa-solid fa-angle-right"></i>
+	                                 </a>  
+	                                 
+	                                 <a href="<%=request.getContextPath() %>/order_list.do?page=${paging.allPage }" class="a">
+	                                     <i class="fa-solid fa-angles-right"></i>
+	                                 </a>
+	                                 
+	                             </div>
+                             </c:if>
+                         </div>
                      </div>
                      <%-- m_main 끝 -----------------------------------------------------------%>
                  </div>

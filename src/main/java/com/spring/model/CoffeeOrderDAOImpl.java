@@ -72,8 +72,8 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 
 	// 주문내역 리스트
 	@Override
-	public List<CoffeeOrderDTO> getOrderList(int member_num) {
-		return this.sqlSession.selectList("getOrderList", member_num);
+	public List<CoffeeOrderDTO> getOrderList(Map<String, Object> stEnRowMap) {
+		return this.sqlSession.selectList("getOrderList", stEnRowMap);
 	}
 
 	// 주문내역 리스트(일자지정)
@@ -94,7 +94,11 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.update("updateUsePointCancel", typeMap);
 	}
 
-	
+	// 게시물 수 확인(타입, 일자 선택 안한 상태)
+	@Override
+	public int getRowCount(int member_num) {
+		return this.sqlSession.selectOne("getRowCount", member_num);
+	}
 	
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
@@ -122,6 +126,8 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public int updateAllTypeNum() {
 		return this.sqlSession.update("updateAllTypeNum");
 	}
+
+	
 
 	
 

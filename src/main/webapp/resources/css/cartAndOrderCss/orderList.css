@@ -56,6 +56,7 @@
 
 */
 .m_order_rows{
+	height: 1000px;
     margin-bottom: var(--margin);
 }
 

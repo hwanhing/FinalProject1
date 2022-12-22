@@ -25,11 +25,48 @@ import com.spring.model.CoffeeCartDAO;
 import com.spring.model.CoffeeCartDTO;
 import com.spring.model.CoffeeOrderDTO;
 
+// 로그인 확인 클래스
+class CkLogin{
+	
+	// 로그인 확인
+	public void checkLogin(HttpSession session, HttpServletResponse response) throws IOException {
+		
+		System.out.println("--checkLogin 로그인 여부 확인-------------------------------------------------------");
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("--------------------------------------------------------------------------------");
+		 
+		if((Integer) session.getAttribute("member_num")==null) {
+			out.println("<script>");
+			out.println("location.href='go_login.do'");
+			out.println("</script>");
+		}
+		
+	}
+}
+
 @Controller
 public class CoffeeCartController {
 	
 	@Inject
 	private CoffeeCartDAO cartDao;
+	
+	// 로그인 확인
+	public void checkLogin(HttpSession session, HttpServletResponse response) throws IOException {
+		
+		System.out.println("--checkLogin 로그인 여부 확인-------------------------------------------------------");
+		PrintWriter out = response.getWriter();
+		response.setContentType("text/html; charset=UTF-8");
+		System.out.println("--------------------------------------------------------------------------------");
+		 
+		if((Integer) session.getAttribute("member_num")==null) {
+			out.println("<script>");
+			out.println("location.href='go_login.do'");
+			out.println("</script>");
+		}
+		
+	}
+	
 	
 	@RequestMapping("bean_cart_insert.do")
 	public void list(HttpSession session, Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -57,16 +94,10 @@ public class CoffeeCartController {
 		*/
 		
 		// 1. 로그인 상태 확인
-		PrintWriter out = response.getWriter();
-		request.setCharacterEncoding("utf-8");
-		response.setContentType("text/html; charset=UTF-8");
-		 
-		if((Integer) session.getAttribute("member_num")==null) {
-			out.println("<script>");
-			out.println("location.href='go_login.do'");
-			out.println("</script>");
-		}
+		CkLogin ckLogin = new CkLogin();
+		ckLogin.checkLogin(session, response);
 		
+		PrintWriter out = response.getWriter();
 		int member_num = (Integer) session.getAttribute("member_num");
 		System.out.println("member_num : " + member_num);
 		
@@ -208,12 +239,9 @@ public class CoffeeCartController {
 		System.out.println("--approvalpay.do----------------------------------------------------------------");
 		System.out.println("session member_num : " + session.getAttribute("member_num"));
 		
-		PrintWriter out = response.getWriter();
-		if(session.getAttribute("member_num")==null) {
-			out.println("<script>");
-			out.println("location.href='go_login.do'");
-			out.println("</script>");
-		}
+		// 1. 로그인 상태 확인
+		CkLogin ckLogin = new CkLogin();
+		ckLogin.checkLogin(session, response);
 		
 		int member_num = (Integer) session.getAttribute("member_num");
 		List<CoffeeCartDTO> cartList = cartDao.getCartList(member_num);

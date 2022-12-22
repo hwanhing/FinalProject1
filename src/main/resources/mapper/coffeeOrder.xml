@@ -91,6 +91,14 @@
 		  where order_num = #{order_num}
 	</select>
 	
+	<!-- 게시물 수 확인 -->
+	<select id="getRowCount" parameterType="int" resultType="int">
+	 select count(distinct order_num) as rowCnt
+	   from coffee_order
+	  where member_num = #{member_num}
+	</select>
+	
+	<!-- 주문건 가져오는 sql (with 절 첫번째) -->
 	<sql id="order_product">
 		select order_num
              , min(order_row) as order_row
@@ -104,9 +112,10 @@
         order by order_num desc
 	</sql>
 	
-	<select id="getOrderList" parameterType="int" resultType="coffeeOrderDTO">
+	<select id="getOrderList" parameterType="hashmap" resultType="coffeeOrderDTO">
 		with order_product as ( <include refid="order_product"/>
-				)select op.order_month
+				)select op.row_num
+				      , op.order_month
 				      , op.order_date
 				      , op.order_num
 				      , op.order_price
@@ -115,9 +124,17 @@
 				      , be.beans_img
 				      , co.type_num
 				  from coffee_order co
-				  join order_product op
+				  join (select row_number() over(order by order_num desc) as row_num
+				              , order_month
+				              , order_date
+				              , order_num
+				              , order_row
+				              , order_price
+				              , order_product_cnt
+				          from order_product ) op
 				    on co.order_num = op.order_num
 				   and co.order_row = op.order_row
+				   and op.row_num between ${startNo} and ${endNo}
 				  join coffee_beans be
 				    on co.beans_num = be.beans_num 
 				 order by order_num desc
@@ -125,7 +142,8 @@
 	
 	<select id="getOrderListDate" parameterType="hashmap" resultType="coffeeOrderDTO">
 		with order_product as ( <include refid="order_product"/>
-				)select op.order_month
+				)select row_number() over(order by op.order_num desc) as row_num
+				      , op.order_month
 				      , op.order_date
 				      , op.order_num
 				      , op.order_price

@@ -34,7 +34,7 @@ public interface CoffeeOrderDAO {
 	List<CoffeeOrderDTO> getNowOrderList(String order_num);
 	
 	// 주문목록 가져오기(list)
-	List<CoffeeOrderDTO> getOrderList(int member_num);
+	List<CoffeeOrderDTO> getOrderList(Map<String, Object> stEnRowMap);
 	
 	// 주문목록 가져오기(일자설정)
 	List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap);
@@ -45,7 +45,8 @@ public interface CoffeeOrderDAO {
 	// 포인트 사용시 포인트 취소
 	int updateUsePointCancel(Map<String, Object> typeMap);
 	
-	
+	// 게시물 수 확인
+	int getRowCount(int member_num);
 	
 	
 	//////////////////////////////////////////////////////////////////////////////

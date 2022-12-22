@@ -38,17 +38,13 @@ import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeOrderDAO;
 import com.spring.model.CoffeeOrderDTO;
 import com.spring.model.FinalMemberDTO;
+import com.spring.model.PageDTO;
 
 @Controller
 public class CoffeeOrderController {
 
 	@Inject
 	private CoffeeOrderDAO orderDao;
-
-	// 페이지 관련 변수들 -----------------------------------------------
-	private final int rowsize = 8; // 한 페이지당 보여질 게시물 수
-	private int totalRecord = 0; // DB전체 게시물 수
-	// --------------------------------------------------------------
 
 	// 장바구니에서 주문서 작성 페이지로 이동할 경우 사용
 	public Map<String, Object> cartMapM(String[] cartNumArr) {
@@ -114,7 +110,9 @@ public class CoffeeOrderController {
 
 	// 카카오
 	public String kakao(String itemName, int quantity, int totalAmout) {
-
+		
+		System.out.println("-- 결제 순서 3 -------------------------------------------------------------------");
+		System.out.println("-- kakao -----------------------------------------------------------------------");
 		String fin = null;
 		try {
 			URL url = new URL("https://kapi.kakao.com/v1/payment/ready"); // 주소
@@ -197,7 +195,6 @@ public class CoffeeOrderController {
 
 		// 현 배달상황 및 취소확인
 		int type_num = orderList.get(0).getType_num();
-		System.out.println("summary type_num : " + type_num);
 
 		summaryOrder.put("order_num", order_num);
 		summaryOrder.put("order_date", order_date);
@@ -331,6 +328,44 @@ public class CoffeeOrderController {
 
 		return orderListAdmin;
 	}
+	
+	// 페이지
+	public Map<String, Object> setPage(int page, int totalRecord) {
+		
+		Map<String, Object> pageMap = new HashMap<String, Object>();
+		
+		// 고정 설정 값
+		int rowsize = 6;		// 보여질 게시물 수 
+		int block = 5;      	// 페이지 블럭 그룹 (1~5 / 6~10 ... )
+		
+		// 받아오는 값
+		// int page;            // 현재 페이지
+	    // int totalRecord;    	// DB상의 테이블 전체 레코드 수
+	    
+		// 계산값
+		int startNo = (page * rowsize) - (rowsize -1);      			// 해당 페이지에서 시작 글 번호
+	    int endNo = (page * rowsize);       							// 해당 페이지에서 끝 글 번호
+	    int startBlock = (((page - 1) / block) * block) + 1;        	// 해당 페이지의 시작 블럭
+	    int endBlock = (((page - 1) / block) * block) + block;        	// 해당 페이지의 끝 블럭
+	    int allPage = (int)Math.ceil(totalRecord / (double)rowsize);    // 전체 페이지 수
+	    
+	    if(endBlock > allPage) {
+            endBlock = allPage;
+        }
+		
+	    pageMap.put("rowsize", rowsize);
+	    pageMap.put("block", block);
+	    pageMap.put("page", page);
+	    pageMap.put("totalRecord", totalRecord);
+	    pageMap.put("startNo", startNo);
+	    pageMap.put("endNo", endNo);
+	    pageMap.put("startBlock", startBlock);
+	    pageMap.put("endBlock", endBlock);
+	    pageMap.put("allPage", allPage);
+	    
+		return pageMap;
+	}
+	
 	// --------------------------------------------------------------------------------------------------
 
 	// 장바구니에서 넘어옴
@@ -409,6 +444,85 @@ public class CoffeeOrderController {
 
 	}
 
+	// 주문 정보 세션 설정
+	@RequestMapping("order_session.do")
+	public void orderSession(HttpSession session, HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		
+		System.out.println("-- 결제 순서 1 -------------------------------------------------------------------");
+		System.out.println("--order_session.do--------------------------------------------------------------");
+		
+		int member_num = (Integer) session.getAttribute("member_num");
+		
+		List<Integer> cartNumList = new ArrayList<Integer>();
+		List<Integer> priceList = new ArrayList<Integer>();
+		
+		// 바로가기로 구매한 상품: d , 장바구니 페이지 거쳐서 구매한 상품 : c
+		String reqestType = request.getParameter("requestType");
+		
+		if (reqestType.equals("c")) {
+			// 사용자가 구매 요청시 상품 단가, 사용포인트, 적립 포인트
+			String[] cartArr = request.getParameterValues("rowCartArr");
+			String[] priceArr = request.getParameterValues("rowPriceArr");
+			
+			for (int i = 0; i < cartArr.length; i++) {
+				cartNumList.add(Integer.valueOf(cartArr[i]));
+				priceList.add(Integer.valueOf(priceArr[i]));
+			}
+			
+			session.removeAttribute("cartList");
+			session.removeAttribute("priceList");
+			
+			session.setAttribute("cartNumList", cartNumList);
+			session.setAttribute("priceList", priceList);
+			
+			System.out.println("장바구니 통해서 넘어온 값");
+			System.out.println("cartNumList.size : " + cartNumList.size());
+			System.out.println("priceList.size : " + priceList.size());
+			
+		} else {
+			System.out.println("바로주문으로 넘어온 값");
+			String[] beanArr = request.getParameterValues("directOrderBean");
+			CoffeeOrderDTO orderDto = new CoffeeOrderDTO();
+			
+			for (int i = 0; i < beanArr.length; i++) {
+				System.out.println(beanArr[i]);
+			}
+			
+			orderDto.setOrder_cnt(Integer.valueOf(beanArr[0]));
+			orderDto.setOrder_price(Integer.valueOf(beanArr[1]));
+			orderDto.setBeans_num(Integer.valueOf(beanArr[2]));
+			orderDto.setBeans_name(beanArr[3]);
+			orderDto.setBeans_price(Integer.valueOf(beanArr[4]));
+			orderDto.setBeans_taste(beanArr[5]);
+			orderDto.setCart_weight(Integer.valueOf(beanArr[6]));
+			orderDto.setCart_grind(Integer.valueOf(beanArr[7]));
+			orderDto.setMember_num(member_num);
+			
+			session.removeAttribute("orderDto");
+			session.setAttribute("orderDto", orderDto);
+			
+			// session.removeAttribute("beanArr");
+			// session.setAttribute("beanArr", beanArr);
+		}
+		System.out.println("--------------------------------------------------------------------------------");
+		
+		int usePoint = Integer.valueOf(request.getParameter("totalUsePoint"));
+		int savePoint = Integer.valueOf(request.getParameter("savePoint"));
+		
+		Map<String, Object> sessionMap = new HashMap<String, Object>();
+		sessionMap.put("reqestType", reqestType);
+		sessionMap.put("usePoint", usePoint);
+		sessionMap.put("savePoint", savePoint);
+		
+		// 세션 등록
+		session.setAttribute("sessionMap", sessionMap);
+		
+		PrintWriter out = response.getWriter();
+		out.println("1");
+	}
+	
+	// 카카오 결제
 	@RequestMapping("kakaopay.do")
 	@ResponseBody
 	public String kakaopay(HttpServletRequest request) {
@@ -417,6 +531,7 @@ public class CoffeeOrderController {
 		int quantity = Integer.valueOf(request.getParameter("quantity"));
 		int totalAmout = Integer.valueOf(request.getParameter("totalAmout"));
 
+		System.out.println("-- 결제 순서 2 -------------------------------------------------------------------");
 		System.out.println("--kakaopay----------------------------------------------------------------------");
 		System.out.println("구매 아이템 : " + itemName);
 		System.out.println("구매 수량 : " + quantity);
@@ -428,85 +543,12 @@ public class CoffeeOrderController {
 		return fin;
 	}
 
-	@RequestMapping("order_session.do")
-	public void orderSession(HttpSession session, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		System.out.println("--order_session.do--------------------------------------------------------------");
-
-		int member_num = (Integer) session.getAttribute("member_num");
-
-		List<Integer> cartNumList = new ArrayList<Integer>();
-		List<Integer> priceList = new ArrayList<Integer>();
-
-		// 바로가기로 구매한 상품: d , 장바구니 페이지 거쳐서 구매한 상품 : c
-		String reqestType = request.getParameter("requestType");
-
-		if (reqestType.equals("c")) {
-			// 사용자가 구매 요청시 상품 단가, 사용포인트, 적립 포인트
-			String[] cartArr = request.getParameterValues("rowCartArr");
-			String[] priceArr = request.getParameterValues("rowPriceArr");
-
-			for (int i = 0; i < cartArr.length; i++) {
-				cartNumList.add(Integer.valueOf(cartArr[i]));
-				priceList.add(Integer.valueOf(priceArr[i]));
-			}
-
-			session.removeAttribute("cartList");
-			session.removeAttribute("priceList");
-
-			session.setAttribute("cartNumList", cartNumList);
-			session.setAttribute("priceList", priceList);
-
-			System.out.println("장바구니 통해서 넘어온 값");
-			System.out.println("cartNumList.size : " + cartNumList.size());
-			System.out.println("priceList.size : " + priceList.size());
-
-		} else {
-			System.out.println("바로주문으로 넘어온 값");
-			String[] beanArr = request.getParameterValues("directOrderBean");
-			CoffeeOrderDTO orderDto = new CoffeeOrderDTO();
-
-			for (int i = 0; i < beanArr.length; i++) {
-				System.out.println(beanArr[i]);
-			}
-
-			orderDto.setOrder_cnt(Integer.valueOf(beanArr[0]));
-			orderDto.setOrder_price(Integer.valueOf(beanArr[1]));
-			orderDto.setBeans_num(Integer.valueOf(beanArr[2]));
-			orderDto.setBeans_name(beanArr[3]);
-			orderDto.setBeans_price(Integer.valueOf(beanArr[4]));
-			orderDto.setBeans_taste(beanArr[5]);
-			orderDto.setCart_weight(Integer.valueOf(beanArr[6]));
-			orderDto.setCart_grind(Integer.valueOf(beanArr[7]));
-			orderDto.setMember_num(member_num);
-
-			session.removeAttribute("orderDto");
-			session.setAttribute("orderDto", orderDto);
-
-			// session.removeAttribute("beanArr");
-			// session.setAttribute("beanArr", beanArr);
-		}
-		System.out.println("--------------------------------------------------------------------------------");
-
-		int usePoint = Integer.valueOf(request.getParameter("totalUsePoint"));
-		int savePoint = Integer.valueOf(request.getParameter("savePoint"));
-
-		Map<String, Object> sessionMap = new HashMap<String, Object>();
-		sessionMap.put("reqestType", reqestType);
-		sessionMap.put("usePoint", usePoint);
-		sessionMap.put("savePoint", savePoint);
-
-		// 세션 등록
-		session.setAttribute("sessionMap", sessionMap);
-
-		PrintWriter out = response.getWriter();
-		out.println("1");
-	}
-
+	// 카카오 결제 승인 완료시
 	@RequestMapping("approvalpay.do")
 	public void approvalPay(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
 
+		System.out.println("-- 결제 순서 4 -------------------------------------------------------------------");
 		System.out.println("--approvalpay.do----------------------------------------------------------------");
 
 		/*
@@ -661,25 +703,37 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 	}
 
+	// 카카오 결제 취소
 	@RequestMapping("cancelpay.do")
 	public void cancelPay(HttpServletResponse response) throws IOException {
+		
+		System.out.println("-- 결제 순서 4 (결제취소) ----------------------------------------------------------");
+		System.out.println("--cancelpay.do-----------------------------------------------------------------");
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("location.href='bean_cart.do'");
 		out.println("</script>");
 	}
 
+	// 카카오 결제 실패
 	@RequestMapping("failpay.do")
 	public void failPay(HttpServletResponse response) throws IOException {
+		
+		System.out.println("-- 결제 순서 4 (결제실패) ----------------------------------------------------------");
+		System.out.println("--failpay.do-------------------------------------------------------------------");
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("location.href='bean_cart.do'");
 		out.println("</script>");
 	}
 
+	// 카카오 결제 완료 후 주문내역(요약) 페이지로 이동
 	@RequestMapping("bean_order_ok.do")
 	public String beanOrderOkList(@RequestParam("order") String order_num, Model model) throws IOException {
 
+		System.out.println("-- 결제 순서 5 : 결제 완료! --------------------------------------------------------");
+		System.out.println("--bean_order_ok.do--------------------------------------------------------------");
+		
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
@@ -687,34 +741,51 @@ public class CoffeeOrderController {
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
 
+		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderOk";
 	}
 
+	// 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_cont.do")
 	public String orderListCont(@RequestParam("order") String order_num, Model model) throws IOException {
-
+		
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getNowOrderList(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
-
+		
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
 
 		return "./cartAndOrder/orderListContent";
 	}
 
+	// 주문내역(요약) 페이지로 이동_배송타입 일자 선택 안한 상태일때
 	@RequestMapping("order_list.do")
-	public String orderList(HttpSession session, Model model) {
+	public String orderList(@RequestParam(value="page", defaultValue="1") int page,
+			                HttpSession session, HttpServletResponse response, Model model) throws IOException {
 
 		System.out.println("--order_list.do-----------------------------------------------------------------");
+
+		// 1. 로그인 상태 확인
+		CkLogin ckLogin = new CkLogin();
+		ckLogin.checkLogin(session, response);
+		
 		int member_num = (Integer) session.getAttribute("member_num");
 		System.out.println("member_num : " + member_num);
-
-		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(member_num);
+		
+		// 게시물 수 확인
+		int totalRecord = orderDao.getRowCount(member_num);
+		
+		// 페이지 관련 map 
+		Map<String, Object> stEnRowMap = setPage(page, totalRecord);
+		System.out.println("받아온 page 값 : " + page);
+		
+		// 멤버넘 stEnRowMap 에 추가
+		stEnRowMap.put("member_num", member_num);
+		
+		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(stEnRowMap);
 		List<String> orderMonArr = setArr(orderList);
-
-		System.out.println("--------------------------------------------------------------------------------");
-
+		
 		// 배송 타입 갯수
 		Map<String, Integer> summaryDeliveryMap = summaryDelivery(session, orderList);
 
@@ -724,10 +795,13 @@ public class CoffeeOrderController {
 		model.addAttribute("orderMonArr", orderMonArr);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+		model.addAttribute("pageMap", stEnRowMap);
 
+		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderList";
 	}
 
+	// 주문내역(요약)_일자별 주문 리스트 페이지로 이동 
 	@RequestMapping("order_list_selectDate.do")
 	public String orderListDate(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			Model model) throws IOException {
@@ -771,7 +845,7 @@ public class CoffeeOrderController {
 		return "./cartAndOrder/orderList";
 	}
 
-	// 배송 타입별 주문 리스트
+	// 주문내역(요약)_배송 타입별 주문 리스트로 이동
 	@RequestMapping("type_list.do")
 	public String typeList(@RequestParam("type") int type_num, HttpSession session, Model model) {
 
@@ -797,6 +871,7 @@ public class CoffeeOrderController {
 		return "./cartAndOrder/orderList";
 	}
 
+	// 주문 전체 취소
 	@RequestMapping("order_all_cancel.do")
 	public String orderAllCancel(HttpSession session, HttpServletRequest request, HttpServletResponse response,
 			Model model) throws IOException {
@@ -864,7 +939,6 @@ public class CoffeeOrderController {
 
 	// 주문리스트
 	@RequestMapping("admin_orderlist.do")
-
 	public String adminOrderDelivery(HttpSession session, Model model) {
 
 		System.out.println("--admin_orderlist.do------------------------------------------------------------");
@@ -906,6 +980,7 @@ public class CoffeeOrderController {
 		return "./Admin/admin_delivery";
 	}
 
+	// 배송 대기 >> 배송중으로 업데이트_ 특정 주문번호만
 	@RequestMapping("update_row_type_num.do")
 	public void updateRowTypeNum(@RequestParam("orderNum") String orderNum, HttpServletResponse response)
 			throws IOException {
@@ -919,6 +994,7 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 	}
 
+	// 배송 대기 >> 배송중으로 업데이트_ 배송대기 주문건 전체
 	@RequestMapping("update_all_type_num.do")
 	public void updateAllTypeNum(HttpServletResponse response) throws IOException {
 

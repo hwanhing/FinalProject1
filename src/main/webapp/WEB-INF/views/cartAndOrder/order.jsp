@@ -15,6 +15,7 @@
       <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/order.css">
       <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
       <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
+	  
 </head>
 <body>
   <%-- 해더 --%>
@@ -535,8 +536,9 @@
         <!-- 푸터 -->
         <jsp:include page="../layout/footer.jsp" />
         
-        <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/kakaoapi.js"></script>
-		<script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/order.js"></script>
+        <script defer src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/order.js"></script>
+        <script defer src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/kakaoapi.js"></script>
+        
 
 </body>
 </html>

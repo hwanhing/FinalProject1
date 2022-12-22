@@ -42,7 +42,8 @@ public class CoffeeOrderDTO {
 	private int cart_num;			// 장바구니 번호
 	private String beans_img;		// 상품 이미지
 	private String order_month;		// 주문 월
-	private String type_name;
+	private String type_name;		// 배송 타입 명
+	private int row_num; 			// 전체 row(행)번호
 	
 
 }
