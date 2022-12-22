@@ -68,6 +68,11 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.update("bean_modify", dto);
 	}
 
+	@Override
+	public int adminBeanDelete(int beans_num) {
+		return this.sqlSession.delete("bean_delete", beans_num);
+	}
+
 
 	
 

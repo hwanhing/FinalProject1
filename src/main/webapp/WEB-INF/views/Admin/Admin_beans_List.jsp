@@ -12,6 +12,9 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
 <script type="text/javascript">
 	// 탭 두개 콘텐츠 값 다르게 보여주는 함수.
 	$(document).ready(function(){
@@ -25,7 +28,8 @@
 		    $(this).addClass('current');
 		    $("#"+tab_id).addClass('current');
 		  });
-	
+
+		  	  
 	});
 </script>
 <style type="text/css">
@@ -159,6 +163,46 @@
 	.btn_1:hover {
 		background-color: #e9e9e9;
 	}
+
+	
+	.tr_1{
+	  border: 1px solid #d5d5d5;
+	  padding: 10px;	
+	  text-align: center;
+	}
+	.td_1{
+	  border: 1px solid #d5d5d5;
+	  padding: 10px;	
+	  text-align: left;		
+	}
+
+	.box3{
+		float: left;
+	}	
+	.table_1{
+	  width: 73%;
+	  border: 1px solid #e9e9e9;
+	  border-collapse: collapse;	
+	  height: 300px;
+	}	
+	
+	.f_btn{
+		float: right;
+		border-radius: 10px;
+		border: none;
+		font-size: 17px;
+		background-color: #D9CEC1;
+		width: 60px;
+		height: 35px;
+	}
+	.f_btn:hover{
+		background-color: #C2B19C;
+	
+	}
+	.btn_box{
+		margin-right: 7%;
+		margin-top: 1%;
+	}	
 </style>
 </head>
 
@@ -285,13 +329,89 @@
 			<div id="tab2" class="tab-content">
 				
 				<br>
-				<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 추가</b></h6>
+				<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 등록</b></h6>
 				<hr id="hr1" width="95%">
 				
+<!-- 					<div>
+						원두 이름<br>
+						<input name="beans_name">
+					</div>
 				
+					<div style="display:inline-block;">
+						원두 이미지<br>
+						<input type="file" name="beans_img" class="file_box">
+					</div>
 				
+					<div style="display:inline-block;">
+						원두 번호<br>
+						<input name="beans_num">
+					</div>
+				
+					<div style="display:inline-block;">
+						원두 가격<br>
+						<input name="beans_price">
+					</div>
+					
+					<div>
+						원두 재고<br>
+						<input name="beans_count">
+					</div> -->
+			<form method="post" action="<%=request.getContextPath()%>/admin_beans_insert.do">		
+				<div>	
+					<div class="box3">
+				 		<img id="img-preview1" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="300px" height="300px"/><br>	
+						<input type="file" name="beans_img" accept="image/*" onchange="readURL1(this)">			
+					</div>
+					
+					<table class="table_1">
+						<tr class="tr_1">
+							<th style="width: 20%;">원두 번호</th>
+							<td class="td_1"><input name="beans_num" value="${count + 1 }"></td>
+							<th>원두 재고</th>
+							<td class="td_1"><input name="beans_count"></td>													
+						</tr>					
+						<tr class="tr_1">
+							<th>원두 이름</th>
+							<td class="td_1" colspan="4"><input name="beans_name"></td>
+						</tr>									
+						<tr class="tr_1">
+							<th>원두 맛</th>
+							<td class="td_1"><input name="beans_taste"></td>
+							<th>원두 가격</th>
+							<td class="td_1"><input name="beans_price"></td>
+						</tr>		
+						<tr class="tr_1">
+							<th>원두소개</th>
+							<td class="td_1" colspan="4"><textarea cols="120" rows="5"></textarea></td>
+						</tr>
+					</table>		
+				</div>		
+								
+				
+				<div class="btn_box">
+					<button type="submit" class="f_btn">등록</button>
+				</div>				
+			</form>	
 			</div>
 		</div>
 	</div>
 </body>
+
+<script type="text/javascript">
+	
+	function readURL1(input) {
+		  console.log(input.files);
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		      $("#img-preview1").attr("src", e.target.result);
+		    };
+		
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    $("#img-preview1").attr("src", noimage);
+		  }
+		}	
+
+</script>
 </html>

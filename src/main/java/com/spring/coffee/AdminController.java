@@ -188,15 +188,37 @@ private int totalRecord=0;
 		  
 			if(res > 0) {
 				out.println("<script>");
-				out.println("alert('사원 정보 수정 성공!!!')");
+				out.println("alert('수정 성공!!!')");
 				out.println("location.href='admin_beans_cont.do?no="+dto.getBeans_num()+"'");
 				out.println("</script>");
 			}else {
 				out.println("<script>");
-				out.println("alert('사원 정보 수정 실패~~~')");
+				out.println("alert('수정 실패~~~')");
 				out.println("history.back()");
 				out.println("</script>");
 			}		  
+	  }
+	  
+	  @RequestMapping("admin_beans_delete.do")
+	  public void admin_bean_delete(@RequestParam("no") int beans_num, HttpServletResponse response) throws IOException {
+		  
+		  int res = this.dao.adminBeanDelete(beans_num);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  PrintWriter out = response.getWriter();
+		  
+			if(res > 0) {
+				out.println("<script>");
+				out.println("alert('삭제 성공!')");
+				out.println("location.href='admin_beans.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('삭제 실패~~~')");
+				out.println("history.back()");
+				out.println("</script>");
+			}		  		  
 	  }
 	 
 }

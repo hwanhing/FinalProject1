@@ -23,4 +23,6 @@ public interface AdminDAO {
 	CoffeeBeanDTO getBeanContent(int no);
 	
 	int adminBeanModify(CoffeeBeanDTO dto);
+	
+	int adminBeanDelete(int beans_num);
 }
