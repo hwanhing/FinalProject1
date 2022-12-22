@@ -185,7 +185,7 @@
 		select * from admin_reply where board_num=#{board_num}
 	</select>
 	<delete id="myboard_delete"  parameterType="int" > 
-		delete  from member_board where board_num=#{board_num}
+		delete from member_board where board_num=#{board_num}
 	</delete>
 	
 	
@@ -254,6 +254,10 @@
 	<update id="bean_modify" parameterType="coffeeBeanDTO">
 		update coffee_beans set beans_name = #{beans_name}, beans_price = #{beans_price}, beans_count = #{beans_count}, beans_taste = #{beans_taste}, beans_intro = #{beans_intro} where beans_num = #{beans_num}
 	</update>
+	
+	<delete id="bean_delete" parameterType="int">
+		delete from coffee_beans where beans_num = #{beans_num}
+	</delete>
 </mapper>  
 
   

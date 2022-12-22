@@ -80,6 +80,11 @@ public class AdminDAOImpl implements AdminDAO{
 
 	}
 
+	@Override
+	public int adminBeanDelete(int beans_num) {
+		return this.sqlSession.delete("bean_delete", beans_num);
+	}
+
 
 	
 
