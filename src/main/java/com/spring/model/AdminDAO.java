@@ -17,12 +17,21 @@ public interface AdminDAO {
 	int beansList();
 
 	List<CoffeeOrderDTO> admin_order(int num);
-	
+
+	List<FinalMemberDTO> boardList(PageDTO dto);
+
 	String getBeansCount();
+
+
+	int boardList();
+
+
 	
 	CoffeeBeanDTO getBeanContent(int no);
 	
 	int adminBeanModify(CoffeeBeanDTO dto);
+
 	
 	int adminBeanDelete(int beans_num);
+
 }

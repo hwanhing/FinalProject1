@@ -129,6 +129,7 @@ private int totalRecord=0;
             // 처음으로 게시물 전체 목록을 클릭한 경우.
             page = 1;
         }
+        
 
         // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
         totalRecord = this.dao.beansList();
@@ -153,8 +154,38 @@ private int totalRecord=0;
 		
 		return "./Admin/Admin_beans_List";
 	}
-	
-	
+
+		@RequestMapping("admin_center.do")
+		public String order_list(HttpServletRequest request, Model model) {
+			
+			
+			 // 페이징 처리 작업
+	        int page;    // 현재 페이지 변수
+
+	        if(request.getParameter("page") != null) {
+
+	            page = Integer.parseInt(request.getParameter("page"));
+
+	        }else {
+
+	            // 처음으로 게시물 전체 목록을 클릭한 경우.
+	            page = 1;
+	        }
+
+	        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
+	        totalRecord = this.dao.boardList();
+
+	        PageDTO dto = new PageDTO(page, this.rowsize, this.totalRecord);
+	             
+	        List<FinalMemberDTO> list = this.dao.boardList(dto);
+	        // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+
+	        model.addAttribute("Paging", dto);				
+			model.addAttribute("boardList", list);
+			
+			return "./Admin/Admin_Member_board";
+		}
+
 	@RequestMapping("admin_beans_cont.do")
 	public String admin_bean_cont(@RequestParam("no") int beans_num, Model model) {
 		
@@ -198,6 +229,7 @@ private int totalRecord=0;
 				out.println("</script>");
 			}		  
 	  }
+
 	  
 	  @RequestMapping("admin_beans_delete.do")
 	  public void admin_bean_delete(@RequestParam("no") int beans_num, HttpServletResponse response) throws IOException {
@@ -221,4 +253,5 @@ private int totalRecord=0;
 			}		  		  
 	  }
 	 
+
 }

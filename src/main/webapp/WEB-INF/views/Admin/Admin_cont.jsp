@@ -154,38 +154,38 @@ crossorigin="anonymous"></script>
 							</div>
 							 			
 							  </div>
-	<div style="width:100%; height:400px; overflow:auto">
-		<table class="table table-striped table-hover">
-                <thead>
-                    <tr>
-						<th>주문번호</th>
-                        <th>원두이름</th>
-						<th>원두가격</th>
-						 <th width="200px">주문일</th>
-                    </tr>
-                </thead>
-                <tbody>
-                	<c:if test="${!empty member_order }">
-					<c:forEach items="${member_order}" var="dto1">
-                    <tr>
-                        <td>${dto1.getOrder_num() }</td> 
-                       <td>${dto1.getBeans_name() }</td>
-						<td>${dto1.getBeans_price() }</td>
-                        <td width="200px">${dto1.getOrder_date().substring(0,10) }</td>
-                    
-				    </tr>  	
-			 		   </c:forEach>
-					</c:if>	
-						<c:if test="${empty member_order }">
-				                     	<td colspan="5" align="center">			                          
-					                  </td>
-
-					</c:if>
-	        	</tbody>
-            </table>
-            </div>
-						</div>
-					  
+						<div style="width:100%; height:400px; overflow:auto">
+							<table class="table table-striped table-hover">
+					                <thead>
+					                    <tr>
+											<th>주문번호</th>
+					                        <th>원두이름</th>
+											<th>원두가격</th>
+											 <th width="200px">주문일</th>
+					                    </tr>
+					                </thead>
+					                <tbody>
+					                	<c:if test="${!empty member_order }">
+										<c:forEach items="${member_order}" var="dto1">
+					                    <tr>
+					                        <td>${dto1.getOrder_num() }</td> 
+					                       <td>${dto1.getBeans_name() }</td>
+											<td>${dto1.getBeans_price() }</td>
+					                        <td width="200px">${dto1.getOrder_date().substring(0,10) }</td>
+					                    
+									    </tr>  	
+								 		   </c:forEach>
+										</c:if>	
+											<c:if test="${empty member_order }">
+									                     	<td colspan="5" align="center">			                          
+										                  </td>
+					
+										</c:if>
+						        	</tbody>
+					            </table>
+					            </div>
+											</div>
+										  
 										
 									</div>
 							</div>

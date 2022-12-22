@@ -652,6 +652,7 @@ public class CoffeeOrderController {
 	// 관리자 배송
 	@RequestMapping("admin_orderlist.do")
 	public String adminOrderDelivery() {
+		
 		return "./Admin/admin_delivery";
 	}
 }
