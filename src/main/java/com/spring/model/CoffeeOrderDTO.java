@@ -38,6 +38,8 @@ public class CoffeeOrderDTO {
 	private int member_use;
 	
 	
+	
+	
 	// 테이블 외 필요
 	private int cart_num;			// 장바구니 번호
 	private String beans_img;		// 상품 이미지

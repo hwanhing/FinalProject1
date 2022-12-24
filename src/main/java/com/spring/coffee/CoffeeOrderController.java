@@ -113,7 +113,7 @@ public class CoffeeOrderController {
 
 	// 카카오
 	public String kakao(String itemName, int quantity, int totalAmout) {
-		
+
 		System.out.println("-- 결제 순서 3 -------------------------------------------------------------------");
 		System.out.println("-- kakao -----------------------------------------------------------------------");
 		String fin = null;
@@ -229,30 +229,30 @@ public class CoffeeOrderController {
 	}
 
 	// 배송 현황 갯수(사용자)
-	public Map<String, Integer>  summaryDelivery(HttpSession session, int member_num) {
-		
+	public Map<String, Integer> summaryDelivery(HttpSession session, int member_num) {
+
 		System.out.println("--summaryDelivery---------------------------------------------------------------");
-		
+
 		int deliveryBefore = 0; // 배송대기
-		int deliveryIng = 0; 	// 배송중
-		int deliveryOk = 0; 	// 배송완료
-		int cancelOrder = 0; 	// 주문취소
-		
-		int type_num = 0; 
+		int deliveryIng = 0; // 배송중
+		int deliveryOk = 0; // 배송완료
+		int cancelOrder = 0; // 주문취소
+
+		int type_num = 0;
 		int row_cnt = 0;
 
 		if (session.getAttribute("summaryDeliMap") != null) {
 			session.removeAttribute("summaryDeliMap");
 		}
-		
-		List<Map<String, Integer>>  deliveryList = orderDao.getDeliveryTypeCnt(member_num);
-		
-		for(int i =0; i<deliveryList.size(); i++) {
-			
+
+		List<Map<String, Integer>> deliveryList = orderDao.getDeliveryTypeCnt(member_num);
+
+		for (int i = 0; i < deliveryList.size(); i++) {
+
 			System.out.println(deliveryList.get(i));
 			type_num = Integer.parseInt(String.valueOf(deliveryList.get(i).get("TYPE_NUM")));
 			row_cnt = Integer.parseInt(String.valueOf(deliveryList.get(i).get("ROWCNT")));
-			
+
 			switch (type_num) {
 				case 0:
 					deliveryBefore = row_cnt;
@@ -267,11 +267,11 @@ public class CoffeeOrderController {
 					cancelOrder = row_cnt;
 					break;
 			}
-			
+
 		}
-		
+
 		Map<String, Integer> summaryDeliMap = new HashMap<String, Integer>();
-		
+
 		summaryDeliMap.put("deliveryBefore", deliveryBefore);
 		summaryDeliMap.put("deliveryIng", deliveryIng);
 		summaryDeliMap.put("deliveryOk", deliveryOk);
@@ -282,7 +282,6 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		return summaryDeliMap;
 	}
-	
 
 	// 배송 현황 type name 지정
 	public List<CoffeeOrderDTO> orderListAddTypeName(List<CoffeeOrderDTO> orderListAdmin) {
@@ -312,77 +311,77 @@ public class CoffeeOrderController {
 
 		return orderListAdmin;
 	}
-	
+
 	// 페이지
 	public Map<String, Object> setPage(int page, int totalRecord, int use) {
-		
+
 		Map<String, Object> pageMap = new HashMap<String, Object>();
-		
+
 		// 고정 설정 값
 		// use = 0 >> 사용자
 		// use = 1 >> 관리자
-		int rowsize = 6;		// 보여질 게시물 수 
-		if(use==1) {
+		int rowsize = 6; // 보여질 게시물 수
+		if (use == 1) {
 			rowsize = 15;
 		}
-		
-		int block = 5;      	// 페이지 블럭 그룹 (1~5 / 6~10 ... )
-		
+
+		int block = 5; // 페이지 블럭 그룹 (1~5 / 6~10 ... )
+
 		// 받아오는 값
-		// int page;            // 현재 페이지
-	    // int totalRecord;    	// DB상의 테이블 전체 레코드 수
-	    
+		// int page; // 현재 페이지
+		// int totalRecord; // DB상의 테이블 전체 레코드 수
+
 		// 계산값
-		int startNo = (page * rowsize) - (rowsize -1);      			// 해당 페이지에서 시작 글 번호
-	    int endNo = (page * rowsize);       							// 해당 페이지에서 끝 글 번호
-	    int startBlock = (((page - 1) / block) * block) + 1;        	// 해당 페이지의 시작 블럭
-	    int endBlock = (((page - 1) / block) * block) + block;        	// 해당 페이지의 끝 블럭
-	    int allPage = (int)Math.ceil(totalRecord / (double)rowsize);    // 전체 페이지 수
-	    
-	    if(endBlock > allPage) {
-            endBlock = allPage;
-        }
-		
-	    pageMap.put("rowsize", rowsize);
-	    pageMap.put("block", block);
-	    pageMap.put("page", page);
-	    pageMap.put("totalRecord", totalRecord);
-	    pageMap.put("startNo", startNo);
-	    pageMap.put("endNo", endNo);
-	    pageMap.put("startBlock", startBlock);
-	    pageMap.put("endBlock", endBlock);
-	    pageMap.put("allPage", allPage);
-	    
+		int startNo = (page * rowsize) - (rowsize - 1); // 해당 페이지에서 시작 글 번호
+		int endNo = (page * rowsize); // 해당 페이지에서 끝 글 번호
+		int startBlock = (((page - 1) / block) * block) + 1; // 해당 페이지의 시작 블럭
+		int endBlock = (((page - 1) / block) * block) + block; // 해당 페이지의 끝 블럭
+		int allPage = (int) Math.ceil(totalRecord / (double) rowsize); // 전체 페이지 수
+
+		if (endBlock > allPage) {
+			endBlock = allPage;
+		}
+
+		pageMap.put("rowsize", rowsize);
+		pageMap.put("block", block);
+		pageMap.put("page", page);
+		pageMap.put("totalRecord", totalRecord);
+		pageMap.put("startNo", startNo);
+		pageMap.put("endNo", endNo);
+		pageMap.put("startBlock", startBlock);
+		pageMap.put("endBlock", endBlock);
+		pageMap.put("allPage", allPage);
+
 		return pageMap;
 	}
-	
+
 	// --------------------------------------------------------------------------------------------------
 	// 관리자
 	// 배송 현황 갯수
 	public Map<String, Integer> summaryDeliveryAdmin(HttpSession session) {
-		
+
 		System.out.println("--summaryDeliveryAdmin----------------------------------------------------------");
 
 		int deliveryBefore = 0; // 배송대기
 		int deliveryIng = 0; // 배송중
 		int deliveryOk = 0; // 배송완료
 		int cancelOrder = 0; // 주문취소
-		
-		int type_num = 0; 
+
+		int type_num = 0;
 		int row_cnt = 0;
 
 		if (session.getAttribute("summaryDeliMapAdmin") != null) {
 			session.removeAttribute("summaryDeliMapAdmin");
 		}
-		
-		List<Map<String, Integer>>  deliveryList = orderDao.getDeliveryTypeCntA();
-		
-		for(int i =0; i<deliveryList.size(); i++) {
-			
+
+		List<Map<String, Integer>> deliveryList = orderDao.getDeliveryTypeCntA();
+
+		for (int i = 0; i < deliveryList.size(); i++) {
+
 			System.out.println(deliveryList.get(i));
 			type_num = Integer.parseInt(String.valueOf(deliveryList.get(i).get("TYPE_NUM")));
 			row_cnt = Integer.parseInt(String.valueOf(deliveryList.get(i).get("ROWCNT")));
-			
+
 			switch (type_num) {
 				case 0:
 					deliveryBefore = row_cnt;
@@ -397,11 +396,11 @@ public class CoffeeOrderController {
 					cancelOrder = row_cnt;
 					break;
 			}
-			
+
 		}
-		
+
 		Map<String, Integer> summaryDeliMapAdmin = new HashMap<String, Integer>();
-		
+
 		summaryDeliMapAdmin.put("deliveryBefore", deliveryBefore);
 		summaryDeliMapAdmin.put("deliveryIng", deliveryIng);
 		summaryDeliMapAdmin.put("deliveryOk", deliveryOk);
@@ -414,8 +413,8 @@ public class CoffeeOrderController {
 	}
 
 	// --------------------------------------------------------------------------------------------------
-	// mapping 
-	
+	// mapping
+
 	// 장바구니에서 넘어옴
 	@RequestMapping("bean_order.do")
 	public String beanOrderList(HttpSession session, HttpServletRequest request, Model model) {
@@ -496,47 +495,47 @@ public class CoffeeOrderController {
 	@RequestMapping("order_session.do")
 	public void orderSession(HttpSession session, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		
+
 		System.out.println("-- 결제 순서 1 -------------------------------------------------------------------");
 		System.out.println("--order_session.do--------------------------------------------------------------");
-		
+
 		int member_num = (Integer) session.getAttribute("member_num");
-		
+
 		List<Integer> cartNumList = new ArrayList<Integer>();
 		List<Integer> priceList = new ArrayList<Integer>();
-		
+
 		// 바로가기로 구매한 상품: d , 장바구니 페이지 거쳐서 구매한 상품 : c
 		String reqestType = request.getParameter("requestType");
-		
+
 		if (reqestType.equals("c")) {
 			// 사용자가 구매 요청시 상품 단가, 사용포인트, 적립 포인트
 			String[] cartArr = request.getParameterValues("rowCartArr");
 			String[] priceArr = request.getParameterValues("rowPriceArr");
-			
+
 			for (int i = 0; i < cartArr.length; i++) {
 				cartNumList.add(Integer.valueOf(cartArr[i]));
 				priceList.add(Integer.valueOf(priceArr[i]));
 			}
-			
+
 			session.removeAttribute("cartList");
 			session.removeAttribute("priceList");
-			
+
 			session.setAttribute("cartNumList", cartNumList);
 			session.setAttribute("priceList", priceList);
-			
+
 			System.out.println("장바구니 통해서 넘어온 값");
 			System.out.println("cartNumList.size : " + cartNumList.size());
 			System.out.println("priceList.size : " + priceList.size());
-			
+
 		} else {
 			System.out.println("바로주문으로 넘어온 값");
 			String[] beanArr = request.getParameterValues("directOrderBean");
 			CoffeeOrderDTO orderDto = new CoffeeOrderDTO();
-			
+
 			for (int i = 0; i < beanArr.length; i++) {
 				System.out.println(beanArr[i]);
 			}
-			
+
 			orderDto.setOrder_cnt(Integer.valueOf(beanArr[0]));
 			orderDto.setOrder_price(Integer.valueOf(beanArr[1]));
 			orderDto.setBeans_num(Integer.valueOf(beanArr[2]));
@@ -546,28 +545,28 @@ public class CoffeeOrderController {
 			orderDto.setCart_weight(Integer.valueOf(beanArr[6]));
 			orderDto.setCart_grind(Integer.valueOf(beanArr[7]));
 			orderDto.setMember_num(member_num);
-			
+
 			session.removeAttribute("orderDto");
 			session.setAttribute("orderDto", orderDto);
-			
+
 		}
 		System.out.println("--------------------------------------------------------------------------------");
-		
+
 		int usePoint = Integer.valueOf(request.getParameter("totalUsePoint"));
 		int savePoint = Integer.valueOf(request.getParameter("savePoint"));
-		
+
 		Map<String, Object> sessionMap = new HashMap<String, Object>();
 		sessionMap.put("reqestType", reqestType);
 		sessionMap.put("usePoint", usePoint);
 		sessionMap.put("savePoint", savePoint);
-		
+
 		// 세션 등록
 		session.setAttribute("sessionMap", sessionMap);
-		
+
 		PrintWriter out = response.getWriter();
 		out.println("1");
 	}
-	
+
 	// 카카오 결제
 	@RequestMapping("kakaopay.do")
 	@ResponseBody
@@ -751,7 +750,7 @@ public class CoffeeOrderController {
 	// 카카오 결제 취소
 	@RequestMapping("cancelpay.do")
 	public void cancelPay(HttpServletResponse response) throws IOException {
-		
+
 		System.out.println("-- 결제 순서 4 (결제취소) ----------------------------------------------------------");
 		System.out.println("--cancelpay.do-----------------------------------------------------------------");
 		PrintWriter out = response.getWriter();
@@ -763,7 +762,7 @@ public class CoffeeOrderController {
 	// 카카오 결제 실패
 	@RequestMapping("failpay.do")
 	public void failPay(HttpServletResponse response) throws IOException {
-		
+
 		System.out.println("-- 결제 순서 4 (결제실패) ----------------------------------------------------------");
 		System.out.println("--failpay.do-------------------------------------------------------------------");
 		PrintWriter out = response.getWriter();
@@ -778,7 +777,7 @@ public class CoffeeOrderController {
 
 		System.out.println("-- 결제 순서 5 : 결제 완료! --------------------------------------------------------");
 		System.out.println("--bean_order_ok.do--------------------------------------------------------------");
-		
+
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
@@ -793,11 +792,11 @@ public class CoffeeOrderController {
 	// 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_cont.do")
 	public String orderListCont(@RequestParam("order") String order_num, Model model) throws IOException {
-		
+
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
-		
+
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
 
@@ -806,73 +805,73 @@ public class CoffeeOrderController {
 
 	// 주문내역(요약) 페이지로 이동
 	@RequestMapping("order_list.do")
-	public String orderList(@RequestParam(value="page", defaultValue="1") int page,
-			                HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model) throws IOException {
+	public String orderList(@RequestParam(value = "page", defaultValue = "1") int page,
+			HttpSession session, HttpServletRequest request, HttpServletResponse response, Model model)
+			throws IOException {
 
 		System.out.println("--order_list.do-----------------------------------------------------------------");
 
 		// 1. 로그인 상태 확인
 		CkLogin ckLogin = new CkLogin();
 		ckLogin.checkLogin(session, response);
-		
+
 		// 2. 타입, 일자 선택
 		Map<String, Object> selectedMap = new HashMap<String, Object>();
 
 		int member_num = (Integer) session.getAttribute("member_num");
 		selectedMap.put("member_num", member_num);
-		
+
 		// 일자 선택함
-		if(request.getParameter("startEnd")!=null) {
+		if (request.getParameter("startEnd") != null) {
 			System.out.println(request.getParameter("startEnd"));
-			
-			if(request.getParameter("startEnd").length()>0) {
-				String startEndS = request.getParameter("startEnd"); 	// 받아온 시작일, 종료일
-				String[] startEndA = startEndS.split(",");				// 시작일, 종료일 배열
-				
+
+			if (request.getParameter("startEnd").length() > 0) {
+				String startEndS = request.getParameter("startEnd"); // 받아온 시작일, 종료일
+				String[] startEndA = startEndS.split(","); // 시작일, 종료일 배열
+
 				selectedMap.put("start", startEndA[0] + " 00:00:00");
 				selectedMap.put("end", startEndA[1] + " 23:59:59");
 				selectedMap.put("startEnd", startEndS);
 			}
-			
+
 		}
-		
+
 		// 타입 선택함
-		if(request.getParameter("type") != null) {
+		if (request.getParameter("type") != null) {
 			System.out.println(request.getParameter("type"));
-			
-			if(request.getParameter("type").length()>0) {
-				int type_num = Integer.valueOf(request.getParameter("type")); 
+
+			if (request.getParameter("type").length() > 0) {
+				int type_num = Integer.valueOf(request.getParameter("type"));
 				selectedMap.put("type_num", type_num);
 			}
-			
+
 		}
-			
+
 		// 주문수 확인(+ 타입,일자선택시 해당하는 주문수 확인)
 		int totalRecord = orderDao.getSelectedRowCount(selectedMap);
-		
-		// 페이지 관련 map 
+
+		// 페이지 관련 map
 		Map<String, Object> stEnRowMap = setPage(page, totalRecord, 0);
-		
+
 		System.out.println("현재 페이지 : " + page);
 		System.out.println("주문건수 : " + totalRecord);
-		
+
 		// 멤버넘 stEnRowMap 에 추가
 		stEnRowMap.put("member_num", member_num);
-		
-		if(selectedMap.get("type_num")!=null) {
+
+		if (selectedMap.get("type_num") != null) {
 			stEnRowMap.put("type_num", selectedMap.get("type_num"));
 		}
-		
-		if(selectedMap.get("start")!=null) {
+
+		if (selectedMap.get("start") != null) {
 			stEnRowMap.put("start", selectedMap.get("start"));
 			stEnRowMap.put("end", selectedMap.get("end"));
 			stEnRowMap.put("startEnd", selectedMap.get("startEnd"));
 		}
-		
-		
+
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderList(stEnRowMap);
 		List<String> orderMonArr = setArr(orderList);
-		
+
 		// 배송 타입 갯수
 		Map<String, Integer> summaryDeliveryMap = summaryDelivery(session, member_num);
 
@@ -887,9 +886,6 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderList";
 	}
-	
-	
-	
 
 	// 주문 전체 취소
 	@RequestMapping("order_all_cancel.do")
@@ -934,7 +930,6 @@ public class CoffeeOrderController {
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderOk";
 	}
-	
 
 	// 배송중 >>> 배송완료로 변경
 	// 구매완료 버튼 클릭시 배송완료 처리
@@ -955,39 +950,38 @@ public class CoffeeOrderController {
 		PrintWriter out = response.getWriter();
 		out.print(result);
 	}
-	
-	
-	
 
 	///////////////////////////////////////////////////////////////////////////////////////
-	// 관리자 배송 --------------------------------------------------------------------------------------------------------
+	// 관리자 배송
+	/////////////////////////////////////////////////////////////////////////////////////// --------------------------------------------------------------------------------------------------------
 
 	// 주문리스트
 	@RequestMapping("admin_orderlist.do")
-	public String adminOrderDelivery(@RequestParam(value="page", defaultValue="1") int page,
-			                         HttpSession session, HttpServletRequest request, Model model) {
+
+	public String adminOrderDelivery(@RequestParam(value = "page", defaultValue = "1") int page,
+			HttpSession session, HttpServletRequest request, Model model) {
 
 		System.out.println("--admin_orderlist.do------------------------------------------------------------");
 		int totalRecord = 0;
-		
-		if(request.getParameter("type")!=null) {
-			int type_num = Integer.valueOf(request.getParameter("type")); 
+
+		if (request.getParameter("type") != null) {
+			int type_num = Integer.valueOf(request.getParameter("type"));
 			totalRecord = orderDao.getRowTypeCountAdmin(type_num);
-			
-		}else {
+
+		} else {
 			totalRecord = orderDao.getRowCountAdmin();
 		}
 		System.out.println("totalRecord : " + totalRecord);
-		
-		// 페이지 관련 map 
+
+		// 페이지 관련 map
 		Map<String, Object> stEnRowMap = setPage(page, totalRecord, 1);
-		if(request.getParameter("type")!=null) {
+		if (request.getParameter("type") != null) {
 			stEnRowMap.put("type_num", Integer.valueOf(request.getParameter("type")));
 		}
-		
+
 		List<CoffeeOrderDTO> orderListAdmin = orderDao.getOrderListAdmin(stEnRowMap);
 		System.out.println("orderListAdmin.size() : " + orderListAdmin.size());
-		
+
 		// 배송 타입 갯수
 		Map<String, Integer> summaryDeliveryMap = summaryDeliveryAdmin(session);
 
@@ -1003,7 +997,6 @@ public class CoffeeOrderController {
 		return "./Admin/admin_delivery";
 	}
 
-
 	// 배송 대기 >> 배송중으로 업데이트_ 특정 주문번호만
 	@RequestMapping("update_row_type_num.do")
 	public void updateRowTypeNum(@RequestParam("orderNum") String orderNum, HttpServletResponse response)
@@ -1017,7 +1010,7 @@ public class CoffeeOrderController {
 		out.print(result);
 		System.out.println("--------------------------------------------------------------------------------");
 	}
-	
+
 	// 배송 대기 >> 배송중으로 업데이트_ 배송대기 주문건 전체
 	@RequestMapping("update_all_type_num.do")
 	public void updateAllTypeNum(HttpServletResponse response) throws IOException {
