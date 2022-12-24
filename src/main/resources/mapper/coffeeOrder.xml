@@ -100,7 +100,7 @@
 		  group by type_num
 	</select>
 	
-	<!-- 주문건 수 확인 -->
+	<!-- 주문건 수 확인(페이징에 필요_total_record) -->
 	<select id="getRowCount" parameterType="hashmap" resultType="int">
 	   select count(distinct order_num) as rowCnt
 	     from coffee_order

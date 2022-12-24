@@ -51,11 +51,17 @@ public interface CoffeeOrderDAO {
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
 	
-	// 주문리스트
-	List<CoffeeOrderDTO> getOrderListAdmin();
+	// 배송 타입별 주문건수(배송대기, 배송중 .. 건수)
+	List<Map<String, Integer>>  getDeliveryTypeCntA();
 	
-	// 타입별 주문리스트
-	List<CoffeeOrderDTO> getTypeOrderListAdmin(int type_num);
+	// 주문건수 확인_페이징 totalRecord (타입선택 안함)
+	int getRowCountAdmin();
+	
+	// 주문건수 확인_페이징 totalRecord (타입선택 함)
+	int getRowTypeCountAdmin(int type_num);
+	
+	// 주문리스트
+	List<CoffeeOrderDTO> getOrderListAdmin(Map<String, Object> stEnRowMap);
 	
 	// row 배송 타입번호(type_num) 변경
 	int updateRowTypeNum(String order_num);

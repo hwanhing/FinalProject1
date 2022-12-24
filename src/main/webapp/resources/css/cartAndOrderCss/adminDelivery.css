@@ -14,7 +14,7 @@ body{
 
 .main{
 	width: 100%;
-	padding-top: 30px;
+	padding-top: 24px;
 	overflow: scroll;
 }	
 
@@ -37,9 +37,15 @@ body{
 	margin-top: 10px;
 }
 
+.m_content{
+	height: 1000px;
+}
+
 /* 주문 현황 표 */
 .m_content_t{
     width: 100%; 
+    margin-bottom: var(--margin);
+	overflow: scroll;
     border-collapse: collapse;
     border-bottom: 1px solid var(--color_begie);
 }
@@ -91,13 +97,9 @@ body{
 	margin: 0px;
 }
 
-/* 전체 배송 처리하기 버튼 */
-.c_all_btn{
-	margin-left: 10px;
-}
-
 /* 배송 현황 버튼 & 전체 배송 처리하기 버튼 공통 */
 .c_delivery_btn{
+	margin-right: 10px; 
     border: 1px solid var(--color_begie) !important;
     border-radius: var(--radius) !important;
 }
@@ -116,4 +118,9 @@ body{
 
 .cur_none{
 	cursor: default !important;
+}
+
+/* 관리자 페이지 */
+.m_page div{
+	margin-bottom: var(--margin);
 }

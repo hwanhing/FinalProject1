@@ -10,6 +10,7 @@
 	<title>CuppACoffee</title>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/adminDelivery.css">
+	 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/page.css">
 	<script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
@@ -28,33 +29,43 @@
 					 <!-- 배달 현황 요약 -->
 	                <div class="m_summary">
 	                    <div class="m_summary_in">
-	                    	
+	                    
 	                    	<c:set var="delivery" value="${summaryDeliveryMap }"/>
+	                    	<c:set var="paging" value="${pageMap }"/> 
+			          		<c:choose>
+			          		  	<c:when test="${!empty paging.type_num  }">
+			          		  		<c:set var="uri_type" value="&type=${paging.type_num }"/>	
+			          		  	</c:when>
+			          		  	<c:otherwise>
+			          		  		<c:set var="uri_type" value=""/>
+			          		  	</c:otherwise>
+			          		</c:choose>
+	                    	
 	                        <div class="m_s_delivery m_s_delivery_ok">
 	                            <h3 class="point_text">배송완료</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=2" class="a">${delivery.deliveryOk }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_orderlist.do?type=2" class="a">${delivery.deliveryOk }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_ing">
 	                            <h3 class="point_text">배송중</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=1" class="a delivery_ing_a">${delivery.deliveryIng }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_orderlist.do?type=1" class="a delivery_ing_a">${delivery.deliveryIng }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">배송대기</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=0" class="a delivery_before_a">${delivery.deliveryBefore }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_orderlist.do?type=0" class="a delivery_before_a">${delivery.deliveryBefore }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">주문취소</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/admin_type_list.do?type=3" class="a">${delivery.cancelOrder }</a>
+	                            	<a href="<%=request.getContextPath() %>/admin_orderlist.do?type=3" class="a">${delivery.cancelOrder }</a>
 	                            </h4>
 	                        </div>
 	                        
@@ -71,13 +82,13 @@
 						<div class="m_head">
 							<div class="m_h_btn_area">
 								
-								<c:if test="${! empty clikedType }">
+								<c:if test="${! empty paging.type_num }">
 									<div>
 										<button class="btn c_delivery_btn btn_hover" onclick="location.href='admin_orderlist.do'">전체 주문건 보기</button>
 									</div>
 								</c:if>
 								
-								<c:if test="${clikedType ==0 || empty clikedType }">
+								<c:if test="${paging.type_num ==0 || empty paging.type_num }">
 									<div>
 										<button class="btn c_delivery_btn c_all_btn btn_hover" onclick="allDeliveryIng()">전체 배송처리 하기</button>
 									</div>
@@ -86,12 +97,12 @@
 							</div>
 							
 							<div class="m_h_content">
-								<c:if test="${! empty clikedType }">
+								<c:if test="${! empty paging.type_num }">
 									<p>  
 										<c:choose>
-											<c:when test="${clikedType==2 }"><b>배송완료 </b></c:when>
-											<c:when test="${clikedType==1 }"><b>배송중 </b></c:when>
-											<c:when test="${clikedType==0 }"><b>배송대기 </b></c:when>
+											<c:when test="${paging.type_num==2 }"><b>배송완료 </b></c:when>
+											<c:when test="${paging.type_num==1 }"><b>배송중 </b></c:when>
+											<c:when test="${paging.type_num==0 }"><b>배송대기 </b></c:when>
 											<c:otherwise><b>주문취소</b></c:otherwise>
 										</c:choose>
 										주문건 입니다.
@@ -148,7 +159,63 @@
 	
 	                        </tbody>
 	                    </table>
+                	
                 	</div>
+                	
+               		 <!-- 페이지 ---------------------------------------------------------------------------->
+        
+			         <div class="m_page">
+			              <div class="m_page_in">
+			          		
+			                  <!-- back -->
+			                  <c:if test="${paging.page > 1 }">
+			                   <div class="m_page_area back_div">
+			                   	
+			                        <a href="<%=request.getContextPath() %>/admin_orderlist.do?page=1${uri_type }" class="a">
+			                            <i class="fa-solid fa-angles-left"></i>
+			                        </a>
+			                    
+			                        <a href="<%=request.getContextPath() %>/admin_orderlist.do?page=${paging.page-1 }${uri_type }" class="a">
+			                            <i class="fa-solid fa-angle-left"></i>
+			                        </a> 
+			                   
+			                   </div>
+			                  </c:if>   
+			                  
+			                  <!-- page number -->
+			                  <div class="m_page_area num_div">
+			                   	<c:forEach begin="${paging.startBlock }" end="${paging.endBlock }" var="i">
+			                       
+			                       <!-- 현재 페이지일때 --> 
+			                        <c:if test="${i == paging.page }">
+										<a href="<%=request.getContextPath() %>/admin_orderlist.do?page=${i }${uri_type }" class="a active_a">${i }</a>
+									</c:if>
+									
+									<c:if test="${i != paging.page }">
+										<a href="<%=request.getContextPath() %>/admin_orderlist.do?page=${i }${uri_type }" class="a">${i }</a>
+									</c:if>
+			
+			                	</c:forEach>
+			                  </div>
+			                  
+			                  <!-- forward -->
+			                  <c:if test="${paging.page < paging.allPage }">
+			                   	<div class="m_page_area forward_div">
+			                   
+			                       	<a href="<%=request.getContextPath() %>/admin_orderlist.do?page=${paging.page +1 }${uri_type }" class="a">
+			                           	<i class="fa-solid fa-angle-right"></i>
+			                       	</a>  
+			                       
+			                       	<a href="<%=request.getContextPath() %>/admin_orderlist.do?page=${paging.allPage }${uri_type }" class="a">
+			                           	<i class="fa-solid fa-angles-right"></i>
+			                       	</a>
+			                       
+			                   	</div>
+			                  </c:if>
+			              </div>
+			          </div>
+			          <%-- m_page 끝 ----------------------------------------------------------------------%>
+                		
 				</section>
 				<%-- main_in 끝 ----------------------------%>
 			</section>

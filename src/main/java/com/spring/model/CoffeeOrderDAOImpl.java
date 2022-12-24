@@ -105,16 +105,28 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
 	
-	// 주문리스트
+	// 배송 타입별 주문건수(배송대기, 배송중 .. 건수)
 	@Override
-	public List<CoffeeOrderDTO> getOrderListAdmin() {
-		return this.sqlSession.selectList("getOrderListAdmin");
+	public List<Map<String, Integer>> getDeliveryTypeCntA() {
+		return this.sqlSession.selectList("getDeliveryTypeCntAdmin");
 	}
 	
-	// 타입별 주문리스트
+	// 주문건수 확인_페이징 totalRecord (타입선택 안함)
 	@Override
-	public List<CoffeeOrderDTO> getTypeOrderListAdmin(int type_num) {
-		return this.sqlSession.selectList("getTypeOrderListAdmin", type_num);
+	public int getRowCountAdmin() {
+		return this.sqlSession.selectOne("getRowCountAdmin");
+	}
+	
+	// 주문건수 확인_페이징 totalRecord (타입선택 함)
+	@Override
+	public int getRowTypeCountAdmin(int type_num) {
+		return this.sqlSession.selectOne("getTypeRowCountAdmin", type_num);
+	}
+
+	// 주문리스트
+	@Override
+	public List<CoffeeOrderDTO> getOrderListAdmin(Map<String, Object> stEnRowMap) {
+		return this.sqlSession.selectList("getOrderListAdmin", stEnRowMap);
 	}
 
 	// row 타입번호 변경
@@ -129,6 +141,11 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.update("updateAllTypeNum");
 	}
 
+	
+
+	
+
+	
 
 
 	
