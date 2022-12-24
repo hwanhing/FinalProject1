@@ -30,14 +30,11 @@ public interface CoffeeOrderDAO {
 	// 장바구니 삭제
 	int deleteCart(List<CoffeeOrderDTO> orderDto);
 	
-	// 주문목록 가져오기
-	List<CoffeeOrderDTO> getNowOrderList(String order_num);
+	// 주문내역 가져오기
+	List<CoffeeOrderDTO> getOrderCont(String order_num);
 	
 	// 주문목록 가져오기(list)
 	List<CoffeeOrderDTO> getOrderList(Map<String, Object> stEnRowMap);
-	
-	// 주문목록 가져오기(일자설정)
-	List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap);
 	
 	// 주문 타입 수정
 	int updateOrderType(Map<String, Object> typeMap);
@@ -45,9 +42,11 @@ public interface CoffeeOrderDAO {
 	// 포인트 사용시 포인트 취소
 	int updateUsePointCancel(Map<String, Object> typeMap);
 	
-	// 게시물 수 확인
-	int getRowCount(int member_num);
+	// 주문건 수 확인(아무것도 선택안할경우, 타입선택, 일자선택, 타입&일자 선택일때 사용)
+	int getSelectedRowCount(Map<String, Object> selectedMap);
 	
+	// 배송 타입별 주문건수 가져오기 
+	List<Map<String, Integer>>  getDeliveryTypeCnt(int member_num);
 	
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송

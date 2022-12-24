@@ -60,7 +60,10 @@ table td:not(.sep_tr td){
 
 /* 테이블 공통 */
 .m_table{
-    width: 100%;
+	width: 100%;
+}
+
+.m_table:not(.m_rows_table){
     border-collapse: separate !important;
     border-spacing: 2px;
 }

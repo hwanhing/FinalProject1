@@ -66,8 +66,8 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 
 	// 주문내역
 	@Override
-	public List<CoffeeOrderDTO> getNowOrderList(String order_num) {
-		return this.sqlSession.selectList("nowOrderList", order_num);
+	public List<CoffeeOrderDTO> getOrderCont(String order_num) {
+		return this.sqlSession.selectList("getOrderCont", order_num);
 	}
 
 	// 주문내역 리스트
@@ -76,11 +76,6 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.selectList("getOrderList", stEnRowMap);
 	}
 
-	// 주문내역 리스트(일자지정)
-	@Override
-	public List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap) {
-		return this.sqlSession.selectList("getOrderListDate", dateMap);
-	}
 
 	// 주문타입 수정 (주문취소처리, 배송완료처리)
 	@Override
@@ -94,11 +89,18 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.update("updateUsePointCancel", typeMap);
 	}
 
-	// 게시물 수 확인(타입, 일자 선택 안한 상태)
+	// 주문건 수 확인(아무것도 선택안할경우, 타입선택, 일자선택, 타입&일자 선택일때 사용)
 	@Override
-	public int getRowCount(int member_num) {
-		return this.sqlSession.selectOne("getRowCount", member_num);
+	public int getSelectedRowCount(Map<String, Object> selectedMap) {
+		return this.sqlSession.selectOne("getRowCount", selectedMap);
 	}
+	
+	// 배송 타입별 주문건수 가져오기 (배송완료, 배송중... 수량)
+	@Override
+	public List<Map<String, Integer>> getDeliveryTypeCnt(int member_num) {
+		return this.sqlSession.selectList("getDeliveryTypeCnt", member_num);
+	}
+	
 	
 	//////////////////////////////////////////////////////////////////////////////
 	// 관리자 배송
@@ -126,6 +128,14 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 	public int updateAllTypeNum() {
 		return this.sqlSession.update("updateAllTypeNum");
 	}
+
+
+
+	
+
+	
+
+	
 
 	
 

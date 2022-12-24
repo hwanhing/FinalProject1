@@ -1,13 +1,17 @@
 @charset "UTF-8";
 
+/* 페이지 */
+.m_page div{
+    display: flex;
+    justify-content: center;
+}
+
 .m_page_in{
     margin: auto;
 }
 
 .m_page_area{
     display: flex;
-    /* border-top: 1px solid var(--color_begie_op);
-    border-bottom: 1px solid var(--color_begie_op); */
 }
 
 .m_page_area .a{
@@ -20,6 +24,7 @@
 
 .m_page_area .a:hover{
     color: var(--color_milk_brown);
+    font-weight: bold;
 }
 
 .num_div .active_a{

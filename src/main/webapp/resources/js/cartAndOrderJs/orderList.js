@@ -9,19 +9,52 @@
  */
 
 	console.log('order list js')
-
-	 // 기간(일자) 변수
-	 let startDate = document.querySelector('.start_date')
-	 let endDate = document.querySelector('.end_date')
-	 
-	 // default start_date / end_date 오늘날짜로 세팅
-	 //startDate.value = new Date().toISOString().substring(0, 10);
-	 //endDate.value = new Date().toISOString().substring(0, 10);
-	 
-	 // default 시작일과 종료일은 당일 이후 선택 불가능 
-	 endDate.setAttribute("max", new Date().toISOString().substring(0, 10))
-	 startDate.setAttribute("max", endDate.value)
-	 //endDate.setAttribute("max", startDate.value)
+	
+	// 기간(일자) 변수
+	let startDate = document.querySelector('.start_date')
+	let endDate = document.querySelector('.end_date')
+	
+	// 쿼리스트링 가져오기
+    function searchParam(key) {
+	  return new URLSearchParams(location.search).get(key);
+	};
+	
+	window.onload = function(){
+		console.log('window.onload')
+		
+		let page = searchParam('page')
+		let type = searchParam('type')
+		let typeName = ""
+		let startEnd = searchParam('startEnd')
+		let explain = document.querySelector('.explain_txt_now')
+		let rows = document.querySelector('.rows').value
+		
+		// default 시작일과 종료일은 당일 이후 선택 불가능 
+	 	endDate.setAttribute("max", new Date().toISOString().substring(0, 10))
+	 	startDate.setAttribute("max", endDate.value)
+	 	
+	 	switch (type){
+	 		case '0' : typeName='배송대기'; break;
+	 		case '1' : typeName='배송중';  break;
+	 		case '2' : typeName='배송완료'; break;
+	 		case '3' : typeName='주문취소'; break;
+	 	}
+	 	
+	 	if((page != null && type == '' && startEnd=='') || (page == null && type == null && startEnd == null)){
+	 		explain.innerHTML = `전체 주문건은 <b>${rows}</b>건 입니다.`
+	 	
+	 	}else if((type == '' || type == null) && startEnd != ''){
+ 			explain.innerHTML = `${startDate.value} 부터 ${endDate.value} 까지 주문건은 <b>${rows}</b>건 입니다.`
+	 		
+	 	}else if(type != '' && startEnd == ''){
+	 		explain.innerHTML = `<b>[${typeName}]</b> 인 주문건은 <b>${rows}</b>건 입니다.`
+	 		
+	 	}else if((type != '' || type != null) && startEnd != ''){
+	 		explain.innerHTML = `${startDate.value} 부터 ${endDate.value} 까지 <b>[${typeName}]</b>인 주문건은 <b>${rows}</b>건 입니다.`
+	 	
+	 	}
+	 	
+	}
 	 
 	 // 시작일을 종료일 보다 후로 설정 못하게 지정 
 	 startDate.addEventListener('click',function(){
@@ -46,7 +79,16 @@
     	}
    		let startEnd = [startDate.value, endDate.value]
    		console.log(startEnd[0])
-    	location.href=`order_list_selectDate.do?startEnd=${startEnd}`
+   		let page = searchParam('page')
+   		let type = searchParam('type')
+   		
+   		if(page==null && type==null){
+   			location.href=`order_list.do?startEnd=${startEnd}`
+   		
+   		}else{
+   			location.href=`order_list.do?page=${page}&type=${type}&startEnd=${startEnd}`
+   		}
+    	
     }
     
 	// 3. 구매완료 버튼 클릭시 배달 완료 처리
