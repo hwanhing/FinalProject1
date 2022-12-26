@@ -14,25 +14,13 @@ public class CoffeeCartDAOImpl implements CoffeeCartDAO {
 	@Inject
 	private SqlSessionTemplate sqlSession;
 	
-	// 장바구니 DB row 유무 확인
-	@Override
-	public int getCartDBTrue() {
-		return this.sqlSession.selectOne("cartDBTrue");
-	}
-	
 	// 장바구니 요청 상품 유무 확인
 	@Override
 	public CoffeeCartDTO getCart(Map<String, Integer> cartMap) {
 		return this.sqlSession.selectOne("findCart", cartMap);
 	}
-
-	// 장바구니 테이블에 row가 1개도 없을 경우
-	@Override
-	public void insertFirstCart(CoffeeCartDTO cartFDto) {
-		this.sqlSession.selectOne("insertFirstCart", cartFDto);
-	}
 	
-	// 장바구니 테이블에 row가 1개 라도 있을경우
+	// 장바구니 테이블에 상품 추가
 	@Override
 	public int insertCart(CoffeeCartDTO cartDTO) {
 		return this.sqlSession.insert("insertCart", cartDTO );

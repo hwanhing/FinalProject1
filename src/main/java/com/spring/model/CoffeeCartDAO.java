@@ -5,12 +5,8 @@ import java.util.Map;
 
 public interface CoffeeCartDAO {
 	
-	// 장바구니에 데이터 유무 확인
-	int getCartDBTrue();
-	
 	// 장바구니 추가/수정 메서드
 	CoffeeCartDTO getCart(Map<String, Integer> cartMap);
-	void insertFirstCart(CoffeeCartDTO cartDTO);
 	int insertCart(CoffeeCartDTO cartDTO);
 	int updateCart(Map<String, Integer> cartMap);
 	

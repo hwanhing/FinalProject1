@@ -9,11 +9,6 @@
 		select * from coffee_beans where beans_num = #{beans_num}
 	</select>
 	
-	<!-- 장바구니 DB row 여부 확인(0이면 데이터 없음)-->
-	<select id="cartDBTrue" resultType="int">
-		select nvl(max(cart_num),0) as cart_num from coffee_cart
-	</select>
-	
 	<!-- 장바구니에 있는 상품인지 확인 -->
 	<select id="findCart" parameterType="hashmap" resultType="coffeeCartDTO">
 		select nvl(max(cart_num),0) as cart_num
@@ -26,17 +21,11 @@
 		   and cart_grind = #{select_grind}
 	</select>
 	
-	<!-- 장바구니 등록(row가 하나도 없을때) -->
-	<insert id="insertFirstCart" parameterType="coffeeCartDTO">
-		insert into coffee_cart 
-		values(#{cart_num}, #{beans_num}, #{cart_cnt}, #{cart_weight}, #{cart_grind}, #{member_num})
-	</insert>
-	
 	<!-- 장바구니 등록(row가 하나라도 있을때) -->
 	<insert id="insertCart" parameterType="coffeeCartDTO">
 		
 		<selectKey resultType="int" keyProperty="cart_num" order="BEFORE">
-			select max(cart_num) from coffee_cart
+			select nvl(max(cart_num),0) from coffee_cart
 		</selectKey>
 		
 		insert into coffee_cart 
