@@ -296,6 +296,7 @@
 	<delete id="bean_delete" parameterType="int">
 		delete from coffee_beans where beans_num = #{beans_num}
 	</delete>
+	
 
 	
 	<select id="beanSearch" resultType="coffeeBeanDTO">
