@@ -59,10 +59,12 @@
 	                    			<c:forEach items="${cartList }" var="list">
 	                    				
 	                    				<%-- 상품 재고가 있을 경우 시작 ---------------------------------------------------------------------%>
-	                    				<c:if test="${list.getBeans_count()!=0 }">
-	                    					 <input type="hidden" class="row_cart_num num_${list.getCart_num()}_n" value="${list.getCart_num() }">
-		                    				 
+	                    				<c:if test="${list.getBeans_count() >= (list.getCart_cnt() * (list.getCart_weight()/100))  }">
+	                    					
 		                    				 <div class="row_area num_${list.getCart_num()}_row">
+	                    						
+	                    						<%-- 재고가 있을 경우에만 있음 --%>
+	                    					 	<input type="hidden" class="row_cart_num num_${list.getCart_num()}_n" value="${list.getCart_num() }">
 				                                
 				                                <!-- 상품 이미지 -->
 				                                <div class="row_img_area">
@@ -93,12 +95,33 @@
 				                                         	 </h5>
 				                                         </c:if>
 				                                         
+				                                         <!-- 재고 1000g 이하 부터 표시-->
+				                                         <c:choose>
+				                                         	<c:when test="${ list.getBeans_count()* 100 < 1000 }">
+				                                         		<div class="c_beans_count">
+							                                    	<h5 class="sub_middle_text">
+								                                        재고 : [ <b class="num_${list.getCart_num()}_b_cnt">${ list.getBeans_count()* 100} </b> g ]
+						                                         	</h5>
+						                                    	</div>
+				                                         	</c:when>
+				                                         	<c:otherwise>
+				                                         		<div class="c_beans_count j_num_${list.getCart_num()}_b_cnt display_none">
+							                                    	<h5 class="sub_middle_text">
+								                                        재고 : [ <b class="num_${list.getCart_num()}_b_cnt">${ list.getBeans_count()* 100} </b> g ]
+						                                         	</h5>
+						                                    	</div>
+				                                         	</c:otherwise>
+				                                         </c:choose>
+				                                         
 				                                        <input type="hidden" class="row_price num_${list.getCart_num()}_Rprice" value="${list.getBeans_price() }">
-				                                        <input type="hidden" class="cart_p_grind" value="${list.getCart_grind() }">
+				                                        <%-- <input type="hidden" class="cart_p_grind" value="${list.getCart_grind() }"> --%>
 				                                    </div>
+				                                    
+				                                    
+				                                    
 				                                    <div class="product_cnt_delete">
 				                                        
-				                                        <div class="gram_cnt_btn_area">
+			                                        	<div class="gram_cnt_btn_area">
 					                                         
 					                                         <!-- 원두 그람 수정 -->
 					                                         <div class="gram_updown">
@@ -158,11 +181,17 @@
 			                             <%-- 상품 재고가 있을 경우 끝 ----------------------------------------------------------------------%>
 			                             
 			                             <%-- 상품 재고가 없을 경우 시작 ---------------------------------------------------------------------%>
-			                             <c:if test="${list.getBeans_count()==0 }">
+			                             <c:if test="${list.getBeans_count() < (list.getCart_cnt() * (list.getCart_weight()/100))  }">
 			                             	
 			                              	<div class="sold_out_row num_${list.getCart_num()}_row">
-			                             		<h3 class="sold_out_txt">품&nbsp;&nbsp;절</h3>
-			                    				 <div class="row_area sold_out">
+			                             		<div class="sold_out_txt">
+			                             			<h3> 품&nbsp;&nbsp;절 </h3>
+			                             			<p> [ <b>${ list.getBeans_count()* 100} g</b> ] 남았습니다. </p>
+			                             			<c:if test="${list.getBeans_count()>0 }">
+			                             				<button onclick="location.href='bean_cart_update.do?no=${list.getCart_num()}&cnt=1&weight=100'">다시 장바구니에 담기</button>
+			                             			</c:if>
+			                             		</div>
+			                    				<div class="row_area sold_out">
 					                                <!-- 상품 이미지 -->
 					                                <div class="row_img_area">
 					                                    <div class="row_img">
@@ -191,6 +220,7 @@
 						                                         	 원두 갈아주세요
 					                                         	 </h5>
 					                                         </c:if>
+					                                         
 					                                    </div>
 					                                    <div class="product_cnt_delete">
 					                                        
