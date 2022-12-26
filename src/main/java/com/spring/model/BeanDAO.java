@@ -18,6 +18,13 @@ public interface BeanDAO {
 	
 	List<CoffeeBeanDTO> BeanPriceUpList();
 	
+	List<CoffeeBeanDTO> BeanStar5List();
+	List<CoffeeBeanDTO> BeanStar4List();
+	List<CoffeeBeanDTO> BeanStar3List();
+	List<CoffeeBeanDTO> BeanStar2List();
+	List<CoffeeBeanDTO> BeanStar1List();
+	
+	
 	CoffeeStarDTO seHeart(Map<String, Integer> map);
 	void insertHeart(Map<String, Integer> map);
 	void updateHeart(Map<String, Integer> map);
@@ -33,6 +40,9 @@ public interface BeanDAO {
 	/* List<CoffeeWriteDTO> getWriteListStar(int num); */
 
 	int starAvg(int num);
+	int starCheck(int num);
+	
+	int writeCheck(Map<String, Integer> map);
 	
 	int seWrite(Map<String, Object> map);
 	int insertWriteStar(Map<String, Object> map);

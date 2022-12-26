@@ -179,19 +179,20 @@ width: 100PX;
        <div class="select_box1">
             <select class="box1" name="select_box">
                 <option id="op_name" value="정렬">정렬</option>
+                <option value="찜많은순">찜많은순</option>
                 <option value="낮은가격순">낮은가격순</option>
                 <option value="높은가격순">높은가격순</option>
             </select>
         </div>
 
         <div class="select_box2">
-            <select class="box2">
-                <option>고객평가</option>
-                <option>★★★★★</option>
-                <option>★★★★</option>
-                <option>★★★</option>
-                <option>★★</option>
-                <option>★</option>
+            <select class="box2" name="select_box2">
+                <option id="op_name2" value="고객평가">고객평가</option>
+                <option value="5점">5점</option>
+                <option value="4점">4점</option>
+                <option value="3점">3점</option>
+                <option value="2점">2점</option>
+                <option value="1점">1점</option>
             </select>
             <br>
         </div>
@@ -205,11 +206,13 @@ width: 100PX;
         	<table>
         		<tr>
         			<td>	
-        			<h3>안ㄴ와</h3>
+        			<h3>평가된 원두가 없습니다.</h3>
         			</td>
         		</tr>
         	</table>
         </c:if>
+        <c:if test="${!empty list }">
+       
          <c:set var="count" value="${Count }" />
         	<div class="title_box">
         		<a>원두상품 총 개수 : ${count } 개</a>
@@ -221,7 +224,12 @@ width: 100PX;
 
         	<div class="con1">
         		<div class="con_box" align="center">
-        			<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
+        		<c:if test="${member_id eq null }">
+	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'">         				        			
+        		</c:if>
+        		<c:if test="${member_id ne null }">
+	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'">            		
+        		</c:if>
         		</div>
         		<div class="info_out">
 	        		<div class="con_info">
@@ -257,6 +265,7 @@ width: 100PX;
 				</c:forEach>
 				
         	</div> <%-- list_box 끝 --%>
+        	 </c:if>
         </div> <%-- empty 끝 --%>
     <jsp:include page="../layout/footer.jsp" />
     
@@ -328,6 +337,35 @@ width: 100PX;
  	    }
  	    
  	  }); 
+	
+	$('.box2').change(function(){
+		
+		var result = $('.box2 option:selected').val();
+		var name = document.getElementById("op_name2").value;
+		
+		if(result == '5점'){
+			
+			location.href="beans_star_5.do"
+			
+		}else if(result == '4점'){
+			
+			location.href="beans_star_4.do"
+			
+		}else if(result == '3점'){
+			
+			location.href="beans_star_3.do"
+			
+		}else if(result == '2점'){
+			
+			location.href="beans_star_2.do"
+			
+		}else{
+			
+			location.href="beans_star_1.do"
+			
+		}
+		
+	});
  	
 
 	

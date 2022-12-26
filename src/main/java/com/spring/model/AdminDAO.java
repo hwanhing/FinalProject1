@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AdminDAO {
 
@@ -25,4 +26,10 @@ public interface AdminDAO {
 	int adminBeanModify(CoffeeBeanDTO dto);
 	
 	int adminBeanDelete(int beans_num);
+	
+	List<CoffeeBeanDTO> searchBeanList(String keyword);
+	
+	int searchCount(String keyword);
+	
+	int adminBeanInsert(Map<String, Object> map);
 }

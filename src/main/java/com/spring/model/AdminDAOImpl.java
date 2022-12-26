@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -71,6 +72,21 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public int adminBeanDelete(int beans_num) {
 		return this.sqlSession.delete("bean_delete", beans_num);
+	}
+
+	@Override
+	public List<CoffeeBeanDTO> searchBeanList(String keyword) {
+		return this.sqlSession.selectList("beanSearch", keyword);
+	}
+
+	@Override
+	public int searchCount(String keyword) {
+		return this.sqlSession.selectOne("searchCount", keyword);
+	}
+
+	@Override
+	public int adminBeanInsert(Map<String, Object> map) {
+		return this.sqlSession.insert("bean_insert", map);
 	}
 
 

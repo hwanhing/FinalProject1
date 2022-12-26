@@ -48,6 +48,41 @@ public class BeanDAOImpl implements BeanDAO{
 		return this.sqlSession.selectList("priceuplist");
 	}	
 
+	// 별점 5점 리스트
+	@Override
+	public List<CoffeeBeanDTO> BeanStar5List() {
+		return this.sqlSession.selectList("star5list");
+	}	
+	
+	// 별점 4점 리스트
+	@Override
+	public List<CoffeeBeanDTO> BeanStar4List() {
+		return this.sqlSession.selectList("star4list");
+	}
+
+	// 별점 3점 리스트
+	@Override
+	public List<CoffeeBeanDTO> BeanStar3List() {
+		return this.sqlSession.selectList("star3list");
+	}
+
+	// 별점 2점 리스트
+	@Override
+	public List<CoffeeBeanDTO> BeanStar2List() {
+		return this.sqlSession.selectList("star2list");
+	}
+
+	// 별점 1점 리스트
+	@Override
+	public List<CoffeeBeanDTO> BeanStar1List() {
+		return this.sqlSession.selectList("star1list");
+	}
+	
+	
+	
+	
+	
+	
 	// 원두 상세보기 정보
 	@Override
 	public CoffeeBeanDTO getBeanContent(int num) {
@@ -139,6 +174,18 @@ public class BeanDAOImpl implements BeanDAO{
 	public int starAvg(int num) {
 		return this.sqlSession.selectOne("starAvg", num);
 	}
+
+	@Override
+	public int starCheck(int num) {
+		return this.sqlSession.selectOne("starCheck", num);
+	}
+
+	@Override
+	public int writeCheck(Map<String, Integer> map) {
+		return this.sqlSession.selectOne("writeCheck", map);
+	}
+
+
 
 
 
