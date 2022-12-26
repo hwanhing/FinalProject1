@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface AdminDAO {
 
+	
 	FinalAdminDTO admin_check(FinalAdminDTO dto);
 
 	List<FinalMemberDTO> memberList(PageDTO dto);

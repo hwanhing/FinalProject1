@@ -389,11 +389,7 @@ public class CoffeeBeanController {
 			out.println("history.back()");
 			out.println("</script>");
 		}		
-		
-		
+				
 	}
-	
-	
-
 
 }

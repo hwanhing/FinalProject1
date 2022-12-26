@@ -89,6 +89,7 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.insert("bean_insert", map);
 	}
 
+	
 
 	
 

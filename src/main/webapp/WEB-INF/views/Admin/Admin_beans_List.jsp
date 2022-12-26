@@ -356,6 +356,8 @@
 				<br>
 				<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 등록</b></h6>
 				<hr id="hr1" width="95%">
+
+
 				
 			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_beans_insert.do">		
 				<div>	

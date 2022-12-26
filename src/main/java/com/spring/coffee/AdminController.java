@@ -242,6 +242,7 @@ private int totalRecord=0;
 
 	  }
 	  
+	
 	  @RequestMapping("admin_beans_insert.do")
 	  public void admin_beans_insert(@RequestParam("beans_num") int beans_num, @RequestParam("beans_count") int beans_count, MultipartHttpServletRequest mRequest,
 			  @RequestParam("beans_name") String beans_name, @RequestParam("beans_taste") String beans_taste, @RequestParam("beans_price") int beans_price, @RequestParam("beans_intro") String beans_intro,

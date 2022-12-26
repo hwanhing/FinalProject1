@@ -281,8 +281,6 @@
 	</delete>
 	
 	
-	
-	
 	<select id="beanSearch" resultType="coffeeBeanDTO">
 		select * from coffee_beans where beans_name like '%' || #{keyword} || '%' order by beans_num 
 	</select>

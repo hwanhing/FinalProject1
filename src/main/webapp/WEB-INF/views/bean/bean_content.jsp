@@ -843,12 +843,9 @@
 				</c:if> <!-- 후기글을 작성했는지 안했는지 조건문 -->
 			<br>
 			
-			
-
-			
+				
 			<div class="write_box2">	
-		
-			
+
 			
 			<c:forEach items="${w_list }" var="w">
 			
