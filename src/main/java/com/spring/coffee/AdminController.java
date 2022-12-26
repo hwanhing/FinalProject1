@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -16,12 +17,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.AdminDAO;
+import com.spring.model.BoardReplyDTO;
 import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeOrderDTO;
 import com.spring.model.FinalAdminDTO;
@@ -135,6 +138,7 @@ private int totalRecord=0;
             // 처음으로 게시물 전체 목록을 클릭한 경우.
             page = 1;
         }
+        
 
         // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
         totalRecord = this.dao.beansList();
@@ -159,13 +163,43 @@ private int totalRecord=0;
 		
 		return "./Admin/Admin_beans_List";
 	}
-	
-	
+
+		@RequestMapping("admin_center.do")
+		public String order_list(HttpServletRequest request, Model model) {
+			
+			
+			 // 페이징 처리 작업
+	        int page;    // 현재 페이지 변수
+
+	        if(request.getParameter("page") != null) {
+
+	            page = Integer.parseInt(request.getParameter("page"));
+
+	        }else {
+
+	            // 처음으로 게시물 전체 목록을 클릭한 경우.
+	            page = 1;
+	        }
+
+	        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
+	        totalRecord = this.dao.boardList();
+
+	        PageDTO dto = new PageDTO(page, this.rowsize, this.totalRecord);
+	             
+	        List<FinalMemberDTO> list = this.dao.boardList(dto);
+	        // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+
+	        model.addAttribute("Paging", dto);				
+			model.addAttribute("boardList", list);
+			
+			return "./Admin/Admin_Member_board";
+		}
+
 	@RequestMapping("admin_beans_cont.do")
 	public String admin_bean_cont(@RequestParam("no") int beans_num, Model model) {
 		
 		CoffeeBeanDTO dto = this.dao.getBeanContent(beans_num);
-		
+
 		model.addAttribute("cont", dto);
 		
 		return "./Admin/Admin_beans_cont";
@@ -204,6 +238,7 @@ private int totalRecord=0;
 				out.println("</script>");
 			}		  
 	  }
+
 	  
 	  @RequestMapping("admin_beans_delete.do")
 	  public void admin_bean_delete(@RequestParam("no") int beans_num, HttpServletResponse response) throws IOException {
@@ -319,5 +354,102 @@ private int totalRecord=0;
 		  out.println("<script>location.href='"+mRequest.getContextPath()+"/admin_beans.do';</script>");
 		  
 	  }
-	 
+	  @RequestMapping("adminboard_cont.do")
+	  public String board_cont(@RequestParam("num")int board_num ,Model model ) {
+		  
+		  FinalMemberDTO dto = this.dao.centerwrite(board_num);
+		  
+		
+		System.out.println(">>>>>>>"+dto.getBoard_cont()); 
+		  
+
+		  model.addAttribute("centerCont",dto);
+		 
+		  
+		  return "./Admin/Admin_centerCont";
+	  }
+	  @RequestMapping("admin_center_ok.do")
+	  public void admin_member_modify_ok(@RequestParam("board_num") int board_num,@RequestParam("reply_cont") String reply_cont,FinalMemberDTO dto, HttpServletResponse response) throws IOException {
+		
+			/* int res = this.dao.admincenterOk(board_num); */
+		  
+		  Map<String, Object>map = new HashMap<String, Object>();
+		 
+		  
+		  map.put("reply_cont", reply_cont);
+		  map.put("board_num", board_num);
+		  map.put("admin_num", "");
+		  
+		 int res = this.dao.admincenterOk(map);
+		  
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  PrintWriter out = response.getWriter();
+		  
+			if(res > 0) {
+				
+				this.dao.updatecenter(board_num);
+				out.println("<script>");
+				out.println("alert('작성완료')");
+				out.println("location.href='admin_center.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('작성실패')");
+				out.println("history.back()");
+				out.println("</script>");
+			}		 
+			
+	  }
+	  @RequestMapping("adminboardgreen_cont.do")
+	  public String greenbutton(@RequestParam("num") int board_num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.greenbtn(board_num);
+		  FinalMemberDTO dto1 = this.dao.centerwrite(board_num);
+		  System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+dto1);
+		 
+		  model.addAttribute("centerwrite", dto1);
+		  model.addAttribute("greenbtn", dto);
+		  return "./Admin/Admin_centerGreenBTNCont";
+	  }
+	  @RequestMapping("admin_after.do")
+	  public String  after_Write(Model model,HttpServletRequest request) {
+		  	
+		  // 페이징 처리 작업
+	        int page;    // 현재 페이지 변수
+
+	        if(request.getParameter("page") != null) {
+
+	            page = Integer.parseInt(request.getParameter("page"));
+
+	        }else {
+
+	            // 처음으로 게시물 전체 목록을 클릭한 경우.
+	            page = 1;
+	        }
+
+	        // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
+	        totalRecord = this.dao.afterList();
+
+	        PageDTO dto = new PageDTO(page, this.rowsize, this.totalRecord);
+	             
+	        List<FinalMemberDTO> list = this.dao.after_writeList(dto);
+	        // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
+
+	        model.addAttribute("Paging", dto);				
+			model.addAttribute("afterList", list);
+			
+			System.out.println(">>>>>>>>>"+list);
+			
+			return"./Admin/Admin_after_write";
+	  }
+	  @RequestMapping("admin_Write_cont.do")
+	  public String writecont(@RequestParam("num")int write_num,Model model) {
+		  
+		  FinalMemberDTO dto = this.dao.write_cont(write_num);
+		  
+		  model.addAttribute("write_cont", dto);
+		  
+		  return "./Admin/Admin_write_cont";
+	  }
 }

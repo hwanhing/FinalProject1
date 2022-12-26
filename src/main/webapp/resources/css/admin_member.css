@@ -132,6 +132,24 @@
     --bs-btn-disabled-border-color: #0d6efd;
 }
 
+	#fin_a{
+		width: 80px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #2E9E02;
+		color: white;
+	}
+	#fin_b{
+		width: 95px;
+		height: 25px; 
+		border-radius: 5px;
+		border: none;
+		background-color: #FF2727;
+		color: white;
+	}
+
+
 ******************
 
 .table-wrapper {
@@ -362,3 +380,4 @@
 
 	
 }
+

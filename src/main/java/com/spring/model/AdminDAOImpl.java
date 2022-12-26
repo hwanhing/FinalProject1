@@ -8,6 +8,8 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import oracle.net.aso.r;
+
 @Repository
 public class AdminDAOImpl implements AdminDAO{
 
@@ -60,6 +62,17 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public int boardList() {
+		return this.sqlSession.selectOne("counto");
+	}
+
+	@Override
+	public List<FinalMemberDTO> boardList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("admin_board",dto);
+  }
+  
+  @Override
 	public CoffeeBeanDTO getBeanContent(int no) {
 		return this.sqlSession.selectOne("beans_cont", no);
 	}
@@ -67,6 +80,7 @@ public class AdminDAOImpl implements AdminDAO{
 	@Override
 	public int adminBeanModify(CoffeeBeanDTO dto) {
 		return this.sqlSession.update("bean_modify", dto);
+
 	}
 
 	@Override
@@ -89,7 +103,49 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.insert("bean_insert", map);
 	}
 
+
+	public FinalMemberDTO centerwrite(int board_num) {
+		
+		return this.sqlSession.selectOne("centerwrite",board_num);
+	}
+
+	@Override
+	public int admincenterOk(Map<String, Object> map) {
+		return this.sqlSession.insert("centerOk",map);
+		
+	}
+
+	@Override
+	public int updatecenter(int board_num) {
+		
+		return this.sqlSession.update("centerupdate", board_num);
+	}
+
+	@Override
+	public FinalMemberDTO greenbtn(int board_num) {
 	
+		return this.sqlSession.selectOne("greenbtn",board_num );
+	}
+
+	@Override
+	public int afterList() {
+		
+		return this.sqlSession.selectOne("afterCount");
+	}
+
+	@Override
+	public List<FinalMemberDTO> after_writeList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("afterlike", dto);
+	}
+
+	@Override
+	public FinalMemberDTO write_cont(int write_num) {
+		
+		return this.sqlSession.selectOne("write_Cont", write_num);
+	}
+
+
 
 	
 

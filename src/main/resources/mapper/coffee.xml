@@ -268,6 +268,23 @@
 	select fm.*,co.* from final_member fm join coffee_order co on fm.member_num = co.member_num where fm.member_num=#{member_num}
 	</select>
 	
+	
+	<select id="counto" resultType="int">
+		select count(*) from member_board
+	</select>
+	
+		<select id="admin_board" resultType="finalMemberDTO" parameterType="pageDTO">
+		<![CDATA[select * from (select b.*, row_number() over(order by board_num) rnum from member_board b)a,final_member b where a.member_num = b.member_num and rnum >= #{startNo} and rnum <= #{endNo}]]>	
+		</select>
+		 
+		<select id="yescount" resultType="int">
+			select count(*) from member_board where board_reply =1
+		</select>	
+	
+		<select id="nocount" resultType="int">
+		select count(*) from member_board where board_reply =0
+	</select>
+	
 	<select id="beans_cont" parameterType="int" resultType="coffeeBeanDTO">
 		select * from coffee_beans where beans_num = #{beans_num}
 	</select>
@@ -280,6 +297,7 @@
 		delete from coffee_beans where beans_num = #{beans_num}
 	</delete>
 	
+
 	
 	<select id="beanSearch" resultType="coffeeBeanDTO">
 		select * from coffee_beans where beans_name like '%' || #{keyword} || '%' order by beans_num 
@@ -294,6 +312,38 @@
 	</insert>
 	
 	
+
+	<select id="centerwrite" parameterType="int" resultType="finalMemberDTO">
+		select fm.*,mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where board_num=#{board_num}
+	</select>
+	
+	<insert id="centerOk" parameterType="map">
+		<selectKey resultType="int" keyProperty="reply_num" order="BEFORE">
+			select nvl(max(reply_num),0) from admin_reply
+		</selectKey>
+		insert into admin_reply values(#{reply_num}+1,#{reply_cont},sysdate,#{admin_num},#{board_num})
+	</insert>
+	
+	<update id="centerupdate" parameterType="int">
+		update member_board set board_reply=1 where board_num=#{board_num} 
+	</update>
+	
+	<select id="greenbtn" parameterType="int" resultType="finalMemberDTO">
+		select ar.*,mb.* from admin_reply ar join member_board mb on ar.board_num = mb.board_num where mb.board_num=#{board_num}
+	</select>
+	
+	<select id="afterCount" resultType="int">
+		select count(*) from coffee_write
+	</select>
+	
+	<select id="afterlike" parameterType="pageDTO" resultType="finalMemberDTO">
+	<![CDATA[select * from (select b.*, row_number() over(order by write_num) rnum from coffee_write b)a,coffee_beans b where a.beans_num = b.beans_num and rnum >=  #{startNo} and rnum <= #{endNo}]]>
+	</select>
+	
+	<select id="write_Cont" parameterType="int" resultType="finalMemberDTO">
+		select cb.*,cw.* from coffee_beans cb join coffee_write cw on cb.beans_num = cw.beans_num where write_num=#{write_num}
+	</select>
+
 	
 </mapper>  
 

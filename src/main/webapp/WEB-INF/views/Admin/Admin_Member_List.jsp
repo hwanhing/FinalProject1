@@ -51,28 +51,14 @@ $( "#member_table tr" ).on( "mouseleave", function() {
 								      <td>${dto.getMember_date() }</td>
 								      <td>
 								  							     
-											<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-											 <span>삭제</span>
-											</button>
+									<c:if test="${dto.getMember_use() ne '1'}">
+										<button id="fin_a">회원</button>
+									</c:if>
+									<c:if test="${dto.getMember_use() eq '1' }">
+										<button id="fin_b">탈퇴</button>
+									</c:if>     
 											
-									<!-- Modal -->
-											<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-											  <div class="modal-dialog">
-											    <div class="modal-content">
-											      <div class="modal-header">
-											        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-											        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-											      </div>
-											      <div class="modal-body">
-											        정말로 회원을 삭제처리하시겟습니까?					
-											      </div>
-											      <div class="modal-footer">
-											        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-											        <button type="button" class="btn btn-primary" onclick="location.href='admin_delete.do'">삭제</button>
-											      </div>
-											    </div>
-											  </div>
-											</div>							      
+													      
 								      </td><!--  버튼끝 -->
 								    </tr>
 								    <tr> 
