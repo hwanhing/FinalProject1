@@ -1,6 +1,7 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AdminDAO {
 
@@ -33,5 +34,30 @@ public interface AdminDAO {
 
 	
 	int adminBeanDelete(int beans_num);
+
+	FinalMemberDTO centerwrite(int board_num);
+
+
+	int admincenterOk(Map<String, Object> map);
+
+	int updatecenter(int board_num);
+
+	FinalMemberDTO greenbtn(int board_num);
+
+	int afterList();
+
+	List<FinalMemberDTO> after_writeList(PageDTO dto);
+
+	FinalMemberDTO write_cont(int write_num);
+
+	
+
+	
+
+	
+
+	
+
+	
 
 }

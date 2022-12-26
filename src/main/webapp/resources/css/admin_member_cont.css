@@ -106,3 +106,28 @@ h1{
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 30px;
 }
+.user_name{
+	
+}
+.date{
+	float:right;
+	font-family: 'YESMyoungjo-Regular';
+    font-size: 30px;
+   
+}
+.date1{
+	float:right;
+	font-family: 'YESMyoungjo-Regular';
+    font-size: 20px;
+     margin-right: 450px;
+     margin-top: 10px;
+    margin-left: 50px;
+}
+.date12{
+	float:right;
+	font-family: 'YESMyoungjo-Regular';
+    font-size: 20px;
+     margin-right: 395px;
+     margin-top: 10px;
+    margin-left: 50px;
+}

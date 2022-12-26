@@ -41,7 +41,13 @@ crossorigin="anonymous"></script>
 				<div class="content">
 					<div>
 							<div class="navi">
-							<img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
+								 <c:if test="${dto.getMember_img() eq null}">
+				  	   <img alt="이미지없음" id="img-preview1" class="img_no" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" />
+				     </c:if>
+				     
+				     <c:if test="${dto.getMember_img() ne null }">
+					     <img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" />	     
+				     </c:if>
 						<div class="you">
 							  <span class=tr-span>ID</span>&nbsp;&nbsp;&nbsp;
 									 <span class="td-span">${dto.getMember_id() }</span>
@@ -60,10 +66,11 @@ crossorigin="anonymous"></script>
 								<div class="user_name">
 							   			<span class=tr-span><i class="fa-sharp fa-solid fa-coins"></i>포인트</span>&nbsp;&nbsp;&nbsp;
 										<span class="td-span">${dto.getMember_point() }P</span>
-										
-									 <span class=tr1-span><i class="fa-regular fa-calendar-days"></i>가입일</span>&nbsp;&nbsp;&nbsp;
-									 <span class="td1-span">${dto.getMember_date().substring(0,10) }</span>
-									 	
+								
+										 <span class="date1">${dto.getMember_date().substring(0,10) }</span>
+									 <span class="date"><i class="fa-regular fa-calendar-days"></i>가입일</span>&nbsp;&nbsp;&nbsp;
+								
+								
 									 	<br><br><br>
 							 	</div>
 							 	
@@ -72,8 +79,9 @@ crossorigin="anonymous"></script>
 							 		<span class="phone-span"><i class="fa-solid fa-phone"></i>휴대폰</span>&nbsp;&nbsp;&nbsp;
 									 <span class="td1-span">${dto.getMember_phone() }</span>
 							 		
-							   			<span class=t1-span><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
-										<span class="td-span">${dto.getMember_email() }</span>
+							 			<span class="date12">${dto.getMember_email() }</span>
+							   			<span class="date"><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
+										
 										
 									 
 									 	

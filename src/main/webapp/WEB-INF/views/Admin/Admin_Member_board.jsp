@@ -172,7 +172,7 @@ width: 140px !important;
   		 					<c:if test="${!empty board_List}">
 				 				<c:forEach items="${board_List}" var="dto">
 				 					<c:if test="${dto.getBoard_reply() == 1 }">
-			 						<tr onclick="location.href='adminboard_cont.do?num=${dto.getBoard_num()}&page=${paging.getPage()}'">
+			 						<tr onclick="location.href='adminboardgreen_cont.do?num=${dto.getBoard_num()}&page=${paging.getPage()}'">
 					 					<td>${dto.getBoard_num() } </td>
 					 					<td>${dto.getBoard_title() } </td>
 					 					<td>${dto.getBoard_date() } </td>
