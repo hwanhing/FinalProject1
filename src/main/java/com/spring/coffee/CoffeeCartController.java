@@ -168,6 +168,7 @@ public class CoffeeCartController {
 		return "./cartAndOrder/login";
 	}
 	
+	// 장바구니 수정
 	@RequestMapping("bean_cart_update.do")
 	public void updateCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
@@ -194,7 +195,7 @@ public class CoffeeCartController {
 		}
 	}
 	
-	
+	// 장바구니 목록
 	@RequestMapping("bean_cart.do")
 	public String goCart(HttpSession session,HttpServletResponse response, Model model) throws IOException{
 		

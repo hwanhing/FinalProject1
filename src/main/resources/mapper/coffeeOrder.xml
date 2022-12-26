@@ -65,6 +65,7 @@
 			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point}, default)
 	</insert>
 	
+	<!-- 상품 재고 마이너스처리 -->
 	<update id="updateOneBeanCnt" parameterType="coffeeOrderDTO">
 		update coffee_beans set beans_count = beans_count - (#{order_cnt}*(#{cart_weight}/100)) where beans_num = #{beans_num}
 	</update>
@@ -76,6 +77,7 @@
 		 where member_num = #{memberNum}
 	</update>
 	
+	<!-- 장바구니 삭제 -->
 	<delete id="deleteCart" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
 			delete from coffee_cart where cart_num = ${item.cart_num}

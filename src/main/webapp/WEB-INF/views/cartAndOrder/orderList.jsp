@@ -45,37 +45,61 @@
 	                        <c:set var="delivery" value="${summaryDeliveryMap }"/>
 	                        <c:set var="paging" value="${pageMap }"/> 
 	                        
-	                        <c:set var="uri_page" value="page=${paging.page }"/>
-	                        <c:set var="uri_type" value="type=${paging.type_num }"/>
-	                        <c:set var="uri_startEnd" value="startEnd=${paging.startEnd }"/>
+	                        <c:choose>
+	                        	<c:when test="${empty paging.page }">
+	                       		 	<c:set var="uri_page" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                       		 	<c:set var="uri_page" value="&page=${paging.page }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.type_num }">
+	                       		 	<c:set var="uri_type" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_type" value="&type=${paging.type_num }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.startEnd }">
+	                        		<c:set var="uri_startEnd" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_startEnd" value="&startEnd=${paging.startEnd }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
 	                        
 	                        <input type="hidden" class="rows" value="${paging.totalRecord}">
 	                        
 	                        <div class="m_s_delivery m_s_delivery_ok">
 	                            <h3 class="point_text">배송완료</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/order_list.do?type=2&${uri_page}&${uri_startEnd}" class="a delivery_ok_a">${delivery.deliveryOk }</a>
+	                            	<a href="<%=request.getContextPath() %>/order_list.do?page=1&type=2${uri_startEnd}" class="a delivery_ok_a">${delivery.deliveryOk }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_ing">
 	                            <h3 class="point_text">배송중</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/order_list.do?type=1&${uri_page}&${uri_startEnd}" class="a delivery_ing_a">${delivery.deliveryIng }</a>
+	                            	<a href="<%=request.getContextPath() %>/order_list.do?page=1&type=1${uri_startEnd}" class="a delivery_ing_a">${delivery.deliveryIng }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">배송대기</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/order_list.do?type=0&${uri_page}&${uri_startEnd}" class="a delivery_before_a">${delivery.deliveryBefore }</a>
+	                            	<a href="<%=request.getContextPath() %>/order_list.do?page=1&type=0${uri_startEnd}" class="a delivery_before_a">${delivery.deliveryBefore }</a>
 	                            </h4>
 	                        </div>
 	                        <div class="hr_div"></div>
 	                        <div class="m_s_delivery m_s_delivery_before">
 	                            <h3 class="point_text">주문취소</h3>
 	                            <h4 class="cnt_txt">
-	                            	<a href="<%=request.getContextPath() %>/order_list.do?type=3&${uri_page}&${uri_startEnd}" class="a">${delivery.cancelOrder }</a>
+	                            	<a href="<%=request.getContextPath() %>/order_list.do?page=1&type=3${uri_startEnd}" class="a">${delivery.cancelOrder }</a>
 	                            </h4>
 	                        </div>
 	                        
@@ -168,9 +192,14 @@
                                  
                                  	<c:if test="${list.getOrder_month().equals(orderMonth)}">
 	                             
-		                                 <tr class="m_order_row">
+		                                 <tr class="m_order_row js_delivery_${list.getOrder_num() }_c">
 		                                     <td class="p_date_area txt_center">
-		                                         <a class="a p_date" href="<%=request.getContextPath() %>/bean_order_cont.do?order=${list.getOrder_num() }">${list.getOrder_num() }</a>
+		                                     	
+												 <a class="a p_date" href="<%=request.getContextPath() %>/bean_order_cont.do?order=${list.getOrder_num() }${uri_page}${uri_type}${uri_startEnd}">
+		                                         	${list.getOrder_num() }
+		                                         </a>
+		                                         
+		                                         
 		                                         <p>(${list.getOrder_date().substring(0,10) })</p> 
 		                                     </td>
 		                                  
@@ -263,11 +292,11 @@
                   <c:if test="${paging.page > 1 }">
                    <div class="m_page_area back_div">
                    	
-                        <a href="<%=request.getContextPath() %>/order_list.do?page=1&${uri_type }&${uri_startEnd}" class="a">
+                        <a href="<%=request.getContextPath() %>/order_list.do?page=1${uri_type }${uri_startEnd}" class="a">
                             <i class="fa-solid fa-angles-left"></i>
                         </a>
                     
-                        <a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page-1 }&${uri_type }&${uri_startEnd}" class="a">
+                        <a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page-1 }${uri_type }${uri_startEnd}" class="a">
                             <i class="fa-solid fa-angle-left"></i>
                         </a> 
                    
@@ -280,11 +309,11 @@
                        
                        <!-- 현재 페이지일때 --> 
                         <c:if test="${i == paging.page }">
-							<a href="<%=request.getContextPath() %>/order_list.do?page=${i }&${uri_type }&${uri_startEnd}" class="a active_a">${i }</a>
+							<a href="<%=request.getContextPath() %>/order_list.do?page=${i }${uri_type }${uri_startEnd}" class="a active_a">${i }</a>
 						</c:if>
 						
 						<c:if test="${i != paging.page }">
-							<a href="<%=request.getContextPath() %>/order_list.do?page=${i }&${uri_type }&${uri_startEnd}" class="a">${i }</a>
+							<a href="<%=request.getContextPath() %>/order_list.do?page=${i }${uri_type }${uri_startEnd}" class="a">${i }</a>
 						</c:if>
 
                 	</c:forEach>
@@ -294,11 +323,11 @@
                   <c:if test="${paging.page < paging.allPage }">
                    	<div class="m_page_area forward_div">
                    
-                       	<a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page +1 }&${uri_type }&${uri_startEnd}" class="a">
+                       	<a href="<%=request.getContextPath() %>/order_list.do?page=${paging.page +1 }${uri_type }${uri_startEnd}" class="a">
                            	<i class="fa-solid fa-angle-right"></i>
                        	</a>  
                        
-                       	<a href="<%=request.getContextPath() %>/order_list.do?page=${paging.allPage }&${uri_type }&${uri_startEnd}" class="a">
+                       	<a href="<%=request.getContextPath() %>/order_list.do?page=${paging.allPage }${uri_type }${uri_startEnd}" class="a">
                            	<i class="fa-solid fa-angles-right"></i>
                        	</a>
                        

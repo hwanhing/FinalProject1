@@ -791,14 +791,42 @@ public class CoffeeOrderController {
 
 	// 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_cont.do")
-	public String orderListCont(@RequestParam("order") String order_num, Model model) throws IOException {
-
+	public String orderListCont(@RequestParam("order") String order_num,
+			                    HttpServletRequest request,
+			                    Model model) throws IOException {
+		
+		// 받아온 페이지,타입, 일자
+		Map<String, Object> paTyStEnMap = new HashMap<String, Object>();
+		if(request.getParameter("page")!=null) {
+			int page = Integer.valueOf(request.getParameter("page")); 
+			paTyStEnMap.put("page", page);
+			System.out.println("받아온 page :" + page);
+		}
+		
+		if(request.getParameter("type")!=null) {
+			int type = Integer.valueOf(request.getParameter("type")); 
+			paTyStEnMap.put("type", type);
+			
+			System.out.println("받아온 type :" + type);
+		}
+		
+		if(request.getParameter("startEnd")!=null) {
+			String startEnd = request.getParameter("startEnd");
+			String[] startEndArr = startEnd.split(",");
+			paTyStEnMap.put("start", startEndArr[0]);
+			paTyStEnMap.put("end", startEndArr[1]);
+			paTyStEnMap.put("startEnd", startEnd);
+			
+			System.out.println("받아온 startEnd :" + paTyStEnMap.get("startEnd"));
+		}
+		
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
 
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
+		model.addAttribute("pageMap", paTyStEnMap);
 
 		return "./cartAndOrder/orderListContent";
 	}

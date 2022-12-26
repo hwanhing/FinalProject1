@@ -13,6 +13,8 @@
 	// 기간(일자) 변수
 	let startDate = document.querySelector('.start_date')
 	let endDate = document.querySelector('.end_date')
+	let explain = document.querySelector('.explain_txt_now')
+	let rows = document.querySelector('.rows').value
 	
 	// 쿼리스트링 가져오기
     function searchParam(key) {
@@ -22,16 +24,22 @@
 	window.onload = function(){
 		console.log('window.onload')
 		
-		let page = searchParam('page')
-		let type = searchParam('type')
-		let typeName = ""
-		let startEnd = searchParam('startEnd')
-		let explain = document.querySelector('.explain_txt_now')
-		let rows = document.querySelector('.rows').value
-		
 		// default 시작일과 종료일은 당일 이후 선택 불가능 
 	 	endDate.setAttribute("max", new Date().toISOString().substring(0, 10))
 	 	startDate.setAttribute("max", endDate.value)
+	 	
+	 	// 해당하는 주문건 텍스트 
+		explainTxt(rows)
+	 	
+	}
+	
+	// 해당하는 주문건 텍스트 
+	function explainTxt(rows){
+	
+		let page = searchParam('page')
+		let type = searchParam('type')
+		let startEnd = searchParam('startEnd')
+		let typeName = ""
 	 	
 	 	switch (type){
 	 		case '0' : typeName='배송대기'; break;
@@ -40,21 +48,26 @@
 	 		case '3' : typeName='주문취소'; break;
 	 	}
 	 	
-	 	if((page != null && type == '' && startEnd=='') || (page == null && type == null && startEnd == null)){
+	 	console.log(`page : ${page}`)
+	 	console.log(`type : ${type}`)
+	 	console.log(`startEnd : ${startEnd}`)
+	 	
+	 	if((page != null && type == null && startEnd == null) || (page == null && type == null && startEnd == null)){
 	 		explain.innerHTML = `전체 주문건은 <b>${rows}</b>건 입니다.`
 	 	
-	 	}else if((type == '' || type == null) && startEnd != ''){
+	 	}else if((type == '' || type == null) && startEnd != null){
  			explain.innerHTML = `${startDate.value} 부터 ${endDate.value} 까지 주문건은 <b>${rows}</b>건 입니다.`
 	 		
-	 	}else if(type != '' && startEnd == ''){
+	 	}else if(type != null && startEnd == null){
 	 		explain.innerHTML = `<b>[${typeName}]</b> 인 주문건은 <b>${rows}</b>건 입니다.`
 	 		
-	 	}else if((type != '' || type != null) && startEnd != ''){
+	 	}else if((type != '' || type != null) && startEnd != null){
 	 		explain.innerHTML = `${startDate.value} 부터 ${endDate.value} 까지 <b>[${typeName}]</b>인 주문건은 <b>${rows}</b>건 입니다.`
 	 	
 	 	}
-	 	
+	
 	}
+	
 	 
 	 // 시작일을 종료일 보다 후로 설정 못하게 지정 
 	 startDate.addEventListener('click',function(){
@@ -86,7 +99,7 @@
    			location.href=`order_list.do?startEnd=${startEnd}`
    		
    		}else{
-   			location.href=`order_list.do?page=${page}&type=${type}&startEnd=${startEnd}`
+   			location.href=`order_list.do?page=1&type=${type}&startEnd=${startEnd}`
    		}
     	
     }
@@ -103,21 +116,15 @@
 			// ajax 타입 변경 함수
 			updateRowTypeNum(orderNum)
 			
+			// 배송중, 배송완료 수량 변경 함수
+			changeDeliveryCnt()
+
 			// 버튼 텍스트 변경 함수
 			changeTxt(orderNum)
 			
-			// 배송중, 배송완료 수량 변경 함수
-			changeDeliveryCnt()
 		})
 		
 	})
-	
-	// 구매버튼 클릭시 구매버튼 변경 하기
-	function changeTxt(orderNum){
-		console.log('배송완료로 텍스트를 변경합니다.')
-		let changeDiv = document.querySelector(".js_delivery_"+orderNum)
-		changeDiv.innerHTML = "<b>배송완료</b>"
-	}
 	
 	// 배송중 수량, 배송완료 수량 변경
 	function changeDeliveryCnt(){
@@ -127,6 +134,29 @@
 		deliveryOk.textContent = parseInt(deliveryOk.textContent) + 1
 		deliveryIng.textContent = parseInt(deliveryIng.textContent) - 1
 	}
+	
+	// 구매버튼 클릭시 구매버튼 변경 하기
+	function changeTxt(orderNum){
+		console.log('배송완료로 텍스트를 변경합니다.')
+		
+		// 만약 쿼리스트링에 type 값이 있으면 row 삭제, 아닐경우 버튼 구역 텍스트 변경
+		let type = searchParam('type')
+		console.log(`type : ${type}`)
+		
+		if(type==null){
+			let changeDiv = document.querySelector(".js_delivery_"+orderNum)
+			changeDiv.innerHTML = "<b>배송완료</b>"
+
+		}else{
+			document.querySelector(".js_delivery_"+orderNum +"_c").remove()
+			let deliveryIng = document.querySelector('.delivery_ing_a')
+			
+			explainTxt(deliveryIng.textContent)
+		}
+		
+	}
+	
+	
 	
 	 // ajax ----------------------------------------------------------
 	 $.ajaxSetup({	

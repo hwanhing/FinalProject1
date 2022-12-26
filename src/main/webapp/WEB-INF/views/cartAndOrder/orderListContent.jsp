@@ -13,6 +13,7 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderListC.css">
         <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
 	
@@ -29,11 +30,41 @@
 				
 				 <section class="order_main"> 
                     <div class="order_main_in">
+                    
+                    	<c:set var="paging" value="${pageMap }"/> 
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.page }">
+	                       		 	<c:set var="uri_page" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                       		 	<c:set var="uri_page" value="page=${paging.page }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.type_num }">
+	                       		 	<c:set var="uri_type" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_type" value="&type=${paging.type_num }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.startEnd }">
+	                        		<c:set var="uri_startEnd" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_startEnd" value="&startEnd=${paging.startEnd }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+                    
                         <!-- head -->
                         <div class="m_header">
                             <h3 class="point_text">주문 내역</h3>
                             <div class="e_btn_area">
-                                 <button class="btn etc_btn small_txt" onclick="location.href='order_list.do'">더보기</button>
+                                 <button class="btn etc_btn small_txt" onclick="location.href='order_list.do?${uri_page}${uri_type }${uri_startEnd }'">더보기</button>
                             </div>
                         </div>
 
@@ -51,6 +82,10 @@
                                     <!-- 배송전일때만 주문 취소 가능 -->
                                     <c:if test="${summary.type_num==3 }">
 	                                	<p>(주문 취소건)</p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num==1 }">
+	                                	<p class="change_delivery_ok_txt"></p>
                                 	</c:if>
                                 	
                                 	<c:if test="${summary.type_num!=3 && summary.type_num == 0  }">
@@ -123,7 +158,15 @@
                                         </c:forEach>
                                     </tr>
                                 </table>
-                                
+								<c:if test="${summary.type_num==1 }">
+									<div class="delivery_ing_txt">
+	                                	<p>배송중인 상품입니다. <br>상품을 받았을 경우 구매완료 버튼을 눌러주세요.</p>
+	                                	<div>
+											<button class="btn c_delivery_ok js_delivery_ok" value="${summary.order_num}">구매완료</button>
+										</div>
+									</div>
+                               	</c:if>
+								                                
                             </div>
                             <!-- ---------------------------- -->
                             
@@ -235,5 +278,6 @@
         
         <%-- 푸터 --%>
         <jsp:include page="../layout/footer.jsp" />
+        <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/orderContent.js"></script>
 </body>
 </html>

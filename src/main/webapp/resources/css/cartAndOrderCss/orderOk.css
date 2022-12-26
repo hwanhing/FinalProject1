@@ -51,7 +51,7 @@ table td:not(.sep_tr td){
 
 /* main ---------------------------------------------------- */
 .m_main_t{
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .m_main_t h4{
@@ -170,5 +170,19 @@ table td:not(.sep_tr td){
 
 .m_order_cancel button:hover{
 	color: var(--color_milk_brown);
+}
+
+/* 구매하기 버튼(주문내역 요약, 상세 모두 적용) */
+.c_delivery_ok{
+	border: 1px solid var(--color_begie) !important;
+    border-radius: var(--radius) !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+}
+
+/* 버튼 hover 효과 */
+.c_delivery_ok:hover{
+    background-color: var(--color_greyish) !important;
+    color: white !important;
 }
 
