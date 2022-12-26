@@ -35,9 +35,9 @@
                             <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 원두</a></li>
 
 
-                            <li><a href="">장바구니</a></li>
+                            <li><a href="<%=request.getContextPath()%>/bean_cart.do">장바구니</a></li>
 
-                            <li><a href="">읽는 커피</a></li>
+                            <li><a href="<%=request.getContextPath()%>/order_list.do">주문내역</a></li>
                         </ul>
                     </nav>
                 

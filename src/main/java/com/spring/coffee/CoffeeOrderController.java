@@ -985,9 +985,45 @@ public class CoffeeOrderController {
 
 	// 주문리스트
 	@RequestMapping("admin_orderlist.do")
-	public String adminOrderDelivery() {
-		return "./Admin/admin_delivery";
-	}
+
+    public String adminOrderDelivery(@RequestParam(value = "page", defaultValue = "1") int page,
+            HttpSession session, HttpServletRequest request, Model model) {
+
+        System.out.println("--admin_orderlist.do------------------------------------------------------------");
+        int totalRecord = 0;
+
+        if (request.getParameter("type") != null) {
+            int type_num = Integer.valueOf(request.getParameter("type"));
+            totalRecord = orderDao.getRowTypeCountAdmin(type_num);
+
+        } else {
+            totalRecord = orderDao.getRowCountAdmin();
+        }
+        System.out.println("totalRecord : " + totalRecord);
+
+        // 페이지 관련 map
+        Map<String, Object> stEnRowMap = setPage(page, totalRecord, 1);
+        if (request.getParameter("type") != null) {
+            stEnRowMap.put("type_num", Integer.valueOf(request.getParameter("type")));
+        }
+
+        List<CoffeeOrderDTO> orderListAdmin = orderDao.getOrderListAdmin(stEnRowMap);
+        System.out.println("orderListAdmin.size() : " + orderListAdmin.size());
+
+        // 배송 타입 갯수
+        Map<String, Integer> summaryDeliveryMap = summaryDeliveryAdmin(session);
+
+        // 타입명 추가
+        orderListAdmin = orderListAddTypeName(orderListAdmin);
+
+        model.addAttribute("orderListAdmin", orderListAdmin);
+        model.addAttribute("summaryDeliveryMap", summaryDeliveryMap);
+        model.addAttribute("pageMap", stEnRowMap);
+
+        System.out.println("--------------------------------------------------------------------------------");
+
+        return "./Admin/admin_delivery";
+    }
 
 	// 배송 대기 >> 배송중으로 업데이트_ 특정 주문번호만
 	@RequestMapping("update_row_type_num.do")
