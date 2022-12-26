@@ -223,9 +223,9 @@
 		height: 30px; 
 		border-radius:7px; 
 		border: 1px solid #c9c9c9;
-		margin-left: 62%;
+		margin-left: 60%;
 		outline: none;
-	}
+	}	
 </style>
 </head>
 
@@ -243,23 +243,22 @@
 	 			<br><br>
 	 				
 	  <ul id="tabs" class="tabs">
-	    <li class="tab-link current" data-tab="tab1">원두 리스트</li>
-		 <li class="tab-link" data-tab="tab2">원두 새로 등록</li>	    
+	    <li class="tab-link current" data-tab="tab1">원두 리스트</li>  
 	  </ul>	 				
 	 		<div id="tab1" class="tab-content current">		
 	 		<br>
 	 		<form method="post" action="<%=request.getContextPath()%>/beans_search.do">
 	 		<div style="display: flex;">
-	 			<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 검색&nbsp;&nbsp;</b></h6>
-	 			<input name="keyword" class="search_keyword" style="" placeholder="원두이름으로 검색..">
+	 			<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 검색 결과</b></h6>
+	 			<input name="keyword"class="search_keyword" placeholder="원두이름으로 검색..">
 	 			<button type="submit" class="sub_btn">검색</button>
 	 		</div>
 	 		</form>
 	 		<hr id="hr1" width="95%">
 	 		
-	 		 <c:set var="count" value="${Count }" />
+	 		 <c:set var="count" value="${SearchCount }" />
 	 		 	<div class="title_box">
-	 		 		원두 상품 총 개수 : ${count }개
+	 		 		검색 원두 총 개수 : ${count }개
 	 		 	</div>
 
 		 		<table class="table">
@@ -302,101 +301,8 @@
 		 		 
 		 		 </c:forEach>
 		 		</table>
-	 		
-	 
-	 	<div class="empty2">
-			<!-- 페이징 처리 -->
-			<div class="page1">
-				<nav class="paging">
-		            <ul class="pagination">
-		               <li class="page-item"><a class="page-link paging_btn"
-		                  href="admin_beans.do?page=1">◀◀</a></li> 
-		               <c:if test="${paging.getPage() == 1 }">
-		                <li>
-		                 <a class="page-link paging_btn" 
-		                        href="admin_beans.do?page=1">◀</a> 
-		                </li>
-		                </c:if>
-		                <c:if test="${paging.getPage() != 1 }">
-		                <li>
-		                  <a class="page-link paging_btn" 
-		                        href="admin_beans.do?">◀</a>
-		                 
-		                </li>
-		                </c:if>
-		               <c:forEach begin="${paging.getStartBlock() }" end="${paging.getEndBlock() }" var="i">
-		      
-		                  <c:if test="${i == paging.getPage() }">
-		                     <li class="page-item active" aria-current="page"><a
-		                        class="page-link paging_btn"   href="admin_beans.do">${i }</a></li>
-		                  </c:if>
-		      
-		                  <c:if test="${i != paging.getPage() }">
-		                     <li class="page-item"><a class="page-link paging_btn" 
-		                        href="admin_beans.do?page=${i }">${i }</a></li>
-		                  </c:if>
-		               </c:forEach>
-		      
-		               <c:if test="${paging.getEndBlock() < paging.getAllPage() }">
-		                  <li class="page-item"><a class="page-link paging_btn"
-		                     href="admin_beans.do?page=${paging.getEndBlock() + 1 }">▶</a></li>
-		                  <li class="page-item"><a class="page-link paging_btn"
-		                     href="admin_beans.do?page=${paging.getAllPage() }">▶▶</a></li>
-		               </c:if>
-		            </ul>
-		         </nav>				
-				</div>
-			</div>
-			
-			
-			</div>	
-			
-			<div id="tab2" class="tab-content">
-				
-				<br>
-				<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 등록</b></h6>
-				<hr id="hr1" width="95%">
-
-
-				
-			<form method="post" enctype="multipart/form-data" action="<%=request.getContextPath()%>/admin_beans_insert.do">		
-				<div>	
-					<div class="box3">
-				 		<img id="img-preview1" src="https://ami-sni.com/wp-content/themes/consultix/images/no-image-found-360x250.png" width="300px" height="300px"/><br>	
-						<input type="file" name="bean_img" accept="image/*" onchange="readURL1(this)">			
-					</div>
-					
-					<table class="table_1">
-						<tr class="tr_1">
-							<th style="width: 20%;">원두 번호</th>
-							<td class="td_1"><input name="beans_num" value="${count + 1 }"></td>
-							<th>원두 재고</th>
-							<td class="td_1"><input name="beans_count"></td>													
-						</tr>					
-						<tr class="tr_1">
-							<th>원두 이름</th>
-							<td class="td_1" colspan="4"><input name="beans_name" size="48"></td>
-						</tr>									
-						<tr class="tr_1">
-							<th>원두 맛</th>
-							<td class="td_1"><input name="beans_taste"></td>
-							<th>원두 가격</th>
-							<td class="td_1"><input name="beans_price"></td>
-						</tr>		
-						<tr class="tr_1">
-							<th>원두소개</th>
-							<td class="td_1" colspan="4"><textarea cols="120" rows="5" name="beans_intro"></textarea></td>
-						</tr>
-					</table>		
-				</div>		
-								
-				
-				<div class="btn_box">
-					<button type="submit" class="f_btn">등록</button>
-				</div>				
-			</form>	
-			</div>
-		</div>
+	 		</div>
+	 	</div>
 	</div>
 </body>
 

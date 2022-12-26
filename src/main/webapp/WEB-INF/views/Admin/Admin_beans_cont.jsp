@@ -139,6 +139,8 @@
 			<div class="btn_box">
 				<button class="f_btn" onclick="location.href='admin_beans_modify.do?no=${i.getBeans_num()}'">수정</button>
 			</div>
+
+
 			
 		</div>
 	

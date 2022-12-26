@@ -89,6 +89,21 @@ public class AdminDAOImpl implements AdminDAO{
 	}
 
 	@Override
+	public List<CoffeeBeanDTO> searchBeanList(String keyword) {
+		return this.sqlSession.selectList("beanSearch", keyword);
+	}
+
+	@Override
+	public int searchCount(String keyword) {
+		return this.sqlSession.selectOne("searchCount", keyword);
+	}
+
+	@Override
+	public int adminBeanInsert(Map<String, Object> map) {
+		return this.sqlSession.insert("bean_insert", map);
+	}
+
+
 	public FinalMemberDTO centerwrite(int board_num) {
 		
 		return this.sqlSession.selectOne("centerwrite",board_num);
@@ -129,17 +144,6 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return this.sqlSession.selectOne("write_Cont", write_num);
 	}
-
-
-
-
-
-
-
-
-
-
-	
 
 
 

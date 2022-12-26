@@ -25,7 +25,16 @@
 	
 	<!-- 찜많은 목록 뽑는 문 -->	
 	<select id="heartlist" resultType="coffeeBeanDTO">
-		select * from coffee_beans order by count_h desc
+		with test as ( select beans_num
+		                    , count(member_num) as count_heart
+		              from member_star 
+		             where coffee_heart = 1
+		             group by beans_num 
+		)select cb.*
+		      , case when count_heart is null then 0 else count_heart end as count_h
+		   from coffee_beans cb
+		   left join test t
+		     on cb.beans_num = t.beans_num order by count_h desc
 	</select>
 
 	<!-- 가격이 낮은 원두 뽑는 문 -->	
@@ -38,11 +47,31 @@
 		select * from coffee_beans order by beans_price desc
 	</select>
 
-		
+	<!-- 별점이 5점 원두 뽑는 문 -->
+	<select id="star5list" resultType="coffeeBeanDTO">
+		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 5
+	</select>
+	<!-- 별점이 4점 원두 뽑는 문 -->
+	<select id="star4list" resultType="coffeeBeanDTO">
+		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 4
+	</select>
+	<!-- 별점이 3점 원두 뽑는 문 -->
+	<select id="star3list" resultType="coffeeBeanDTO">
+		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 3
+	</select>
+	<!-- 별점이 2점 원두 뽑는 문 -->
+	<select id="star2list" resultType="coffeeBeanDTO">
+		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 2
+	</select>
+	<!-- 별점이 1점 원두 뽑는 문 -->
+	<select id="star1list" resultType="coffeeBeanDTO">
+		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 1
+	</select>
+
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
-		select cw.write_num, cw.write_cont, cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
-		ms.coffee_star from coffee_write cw join member_star ms on cw.member_num = ms.member_num where cw.beans_num = #{beans_num}
-		
+		<!-- select cw.write_num, cw.write_cont, cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
+		ms.coffee_star from coffee_write cw join member_star ms on cw.member_num = ms.member_num where cw.beans_num = #{beans_num} -->
+		select distinct cw.write_num, cw.write_cont,cw.write_date, cw.write_img, cw.member_id, ms.coffee_star from member_star ms join coffee_write cw on cw.beans_num = ms.beans_num where ms.beans_num = #{beans_num}
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
@@ -119,6 +148,15 @@
 	<select id="starAvg" parameterType="int" resultType="int">
 		select avg(coffee_star) from member_star where beans_num = #{beans_num}
 	</select>
+
+	<select id="starCheck" parameterType="int" resultType="int">
+		select count(coffee_star) from member_star where beans_num = #{beans_num}
+	</select>
+	
+	<select id="writeCheck" parameterType="map" resultType="int">
+		select count(*) from coffee_write where beans_num = #{beans_num} and member_num = #{member_num}
+	</select>
+
 
 
 	<!-- 홍기 -->
@@ -259,6 +297,22 @@
 		delete from coffee_beans where beans_num = #{beans_num}
 	</delete>
 	
+
+	
+	<select id="beanSearch" resultType="coffeeBeanDTO">
+		select * from coffee_beans where beans_name like '%' || #{keyword} || '%' order by beans_num 
+	</select>
+	
+	<select id="searchCount" resultType="int">
+		select count(*) from coffee_beans where beans_name like '%' || #{keyword} || '%' order by beans_num 
+	</select>
+	
+	<insert id="bean_insert" parameterType="map">
+		insert into coffee_beans values(#{beans_num}, #{beans_name}, #{beans_price}, #{beans_count}, 100, #{beans_taste}, #{beans_intro}, #{beans_img})
+	</insert>
+	
+	
+
 	<select id="centerwrite" parameterType="int" resultType="finalMemberDTO">
 		select fm.*,mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where board_num=#{board_num}
 	</select>
@@ -289,6 +343,7 @@
 	<select id="write_Cont" parameterType="int" resultType="finalMemberDTO">
 		select cb.*,cw.* from coffee_beans cb join coffee_write cw on cb.beans_num = cw.beans_num where write_num=#{write_num}
 	</select>
+
 	
 </mapper>  
 
