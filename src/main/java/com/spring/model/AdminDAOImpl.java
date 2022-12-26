@@ -1,11 +1,14 @@
 package com.spring.model;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
+
+import oracle.net.aso.r;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO{
@@ -84,6 +87,60 @@ public class AdminDAOImpl implements AdminDAO{
 	public int adminBeanDelete(int beans_num) {
 		return this.sqlSession.delete("bean_delete", beans_num);
 	}
+
+	@Override
+	public FinalMemberDTO centerwrite(int board_num) {
+		
+		return this.sqlSession.selectOne("centerwrite",board_num);
+	}
+
+	@Override
+	public int admincenterOk(Map<String, Object> map) {
+		return this.sqlSession.insert("centerOk",map);
+		
+	}
+
+	@Override
+	public int updatecenter(int board_num) {
+		
+		return this.sqlSession.update("centerupdate", board_num);
+	}
+
+	@Override
+	public FinalMemberDTO greenbtn(int board_num) {
+	
+		return this.sqlSession.selectOne("greenbtn",board_num );
+	}
+
+	@Override
+	public int afterList() {
+		
+		return this.sqlSession.selectOne("afterCount");
+	}
+
+	@Override
+	public List<FinalMemberDTO> after_writeList(PageDTO dto) {
+		
+		return this.sqlSession.selectList("afterlike", dto);
+	}
+
+	@Override
+	public FinalMemberDTO write_cont(int write_num) {
+		
+		return this.sqlSession.selectOne("write_Cont", write_num);
+	}
+
+
+
+
+
+
+
+
+
+
+	
+
 
 
 	

@@ -74,7 +74,11 @@ public class FinalMemberDTO {
 	private String admin_phone;
 	private String admin_date;
 	
-	
+	private int write_num;
+	private String write_cont;
+	private String write_date;
+	private String write_img;
+
 	
 
 	
