@@ -792,34 +792,34 @@ public class CoffeeOrderController {
 	// 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_cont.do")
 	public String orderListCont(@RequestParam("order") String order_num,
-			                    HttpServletRequest request,
-			                    Model model) throws IOException {
-		
+			HttpServletRequest request,
+			Model model) throws IOException {
+
 		// 받아온 페이지,타입, 일자
 		Map<String, Object> paTyStEnMap = new HashMap<String, Object>();
-		if(request.getParameter("page")!=null) {
-			int page = Integer.valueOf(request.getParameter("page")); 
+		if (request.getParameter("page") != null) {
+			int page = Integer.valueOf(request.getParameter("page"));
 			paTyStEnMap.put("page", page);
 			System.out.println("받아온 page :" + page);
 		}
-		
-		if(request.getParameter("type")!=null) {
-			int type = Integer.valueOf(request.getParameter("type")); 
+
+		if (request.getParameter("type") != null) {
+			int type = Integer.valueOf(request.getParameter("type"));
 			paTyStEnMap.put("type", type);
-			
+
 			System.out.println("받아온 type :" + type);
 		}
-		
-		if(request.getParameter("startEnd")!=null) {
+
+		if (request.getParameter("startEnd") != null) {
 			String startEnd = request.getParameter("startEnd");
 			String[] startEndArr = startEnd.split(",");
 			paTyStEnMap.put("start", startEndArr[0]);
 			paTyStEnMap.put("end", startEndArr[1]);
 			paTyStEnMap.put("startEnd", startEnd);
-			
+
 			System.out.println("받아온 startEnd :" + paTyStEnMap.get("startEnd"));
 		}
-		
+
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
@@ -985,7 +985,6 @@ public class CoffeeOrderController {
 
 	// 주문리스트
 	@RequestMapping("admin_orderlist.do")
-
 	public String adminOrderDelivery(@RequestParam(value = "page", defaultValue = "1") int page,
 			HttpSession session, HttpServletRequest request, Model model) {
 
