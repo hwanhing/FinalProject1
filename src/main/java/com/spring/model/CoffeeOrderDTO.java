@@ -18,6 +18,7 @@ public class CoffeeOrderDTO {
 	private int cart_grind;
 	private int member_num;
 	private int use_point;
+	private int type_num;			// 배송 사항
 	
 	private String member_id;
 	private String member_pwd;
@@ -37,10 +38,14 @@ public class CoffeeOrderDTO {
 	private int member_use;
 	
 	
+	
+	
 	// 테이블 외 필요
 	private int cart_num;			// 장바구니 번호
 	private String beans_img;		// 상품 이미지
 	private String order_month;		// 주문 월
+	private String type_name;		// 배송 타입 명
+	private int row_num; 			// 전체 row(행)번호
 	
 
 }

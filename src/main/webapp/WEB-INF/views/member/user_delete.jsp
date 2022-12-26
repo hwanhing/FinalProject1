@@ -14,13 +14,9 @@
 <script src="/stu/js/bootstrap.min.js"></script>
 
 <style>
-	body{
-	height: 500px;
-	}
 	.container{
-	margin-left:500px;
-	margin-top: 800px;
-	max-height: 300px;
+	
+	margin-top: 500px;
 	}
 
 
@@ -28,39 +24,12 @@
 	width : 800px;
 	position: relative;
 	top : -580px;
-	left: 400px;
+	left: 360px;
 	}
 	
 	#deleteMemBtn {
-  width: 170px;
-  height: 45px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  font-weight: 500;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  border-radius: 45px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease 0s;
-  cursor: pointer;
-  outline: none;
-  margin-right: 100px;
+	width: 400px;
 	}
-	
-	#deleteMemBtn:hover {
-  background-color: red;
-  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
- .check{
- 	margin-right: 100px;
- }
-	
-
 </style>
 
 </head>
@@ -86,7 +55,7 @@
 					<br>
 					<p>- 탈퇴 후 고객님의 정보는 전자상거래 소비자보호법에 의거한 개인정보보호정책에 따라 관리됩니다.</p>
 					<p>- 탈퇴 후 일정기간 재가입 여부판단을 목적으로 고객님의 최소정보(아이디, 성명)를 보존합니다.</p>
-					<p>- 탈퇴 시 고객님께서 보유하셨던 적립금,위시리스트의 저장상품은 모두 삭제되며, 복구되지 않습니다.</p>
+					<p>- 탈퇴 시 고객님께서 보유하셨던 적립금, 쿠폰, 위시리스트의 저장상품은 모두 삭제되며, 복구되지 않습니다.</p>
 					<p>- 꼭 확인하시고 신중하게 탈퇴 신청해 주시기 바랍니다.</p>
 				</div>
 				<br>
@@ -151,7 +120,7 @@
 							</table>
 					</div>
 					<br>
-					<div style="text-align: center; font-size: 16px;" class="check">
+					<div style="text-align: center; font-size: 16px;">
 						<input id="isAgree" name="se cession" type="checkbox"
 							title="회원 탈퇴 안내를 모두 확인 하였습니다. 탈퇴에 동의 합니다."> <label>회원
 							탈퇴 안내를 모두 확인 하였습니다. 탈퇴에 동의 합니다.</label>
@@ -169,10 +138,8 @@ $("#deleteMemBtn").click(function(){
 	if($("#isAgree").prop("checked")) {
 		} else{
 			alert("탈퇴안내를 확인하고 동의해주세요.");
-			return;
 		}
 });
 </script>
-<jsp:include page="../layout/footer.jsp" />
 </body>
 </html>

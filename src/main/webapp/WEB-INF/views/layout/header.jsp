@@ -33,7 +33,10 @@
                         <ul class="h-menu">
                             <li><a href="">원두취향테스트</a></li>
                             <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 원두</a></li>
+
+
                             <li><a href="">장바구니</a></li>
+
                             <li><a href="">읽는 커피</a></li>
                         </ul>
                     </nav>

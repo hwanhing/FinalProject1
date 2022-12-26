@@ -5,52 +5,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.4.1.js"
 integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
 crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-<style type="text/css">
-.side{
- margin-top: 200px;
- margin-left: 400px;
-}
-.form-main{
- 
- margin-top: 150px;
- width: 60%;
- margin-left: 400px;
-}
-.form-control {
-    display: block;
-    width: 50%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-
-</style>
-
+<title>Insert title here</title>
 <script type="text/javascript">
 
 var pw_passed = true;  // 추후 벨리데이션 처리시에 해당 인자값 확인을 위해
 
 function fn_pw_check() {
 
-    var pw = document.getElementById("exampleFormControlInput1").value; //비밀번호
+    var pw = document.getElementById("txtPassword1").value; //비밀번호
 
-    var pw2 = document.getElementById("exampleFormControlInput2").value; // 확인 비밀번호
+    var pw2 = document.getElementById("txtPassword2").value; // 확인 비밀번호
    
     pw_passed = true;
 
@@ -166,28 +133,17 @@ function fn_pw_check() {
 </head>
 <body>
 	<c:set var="dto" value="${pwd}" />
-	<jsp:include page="../layout/header.jsp" />
-	  <div class="side">
-		<h1>비밀번호 수정</h1>
-	</div>   
 	
-			<div class="form-main">
-				<form action="<%=request.getContextPath()%>/pwd_modifyOk.do" method="post">
-						 <input type="hidden" name="member_num" value="${dto.getMember_num() }">
-								 
-								 <label for="exampleFormControlInput1" class="form-label">새 비밀번호</label>	
-								 
-								<input type="password"  class="form-control" id="exampleFormControlInput1" name="member_pwd" placeholder="특수문자를 포함한 9자이상" style="width: 300px;"><br>
-								 <!-- <input type="text" class="form-control" id="exampleFormControlInput1" name = "member_email" placeholder="coffee@email.com" style="width: 300px;"> -->
-								<label for="exampleFormControlInput1" class="form-label">비밀번호 확인</label>	
-							   	
-							   <!-- 	<input type="password" id="txtPassword2" name="db_pwd2" /><br/> -->
-								
-								<input type="password"  class="form-control" id="exampleFormControlInput2" name="db_pwd2" placeholder="비밀번호 확인" style="width: 300px;"><br>
-								
-								<button type="submit" onclick="fn_pw_check()">수정</button>
-				</form>
-			</div>
-	<jsp:include page="../layout/footer.jsp" />
+	
+	
+	<form action="<%=request.getContextPath()%>/pwd_modifyOk.do" method="post">
+	 <input type="hidden" name="member_num" value="${dto.getMember_num() }">
+	 비밀번호 : <input type="password" id="txtPassword1" name="member_pwd" /><br/>
+
+   비밀번호확인 : <input type="password" id="txtPassword2" name="db_pwd2" /><br/>
+
+	
+	<button type="submit" onclick="fn_pw_check()">수정</button>
+	</form>
 </body>
 </html>

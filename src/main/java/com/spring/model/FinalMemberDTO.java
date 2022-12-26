@@ -45,43 +45,6 @@ public class FinalMemberDTO {
 	private String beans_img;
 	private String beans_url;
 	
-	private int board_num;
-	private String board_title;
-	private String board_cont;
-	private String board_file;
-	private String board_date;
-	private int board_reply;
-	
-	private int reply_num;
-	private String reply_cont;
-	private String reply_date;
-	private int admin_num;
-	
-	private String order_num;
-	private int order_row;
-	private int order_cnt;
-	private int order_price;		// 단가 * 수량 * (그람/100)
-	private String order_date;	// 단가
-	private int cart_weight;
-	private int cart_grind;
-	private int use_point;
-	
-	
-	private String admin_id;
-	private String admin_pwd;
-	private String admin_name;
-	private String admin_email;
-	private String admin_phone;
-	private String admin_date;
-	
-	private int write_num;
-	private String write_cont;
-	private String write_date;
-	private String write_img;
-
-	
-
-	
 }
 
 

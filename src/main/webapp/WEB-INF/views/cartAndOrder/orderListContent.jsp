@@ -13,11 +13,14 @@
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderOk.css">
         <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/orderListC.css">
         <script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 </head>
 <body>
 	
 	 <%-- 해더 --%>
-  	 <jsp:include page="../layout/header.jsp" />
+	 <div class="head">
+      	<jsp:include page="../layout/header.jsp" />
+     </div>
   
   	 <div class="blank"></div>
   	 
@@ -27,11 +30,41 @@
 				
 				 <section class="order_main"> 
                     <div class="order_main_in">
+                    
+                    	<c:set var="paging" value="${pageMap }"/> 
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.page }">
+	                       		 	<c:set var="uri_page" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                       		 	<c:set var="uri_page" value="page=${paging.page }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.type_num }">
+	                       		 	<c:set var="uri_type" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_type" value="&type=${paging.type_num }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+	                        
+	                        <c:choose>
+	                        	<c:when test="${empty paging.startEnd }">
+	                        		<c:set var="uri_startEnd" value=""/>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        		<c:set var="uri_startEnd" value="&startEnd=${paging.startEnd }"/>
+	                        	</c:otherwise>
+	                        </c:choose>
+                    
                         <!-- head -->
                         <div class="m_header">
                             <h3 class="point_text">주문 내역</h3>
                             <div class="e_btn_area">
-                                <button class="btn etc_btn small_txt">더보기</button>
+                                 <button class="btn etc_btn small_txt" onclick="location.href='order_list.do?${uri_page}${uri_type }${uri_startEnd }'">더보기</button>
                             </div>
                         </div>
 
@@ -45,6 +78,20 @@
                                         <li>주문번호 | <span><b>${summary.order_num }</b></span> </li>
                                         <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
                                     </ul>
+                                    
+                                    <!-- 배송전일때만 주문 취소 가능 -->
+                                    <c:if test="${summary.type_num==3 }">
+	                                	<p>(주문 취소건)</p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num==1 }">
+	                                	<p class="change_delivery_ok_txt"></p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num!=3 && summary.type_num == 0  }">
+                                		<button onclick="location.href='order_all_cancel.do?onum=${summary.order_num }'">전체 주문 취소하기</button>
+                                	</c:if>
+	                            	
                                 </div>
                                 <table class="m_table m_s_t">
                                     <colgroup>
@@ -75,6 +122,9 @@
 	                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }">
 	                                                    </a>
 	                                                </div>
+	                                                
+	                                                <!-- 해야할 기능 : 주문 취소된 상품일 경우 삭선 처리 필 -->
+	                                                
 	                                                <div class="p_cont">
 	                                                    <p class="sub_middle_text">${list.getBeans_name() }</p>
 	                                                    <p class="small_txt">그람 : <span> ${list.getCart_weight() }</span> </p>
@@ -100,12 +150,23 @@
 	                                        	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 	                                        </td>
 	                                        <td class="p_reorder">
-	                                            <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매하기</button>
+	                                            <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매</button>
+	                                            
+	                                            <!-- <button class="btn small_txt" onclick="">반품</button>
+	                                            <button class="btn small_txt" onclick="">환불</button> -->
 	                                        </td>
                                         </c:forEach>
                                     </tr>
                                 </table>
-                                
+								<c:if test="${summary.type_num==1 }">
+									<div class="delivery_ing_txt">
+	                                	<p>배송중인 상품입니다. <br>상품을 받았을 경우 구매완료 버튼을 눌러주세요.</p>
+	                                	<div>
+											<button class="btn c_delivery_ok js_delivery_ok" value="${summary.order_num}">구매완료</button>
+										</div>
+									</div>
+                               	</c:if>
+								                                
                             </div>
                             <!-- ---------------------------- -->
                             
@@ -217,5 +278,6 @@
         
         <%-- 푸터 --%>
         <jsp:include page="../layout/footer.jsp" />
+        <script src="<%=request.getContextPath() %>/resources/js/cartAndOrderJs/orderContent.js"></script>
 </body>
 </html>

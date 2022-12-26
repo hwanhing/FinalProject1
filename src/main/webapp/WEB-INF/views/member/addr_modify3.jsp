@@ -6,243 +6,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://code.jquery.com/jquery-3.4.1.js"
-integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
-	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
-<style type="text/css">
-@font-face {
-    font-family: 'YESMyoungjo-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/YESMyoungjo-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-
-.form-main{
-
- width: 60%;
- margin-left: 400px;
-
-}
-.form-control {
-    display: block;
-    width: 50%;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.5;
-    color: #212529;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid #ced4da;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
- #button {
-  eight: 3.5rem;
-    background: #734338;
-    color: #fff;
-    border-radius: 40px;
-    padding: 0 2.5rem;
-  }
-
- #button:hover {
-  background-color: #fff;
-  box-shadow: 0px 15px 20px rgba(115, 67, 56, 0.4);
-  color: #734338;
-  transform: translateY(-7px);
-}
-
-
-input {
-			width: 20%;
-			height:50px;
-			padding: 10px 40px;
-			margin: 5px 0;
-			box-sizing: border-box;
-			border: solid 2px #483D8B;
-			font-family: 'YESMyoungjo-Regular';
-			border-radius: 10px;
-			font-size: 14px;
-			background-image: url("/examples/images/img_search_icon.png");
-			background-position: 5px 4px;
-			background-repeat: no-repeat;
-			margin-right: 100px;
-		}
- .submit{
- 	margin-right:100px;
- 	width:300px;
- 	 height: 3.5rem;
-    background: #734338;
-    color: #fff;
-    border-radius: 40px;
-    padding: 0 2.5rem;
- }
- 
-  .submit:hover {
-  background-color: #fff;
-  box-shadow: 0px 15px 20px rgba(115, 67, 56, 0.4);
-  color: #734338;
-  transform: translateY(-7px);
-}
- .reset{
- 	margin-top:30px;
-	 width:300px;
-	 height: 3.5rem;
-    background: #f5f5f5;
-    color: #111;
-    border-radius: 40px;
-    padding: 0 2.5rem;
- }
-.reset:hover{
-
-	background-color: gray;
-  box-shadow: 0px 15px 20px rgba(115, 67, 56, 0.4);
-  color: #fff;
-  transform: translateY(-7px);
-}
-.find_addr{
-	margin-left: 50px;
-}
-.input_addr{
-	margin-left: 50px;
-}
-.last_btn{
-	margin-left: 15px;
-}
-.side_me{
- width: 35%;
- background-color: #EAEAEA;	
- height: 1200px;	
- float: left;
- color: #fff;
-
-}
-.desx{
-	width:100%;
-	margin-left: 500px;
-	
-	
-}
-.text_h1{
-	font-size: 40px;
-	margin-top: 200px;
-}
-.logo{
-	margin-left:  70px;
-}
-.back_button{
-	border: none;
-	font-size: 50px;
-	color: white;
-}
-.fa-arrow-left:before {
-    content: "\f060";
-    color: #734338;
-}
-.side{
-	margin-top: 100px;
-	text-align:center;
-	 font-family: 'YESMyoungjo-Regular';
-}
-.h1_text{
-	
-	color: #734338;
-}
-.span_text{
-	color: #a66b56;
-}
-.img{ 
-	margin-left: 130px;
-	
-}
-.desc{
-position: static;
-}
-#button{
-margin-top: 150px;
+<style>
+.warp{
+	margin-top: 300px;
 }
 </style>
 </head>
 <body>
-<c:set var="mypage" value="Mypage"></c:set>
-<div class="cont">
-	<div class="side_me">
-		<div class="side_inside">
-			<div class="back_button">
-				<a href="member_mypage.do?num=${member_num}">
-					<i class="fa-solid fa-arrow-left">
-					</i>
-				</a>			
-			</div>
-		</div>
-		
-		<div class="img">
-			<img class="logo" src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee" width="300">
-		</div>
-		
-		<div class="side">
-			<c:if test="${dto.getMember_addr2() ne null }" >
-				<h1>새로운 주소 수정</h1>
-			</c:if>
-			<c:if test="${dto.getMember_addr2() eq null }" >
-				<h1 class="h1_text">
-						<span class="span_text">새로운
-						</span> 
-					주소 추가</h1>
-			</c:if>
-		</div>   	
-	</div>
-	<div class="form-main">
-		<div class="desc">
-		<form class="desx" action="<%=request.getContextPath()%>/addr_modify3_ok.do" method="post">
+<jsp:include page="../layout/header.jsp" />
+
+<div align="center" class="warp">
+		<form action="<%=request.getContextPath()%>/addr_modify3_ok.do" method="post">
+			<input type="hidden" value="${member_num }" name="member_num">
 				
-				<input type="hidden" value="${member_num }" name="member_num">
-					<div class="find_addr">
-				<input type="button" onclick="sample6_execDaumPostcode()" id="button" value="우편번호 찾기"><br>
-					</div>
+				<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+				
+				<input type="text" id="sample6_postcode" name="member_addr3" placeholder="우편번호"><br>
+				
+				<input type="text" id="sample6_address" name="member_addr3" placeholder="주소" readonly><br>
+				
+				<input type="text" id="sample6_extraAddress"  name="member_addr3" placeholder="참고항목" readonly><br>
+				
+				<input type="text" id="sample6_detailAddress"  name="member_addr3" placeholder="상세주소">
 				<br><br>
-						<div class="input_addr">
-							<div>
-								<label class="input_label">우편번호</label>
-							</div>
-							<input type="text" id="sample6_postcode" name="member_addr3" placeholder="우편번호" readonly><br>
-							<br>
-							<div>
-								<label class="input_label">도로명주소</label>
-							</div>
-							<input type="text" id="sample6_address" name="member_addr3" placeholder="주소" readonly><br>
-							<br>
-							<div>
-								
-							</div>
-							<input type="text" id="sample6_extraAddress"  name="member_addr3" placeholder="참고항목" readonly><br>
-							<br>
-							<div>
-								<label class="input_label">상세주소</label>
-							</div>
-							<input type="text" id="sample6_detailAddress"  name="member_addr3" placeholder="상세주소">
-						</div>
-				<br>
-					<div class="last_btn">
-							<div>
-								<button type="submit" class="submit" >저장</button>
-							<div >
-								<button type="reset" class="reset">뒤로가기</button>
-							</div>
-						</div>
-					</div>
-				
+				<button type="submit">저장</button>
+				<button type="reset">다시작성</button>
 		</form>
-	</div>
-</div>
+
+
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
     function sample6_execDaumPostcode() {
@@ -294,6 +85,5 @@ margin-top: 150px;
     }
 </script>
 </div>
-
 </body>
 </html>

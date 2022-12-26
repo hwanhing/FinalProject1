@@ -20,12 +20,6 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return this.sqlSession.selectOne("check",dto);
 	}
-	
-
-	@Override
-	public FinalAdminDTO checkAdmin(FinalMemberDTO a_dto) {
-		return this.sqlSession.selectOne("a_check", a_dto);
-	}
 
 	@Override
 	public void logout(HttpSession session) {
@@ -98,54 +92,6 @@ public class MemberDAOImpl implements MemberDAO{
 	public int myheartdelete(int num) {
 		return this.sqlSession.delete("myheartdelete",num);
 	}
-
-	@Override
-	public List<FinalMemberDTO> BoardList(int num) {
-		return this.sqlSession.selectList("board_list", num);
-	}
-
-	@Override
-	public FinalMemberDTO boardcont(int num) {
-	return this.sqlSession.selectOne("board_cont",num);
-	}
-	
-	@Override
-	public BoardReplyDTO replycont(int num) {
-	return this.sqlSession.selectOne("board_reply",num);
-	}
-
-	@Override
-	public int myboard_delete(int no) {
-		
-		return this.sqlSession.delete("myboard_delete", no);
-	}
-
-	@Override
-	public int w_writeok(FinalMemberDTO dto) {
-		 return this.sqlSession.insert("w_write_ok",dto);
-	}
-
-
-
-
-
-	
-
-	
-
-
-	public int joinIdCheck(FinalMemberDTO dto) {
-		// TODO Auto-generated method stub
-		return this.sqlSession.selectOne("joinIdCheck", dto);
-	}
-
-	@Override
-	public int Memberupdate(FinalMemberDTO fmdto) {
-		// TODO Auto-generated method stub
-		return this.sqlSession.update("memberUpdateImg", fmdto);
-	}
-
-
 
 
 

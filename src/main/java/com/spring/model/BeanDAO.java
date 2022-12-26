@@ -10,20 +10,11 @@ public interface BeanDAO {
 
 	List<CoffeeBeanDTO> getBeanList();
 	
-	String getBeansCount();
-	
 	List<CoffeeBeanDTO> getBeanHeartList();
 	
 	List<CoffeeBeanDTO> BeanPriceDownList();
 	
 	List<CoffeeBeanDTO> BeanPriceUpList();
-	
-	List<CoffeeBeanDTO> BeanStar5List();
-	List<CoffeeBeanDTO> BeanStar4List();
-	List<CoffeeBeanDTO> BeanStar3List();
-	List<CoffeeBeanDTO> BeanStar2List();
-	List<CoffeeBeanDTO> BeanStar1List();
-	
 	
 	CoffeeStarDTO seHeart(Map<String, Integer> map);
 	void insertHeart(Map<String, Integer> map);
@@ -37,33 +28,14 @@ public interface BeanDAO {
 	int getWriteCount(int num);
 	
 	List<CoffeeWriteDTO> getWriteList(int num);
-	/* List<CoffeeWriteDTO> getWriteListStar(int num); */
 
-	int starAvg(int num);
-	int starCheck(int num);
+	int seWrite(CoffeeWriteDTO dto);
 	
-	int writeCheck(Map<String, Integer> map);
+	void getStar(CoffeeStarDTO dto);
 	
-	int seWrite(Map<String, Object> map);
-	int insertWriteStar(Map<String, Object> map);
-	int updateWriteStar(Map<String, Object> map);
-	
-	int checkWrite(Map<String, Object> map);
-	
+	int checkWrite(CoffeeStarDTO dto1);
 	
 	// 후기글 삭제
 	int deleteWrite(int write_num);
-	// 후기글 삭제시 star도 삭제
-	int deleteStar(Map<String, Integer> map);
-	
-	
-	
-	// 후기글 별점 업데이트
-	void updateStar(CoffeeStarDTO dto_1);
-	
-	// 후기글 별점 insert
-	void insertStar(CoffeeStarDTO dto_1);
-	
-	
 	
 }

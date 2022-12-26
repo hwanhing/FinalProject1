@@ -20,7 +20,9 @@ console.log('js')
    let finSum = 0;
  
    // 버튼 변수 
+   let btnUp = document.querySelectorAll(".btn_up")
    let btnDown = document.querySelectorAll(".btn_down")
+   let gbtnUp = document.querySelectorAll(".gram_btn_up")
    let gbtnDown = document.querySelectorAll(".gram_btn_down")
    
    // 구매가능한 상품만
@@ -35,6 +37,8 @@ console.log('js')
    let allTotalPrice = document.querySelector(".all_total_price")  // 상품가격 + 배송비 - 사용포인트
    let allPoint = document.querySelector(".all_point")             // 적립포인트
 
+   let canOrderRow = document.querySelectorAll(".row_cart_num")		// 주문가능한 row
+   let soldOutRow = document.querySelectorAll('.sold_out_row')		// 품절상품 row
    //---------------------------------------------------------------------------------
    	
    window.onload = onloadCalc()
@@ -84,6 +88,11 @@ console.log('js')
    		heart.forEach(function(e,index){
 	   		heart[index].classList.add('heart_active')
    		})
+   		
+   		// 장바구니에 상품이 하나도 없거나, 품절 상품만 있을 경우 주문하기 버튼 삭제
+        if(canOrderRow.length == 0 && soldOutRow.length >= 0 ){
+       	  document.querySelector(".total_price_button").remove()
+        }
    }
    
     // 수량 up 버튼 클릭시
@@ -91,6 +100,7 @@ console.log('js')
 	  console.log("click up button : "+cartNum)
 	  
 	  up(cartNum)
+	  
 	  CalcRowTotal(cartNum)
 	  CalcAllTotal()
 	  
@@ -101,6 +111,7 @@ console.log('js')
 	   console.log("click down button : "+cartNum)
 	   
 	   down(cartNum)
+	   
 	   CalcRowTotal(cartNum)
 	   CalcAllTotal()
 	   
@@ -127,8 +138,11 @@ console.log('js')
           clickedUBtn.classList.add('disabled_btn')
       }
       
+      checkStock(cartNum, 'c')
+      
       // DB 수정 함수
       cartReCntDB(cartNum, clickedCntValue)
+      
    }
    
    // 수량 down 함수
@@ -139,18 +153,26 @@ console.log('js')
 	  clickedCntValue--
 	  clickedCnt.value = clickedCntValue
 	  
+	  // 수량 업다운 버튼
 	  let clickedUBtn = document.querySelector(".num_"+cartNum+"_Ubtn")
 	  let clickedDBtn = document.querySelector(".num_"+cartNum+"_Dbtn")
 	  
+	  // 그람 업 버튼
+	  let clickedGUBtn = document.querySelector(".num_g_"+cartNum+"_Ubtn")
+	  clickedGUBtn.removeAttribute('disabled')
+	  clickedGUBtn.classList.remove('disabled_btn')
+	  
 	  if(clickedCntValue == minOrder){
-		  clickedDBtn.setAttribute('disabled',true)
-          clickedDBtn.classList.add('disabled_btn')
+	     clickedDBtn.setAttribute('disabled',true)
+	     clickedDBtn.classList.add('disabled_btn')
       }
-
-      if(clickedCntValue < maxOrder){
-    	  clickedUBtn.removeAttribute('disabled')
-          clickedUBtn.classList.remove('disabled_btn')
-      }
+	
+	  if(clickedCntValue < maxOrder){
+	     clickedUBtn.removeAttribute('disabled')
+	     clickedUBtn.classList.remove('disabled_btn')
+	  }
+	  
+	  checkStock(cartNum, 'c')
       
       // DB 수정 함수
       cartReCntDB(cartNum, clickedCntValue)
@@ -176,6 +198,8 @@ console.log('js')
 	        clickedGUBtn.classList.add('disabled_btn')
 	    }
 	    
+	    checkStock(cartNum, 'g')
+	    
 	    CalcRowTotal(cartNum)
 	   	CalcAllTotal()
    		
@@ -193,6 +217,11 @@ console.log('js')
     	let clickedGUBtn = document.querySelector(".num_g_"+cartNum+"_Ubtn")
 	  	let clickedGDBtn = document.querySelector(".num_g_"+cartNum+"_Dbtn")
 	  	
+	  	// 수량 업버튼 버튼
+		let clickedUBtn = document.querySelector(".num_"+cartNum+"_Ubtn")
+		clickedUBtn.removeAttribute('disabled')
+		clickedUBtn.classList.remove('disabled_btn')
+	  	
 	  	if(clickedGramValue == minGram){
 			 clickedGDBtn.setAttribute('disabled',true)
 	         clickedGDBtn.classList.add('disabled_btn')
@@ -203,12 +232,60 @@ console.log('js')
 	         clickedGUBtn.classList.remove('disabled_btn')
 	    }
 	    
+	    checkStock(cartNum, 'g')
+	    
 	    CalcRowTotal(cartNum)
 	   	CalcAllTotal()
 	   	
 	   	// DB 수정 함수
       	cartReGramDB(cartNum, clickedGramValue)
    }
+   
+   
+   // 재고 확인 함수
+   function checkStock(cartNum, type){
+   
+   		let clickedCntValue = parseInt(document.querySelector(".num_"+cartNum+"_cnt").value)
+	    let clickedGramValue = parseInt(document.querySelector(".num_"+cartNum+"_gram").value)
+	    let beanStock = parseInt(document.querySelector(".num_"+cartNum+"_b_cnt").textContent)
+	    
+	    // 수량 업 버튼
+	    let clickedUBtn = document.querySelector(".num_"+cartNum+"_Ubtn")
+	    
+	    // 그람 업다운 버튼
+	    let clickedGUBtn = document.querySelector(".num_g_"+cartNum+"_Ubtn")
+	    
+	    // 장바구니에 들어있는 총 g 
+	    let totalCartGram = (clickedCntValue * clickedGramValue)
+      
+      	console.log(`totalCartGram : ${totalCartGram} , typeof ${typeof totalCartGram}`)
+        console.log(`beanStock : ${beanStock}, typeof ${typeof beanStock}`)
+        
+        if(totalCartGram>beanStock){
+        	if(type=='c'){
+        		document.querySelector(".num_"+cartNum+"_cnt").value =  clickedCntValue - 1
+        	}else{
+        		document.querySelector(".num_"+cartNum+"_gram").value =  clickedGramValue - 100
+        	}
+        }
+        
+        if( ((clickedGramValue + 100) * clickedCntValue) >= beanStock){
+        	clickedGUBtn.setAttribute('disabled',true)
+	     	clickedGUBtn.classList.add('disabled_btn')
+        
+        }
+        
+        if( clickedGramValue >100){
+	        if( (clickedGramValue * (clickedCntValue +1)) >= beanStock){
+	       		
+	       		clickedUBtn.setAttribute('disabled',true)
+		        clickedUBtn.classList.add('disabled_btn')
+	        }
+        }
+        
+   }
+   
+   
    
    // 수량. 그람수 변화에 따라 합계 계산 함수
    function CalcRowTotal(cartNum){
@@ -263,17 +340,19 @@ console.log('js')
    // 삭제 클릭시 ---------------------------------------------------------------
    function deleteRow(cartNum){
        
-	   let rowCartNum = document.querySelector(".num_"+cartNum+"_n")
 	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
 	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")
 	   
 	   let rTotalTag = document.querySelector(".num_"+cartNum+"_Rtotal")
 	   let rTotal = parseInt(rTotalTag.textContent.replace(',',''))
 	  
-	   rowCartNum.classList.remove('row_cart_num')
-	   rowArea.classList.add('display_none')
-	   hrdiv.classList.add('display_none')
-       
+	   rowArea.remove()
+	   hrdiv.remove()
+	   
+	   let reCanOrderRow = document.querySelectorAll(".row_cart_num")
+	   let reSoldOutRow = document.querySelectorAll('.sold_out_row')
+	   
+	   // 주문금액, 적립포인트 수정
        let reTotalPrice = finSum - rTotal
       
        finSum = reTotalPrice
@@ -283,8 +362,16 @@ console.log('js')
 	   
        point(finSum) 
        
-       // 장바구니에 상품이 하나도 없을 경우 
-       disabledOrderBtn(inputCnt.length)
+       // 장바구니에 상품이 하나도 없을 경우 상품 row 에 안내문 출력
+       if(canOrderRow.length == 0 && soldOutRow.length == 0 ){
+       		disabledOrderBtn()
+       }
+       
+       // 장바구니에 상품이 하나도 없거나, 품절 상품만 있을 경우 주문하기 버튼 삭제
+       if(reCanOrderRow.length == 0 && reSoldOutRow.length >= 0 ){
+       	 document.querySelector(".total_price_button").remove()
+       }
+       
        
        // DB 수정 함수
        deleteRowDB(cartNum)
@@ -296,32 +383,39 @@ console.log('js')
    	   let rowArea = document.querySelector(".num_"+cartNum+"_row")
 	   let hrdiv = document.querySelector(".num_"+cartNum+"_hrdiv")	
    		
-   	   rowArea.classList.add('display_none')
-	   hrdiv.classList.add('display_none')
+	   rowArea.remove()
+	   hrdiv.remove()
+
+   	   let reCanOrderRow = document.querySelectorAll(".row_cart_num")
+	   let reSoldOutRow = document.querySelectorAll('.sold_out_row')
    		
-   	   // 장바구니에 상품이 하나도 없을 경우 
-       disabledOrderBtn()
+   	   console.log(`canOrderRow.length : ${canOrderRow.length}`)
+       console.log(`soldOutRow.length : ${soldOutRow.length}`)
+       
+       // 장바구니에 상품이 하나도 없을 경우 주문하기 버튼 삭제
+       if(canOrderRow.length == 0 && soldOutRow.length == 0 ){
+       		disabledOrderBtn()
+       }
+       
+       // 장바구니에 상품이 하나도 없거나, 품절 상품만 있을 경우 주문하기 버튼 삭제
+       if(reCanOrderRow.length == 0 && reSoldOutRow.length >= 0 ){
+       	 document.querySelector(".total_price_button").remove()
+       }
+   		
    		
    	   // DB 수정 함수
        deleteRowDB(cartNum)
    }
    
    
-   // 장바구니 목록이 없다면 결제하기 버튼 없애기
+   // 장바구니 목록이 없다면 주문하기 버튼 없애기
    function disabledOrderBtn(){
-   	   
-   	    let row = document.querySelectorAll(".row_area")
-   		let deleteRow = document.querySelectorAll(".display_none")
-   		console.log("삭제버튼 누름 : " + deleteRow.length)
-   		console.log("row : " + row.length) 
    		
-   		if(deleteRow.length == row.length*2){
-   			document.querySelector(".rows_area").innerHTML = '<div class="row_area empty_cart">' 
-   				+ '<h3 class="point_text">담아둔 상품이 없습니다.</h3>'
-			 	+ '</div>'
-			 	
-			document.querySelector(".total_price_button").classList.add('display_none')
-   		}
+   		console.log('장바구니 목록이 없습니다.')
+		document.querySelector(".rows_area").innerHTML = '<div class="row_area empty_cart">' 
+			+ '<h3 class="point_text">담아둔 상품이 없습니다.</h3>'
+		 	+ '</div>'
+		
    }
    
    // ajax ----------------------------------------------------------
@@ -416,8 +510,8 @@ console.log('js')
 	}
  
   // 결제하기 버튼 클릭
-  let order_btn = document.querySelector(".order_btn")
-  order_btn.addEventListener("click",function(){
+  let order_btn = document.querySelector('.order_btn')
+  order_btn.addEventListener('click',function(){
   		
   		// 장바구니 번호 넘겨줌
   		let rowCartArr = makeCartNumArr()

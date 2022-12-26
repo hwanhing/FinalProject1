@@ -9,74 +9,12 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="https://kit.fontawesome.com/4338ad17fa.js" crossorigin="anonymous"></script>
-<script type="text/javascript">
-
-let noimage =
-	  "https://www.google.com/imgres?imgurl=https%3A%2F%2Fimweb.me%2Fcommon%2Fimg%2Fdefault_profile.png&imgrefurl=https%3A%2F%2Fimweb.me%2Fmysite&tbnid=Vd7XhdBNSjYZIM&vet=12ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ..i&docid=3sDQ3orzKXesmM&w=200&h=200&itg=1&q=%ED%8E%98%EC%9D%B4%EC%8A%A4%EB%B6%81%20%ED%94%84%EB%A1%9C%ED%95%84%EC%9D%B4%EB%AF%B8%EC%A7%80%20%EC%97%86%EC%9D%8C&hl=ko&ved=2ahUKEwiT85qFiPv7AhUODpQKHbROD2QQMygDegUIARC8AQ";
-
-function readURL1(input) {
-	  console.log(input.files);
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function (e) {
-	      $("#img-preview1").attr("src", e.target.result);
-	    };
-
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    $("#img-preview1").attr("src", noimage);
-	  }
-	}
-
-</script>
-
 
 <style>
-
-
-.row {
-    --bs-gutter-x: 1.5rem;
-    --bs-gutter-y: 0;
-    display: flex;
-    flex-wrap: nowrap;    
-	justify-content: center;
-    margin-top: calc(-1 * var(--bs-gutter-y));
-    margin-right: calc(-.5 * var(--bs-gutter-x));
-    margin-left: calc(-.5 * var(--bs-gutter-x));
-    justify-content: center;
-
-}
-.header__content{
-	background-color: #D9CEC1;
-    -webkit-text-size-adjust: 100%;
-    font: 100% sans-serif;
-    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
-    font-family: var(--ikea-font);
-    font-size: .875rem;
-    line-height: 1.571;
-    visibility: visible;
-    text-align: left;
-    pointer-events: all;
-    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
-    box-sizing: inherit;
-    outline: none;
-    margin: 0;
-    display: flex;
-	align-items: center;
-    justify-content: space-around;
-    padding: 100px 100px 50px 0.1px;
-}	
-.img_no1{		
-border: 1px solid #000;
-border-radius: 100%;
-height: 7%;
-width: 7%;
- }
-
 .zero{
-	margin-top: 150px;
-	margin-left:230px;
+	margin-top: 200px;
+	margin-left:350px;
+	
 	width:75%;
 	height: 100px;
 
@@ -108,7 +46,7 @@ width: 7%;
 }
 
 .tabbable-panel {
-  margin-top: 50px;
+  margin-top: 100px;
 }
 
 .tabbable-line > .nav-tabs {
@@ -116,8 +54,9 @@ width: 7%;
   margin: 0px;
 }
 .tabbable-line > .nav-tabs > li {
+  margin-right: 50px;
   font-size: 15px;
-  width: 100px;
+  width: 400px;
   text-align: center;
 
 }
@@ -126,7 +65,7 @@ width: 7%;
   margin-right: 0;
   color: #737373;
   font-size: 20px;
-  margin-bottom: 5px;
+
 }
 .tabbable-line > .nav-tabs > li > a > i {
   color: #c14d0f;
@@ -149,7 +88,7 @@ width: 7%;
 }
 .tabbable-line > .nav-tabs > li.active {
   border-bottom: 4px solid #c67501;
-  width: 100px;
+  width: 350px;
   text-align: center;
 }
 .tabbable-line > .nav-tabs > li > a{
@@ -169,6 +108,7 @@ text-align: center;
   margin-top: -3px;
   background-color: #fff;
   border: 0;
+  border-top: 1px solid #eee;
   padding: 15px 0;
 }
 .portlet .tabbable-line > .tab-content {
@@ -176,58 +116,12 @@ text-align: center;
 }
 
 .first-span{
-	/* font-style: italic; */
+	font-style: italic;
 	font-family:bold;
-	font-size: 24px;
+	font-size: 30px;
 	
 }
-/* img{		
-margin-left:50px;
-border: 1px solid black;
-border-radius: 100%;
-height: 200px;
-width: 200PX;
- } */
-        
-.profile{
-margin-top: 50px;
-}
-.fa-cogs:before, .fa-gears:before {
-    content: "\f085";
-    font-size: 60px;
-    margin-bottom: 30px;
-	position: absolute;
-	float: right;
-}
-.ap{
-margin-left: 130px;}
 
-	.logout{
-		margin-top: 5px;
-	}
-	
-	.container1{
-		margin-left: 13%;
-		margin-right: 15%;
-	}
-	
-	.first_box1{
-		margin-top: 2%;
-		margin-bottom: 2%;
-	}
-
-	.two_box2{
-		margin-top: 20px;
-		margin-bottom: 10px;
-	}
-	
-	.two-span{
-		font-size: 23px;
-	}
-	
-	.three_box3{
-		margin-top: 5%;
-	}
 </style>
 </head>
 <body>
@@ -236,7 +130,6 @@ margin-left: 130px;}
 
 <c:set var="dto" value="${Mypage }" />
 
-<div class="ap">
 <div>
 	
 	
@@ -244,14 +137,14 @@ margin-left: 130px;}
 <div class="zero">
 <br>
 <br>
-<h3>계정 관리</h3>
+<h1>계정 관리</h1>
 <div class="logout">
-<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal">로그아웃</a>
+<span>로그아웃을 하고 싶으신가요? <a href="#exampleModal" data-bs-toggle="modal" >로그아웃</a>
 </span>
 	</div>
 </div>
 </div>
-<br><br>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -271,78 +164,53 @@ margin-left: 130px;}
   </div>
 </div>
 
-
-
-<div class="container1">
+<div class="container">
   <div class="row">
     <div class="col-md-12">
 			<div class="tabbable-panel">
 				<div class="tabbable-line">
 					<ul class="nav nav-tabs ">
 						<li class="active">
-							<a href="#tab_default_1" data-toggle="tab" class="aa1">계정</a>
+							<a href="#tab_default_1" data-toggle="tab">계정</a>
 						</li>
 						<li>
-							<a href="#tab_default_2" data-toggle="tab"class="aa1">주소 </a>
+							<a href="#tab_default_2" data-toggle="tab">주소 </a>
 						</li>
 						<li>
-							<a href="#tab_default_3" data-toggle="tab"class="aa1">설정 </a>
+							<a href="#tab_default_3" data-toggle="tab">설정 </a>
 						</li>
 
 					</ul>
 					<div class="tab-content">
 						<div class="tab-pane active" id="tab_default_1">
-							<div>				
-								<div class="field">
-									<div class="profile">
-							 		  <span class="first-span">프로필사진</span>
-							 		 <br><br>
-							 		 </div>
-							             <label for="image"></label>
-							             <c:if test="${dto.getMember_img() eq null}">
-                                            <img alt="이미지없음" id="img-preview1" class="img_no1" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" />
-                                            ${dto.getMember_img() }							             	
-							             </c:if>
-							             <c:if test="${dto.getMember_img() ne null}">
-							    			 <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">
-                                            <img alt="이미지없음" id="img-preview1" class="img_no1" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
-                                            </a>
-                                            ${dto.getMember_img() }	
-                                         </c:if>
-										<br><br>	
-										<div>
-										
-										</div>
-							        </div>
-										<hr width="80%" color="gray" style="margin: 0;">
-								  <div class="first_box1">
-				  
+							<div>
+								  <div>
 								  <div>
 								  <span class="first-span">개인정보</span>
 								  
 								
 								</div>
 								<div>
-									<br>
 									<span>${dto.getMember_name() }</span>
 								</div>
 								<div>
-								
+								<br>
 									<span>${dto.getMember_birth().substring(0,10) }</span>
 								</div>
-								
+								<br>
 									
 								</div>
 								
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">
 								
-								<div class="first_box1">
+								<div>
 								<div>
 									<span class="first-span">연락처</span>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}" style="margin-left:1120px;">수정</a>
 								</div>
-								<div style="margin-top: 10px;">
-									<span style="margin-left: 5px;">${dto.getMember_phone() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}" style="margin-left:69%;">수정</a>
+								<div>
+								<br>
+									<span>${dto.getMember_phone() }</span>
 								</div>
 								</div>
 								
@@ -350,42 +218,44 @@ margin-left: 130px;}
 								
 								
 								<!-- 이메일 -->
-								<hr width="80%" color="gray" style="margin: 0;">
-								<div class="first_box1">
+								<hr width="1280px" color="gray">
+								<div>
 								<div>
 									<span class="first-span">이메일</span>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</div>
-								<div style="margin-top: 10px;">
-									<span style="margin-left: 5px;">${dto.getMember_email() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}" style="margin-left:68%;">수정</a>
+								<div>
+								<br>
+									<span>${dto.getMember_email() }</span>
 								</div>
 								</div>
 								
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">
 								<!-- 비밀번호탭 -->
-								<div class="first_box1">
+								<div>
 								<div>
 									<span class="first-span">비밀번호</span>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Pwd_Modify.do?num=${dto.getMember_num()}" style="margin-left:1090px;">수정</a>
 								</div>
-								<div style="margin-top: 10px;">
-									<span style="margin-left: 5px;"><c:if test="${dto.getMember_pwd().length() != 0 }">
+								<div>
+								<br>
+									<span ><c:if test="${dto.getMember_pwd().length() != 0 }">
 								                     <c:forEach begin="1" end="${dto.getMember_pwd().length() }">
 								                        *
 								                     </c:forEach>
 								                  </c:if>
 								                  </span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Pwd_Modify.do?num=${dto.getMember_num()}" style="margin-left:73.5%;">수정</a>
 								</div>
 								</div>
 								
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">
 								</div>
 								</div>
 															
 						<div class="tab-pane" id="tab_default_2">
-							<div class="two_box2" style="margin-top: 5%;">
+							<div>
 								<div>	
-								<span class="two-span">기본 주소</span>
+								<span class="first-span">주소1</span>
 								
 								</div>
 						
@@ -393,21 +263,21 @@ margin-left: 130px;}
 								<span>${dto.getMember_addr() }</span>
 								</div>
 								<c:if test="${dto.getMember_addr() ne '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:76%;">수정</a>
+								<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</c:if>
 								
 								<c:if test="${dto.getMember_addr() == '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:76%;">추가</a>
+								<a href="<%=request.getContextPath() %>/addr_modify.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 								</c:if>
 								</div>	
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">  
 								
 							
 							
 							
-								<div class="two_box2">
+								<div>
 								<div>	
-								<span class="two-span">배송 주소</span>
+								<span class="first-span">주소2</span>
 								
 								</div>
 						
@@ -415,19 +285,19 @@ margin-left: 130px;}
 								<span>${dto.getMember_addr2() }</span>
 								</div>
 								<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:76%;">수정</a>
+								<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</c:if>
 								
 								<c:if test="${dto.getMember_addr2() == '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:76%;">추가</a>
+								<a href="<%=request.getContextPath() %>/addr_modify2.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 								</c:if>
 								</div>	
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">  
 								
 						
-								 <div class="two_box2">
+								 <div>
 								<div>
-								<span class="two-span">배송 주소</span>
+								<span class="first-span">주소3</span>
 								
 								</div>
 								<div>
@@ -440,18 +310,18 @@ margin-left: 130px;}
 								<span>${dto.getMember_addr3() }</span>
 								</div>
 								<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:76%;">수정</a>
+								<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</c:if>
 								
 								<c:if test="${dto.getMember_addr3() == '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:76%;">추가</a>
+								<a href="<%=request.getContextPath() %>/addr_modify3.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 								</c:if>
 								</div>
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">  
 								
-								 <div class="two_box2">
+								 <div>
 								<div>
-								<span class="two-span">배송 주소</span>
+								<span class="first-span">주소4</span>
 								
 								</div>
 						
@@ -459,18 +329,18 @@ margin-left: 130px;}
 								<span>${dto.getMember_addr4() }</span>
 								</div>
 							<c:if test="${dto.getMember_addr4() ne '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:76%;">수정</a>
+								<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</c:if>
 								
 								<c:if test="${dto.getMember_addr4() == '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:76%;">추가</a>
+								<a href="<%=request.getContextPath() %>/addr_modify4.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 								</c:if>
 								</div>
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">  
 								
-								 <div class="two_box2">
+								 <div>
 								<div>
-								<span class="two-span">배송 주소</span>
+								<span class="first-span">주소5</span>
 								
 								</div>
 						
@@ -478,28 +348,24 @@ margin-left: 130px;}
 								<span>${dto.getMember_addr5() }</span>
 								</div>
 								<c:if test="${dto.getMember_addr5() ne '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:76%;">수정</a>
+								<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:1120px;">수정</a>
 								</c:if>
 								
 								<c:if test="${dto.getMember_addr5() == '주소를 넣어주세요' }">
-								<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:76%;">추가</a>
+								<a href="<%=request.getContextPath() %>/addr_modify5.do?num=${dto.getMember_num()}" style="margin-left:1120px;">추가</a>
 								</c:if>
 								</div>
-								<hr width="80%" color="gray" style="margin: 0;">
+								<hr width="1280px" color="gray">  
 						
-						 
-						 
 						 
 						</div>
 						<div class="tab-pane" id="tab_default_3">
-						<div class="three_box3">
-							<div>
-								 <h3>회원탈퇴</h3>
-								 <div style="margin-top: 10px;">
+						<div>
+								  <div>
+								 <h2>회원탈퇴</h2>
 								<span class="profile__text-block">커퍼 커피 를 더 이상 이용하지 않는다면 언제든 탈퇴할 수 있습니다. 단, 회원 정보 및 구매 내역이 함께 삭제된다는 점을 참고해주세요.
 								</span><a rel="noopener noreferrer" href="<%=request.getContextPath()%>/user_delete.do?num=${dto.getMember_num()}">계정을 삭제하시겠어요?
 								</a>
-								</div>
 								
 									</div><!-- 부트스트랩 div 끝 -->
 								  		</div>
@@ -510,7 +376,7 @@ margin-left: 130px;}
 					</div>
 			    </div>
 			  </div>
-</div>
+
 
 <jsp:include page="../layout/footer.jsp" />
 </body>
