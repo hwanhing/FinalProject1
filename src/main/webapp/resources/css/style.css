@@ -82,6 +82,7 @@ body {
 body,
 code,
 pre {
+
     font-size: 14px;
     font-family: 'Noto Sans KR'; 
     color: #333;
@@ -141,9 +142,10 @@ select {
 select:focus {
     border-color: var(--color);
 }
-/* label {
+
+label {
     cursor: pointer;
-} */
+}
 
 
 img {
@@ -264,14 +266,38 @@ header {
     justify-content: center;
     align-items: center;
 }
-s
+
+.header .h-wrap .h-nav .nav-toggle {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .header .h-wrap .h-gnb .h-nav{
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 8px 24px;
+    }
+
+    .header .h-wrap .h-gnb .h-nav .h-menu {
+        flex-direction: column;
+        align-items: center;
+        display: none;
+        width: 100%;
+    }
+
+    .header .h-wrap .h-nav ul li a {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
 
 .header .h-wrap .h-gnb .h-nav { 
     padding: 0;
     padding-right: 10px;
     align-items: center;
 }
-
 
 
 .header .h-wrap .h-nav .h-menu {
@@ -297,6 +323,9 @@ s
 
 }
 
+.header .h-wrap .h-nav .nav-toggle {
+    color: #734338;
+}
 
 .header .h-wrap .menu-etc {
 	display: flex;
@@ -455,14 +484,11 @@ s
     cursor: pointer;
 }
 
-
 /*************************/
-/* 회원가입 모달 
+/* 계정찾기 모달 
 /************************/
 
-
-
-.join-modal {
+.find-modal {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.13);
     top: 0;
@@ -472,6 +498,110 @@ s
     display: none;
 }
 
+.find-modal .find-form .find-title {
+    text-align: center;
+    font-family: 'YESMyoungjo-Regular';
+    letter-spacing: 3px;
+    margin-top: 10px;
+}
+
+.find-modal .find-form .find-title p {
+    margin-top: 13px;
+}
+
+.find-modal .find-form .find-title img {
+	width: 180px;
+	height: 80px;
+}
+
+.find-modal .find-title span {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.find-modal .find-title .icon-close{ 
+    cursor: pointer;
+}
+
+.find-modal .find-form{
+    background-color: #fff;
+    width: 360px;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    box-shadow: 0 0 15px rgb(0, 0, 0.15);
+    font-family: 'YESMyoungjo-Regular';
+    text-align: center;
+
+}
+
+.find-form .fd-wrap {
+    margin-top: 15px;
+}
+
+.find-form .fd-form input{
+    width: 100%;
+    padding: 5px;
+    margin-top: 15px;
+    color: rgb(0, 0, 0.13);
+
+}
+.find-form .fd-form .log-input {
+    width: 13px;
+    height: 13px;
+    vertical-align: text-top;
+}
+.find-form .fd-form .log-check {
+    vertical-align: -12px;
+    margin-left: 5px;
+}
+
+.find-form .fd-form input:focus::placeholder{
+    color: transparent;
+}
+
+.find-form .fd-btn {
+    background-color: #D9CEC1;
+    border-radius: 5px;
+    font-size: 17px;
+    color: #734338;
+    font-family: 'YESMyoungjo-Regular';
+    margin-top: 10px;
+    height: 50px;
+    width: 100%;
+}
+
+.find-form .fd-btn:hover {
+    background-color: #734338;
+    color:  #D9CEC1;
+    transition: all .3s ease-in-out;
+}
+
+.find-form .fd-etc {
+    display: flex;
+    font-size: 12px;
+    margin-top: 20px;
+    justify-content: space-around;
+}
+
+
+.find-form .fd-etc a{ 
+    cursor: pointer;
+    font-family: 'YESMyoungjo-Regular';
+    color: #734338;
+}
+
+.find-form .fd-etc a:hover {
+    color:  #D9CEC1;
+}
+
+.find-form .fd-etc .icon-question {
+    cursor: pointer;
+}
 
 /*************************/
 /* 회원가입 모달 
@@ -553,7 +683,8 @@ s
     margin: 5px 0;
     color: #800000;
     opacity: .7;
-    
+    display: none;
+
 }
 
 .join-form .jf-btn {
@@ -602,6 +733,7 @@ s
     font-size: 12px;
 
 }
+
 
 
 /******************************/
@@ -687,12 +819,63 @@ footer{
 
 /*김홍기 수정  */
 .result-img{
-	
-	margin-left: 90px;
+	margin-left: 20%;
 }
 .result_name{
 	margin-top: 30px;
 	margin-left: 150px;
 	font-size :20px;
 	font-family: 'Cafe24Danjunghae';
+}
+#unlogin{
+  width: 170px;
+  height: 45px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 19px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
+  color: #000;
+  background-color: #fff;
+  border: none;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  margin-right: 100px;
+	
+}
+#unlogin:hover{
+  background-color: red;
+  box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+  color: #fff;
+  transform: translateY(-7px);
+	
+}
+.header__username{
+
+}
+.point-banner{
+	margin-left: 5%;
+	margin-top: 5%;
+	
+}
+.point{
+	font-size: 18px;
+	font-family: fantasy;
+	
+	
+}
+
+.point2{
+	font-size: 18px;
+}
+.nav-link{
+	margin-top: 5%;
+	margin-left: 5%;
+}
+a{
+	
+	font-size: 20px;
 }

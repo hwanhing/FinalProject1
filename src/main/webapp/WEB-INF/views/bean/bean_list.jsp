@@ -12,6 +12,34 @@
 
 <style type="text/css">
 
+.img_no{		
+margin-left:50px;
+border: 1px solid #FFF;
+border-radius: 100%;
+height: 100px;
+width: 100PX;
+ }
+.header__content {
+    background-color: #D9CEC1;
+    -webkit-text-size-adjust: 100%;
+    font: 100% sans-serif;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+    font-size: .875rem;
+    line-height: 1.571;
+    visibility: visible;
+    text-align: left;
+    pointer-events: all;
+    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+    box-sizing: inherit;
+    outline: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 100px 100px 50px 0.1px;
+} 
+
         .top{
             width: 100%;
             height: 4em;
@@ -90,22 +118,15 @@
 			height: 37px;
 			border-radius: 25px;
 			background-color: #000;
-
 			margin-left: 2%;
 			padding: 0;
 			border: none;	
 		}
 		
-
-		
 		.con_info{
-		
-			margin-bottom: 10%;
-			
-
+			margin-bottom: 10%;	
 		}
 
-		
 		.info_out{
 			text-align: left;
 			height: 225px;
@@ -136,6 +157,7 @@
 			float: left;
 		}
 		
+
 </style>
 </head>
 <body>
@@ -164,13 +186,13 @@
         </div>
 
         <div class="select_box2">
-            <select class="box2">
-                <option>고객평가</option>
-                <option>★★★★★</option>
-                <option>★★★★</option>
-                <option>★★★</option>
-                <option>★★</option>
-                <option>★</option>
+            <select class="box2" name="select_box2">
+                <option id="op_name2" value="고객평가">고객평가</option>
+                <option value="5점">5점</option>
+                <option value="4점">4점</option>
+                <option value="3점">3점</option>
+                <option value="2점">2점</option>
+                <option value="1점">1점</option>
             </select>
             <br>
         </div>
@@ -179,24 +201,35 @@
         <hr style="margin: 0;">
         <br>
         <c:set var="list" value="${List }" />
+
         <c:if test="${empty list }">
         	<table>
         		<tr>
         			<td>	
-        			<h3>안ㄴ와</h3>
+        			<h3>평가된 원두가 없습니다.</h3>
         			</td>
         		</tr>
         	</table>
         </c:if>
-
+        <c:if test="${!empty list }">
+       
+         <c:set var="count" value="${Count }" />
+        	<div class="title_box">
+        		<a>원두상품 총 개수 : ${count } 개</a>
+        	</div>
         
         <div class="list_box">
-        
+       
         	<c:forEach items="${list }" var="i"  varStatus="status">
 
         	<div class="con1">
         		<div class="con_box" align="center">
-        			<img alt="커피원두1" width="300px" height="300px" <%--여기--%> src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
+        		<c:if test="${member_id eq null }">
+	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'">         				        			
+        		</c:if>
+        		<c:if test="${member_id ne null }">
+	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'">            		
+        		</c:if>
         		</div>
         		<div class="info_out">
 	        		<div class="con_info">
@@ -220,7 +253,6 @@
 						</button>      				
 	        			
 	        			<%-- 찜 버튼 --%>
-
 	       				<button type="button" class="heart_btn" value="${i.getBeans_num() }" style="background-color: #000;">
 							<svg focusable="false" width="24" height="24" viewBox="0 0 24 24" fill="rgb(255, 255, 255)" xmlns="http://www.w3.org/2000/svg" class="pip-svg-icon ">
 							 <path fill-rule="evenodd" style="fill:rgb(255, 255, 255);" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0z"></path>
@@ -233,6 +265,7 @@
 				</c:forEach>
 				
         	</div> <%-- list_box 끝 --%>
+        	 </c:if>
         </div> <%-- empty 끝 --%>
     <jsp:include page="../layout/footer.jsp" />
     
@@ -245,8 +278,7 @@
 	   $(document).on("click", ".heart_btn", function(){
 		   
 		  if('<%=session.getAttribute("member_id")%>' != "null"){
-
-			
+			  
 			let beans_heart = $('#beans_heart').val(); 
 		 	let no ='<%=session.getAttribute("member_num")%>';
 		 	
@@ -283,6 +315,7 @@
 	   });
 
 	
+	// select 박스 중 옵션 선택 후 정렬 되도록..
  	$('.box1').change(function() {
  	    var result = $('.box1 option:selected').val();
  	   	var name = document.getElementById("op_name").value;
@@ -304,22 +337,38 @@
  	    }
  	    
  	  }); 
+	
+	$('.box2').change(function(){
+		
+		var result = $('.box2 option:selected').val();
+		var name = document.getElementById("op_name2").value;
+		
+		if(result == '5점'){
+			
+			location.href="beans_star_5.do"
+			
+		}else if(result == '4점'){
+			
+			location.href="beans_star_4.do"
+			
+		}else if(result == '3점'){
+			
+			location.href="beans_star_3.do"
+			
+		}else if(result == '2점'){
+			
+			location.href="beans_star_2.do"
+			
+		}else{
+			
+			location.href="beans_star_1.do"
+			
+		}
+		
+	});
  	
 
-	
-
 }); 
-
-/*
- * 
- 
- 
-	<svg focusable="false" viewBox="0 0 24 24" class="pip-svg-icon pip-btn__icon" aria-hidden="true">
-	<path id="heart_border" style="fill:rgb(0, 0, 0);" fill-rule="evenodd" clip-rule="evenodd" d="M19.205 5.599c.9541.954 1.4145 2.2788 1.4191 3.6137 0 3.0657-2.2028 5.7259-4.1367 7.5015-1.2156 1.1161-2.5544 2.1393-3.9813 2.9729L12 20.001l-.501-.3088c-.9745-.5626-1.8878-1.2273-2.7655-1.9296-1.1393-.9117-2.4592-2.1279-3.5017-3.5531-1.0375-1.4183-1.8594-3.1249-1.8597-4.9957-.0025-1.2512.3936-2.5894 1.419-3.6149 1.8976-1.8975 4.974-1.8975 6.8716 0l.3347.3347.336-.3347c1.8728-1.8722 4.9989-1.8727 6.8716 0zm-7.2069 12.0516c.6695-.43 1.9102-1.2835 3.1366-2.4096 1.8786-1.7247 3.4884-3.8702 3.4894-6.0264-.0037-.849-.2644-1.6326-.8333-2.2015-1.1036-1.1035-2.9413-1.0999-4.0445.0014l-1.7517 1.7448-1.7461-1.7462c-1.1165-1.1164-2.9267-1.1164-4.0431 0-1.6837 1.6837-.5313 4.4136.6406 6.0156.8996 1.2298 2.0728 2.3207 3.137 3.1722a24.3826 24.3826 0 0 0 2.0151 1.4497z"></path>
-</svg> 
- 
- 
- */
 
 </script>
 
