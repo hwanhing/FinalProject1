@@ -25,7 +25,7 @@
         <header class="header">
             <div class="h-wrap" style="height: 80px">
                 <div class="h-logo">
-                    <a href="<%=request.getContextPath()%>/"><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
+                    <a href="<%=request.getContextPath()%>/views/main.do"><img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a>
                 </div>
         
                 <div class="h-gnb">
@@ -38,190 +38,145 @@
                         </ul>
                     </nav>
                 
-				<c:if test="${member_name ne null }">
-					<div>
-						<b>${member_name }님</b>
-						<button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
-						  <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
-					   </button>
-					</div>
-				</c:if>
-				<c:if test="${member_name eq null }">	
-                  <!--   <div class="menu-etc">
-                        <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-					     <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
-					   </button>
-                    </div> -->
-                </c:if>    				
+                    <c:if test="${member_name ne null }">
+                        <div>
+                            <b>${member_name }님</b>
+                            <button type="button" onclick="location.href='member_logout.do'">로그아웃</button>
+                            <button id="btnnav" class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                            <span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+                        </button>
+                        </div>
+                    </c:if>	
 
-            <!--------------비회원 c:if 문 START------------->
-                    <c:if test="${member_name eq null }">	
-                <!-----------menu-etc START--------------------->
-                        <div class="menu-etc">
-                     <!------------로그인 모달 창 START ---------------->
+                <!--------------비회원 c:if 문 START------------->
+                        <c:if test="${member_name eq null }">	
+                    <!-----------menu-etc START--------------------->
+                            <div class="menu-etc">
+                        <!------------로그인 모달 창 START ---------------->
 
-                            <a href="#" class="login-pop">Log-in</a>
-                                <div class="log-modal login-bg" id="log-modal">
+                                <a href="#" class="login-pop">Log-in</a>
+                                    <div class="log-modal login-bg" id="log-modal">
 
-                                    <div class="login-form">
-                                        <div class="login-title">
+                                        <div class="login-form">
+                                            <div class="login-title">
+                                                <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
+                                                    <p>회원 로그인</p>
+                                                <span class="icon-close"></span>
+                                            </div>
+
+
+                                            <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
+
+                                                <fieldset class="mf-wrap">
+
+                                                    <div class="mf-form">
+                                                        <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+
+                                                        <p><input type="password"name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
+
+                                                    <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
+                                                    </div>
+
+                                                        <button type="submit" class="mf-btn" id="mf-btn">login</button>
+
+                                                    <div class="mf-etc">
+                                                        <a class="mf-join"><span class="icon-people"></span>회원가입</a>
+                                                        <a class="mf-find"><span class="icon-question"></span>
+                                                        아이디/비밀번호 찾기</a>
+                                                    
+                                                    </div>
+                                                </fieldset>
+                                            </form>
+                                        </div>
+                                    </div>
+                                <!--------------로그인 모달 창 END ---------------->
+
+
+                                <!------------회원가입 모달 창 START ---------------->
+
+                                <a href="#" class="join-pop">Join</a>
+
+                                <div class="join-modal join-bg" id="join-modal">
+
+                                    <div class="join-form">
+
+                                        <div class="join-title">
                                             <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
-                                                <p>회원 로그인</p>
                                             <span class="icon-close"></span>
                                         </div>
 
+                                        <form id="j-form" name="j-form" type="post" action="<%=request.getContextPath()%>/member_join_check.do">
 
-                                        <form id="log-form" name="log-form" method="post" action="<%=request.getContextPath()%>/member_login_check.do">
+                                            <fieldset class="join-wrap">
 
-                                            <fieldset class="mf-wrap">
+                                                <div class="jf-form">
+                                                
+                                                    <label class="label-id" for="member_id">아이디</label>
+                                                        <p><input type="text" id="join-id" placeholder="영문,숫자 조합 최소 5자 이상" autofocus></p>
+                                                        <span class="id-error error">error</span>
 
-                                                <div class="mf-form">
-                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <label class="label-pw" for="member_pw">비밀번호</label>
+                                                        <p><input type="password" id="join-pw" placeholder="숫자, 영문,특수조합 최소 8자 이상"></p>
+                                                        <p><input type="password" id="join-pw-check"placeholder="비밀번호 재입력"></p>
+                                                        <span class="pw-error error"></span>
 
-                                                    <p><input type="password"name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
 
-                                                <input type="checkbox" class="log-input"><label class="log-check">내 정보 기억</label>
+                                                    <label class="label-email" for="member_email">이메일</label>
+                                                        <p><input type="text" id="join-email" placeholder="사용 가능한 이메일을 입력하세요"></p>
+                                                        <span class="email-error error"></span>
                                                 </div>
 
-                                                    <button type="submit" class="mf-btn" id="mf-btn">login</button>
 
-                                                <div class="mf-etc">
-                                                    <a class="mf-join"><span class="icon-people"></span>회원가입</a>
-                                                    <a class="mf-find"><span class="icon-question"></span>
-                                                    아이디/비밀번호 찾기</a>
-                                                    
-                                                        <!-- <div class="find-modal">
+                                                <div class="join-agr">
 
-                                                            <div class="find-form">
-                                                                <div class="find-title">
-                                                                    <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
-                                                                        <p>아이디/비밀번호 찾기</p>
-                                                                    <span class="icon-close" id="fd-close"></span>
-                                                                </div>
+                                                    <div class="join-agr-all">
+                                                        <input type="checkbox" class="checkbox-group" id="check-all">
+                                                        <label for="agr-all">약관 전체 동의</label>
+                                                    </div>
 
-                                                                <div class="fd-select">
-                                                                    <label><input type="radio" name="mf-mode" value="id" checke="checked">아이디 찾기</label>
-                                                                    <label><input type="radio" name="mf-mode" value= "pw">비밀번호 찾기</label>
-                                                                </div>
+                                                    <div class="join-agr-per">
+                                                        <input type="checkbox" class="checkbox-group" >
+                                                        <label for="agr-per">[필수]개인정보 수집 및 이용 동의</label>
+                                                    </div>
 
 
-                                                                <form id="fd-form" name="fd-form" type="post" action="<%=request.getContextPath()%>/member_find_check.do">
+                                                    <div class="join-agr-shop">
+                                                        <input type="checkbox" class="checkbox-group" >
+                                                        <label for="agr-shop">[필수]커퍼커피 스토어 이용 동의</label>
+                                                    </div>
 
-                                                                    <fieldset class="fd-wrap">
-                        
-                                                                        <div class="fd-form">
-                                                                            <p><input type="email" name="fd-email" placeholder="가입한 이메일을 입력하세요" required autofocus></p>
+                                                    <div class="join-agr-age">
+                                                        <input type="checkbox" class="checkbox-group" >
+                                                        <label for="agr-age">[필수]만 14세 미만 가입 제한</label>
+                                                    </div>
 
-                                                                            <p id="fid"><input type="text" name="fd-id" placeholder="가입한 아이디를 입력하세요" required></p>
 
-                                                                            <p id="fname"><input type="text" name="fd-name
-                                                                                " placeholder="가입자 이름을 입력하세요" required></p>
 
-                                                                                <button type="submit" class="fd-btn" id="fd-btn">계정찾기
-                                                                            </button>
-                                                                        </div>
-                                                                    </fieldset>
-                                                                </form>
-                                                            </div>
-                                                        </div> -->
+                                                    <div class="join-agr-mak">
+                                                        <input type="checkbox" class="checkbox-group" >
+                                                        <label for="agr-mak">[선택]마케팅 및 광고성 정보 수신 동의</label>
+                                                    </div>
+
                                                 </div>
+                                                
+                                                <button type="submit" class="jf-btn" id="jf-btn">가입하기</button>
                                             </fieldset>
                                         </form>
                                     </div>
                                 </div>
-                            <!--------------로그인 모달 창 END ---------------->
 
-
-
-                            <!------------회원가입 모달 창 START ---------------->
-
-                            <a href="#" class="join-pop" >Join</a>
-
-                            <div class="join-modal join-bg" id="join-modal">
-
-                                <div class="join-form">
-
-                                    <div class="join-title">
-                                        <img src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee">
-                                        <span class="icon-close"></span>
-                                    </div>
-
-                                    <form id="j-form" name="j-form" type="post" action="<%=request.getContextPath()%>/member_join_check.do">
-
-                                        <fieldset class="join-wrap">
-
-                                            <div class="jf-form">
-                                            
-                                                <label class="label-id" for="member_id">아이디</label>
-                                                    <p><input type="text" id="join-id" placeholder="영문,숫자 조합 최소 5자 이상" autofocus></p>
-                                                    <p class="id-error error">잘못된 아이디 형식입니다.</p>
-
-                                                <label class="label-pw" for="member_pw">비밀번호</label>
-                                                    <p><input type="text" id="join-pw" placeholder="숫자, 영문,특수조합 최소 8자 이상"></p>
-                                                    <p class="pw-error error">잘못된 비밀번호 형식입니다.</p>
-
-                                                    <p><input type="text" placeholder="비밀번호 재입력"></p>
-
-                                                <label class="label-email" for="member_email">이메일</label>
-                                                    <p><input type="text" id="join-email" placeholder="사용 가능한 이메일을 입력하세요"></p>
-                                                    <p class="email-error error">잘못된 이메일 형식입니다.</p>
-                                            </div>
-
-
-                                            <div class="join-agr">
-
-                                                <div class="join-agr-all">
-                                                    <input type="checkbox" class="checkbox-group" id="check-all">
-                                                    <label for="agr-all">약관 전체 동의</label>
-                                                </div>
-
-                                                <div class="join-agr-per">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-per">[필수]개인정보 수집 및 이용 동의</label>
-                                                </div>
-
-
-                                                <div class="join-agr-shop">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-shop">[필수]커퍼커피 스토어 이용 동의</label>
-                                                </div>
-
-
-                                                <div class="join-agr-age">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-age">[필수]만 14세 미만 가입 제한</label>
-                                                </div>
-
-
-
-                                                <div class="join-agr-mak">
-                                                    <input type="checkbox" class="checkbox-group" >
-                                                    <label for="agr-mak">[선택]마케팅 및 광고성 정보 수신 동의</label>
-                                                </div>
-
-                                            </div>
-                                            
-                                            <button type="submit" class="jf-btn" id="jf-btn">가입하기</button>
-                                        </fieldset>
-                                    </form>
-                                </div>
+                                
                             </div>
-
                             
-                        </div>
-                        
-                    </c:if>    
-                    <!--------------비회원 c:if 문 END ------------->
-                    <!---------------menu-etc END------------------>
-                        
+                        </c:if>    
+                        <!--------------비회원 c:if 문 END ------------->
+                        <!---------------menu-etc END------------------>
                 </div>
-
             </div>
         </header>
 
 	<!-- 사이드바 -->
-	     <c:if test="${!empty member_id  }">
+	     <c:if test="${!empty member_id }">
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="header__content"><img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" /><h5><span class="header__username">${member_name }</span></h5> 
 		     
@@ -279,7 +234,7 @@
 		   </div>
 		   </c:if>
 		
-		<%--   <c:if test="${empty member_id }">
+         <c:if test="${empty member_id }">
 		  	<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="offcanvas-header">
 		       <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Cuppa Coffee에 오신걸 환영합니다</h5>
@@ -296,7 +251,7 @@
 		       </ul>
 		     </div>
 		   </div>
-		   </c:if> --%>
+		</c:if> 
 
 
 

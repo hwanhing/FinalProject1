@@ -484,125 +484,6 @@ header {
 }
 
 /*************************/
-/* 계정찾기 모달 
-/************************/
-
-.find-modal {
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.13);
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    display: none;
-}
-
-.find-modal .find-form .find-title {
-    text-align: center;
-    font-family: 'YESMyoungjo-Regular';
-    letter-spacing: 3px;
-    margin-top: 10px;
-}
-
-.find-modal .find-form .find-title p {
-    margin-top: 13px;
-}
-
-.find-modal .find-form .find-title img {
-	width: 180px;
-	height: 80px;
-}
-
-.find-modal .find-title span {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-}
-
-.find-modal .find-title .icon-close{ 
-    cursor: pointer;
-}
-
-.find-modal .find-form{
-    background-color: #fff;
-    width: 360px;
-    border-radius: 10px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 30px;
-    box-shadow: 0 0 15px rgb(0, 0, 0.15);
-    font-family: 'YESMyoungjo-Regular';
-    text-align: center;
-
-}
-
-.find-form .fd-wrap {
-    margin-top: 15px;
-}
-
-.find-form .fd-form input{
-    width: 100%;
-    padding: 5px;
-    margin-top: 15px;
-    color: rgb(0, 0, 0.13);
-
-}
-.find-form .fd-form .log-input {
-    width: 13px;
-    height: 13px;
-    vertical-align: text-top;
-}
-.find-form .fd-form .log-check {
-    vertical-align: -12px;
-    margin-left: 5px;
-}
-
-.find-form .fd-form input:focus::placeholder{
-    color: transparent;
-}
-
-.find-form .fd-btn {
-    background-color: #D9CEC1;
-    border-radius: 5px;
-    font-size: 17px;
-    color: #734338;
-    font-family: 'YESMyoungjo-Regular';
-    margin-top: 10px;
-    height: 50px;
-    width: 100%;
-}
-
-.find-form .fd-btn:hover {
-    background-color: #734338;
-    color:  #D9CEC1;
-    transition: all .3s ease-in-out;
-}
-
-.find-form .fd-etc {
-    display: flex;
-    font-size: 12px;
-    margin-top: 20px;
-    justify-content: space-around;
-}
-
-
-.find-form .fd-etc a{ 
-    cursor: pointer;
-    font-family: 'YESMyoungjo-Regular';
-    color: #734338;
-}
-
-.find-form .fd-etc a:hover {
-    color:  #D9CEC1;
-}
-
-.find-form .fd-etc .icon-question {
-    cursor: pointer;
-}
-
-/*************************/
 /* 회원가입 모달 
 /************************/
 
@@ -818,7 +699,6 @@ footer{
 
 /*김홍기 수정  */
 .result-img{
-	
 	margin-left: 90px;
 }
 .result_name{
@@ -853,19 +733,17 @@ footer{
   transform: translateY(-7px);
 	
 }
-.point{
+.point {
 	font-size: 18px;
 	font-family: fantasy;
-	
-	
 }
-.point2{
+
+.point2 {
 	font-size: 18px;
 }
 .nav-link{
 	margin-top: 0px;
 }
-a{
-	
+a {
 	font-size: 20px;
 }

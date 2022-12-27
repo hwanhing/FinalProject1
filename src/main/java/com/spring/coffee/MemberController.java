@@ -47,8 +47,6 @@ public class MemberController {
 	private MemberDAO dao;
 
 	
-	
-	
 	@RequestMapping("member_login_check.do")
 	public String check(FinalMemberDTO dto,HttpSession session, HttpServletResponse response) throws IOException {
 
@@ -85,20 +83,19 @@ public class MemberController {
 			}
 	
 	
-	
-	@ResponseBody
-	@RequestMapping("member_Id_check.do")
-	public int joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse response) {
-		
-			System.out.println("controller id: " + joinId);
-			
-			int result = dao.joinIdCheck(joinId);
-			
-			System.out.println("controller result: " + result);
-
-			return result;
-		
-	}
+//	@ResponseBody
+//	@RequestMapping("member_Id_check.do")
+//	public int joinIdCheck(@RequestParam("member_id")String joinId, HttpServletResponse response) {
+//		
+//			System.out.println("controller id: " + joinId);
+//			
+//			int result = dao.joinIdCheck(joinId);
+//			
+//			System.out.println("controller result: " + result);
+//
+//			return result;
+//		
+//	}
 		
 	@RequestMapping("member_logout.do")
 	public ModelAndView logout(HttpSession session, ModelAndView mav) {

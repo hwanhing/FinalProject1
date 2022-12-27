@@ -178,7 +178,6 @@
 	</delete>
 	
 	
-	
 	<insert id="w_write_ok" parameterType="finalMemberDTO" >
 		<selectKey resultType="int" keyProperty="board_num" order="BEFORE">
 			select nvl(max(board_num),0) from member_board
@@ -189,6 +188,12 @@
 	<update id="memberUpdateImg" parameterType="finalMemberDTO">
 		update final_member set member_img = #{member_img} where member_num=#{member_num}
 	</update>
+	
+	 <!--  아이디 중복체크 -->
+     <select id="idCheck" parameterType="String" resultType="int">
+        select count(member_id) from final_member where member_id = #{member_id}
+     </select>
+        
 	
 	
 <!--관리자   -->

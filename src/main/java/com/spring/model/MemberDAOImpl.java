@@ -120,25 +120,32 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 
-
-
-
-	
-
-	
-
-
-	public int joinIdCheck(FinalMemberDTO dto) {
-		// TODO Auto-generated method stub
-		return this.sqlSession.selectOne("joinIdCheck", dto);
-	}
-
 	@Override
 	public int Memberupdate(FinalMemberDTO fmdto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.update("memberUpdateImg", fmdto);
 	}
+	
+	public int joinIdCheck(String joinId) {
+	      
+	int result = this.sqlSession.selectOne("joinIdCheck",joinId);
+	System.out.println("IMPL >>> " + joinId);
+	      
+	      System.out.println(result);
+	      return result ;
+	}
 
+	
+	public int joinEmailCheck(String joinEmail) {
+	      
+	int result = this.sqlSession.selectOne("joinEmailCheck",joinEmail);
+	System.out.println("IMPL >>> " + joinEmail)
+	      
+	      System.out.println(result);
+	      return result ;
+	}
+
+	
 
 
 

@@ -46,8 +46,11 @@ public interface MemberDAO {
 
 	int w_writeok(FinalMemberDTO dto);
 
-	int joinIdCheck(FinalMemberDTO dto);
-
 	int Memberupdate(FinalMemberDTO fmdto);
+
+	int joinIdcheck(String joinId);
+	
+	int joinEmailCheck(String joinEmail);
+
 
 }
