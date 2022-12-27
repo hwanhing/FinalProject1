@@ -331,8 +331,6 @@
 		insert into coffee_beans values(#{beans_num}, #{beans_name}, #{beans_price}, #{beans_count}, 100, #{beans_taste}, #{beans_intro}, default, #{beans_add_image})
 	</insert>
 	
-	
-
 	<select id="centerwrite" parameterType="int" resultType="finalMemberDTO">
 		select fm.*,mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where board_num=#{board_num}
 	</select>
