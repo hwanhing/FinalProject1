@@ -71,7 +71,8 @@
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
 		<!-- select cw.write_num, cw.write_cont, cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
 		ms.coffee_star from coffee_write cw join member_star ms on cw.member_num = ms.member_num where cw.beans_num = #{beans_num} -->
-		select distinct cw.write_num, cw.write_cont,cw.write_date, cw.write_img, cw.member_id, ms.coffee_star from member_star ms join coffee_write cw on cw.beans_num = ms.beans_num where ms.beans_num = #{beans_num}
+		select distinct cw.write_num, cw.write_cont,cw.write_date, cw.write_img, cw.member_id, ms.coffee_star from member_star ms join coffee_write cw on cw.beans_num = ms.beans_num and cw.member_num = ms.member_num where ms.beans_num = #{beans_num}
+		
 	</select>
 
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">

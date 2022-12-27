@@ -46,6 +46,8 @@ import com.spring.model.PageDTO;
 @Controller
 public class CoffeeOrderController {
 
+	
+	
 	@Inject
 	private CoffeeOrderDAO orderDao;
 

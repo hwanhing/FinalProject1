@@ -353,7 +353,7 @@
 		    float: right;
 		    padding:30px;
 		    margin-top: 5px;
-		    margin-right: 43px;
+		    margin-right: 20%;
 		}
 		
 		#replyBtn:hover{
@@ -818,9 +818,6 @@
 						</tr>						
 						<tr>
 							<td>
-							<div class="img_box1">
-				 				<img id="img-preview1" src="https://rawcdn.githack.com/hanbitgaramsource/assets/68dca49ca4b4fbf14b55dd43ead968b055d5c08e/no-image.jpg" width="200px" height="150px"/>
-				 			</div>
 				 			<div class="img_box2">		
 								  <input class="form-control form-control-sm" id="formFileSm" onchange="readURL1(this)" accept="image/*" type="file" name="writeimg">
 							<!-- 	<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
