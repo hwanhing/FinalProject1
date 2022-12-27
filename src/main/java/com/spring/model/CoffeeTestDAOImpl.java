@@ -49,6 +49,11 @@ public class CoffeeTestDAOImpl implements CoffeeTestDAO{
 		return this.sqlSession.selectOne("getTestResultTypeNum", testChooseMap);
 	}
 
+	@Override
+	public int updateTestResultTypeNum(Map<String, Integer> testResultTypeMap) {
+		return this.sqlSession.update("updateTestResultTypeNum", testResultTypeMap);
+	}
+
 	
 	
 }

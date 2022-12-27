@@ -2,6 +2,7 @@ package com.spring.coffee;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,7 +73,7 @@ public class CoffeeTestController {
 		// 6: coffee_grind
 		// 테이블 가져오기
 		List<Map<String, Object>> testList = new ArrayList();
-		String[] result = {"testRsBrew", "testRsAdd","testRsDecaff","testRsAcid","testRsTaste"};
+		String[] typesArr = {"testRsBrew", "testRsAdd","testRsDecaff","testRsAcid","testRsTaste"};
 		
 		switch(turn){
 			case 1 : testList = testDao.getBrewTest();
@@ -97,7 +99,7 @@ public class CoffeeTestController {
 		// 세션값 확인
 		System.out.println("-- 세션값확인 >> 테스트 " + turn + " 번째 선택 -------------------------------------------------");
 		for (int i = 0; i < testChooseMap.size(); i++) {
-			System.out.println(result[i] + " : " + testChooseMap.get(result[i]) );
+			System.out.println(typesArr[i] + " : " + testChooseMap.get(typesArr[i]) );
 		}
 		
 		
@@ -109,25 +111,44 @@ public class CoffeeTestController {
 	}
 	
 	@RequestMapping("bean_test_result.do")
-	public void beanTestResult(HttpSession session, HttpServletResponse response) {
+	public void beanTestResult(HttpSession session, HttpServletResponse response) throws IOException {
 		
 		System.out.println("-- bean_test_result.do ----------------------------------------------------------------");
-		String[] result = {"testRsBrew", "testRsAdd","testRsDecaff","testRsAcid","testRsTaste"};
+		String[] typesArr = {"testRsBrew", "testRsAdd","testRsDecaff","testRsAcid","testRsTaste"};
 		
 		// 타입넘 넘겨주기
 		Map<String, Integer> testChooseMap = (Map<String, Integer>) session.getAttribute("testChooseMap");
 		
 		System.out.println("-- 세션값확인 ----------------------------------------------------------------------------");
 		for (int i = 0; i < testChooseMap.size(); i++) {
-			System.out.println(result[i] + " : " + testChooseMap.get(result[i]) );
+			System.out.println(typesArr[i] + " : " + testChooseMap.get(typesArr[i]) );
 		}
 		
 		// 테스트 결과값 확인
 		int test_result_num = testDao.getTestResultTypeNum(testChooseMap);
 		System.out.println("test_result_num : " + test_result_num);
 		
+		// 로그인 한 회원이라면 결과값 저장 하기
+		if(session.getAttribute("member_num")!=null) {
+			int member_num = (Integer) session.getAttribute("member_num");
+			System.out.println("로그인한 멤버의 멤버넘 : " + member_num );
+			
+			Map<String, Integer> updateMap = new HashMap<String, Integer>();
+			updateMap.put("member_num", member_num);
+			updateMap.put("test_result_num", test_result_num);
+			
+			int result = testDao.updateTestResultTypeNum(updateMap);
+			System.out.println("로그인한 회원의 테스트값 수정 결과 : " + result);
+		}
 		
 		System.out.println("---------------------------------------------------------------------------------------");
+		
+		// 테스트 결과값 넘겨주기 (결과값 : test_result_num)
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("location.href='temporary.do?testNo="+test_result_num+"'");
+		out.println("</script>");
+		
 	}
 	
 }

@@ -66,7 +66,16 @@
 	<select id="getTestResultTypeNum" parameterType="hashmap" resultType="int">
 		select case when #{testRsDecaff} = 0 then 1 else test_num end as test_result_num
 		  from coffee_test_result
-		 where test_rs_brew = #{testRsBrew} and test_rs_add = #{testRsAdd} and test_rs_taste_acid = #{testRsAcid} and test_rs_taste = #{testRsTaste}
+		 where test_rs_brew = #{testRsBrew} 
+		   and test_rs_add = #{testRsAdd} 
+		   and test_rs_taste_acid = #{testRsAcid} 
+		   and test_rs_taste = #{testRsTaste}
 	</select>
+	
+	<update id="updateTestResultTypeNum" parameterType="hashmap">
+		update final_member
+		   set test_num = #{test_result_num}
+		 where member_num = #{member_num}
+	</update>
 	
 </mapper>
