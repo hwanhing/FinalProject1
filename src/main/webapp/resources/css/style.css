@@ -260,6 +260,7 @@ header {
 	height: 80px;
 }
 
+
 .header .h-wrap .h-gnb { 
     display: flex;
     flex-direction: row;
@@ -853,14 +854,13 @@ footer{
   transform: translateY(-7px);
 	
 }
-.header__username{
 
-}
 .point-banner{
 	margin-left: 5%;
 	margin-top: 5%;
 	
 }
+
 .point{
 	font-size: 18px;
 	font-family: fantasy;
@@ -880,14 +880,15 @@ a{
 	font-size: 20px;
 }
 
-.img_no{		
-margin-left:15px;
-border: 1px solid #FFF;
-border-radius: 100%;
-height: 100px;
-width: 100PX;
- }
- .header__content {
+.header__username{	
+	margin-bottom: 40px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    margin-left: 40px;
+    margin-top: 20px;
+}
+.header_contenttt {
     background-color: #a69b8d;
     -webkit-text-size-adjust: 100%;
     font: 100% sans-serif;
