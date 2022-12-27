@@ -20,6 +20,12 @@ public class MemberDAOImpl implements MemberDAO{
 		
 		return this.sqlSession.selectOne("check",dto);
 	}
+	
+
+	@Override
+	public FinalAdminDTO checkAdmin(FinalMemberDTO a_dto) {
+		return this.sqlSession.selectOne("a_check", a_dto);
+	}
 
 	@Override
 	public void logout(HttpSession session) {
@@ -119,33 +125,24 @@ public class MemberDAOImpl implements MemberDAO{
 		 return this.sqlSession.insert("w_write_ok",dto);
 	}
 
+	public int joinIdCheck(FinalMemberDTO dto) {
+		// TODO Auto-generated method stub
+		return this.sqlSession.selectOne("joinIdCheck", dto);
+	}
 
 	@Override
 	public int Memberupdate(FinalMemberDTO fmdto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.update("memberUpdateImg", fmdto);
 	}
-	
-	public int joinIdCheck(String joinId) {
-	      
-	int result = this.sqlSession.selectOne("joinIdCheck",joinId);
-	System.out.println("IMPL >>> " + joinId);
-	      
-	      System.out.println(result);
-	      return result ;
+
+
+	@Override
+	public int useMember(String member_id) {
+		return this.sqlSession.selectOne("member_use_check", member_id);
 	}
 
-	
-	public int joinEmailCheck(String joinEmail) {
-	      
-	int result = this.sqlSession.selectOne("joinEmailCheck",joinEmail);
-	System.out.println("IMPL >>> " + joinEmail)
-	      
-	      System.out.println(result);
-	      return result ;
-	}
 
-	
 
 
 

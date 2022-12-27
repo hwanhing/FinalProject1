@@ -13,7 +13,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-	
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 		
 	<style type="text/css">
 		
 		/* 전체 크기 div 박스 */
@@ -307,7 +311,7 @@
 	    
 		.write_box1{
 			margin-left: 3%;	
-			border: 2px solid #c6c6c6;
+			/*border: 2px solid #c6c6c6;*/
 			padding: 1%;
 			border-radius: 5px; 
 			width:90%; 
@@ -327,27 +331,33 @@
 		}	
 		
 		#re_content{    
-			width: 98%;
+			width: 70%;
 		    border: none;
 		    resize: none;
 		    outline: none;
 			overflow: hidden;	
-			margin-left: 1%;
-			margin-top: 1%;
 			font-size: 1em;  
 			min-height: 6em;
+			padding: 5px;
+			margin-left: 5px;
+			margin-top: 5px;
 		}
 		
 		#replyBtn{
 			border: none;
-		    font-size: 1.5em;
+		    font-size: 1.2em;
 		    font-weight: bold;
-		    border-radius: 1em;
 		    text-align: center;
-		    background-color: white;
+		    background-color: #D9CEC1;
+		    border-radius:5px;
 		    float: right;
-		    margin-top: 1%;
-		    margin-right: 1%;
+		    padding:30px;
+		    margin-top: 5px;
+		    margin-right: 20%;
+		}
+		
+		#replyBtn:hover{
+			background-color: #AFA69C;
 		}
 		
 		.writer_img{
@@ -359,27 +369,33 @@
 		.writer_td_box{
 		 	height: 4em;
 		}
-		    
+	
+	.autosize{
+		border-radius: 2px; 
+		border-style: hidden; 
+		box-shadow: 0 0 0 1px #c9c9c9;
+	}    
 		 
-	.upload-name {
+	#formFileSm {
 	    display: inline-block;
-	    height: 3em;
+	    /*height: 2.6em;
 	    padding: 0 10px;
+	    border: 1px solid #dddddd;*/
 	    vertical-align: middle;
-	    border: 1px solid #dddddd;
-	    width: 90%;
+	    width: 70%;
 	    color: #999999;
+	    margin: 5px;
 	}
 	
+	<%-- 파일 추가 버튼 --%>
 	.file_label {
 	    display: inline-block;
-	    padding: 10px 20px;
+	    padding: 9px 20px;
 	    color: #fff;
 	    vertical-align: middle;
 	    background-color: #000;
 	    cursor: pointer;
-	    height: 3em;
-	    margin-left: 10px;
+	    height: 2.6em;
 	}
 	
 	#file {
@@ -389,6 +405,14 @@
 	    padding: 0;
 	    overflow: hidden;
 	    border: 0;
+	}
+	
+	.img_box1{
+		float: left !important;
+	}	
+	
+	.img_box2{
+	
 	}
 	
 	.writer2_img{
@@ -483,7 +507,6 @@
 	/* -----------------------------------------------*/	
 	.heart_count{
 		font-size: 1em;
-		margin-left: 5%;
 	}
 	    
 	#star_count{
@@ -598,25 +621,27 @@
 		    		<span>${i.getBeans_name() } 
 		    		</span>
 		    	</div>
+		    	
 		    	<div class="bean_star">
 
 		    		<c:if test="${i.getWrite_count() == 0}">
 		    			아직 평가가 없습니다.
 		    		</c:if>
 		    		<c:if test="${i.getWrite_count() != 0 }">
-						<div id="star_ul_title" style="width: 50%;">
+					<%-- 	<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1"></li>
 								<li class="c2"></li>
 								<li class="c3"></li>
 								<li class="c4"></li>
 								<li class="c5"></li>
+						<span>${i.getStar_avg() }</span>
 			    		<span>${i.getWrite_count() }개 상품평</span>
 							</ul>
 						</div>		    		
-		    <%-- 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.
+		    	 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.--%>
 		    
-		    		<c:if test="${t.get땡땡() < 2 }">
+		    		<c:if test="${i.getStar_avg() == 1 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -628,7 +653,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 3 }">
+		    		<c:if test="${i.getStar_avg() == 2 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -640,7 +665,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 4 }">
+		    		<c:if test="${i.getStar_avg() == 3 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -652,7 +677,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 5 }">
+		    		<c:if test="${i.getStar_avg() == 4 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -664,7 +689,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
-		    		<c:if test="${t.get땡땡() < 6 }">
+		    		<c:if test="${i.getStar_avg() == 5 }">
 						<div id="star_ul_title" style="width: 50%;">
 							<ul>
 								<li class="c1" style="background-position:0 -15px;"></li>
@@ -676,7 +701,7 @@
 							</ul>
 						</div>				    			    		
 		    		</c:if>
------------------------------------------------------------------------------------------------------------------- --%>		    		
+<!-- ------------------------------------------------------------------------------------------------------------------	  -->   		
 		    		
 						
 		    		</c:if>
@@ -719,7 +744,7 @@
 		    	</div>    
 		    	
 		    	<div class="bean_grind">
-		    		<div class="grind_q"><span>원두 갈아드릴까요?</span></div>
+		    		<div class="grind_q"><span><b>원두 갈아드릴까요?</b></span></div>
 		    		<button class="grind_0" id="grind0" value="0">그대로 주세요</button>
 		    		<button class="grind_1" id="grind1" value="1">갈아주세요</button>
 		    	</div>
@@ -728,6 +753,7 @@
 					<button class="cart_btn1">장바구니담기</button><br>
 					<button class="cart_btn2">구매하기</button>
 				</div>
+				<br>
 			
 			</div>
 	
@@ -741,14 +767,34 @@
 		
 			<h3 class="que1">후기글</h3>
 			<br>
+			<%-- 이사람이 구입을 했을 경우에만 뜨게 --%>
+			<c:set var="buyCheck" value="${buyCheck }" />
+
+			<%-- 여기다가 그거 할거임. 세션 아이디값 받아와서 이사람이 후기글 썼으면 더이상 못쓰게!! --%>
+			<c:set var="w_Check" value="${writeCheck }" />
+			<c:if test="${w_Check eq 1 }">
+				<span style="margin-left: 3%; font-size: 17px;">이미 후기글을 작성하셨습니다.</span>
+			</c:if>
+			
+			<c:if test="${i.getWrite_count() == 0 && buyCheck eq 0}">
+				<span style="margin-left: 3%; font-size: 17px;">아직 후기글이 없습니다.</span>			
+			</c:if>
+			<c:if test="${i.getWrite_count() == 0 && buyCheck eq 1 }">
+				<span style="margin-left: 3%; font-size: 17px;">후기글을 작성해주세요.😀</span>						
+			</c:if>
+			
+			<c:set var="w_list" value="${writeList }" />
+		
+			<c:if test="${buyCheck eq 1 }">
+				
+			<c:if test="${w_Check eq 0 }">
+			
 				<c:if test="${member_id ne null }">
 				<div class="write_box1">
 				<form enctype="multipart/form-data" method="post" action="<%=request.getContextPath()%>/write_insert.do">
 
 					<input type="hidden" name="beans_num" value="${i.getBeans_num() }">
 					<input type="hidden" name="member_num" value="${member_num }">
-
-
 
 					<table>
 
@@ -761,15 +807,6 @@
 						<tr>
 							<td>
 								<br>
-<!-- 								<div id="starWrap" style="margin-left: 3%; width: 50%;">
-									<ul>
-										<li class="s1"></li>
-										<li class="s2"></li>
-										<li class="s3"></li>
-										<li class="s4"></li>
-										<li class="s5"></li>
-									</ul> 
-								</div> -->
 								<div id="starWrapClick" style="margin-left: 3%; width: 50%;">
 									<ul>
 										<li class="s1"></li>
@@ -779,44 +816,46 @@
 										<li class="s5"></li>
 									</ul>
 								</div>				
-								
 												
 								<div style="margin-left: 3%; margin-top: 1%; margin-bottom: 1%;">
-								<span style="font-size: 2em;"><input id="star_count" name="coffee_star" value="0"></span>
+								<span style="font-size: 2em;"><input type="hidden" id="star_count" name="coffee_star" value="0"></span>
 								</div>
+								<br>
 							</td>
 						</tr>						
 						<tr>
 							<td>
-								<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
-	    						<label for="file" class="file_label">파일추가</label> 
-
-						  		<input type="file" id="file" onchange="readURL1(this)" width="280" name="writeimg">
-
-						  <!--  <img id="img-preview1" class="img_no" src="" width="100px">  파일추가 했을때 바로 눈앞에 보이게 하는것.-->		
+				 			<div class="img_box2">		
+								  <input class="form-control form-control-sm" id="formFileSm" onchange="readURL1(this)" accept="image/*" type="file" name="writeimg">
+							<!-- 	<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
+	    						<label for="files" class="file_label">파일추가</label>
+						  		<input type="file" id="files" accept="image/*" width="200" onchange="readURL1(this)" name="writeimg"> --> 
+							</div>							
+								<textarea class="autosize" name="write_cont" id="re_content" cols="200" placeholder="후기글을 작성해주세요."></textarea>
+								<input type="submit" id="replyBtn" value="등록">
 						  		<br><br>
-							</td>
-						</tr>
-						<tr class="text_inbox">
-							<td>
-								<textarea class="autosize" name="write_cont" id="re_content" cols="500" placeholder="후기글을 작성해주세요."></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>
-							<input type="submit" id="replyBtn" value="등록">
+						  		
+								
 							</td>
 						</tr>
 					</table>
 				</form>
 				</div>	
 				</c:if>	
+			
+				
+				</c:if> <!-- 후기글을 작성했는지 안했는지 조건문 -->
+				
+			</c:if> <!--  이사람이 구입했느지.. -->	
 			<br>
 			
+				
 			<div class="write_box2">	
-			<c:set var="w_list" value="${writeList }" />
+
+			
 			<c:forEach items="${w_list }" var="w">
 			
+			<c:if test="${w.getCoffee_star() != 0 }">
 				<div class="write_list1">
 					
 					<img class="writer2_img" alt="" src="https://cdn-icons-png.flaticon.com/128/5079/5079583.png">
@@ -825,8 +864,8 @@
 					
 					<div class="write_starbox">
 						<span>${w.getWrite_date().substring(0,10) }</span>
-						<br>
-						
+						<br>		
+					
 						<c:if test="${w.getCoffee_star() == 1}">
 							<div id="star_ul_fix" style="width: 50%;">
 								<ul>
@@ -883,13 +922,17 @@
 								</ul>
 							</div>							
 						</c:if>
-						${w.getCoffee_star() }
+					
 					</div>
 					
-					<div class="write_click_img2">
-					${w.getWrite_img() }
-						<img class="write_img2" src="${w.getWrite_img() }">
-					</div>
+					<c:if test="${w.getWrite_img() ne null }">
+						<div class="write_click_img2">
+							<img class="write_img2" alt="" src="<%=request.getContextPath() %>/resources/res/img/${w.getWrite_img()}">
+						</div>							
+					</c:if>
+					<c:if test="${w.getWrite_img() eq null }">
+						${w.getWrite_img() }				
+					</c:if>
 					
 					<div class="write_contbox">
 						${w.getWrite_cont() }								
@@ -902,17 +945,18 @@
 
 						</div>
 					</c:if>	
-					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
+<!--					<c:if test="${member_id ne w.getMember_id() && member_id ne null}">
 						<div align="right" class="write_singobox">
 
 							<button onclick="if(confirm('정말 신고 하시겠습니까?')){location.href='ss'}else{return;}"><span style="color: red;">🚨신고하기</span></button>
 
 						</div>
-					</c:if>
+					</c:if> -->
 					<hr>
 				</div>
-			
-			</c:forEach>	
+				</c:if>	
+			</c:forEach>
+	
 				
 				<!-- 팝업 될 곳 -->
 				<div class="modal11">
@@ -928,7 +972,10 @@
 			</div> <%-- write_box2 끝 --%>
 		
 		</div>	<%-- empty3 끝 --%>
-	
+		
+		<br>
+		<br>
+		<hr>
 		<br>
 		<br>
 		
@@ -1012,7 +1059,7 @@
 
 		<jsp:include page="../layout/footer.jsp" />
 	
-	<script type="text/javascript">
+<script type="text/javascript">
 	let resultElement = document.getElementById("result");
 	let number = resultElement.innerText;
 	sumTotal(number);
@@ -1242,7 +1289,7 @@
 
 	});	
 	
-	$(".cart_btn1").on("click",function(){
+	$(".cart_btn2").on("click",function(){
 
 
 		if('<%=session.getAttribute("member_id")%>' != "null" && grind_total != undefined){
@@ -1282,27 +1329,13 @@
 		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 		});	
 		
-		
 	
-	function readURL1(input) {
-	  console.log(input.files);
-	  if (input.files && input.files[0]) {
-	    var reader = new FileReader();
-	    reader.onload = function (e) {
-	      $("#img-preview1").attr("src", e.target.result);
-	    };
 	
-	    reader.readAsDataURL(input.files[0]);
-	  } else {
-	    $("#img-preview1").attr("src", noimage);
-	  }
-	}	
-	
-	$("#file").on('change',function(){
+/*	$("#file").on('change',function(){
 		  var fileName = $("#file").val();
-		  $(".upload-name").val(fileName);
+		  $(".form-control-sm").val(fileName);
 		});
-
+*/
 	
 	
 	$(function(){
@@ -1371,7 +1404,23 @@
 	
 	
 </script>
+<script type="text/javascript">
 	
+	function readURL1(input) {
+		  console.log(input.files);
+		  if (input.files && input.files[0]) {
+		    var reader = new FileReader();
+		    reader.onload = function (e) {
+		      $("#img-preview1").attr("src", e.target.result);
+		    };
+		
+		    reader.readAsDataURL(input.files[0]);
+		  } else {
+		    $("#img-preview1").attr("src", noimage);
+		  }
+		}	
+
+</script>	
 	
 	</body>
 	</html>

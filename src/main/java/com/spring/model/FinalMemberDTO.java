@@ -57,6 +57,14 @@ public class FinalMemberDTO {
 	private String reply_date;
 	private int admin_num;
 	
+	private String order_num;
+	private int order_row;
+	private int order_cnt;
+	private int order_price;		// 단가 * 수량 * (그람/100)
+	private String order_date;	// 단가
+	private int cart_weight;
+	private int cart_grind;
+	private int use_point;
 	
 	
 	private String admin_id;
@@ -66,6 +74,18 @@ public class FinalMemberDTO {
 	private String admin_phone;
 	private String admin_date;
 	
+	private int write_num;
+	private String write_cont;
+	private String write_date;
+	private String write_img;
+	
+	
+
+	private int beans_count;
+	
+
+	
+
 	
 }
 

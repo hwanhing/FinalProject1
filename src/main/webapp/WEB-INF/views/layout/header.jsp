@@ -126,11 +126,10 @@
                                                         <span class="email-error error"></span>
                                                 </div>
 
-
                                                 <div class="join-agr">
 
                                                     <div class="join-agr-all">
-                                                        <input type="checkbox" class="checkbox-group" id="check-all">
+                                                        <input type="chewckbox" class="checkbox-group" id="check-all">
                                                         <label for="agr-all">약관 전체 동의</label>
                                                     </div>
 

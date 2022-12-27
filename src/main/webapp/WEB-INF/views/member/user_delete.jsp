@@ -108,7 +108,7 @@
 			<br>
 
 			<div>
-				<form  method="post" action="<%=request.getContextPath()%>/memberDelete.do?num=${dto.getMember_num()}">
+				<%-- <form  method="post" action="<%=request.getContextPath()%>/memberDelete.do?num=${dto.getMember_num()}"> --%>
 					<h3 align="center">※이용하시면서 불편하셨던 사항을 체크해 주세요</h3>
 					<br>
 					<div>
@@ -158,20 +158,23 @@
 					</div>
 					<br>
 					<p align="center">
-						<input type="submit" class="defaultBtn loginBtn" id="deleteMemBtn" value="회원 탈퇴">
+						<!-- <input type="submit" class="defaultBtn loginBtn" id="deleteMemBtn" value="회원 탈퇴"> -->
+						 <button class="defaultBtn loginBtn" id="deleteMemBtn" onclick="member_delete('${dto.getMember_num()}')"></button> 
 					</p>
-				</form>
+				<!-- </form> -->
 			</div>
 		</div>
 	</div>
 	<script type="text/javascript">
-$("#deleteMemBtn").click(function(){
-	if($("#isAgree").prop("checked")) {
-		} else{
-			alert("탈퇴안내를 확인하고 동의해주세요.");
-			return;
-		}
-});
+	function member_delete(member_num) {
+		if($("#isAgree").prop("checked")) {
+			location.href='memberDelete.do?num='+member_num;
+			} else{
+				alert("탈퇴안내를 확인하고 동의해주세요.");
+				return;
+			}
+	}
+
 </script>
 <jsp:include page="../layout/footer.jsp" />
 </body>

@@ -202,7 +202,7 @@ margin-top: 150px;
 	</div>
 	<div class="form-main">
 		<div class="desc">
-		<form class="desx" action="<%=request.getContextPath()%>/addr_modify_ok.do" method="post">
+		<form class="desx" action="<%=request.getContextPath()%>/addr_modify_ok2.do" method="post">
 				
 				<input type="hidden" value="${member_num }" name="member_num">
 					<div class="find_addr">

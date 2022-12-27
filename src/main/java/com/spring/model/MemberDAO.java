@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 public interface MemberDAO {
 
 	FinalMemberDTO checkMember(FinalMemberDTO dto);
+	FinalAdminDTO checkAdmin(FinalMemberDTO a_dto);
+	
 	
 	public void logout(HttpSession session);
 	
@@ -46,11 +48,10 @@ public interface MemberDAO {
 
 	int w_writeok(FinalMemberDTO dto);
 
+	int joinIdCheck(FinalMemberDTO dto);
+
 	int Memberupdate(FinalMemberDTO fmdto);
 
-	int joinIdcheck(String joinId);
+	int useMember(String member_id);
 	
-	int joinEmailCheck(String joinEmail);
-
-
 }

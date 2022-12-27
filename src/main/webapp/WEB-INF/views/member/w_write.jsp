@@ -54,6 +54,26 @@
 	 margin-left: 350px;
 	
 	}
+	.header__content {
+    background-color: #a69b8d;
+    -webkit-text-size-adjust: 100%;
+    font: 100% sans-serif;
+    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+    font-family: var(--ikea-font);
+    font-size: .875rem;
+    line-height: 1.571;
+    visibility: visible;
+    text-align: left;
+    pointer-events: all;
+    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+    box-sizing: inherit;
+    outline: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 80px 80px 50px 30px;
+}
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
 <script type="text/javascript">

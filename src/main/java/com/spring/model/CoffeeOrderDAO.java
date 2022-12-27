@@ -30,12 +30,43 @@ public interface CoffeeOrderDAO {
 	// 장바구니 삭제
 	int deleteCart(List<CoffeeOrderDTO> orderDto);
 	
-	// 주문목록 가져오기
-	List<CoffeeOrderDTO> getNowOrderList(String order_num);
+	// 주문내역 가져오기
+	List<CoffeeOrderDTO> getOrderCont(String order_num);
 	
 	// 주문목록 가져오기(list)
-	List<CoffeeOrderDTO> getOrderList(int member_num);
+	List<CoffeeOrderDTO> getOrderList(Map<String, Object> stEnRowMap);
 	
-	// 주문목록 가져오기(일자설정)
-	List<CoffeeOrderDTO> getOrderListDate(Map<String, Object> dateMap);
+	// 주문 타입 수정
+	int updateOrderType(Map<String, Object> typeMap);
+	
+	// 포인트 사용시 포인트 취소
+	int updateUsePointCancel(Map<String, Object> typeMap);
+	
+	// 주문건 수 확인(아무것도 선택안할경우, 타입선택, 일자선택, 타입&일자 선택일때 사용)
+	int getSelectedRowCount(Map<String, Object> selectedMap);
+	
+	// 배송 타입별 주문건수 가져오기 
+	List<Map<String, Integer>>  getDeliveryTypeCnt(int member_num);
+	
+	//////////////////////////////////////////////////////////////////////////////
+	// 관리자 배송
+	
+	// 배송 타입별 주문건수(배송대기, 배송중 .. 건수)
+	List<Map<String, Integer>>  getDeliveryTypeCntA();
+	
+	// 주문건수 확인_페이징 totalRecord (타입선택 안함)
+	int getRowCountAdmin();
+	
+	// 주문건수 확인_페이징 totalRecord (타입선택 함)
+	int getRowTypeCountAdmin(int type_num);
+	
+	// 주문리스트
+	List<CoffeeOrderDTO> getOrderListAdmin(Map<String, Object> stEnRowMap);
+	
+	// row 배송 타입번호(type_num) 변경
+	int updateRowTypeNum(String order_num);
+	
+	// 배송대기중인 전체 배송 타입번호(type_num) 1:배송중으로 변경
+	int updateAllTypeNum();
+	
 }
