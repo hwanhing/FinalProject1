@@ -349,9 +349,11 @@ private int totalRecord=0;
 	  public String writecont(@RequestParam("num")int write_num,Model model) {
 		  
 		  FinalMemberDTO dto = this.dao.write_cont(write_num);
+		  FinalMemberDTO dto1= this.dao.beans_cont(write_num);
 		  
+		  model.addAttribute("beans_cont", dto1);
 		  model.addAttribute("write_cont", dto);
-		  
+		 System.out.println(">>>>>>>>>>>>>>>>           "+dto1); 
 		  return "./Admin/Admin_write_cont";
 	  }
 }

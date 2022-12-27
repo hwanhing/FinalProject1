@@ -289,6 +289,10 @@
 	<select id="write_Cont" parameterType="int" resultType="finalMemberDTO">
 		select cb.*,cw.* from coffee_beans cb join coffee_write cw on cb.beans_num = cw.beans_num where write_num=#{write_num}
 	</select>
+	<select id="wadada" parameterType="int" resultType="finalMemberDTO">
+	select cw.*,cb.* from coffee_write cw join coffee_beans cb on cw.beans_num= cb.beans_num where write_num=#{write_num}
+	</select>
+	
 	
 </mapper>  
 

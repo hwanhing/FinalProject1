@@ -50,6 +50,8 @@ public interface AdminDAO {
 
 	FinalMemberDTO write_cont(int write_num);
 
+	FinalMemberDTO beans_cont(int write_num);
+
 	
 
 	

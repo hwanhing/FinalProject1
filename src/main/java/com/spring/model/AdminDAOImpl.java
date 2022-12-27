@@ -130,6 +130,12 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("write_Cont", write_num);
 	}
 
+	@Override
+	public FinalMemberDTO beans_cont(int write_num) {
+		
+		return this.sqlSession.selectOne("wadada", write_num);
+	}
+
 
 
 
