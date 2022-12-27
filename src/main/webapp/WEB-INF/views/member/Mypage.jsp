@@ -67,13 +67,20 @@ function readURL1(input) {
     justify-content: space-around;
     padding: 100px 100px 50px 0.1px;
 }	
-.img_no1{		
+.img_no2{		
 border: 1px solid #000;
 border-radius: 100%;
 height: 7%;
 width: 7%;
  }
 
+.img_no{		
+margin-left:15px;
+border: 1px solid #FFF;
+border-radius: 100%;
+height: 100px;
+width: 100PX;
+ }
 .zero{
 	margin-top: 150px;
 	margin-left:230px;
@@ -300,12 +307,13 @@ margin-left: 130px;}
 							 		 </div>
 							             <label for="image"></label>
 							             <c:if test="${dto.getMember_img() eq null}">
-                                            <img alt="이미지없음" id="img-preview1" class="img_no1" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" />
+                                          <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">  <img alt="이미지없음" id="img-preview1" class="img_no2" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" />
+                                           </a>
                                             ${dto.getMember_img() }							             	
 							             </c:if>
 							             <c:if test="${dto.getMember_img() ne null}">
 							    			 <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">
-                                            <img alt="이미지없음" id="img-preview1" class="img_no1" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
+                                            <img alt="이미지없음" id="img-preview1" class="img_no2" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
                                             </a>
                                             ${dto.getMember_img() }	
                                          </c:if>

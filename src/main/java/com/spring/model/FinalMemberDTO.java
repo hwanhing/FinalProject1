@@ -83,6 +83,7 @@ public class FinalMemberDTO {
 
 	private int beans_count;
 	
+
 	
 
 	

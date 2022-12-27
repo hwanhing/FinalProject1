@@ -28,6 +28,7 @@ import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeStarDTO;
 import com.spring.model.CoffeeWriteDTO;
 
+
 @Controller
 public class CoffeeBeanController {
 
@@ -99,6 +100,11 @@ public class CoffeeBeanController {
 		List<CoffeeBeanDTO> list = this.dao.getBeanHeartList();
 		model.addAttribute("List", list);
 
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);		
+		
 		return "./bean/bean_list";
 
 	}
@@ -111,6 +117,11 @@ public class CoffeeBeanController {
 		List<CoffeeBeanDTO> list = this.dao.BeanPriceDownList();
 		model.addAttribute("List", list);
 
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);		
+		
 		return "./bean/bean_list";
 
 	}
@@ -123,20 +134,100 @@ public class CoffeeBeanController {
 		List<CoffeeBeanDTO> list = this.dao.BeanPriceUpList();
 		model.addAttribute("List", list);
 
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);		
+		
 		return "./bean/bean_list";
 
 		
 	}	
+	
+	// 정렬 별점 5점만
+	@RequestMapping("beans_star_5.do")
+	public String beansStar5(Model model, CoffeeBeanDTO dto) {
+		
+		List<CoffeeBeanDTO> list = this.dao.BeanStar5List();
+		model.addAttribute("List", list);
+
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);	
+		
+		return "./bean/bean_list";
+	}
+	
+	// 정렬 별점 4점만
+	@RequestMapping("beans_star_4.do")
+	public String beansStar4(Model model, CoffeeBeanDTO dto) {
+		
+		List<CoffeeBeanDTO> list = this.dao.BeanStar4List();
+		model.addAttribute("List", list);
+		
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);	
+		
+		return "./bean/bean_list";
+	}
+	
+	// 정렬 별점 3점만
+	@RequestMapping("beans_star_3.do")
+	public String beansStar3(Model model, CoffeeBeanDTO dto) {
+		
+		List<CoffeeBeanDTO> list = this.dao.BeanStar3List();
+		model.addAttribute("List", list);
+		
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);	
+		
+		return "./bean/bean_list";
+	}
+	
+	// 정렬 별점 2점만
+	@RequestMapping("beans_star_2.do")
+	public String beansStar2(Model model, CoffeeBeanDTO dto) {
+		
+		List<CoffeeBeanDTO> list = this.dao.BeanStar2List();
+		model.addAttribute("List", list);
+		
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);	
+		
+		return "./bean/bean_list";
+	}
+	
+	// 정렬 별점 1점만
+	@RequestMapping("beans_star_1.do")
+	public String beansStar1(Model model, CoffeeBeanDTO dto) {
+		
+		List<CoffeeBeanDTO> list = this.dao.BeanStar1List();
+		model.addAttribute("List", list);
+		
+		// 원두 전체 개수 저장
+		String count = this.dao.getBeansCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);	
+		
+		return "./bean/bean_list";
+	}
+	
 
 	// 원두 상세정보 페이지
 	@RequestMapping("bean_content.do")
-	public String content(@RequestParam("num") int num, CoffeeStarDTO dto1, Model model) {
+	public String content(@RequestParam("num") int num, @RequestParam("no") int no, Model model) {
 
 		// 커피 목록 리스트
 		List<CoffeeBeanDTO> list = this.dao.getBeanList();
 		model.addAttribute("List", list);
 
-		
 		// 원두 상세 정보 
 		CoffeeBeanDTO dto = this.dao.getBeanContent(num);
 		model.addAttribute("Cont", dto);
@@ -144,20 +235,41 @@ public class CoffeeBeanController {
 		// 후기글 작성 총 개수
 		int count = this.dao.getWriteCount(num);
 		dto.setWrite_count(count);
-
-		// 후기글 평점에 대한 평균 
-		int avg = this.dao.starAvg(num);
-		System.out.println("avavavav>>"+avg);
-		dto.setStar_avg(avg);
 		
+		System.out.println("num>>>>>>>>>>>"+num);
+		
+		int check = this.dao.starCheck(num);
+		
+		System.out.println("CHkckck>>>"+check);
+		
+		// 평점 평균을 구할 수 있는지 조건문.
+		if(check == 0) {
+
+			dto.setStar_avg(0);
+			
+		}else if(check != 0) {
+			
+			// 후기글 평점에 대한 평균 
+			int avg = this.dao.starAvg(num);
+			System.out.println("avavavav>>"+avg); 
+			dto.setStar_avg(avg);				
+		}
+		
+
 		
 		// 원두 번호에 해당하는 후기글 list
 		List<CoffeeWriteDTO> list_1 = this.dao.getWriteList(num);
 		model.addAttribute("writeList", list_1);
 		
-		
-		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("member_num", no);
+		map.put("beans_num", num);
+			
 		// 원두 번호에 해당하며 현재 세션 값인 사람이 이미 후기글을 작성했는지 안했는지..
+		int writeCheck = this.dao.writeCheck(map);
+		System.out.println("writeCheck>>>"+writeCheck);
+		model.addAttribute("writeCheck", writeCheck);			
+		
 		return "./bean/bean_content";
 	}
 
@@ -244,7 +356,7 @@ public class CoffeeBeanController {
 		
 		PrintWriter out=response.getWriter();
 		
-		out.println("<script>location.href='"+mRequest.getContextPath()+"/bean_content.do?num="+beans_num+"';</script>");
+		out.println("<script>location.href='"+mRequest.getContextPath()+"/bean_content.do?num="+beans_num+"&no="+member_num+"';</script>");
 
 	}
 	
@@ -269,7 +381,7 @@ public class CoffeeBeanController {
 		if(res > 0) {
 			out.println("<script>");
 			out.println("alert('삭제 완료')");
-			out.println("location.href='bean_content.do?num="+beans_num+"'");
+			out.println("location.href='bean_content.do?num="+beans_num+"&no="+member_num+"'");
 			out.println("</script>");
 		}else {
 			out.println("<script>");
@@ -277,11 +389,7 @@ public class CoffeeBeanController {
 			out.println("history.back()");
 			out.println("</script>");
 		}		
-		
-		
+				
 	}
-	
-	
-
 
 }

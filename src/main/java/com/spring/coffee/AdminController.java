@@ -1,9 +1,12 @@
 package com.spring.coffee;
 
+import java.io.File;
 import java.io.IOException;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +20,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.model.AdminDAO;
 import com.spring.model.BoardReplyDTO;
@@ -106,9 +111,12 @@ private int totalRecord=0;
 	public String admin_cont(@RequestParam("num")int num,@RequestParam("page") int nowPage ,Model model) {
 		
 		FinalMemberDTO dto = this.dao.admin_cont(num);
-		
+		FinalMemberDTO dto2 = this.dao.admin_test(num);
 		List<CoffeeOrderDTO> dto1 =this.dao.admin_order(num);
 		
+		System.out.println(">>>>>>>>>>>"+dto2);
+		
+		model.addAttribute("member_test", dto2);
 		model.addAttribute("member_order", dto1);
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
@@ -223,12 +231,12 @@ private int totalRecord=0;
 		  
 			if(res > 0) {
 				out.println("<script>");
-				out.println("alert('수정 성공!!!')");
+				out.println("alert('수정 되었습니다.')");
 				out.println("location.href='admin_beans_cont.do?no="+dto.getBeans_num()+"'");
 				out.println("</script>");
 			}else {
 				out.println("<script>");
-				out.println("alert('수정 실패~~~')");
+				out.println("alert('수정이 실패되었습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
 			}		  
@@ -246,15 +254,108 @@ private int totalRecord=0;
 		  
 			if(res > 0) {
 				out.println("<script>");
-				out.println("alert('삭제 성공!')");
+				out.println("alert('삭제 되었습니다.')");
 				out.println("location.href='admin_beans.do'");
 				out.println("</script>");
 			}else {
 				out.println("<script>");
-				out.println("alert('삭제 실패~~~')");
+				out.println("alert('삭제가 실패되었습니다.')");
 				out.println("history.back()");
 				out.println("</script>");
-			}		  		  
+			}
+	  }
+	  
+	  @RequestMapping("beans_search.do")
+	  public String search(@RequestParam("keyword") String keyword, Model model) {
+		  
+		  List<CoffeeBeanDTO> list = this.dao.searchBeanList(keyword);
+	
+		  model.addAttribute("beans_list", list);
+
+		  int searchCount = this.dao.searchCount(keyword);
+		  
+		  model.addAttribute("SearchCount", searchCount);
+		  
+		  return "./Admin/Admin_beans_Search_list";
+
+	  }
+	  
+	
+	  @RequestMapping("admin_beans_insert.do")
+	  public void admin_beans_insert(@RequestParam("beans_num") int beans_num, @RequestParam("beans_count") int beans_count, MultipartHttpServletRequest mRequest,
+			  @RequestParam("beans_name") String beans_name, @RequestParam("beans_taste") String beans_taste, @RequestParam("beans_price") int beans_price, @RequestParam("beans_intro") String beans_intro,
+			  @RequestParam("bean_img") String img, HttpServletResponse response,HttpServletRequest request) throws IOException {
+		  
+		  Map<String, Object> map = new HashMap<String, Object>();
+		  
+		  map.put("beans_num", beans_num);
+		  map.put("beans_count", beans_count);
+		  map.put("beans_name", beans_name);
+		  map.put("beans_taste", beans_taste);
+		  map.put("beans_price", beans_price);
+		  map.put("beans_intro", beans_intro);
+
+		  	String uploadPath = request.getRealPath("/resources/res/img/"); 
+			System.out.println(uploadPath);
+
+			
+			// 업로드된 파일들의 이름 목록을 제공하는 메서드.
+			Iterator<String> iterator = mRequest.getFileNames();
+			System.out.println("iterator : " + iterator);
+		      // 실제 폴더를 만들어 보자.
+	       
+	        String homedir = uploadPath;
+	        System.out.println("homedir : " + homedir);
+
+	        File path1 = new File(homedir);
+	        System.out.println("path1 : " + path1);
+
+	        if(!path1.exists()) {
+	            path1.mkdirs();
+	        }
+			while(iterator.hasNext()) {
+				String uploadFileName = iterator.next();
+				System.out.println("uploadFileName : " + uploadFileName);
+				
+				MultipartFile mFile = mRequest.getFile(uploadFileName);
+				System.out.println("mFile : " + mFile);
+				
+				String originalFileName = mFile.getOriginalFilename();
+				System.out.println("originalFileName : " + originalFileName);
+				
+				// 실제 파일을 만들어 보자.(파일복사느낌임)
+				String saveFileName = originalFileName;
+				System.out.println("saveFileName : " + saveFileName);
+				
+				if(!saveFileName.equals(null)) {
+					saveFileName = System.currentTimeMillis()+"_"+saveFileName;		// 현재 시간을 천분의 1초단위로 계산하고 있는 메소드래..
+					System.out.println("saveFileName : "+saveFileName);
+					
+					try {
+						// ...................\\resources\\upload\\2022-11-25\\실제파일
+						File origin = new File(uploadPath+"/"+saveFileName);
+						
+						// transferTo() : 파일 데이터를 지정한 폴더로 실제 저장시키는 메서드.
+						if(!img.equals("")) new File(img).delete();
+						
+						mFile.transferTo(origin);
+						map.put("beans_img", saveFileName);														
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		
+		  int res = this.dao.adminBeanInsert(map);
+		  
+		  System.out.println("res++++"+ res);
+		  response.setContentType("text/html; charset=UTF-8");
+		  
+		  PrintWriter out = response.getWriter();
+		  
+		  out.println("<script>location.href='"+mRequest.getContextPath()+"/admin_beans.do';</script>");
+		  
 	  }
 	  @RequestMapping("adminboard_cont.do")
 	  public String board_cont(@RequestParam("num")int board_num ,Model model ) {
@@ -350,10 +451,33 @@ private int totalRecord=0;
 		  
 		  FinalMemberDTO dto = this.dao.write_cont(write_num);
 		  FinalMemberDTO dto1= this.dao.beans_cont(write_num);
+		  FinalMemberDTO dto2 =this.dao.member_cont(write_num);
 		  
+		  model.addAttribute("goback", dto2);
 		  model.addAttribute("beans_cont", dto1);
 		  model.addAttribute("write_cont", dto);
 		 System.out.println(">>>>>>>>>>>>>>>>           "+dto1); 
 		  return "./Admin/Admin_write_cont";
 	  }
+	  @RequestMapping("Admin_write_delete.do")
+	  public void write_delete(@RequestParam("num")int write_num,FinalMemberDTO dto,HttpServletResponse response ) throws IOException {
+		  
+		  int res = this.dao.wirtedelete(write_num); 
+		  response.setContentType("text/html; enctype=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(res > 0) {
+				out.println("<script>");
+				out.println("alert('삭제 완료')");
+				out.println("location.href='admin_after.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('삭제 실패..')");
+				out.println("history.back()");
+				out.println("</script>");
+			}		
+	  }
+	  
 }

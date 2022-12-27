@@ -16,8 +16,10 @@
 </head>
 <body>
 	
-	 <%-- 해더 --%>
-  	 <jsp:include page="../layout/header.jsp" />
+	  <%-- 해더 --%>
+	 <div class="head">
+      	<jsp:include page="../layout/header.jsp" />
+     </div>
   
   	 <div class="blank"></div>
   	 
@@ -65,6 +67,20 @@
 	                                <li>주문번호 | <span><b>${summary.order_num }</b></span> </li>
 	                                <li>주문일 | <span><b>${summary.order_date }</b></span> </li>
 	                            </ul>
+	                            
+	                            
+	                            <div class="m_order_cancel">
+	                            
+	                            	<c:if test="${summary.type_num==3 }">
+	                                	<p>(주문 취소건)</p>
+                                	</c:if>
+                                	
+                                	<c:if test="${summary.type_num!=3 }">
+                                		<button onclick="location.href='order_all_cancel.do?onum=${summary.order_num }'">전체 주문 취소하기</button>
+                                	</c:if>
+                                	
+	                            </div>
+	                            
 	                        </div>
 	                        <table class="m_table m_s_t">
 	                            <colgroup>
@@ -120,7 +136,8 @@
 	                                 	<fmt:formatNumber type="currency" value="${list.getOrder_price() }"/>
 	                                 </td>
 	                                 <td class="p_reorder">
-	                                     <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매하기</button>
+	                                     <button class="btn small_txt" onclick="location.href='bean_cart_insert.do?no=${list.getBeans_num()}&count=${list.getOrder_cnt() }&weight=${list.getCart_weight() }&grind=${list.getCart_grind()}'">재구매</button>
+	                                     <!-- <button class="btn small_txt" onclick="">주문취소</button> -->
 	                                 </td>
 	                                </c:forEach>
 	                            </tr>

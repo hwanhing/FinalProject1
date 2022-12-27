@@ -55,6 +55,11 @@
                 ㄴ p_cont_area
 
 */
+.m_main{
+	height: 1200px;
+	overflow: scroll;
+}
+
 .m_order_rows{
     margin-bottom: var(--margin);
 }
@@ -76,6 +81,7 @@
 /* row 테이블 */
 .m_order_row{
     height: 150px;
+    border-bottom: 1px solid rgba(217, 206, 193, 0.2);
 }
 
 /* 주문번호, 날짜 */
@@ -85,45 +91,30 @@
 
 .p_date{
     display: block;
+    transition: .5s ease-in-out;
 }
 
 .p_date:hover{
     font-weight: bold;
 }
 
-
-/* 페이지 */
-.m_page div{
-    display: flex;
-    justify-content: center;
+/* 배달 현황 요약 orderList 배달현황만 적용 (나머지 적용사항은 frame.css에 있음)*/
+.m_summary_in{
+	background-color: var(--color_begie_op);
 }
 
-.m_page div .btn{
-    width: 80%;
-    border-radius: var(--radius);
-    background-color: var(--color_begie);
+/* 배송 대기일 경우 */
+.c_delivery_before{
+	color: var( --color_milk_brown);	
 }
 
-.m_page div .btn:hover{
-    font-weight: bold;
+
+/* 설명 텍스트 */
+.explain_txt{
+	color: var(--color_begie);
 }
 
-/* 알림창 */
-.modal_body {
-     position: absolute;
-     top: 60%;
-     left: 50%;
-
-     width: 500px;
-     height: 600px;
-
-     padding: 20px;
-
-     text-align: center;
-
-     background-color: rgb(255, 255, 255);
-     border-radius: 10px;
-     box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
-
-     transform: translateX(-50%) translateY(-50%);
- }
+.explain_txt_now{
+	padding-left: 20px;
+	color: var(--color_greyish);
+}

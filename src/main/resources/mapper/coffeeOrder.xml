@@ -48,7 +48,7 @@
 	<update id="insertOrder" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=" " open="insert all" close="select * from dual">
 			into coffee_order values('${item.order_num}', ${item.order_row}, ${item.order_cnt}, ${item.order_price}, to_date('${item.order_date}','yyyyMMddhhmiss'), 
-			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point})
+			${item.beans_num}, '${item.beans_name}', ${item.beans_price}, '${item.beans_taste}', ${item.cart_weight}, ${item.cart_grind}, ${item.member_num}, ${item.use_point}, default)
 		</foreach>
 	</update>
 	
@@ -62,9 +62,10 @@
 	<insert id="insertOneOrder" parameterType="coffeeOrderDTO">
 		insert into coffee_order 
 		values(#{order_num}, #{order_row}, #{order_cnt}, #{order_price}, to_date(#{order_date},'yyyyMMddhhmiss'), 
-			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point})
+			   #{beans_num}, #{beans_name}, #{beans_price}, #{beans_taste}, #{cart_weight}, #{cart_grind}, #{member_num}, #{use_point}, default)
 	</insert>
 	
+	<!-- 상품 재고 마이너스처리 -->
 	<update id="updateOneBeanCnt" parameterType="coffeeOrderDTO">
 		update coffee_beans set beans_count = beans_count - (#{order_cnt}*(#{cart_weight}/100)) where beans_num = #{beans_num}
 	</update>
@@ -76,70 +77,97 @@
 		 where member_num = #{memberNum}
 	</update>
 	
+	<!-- 장바구니 삭제 -->
 	<delete id="deleteCart" parameterType="java.util.List">
 		<foreach collection="list" item="item" separator=";" open="declare begin" close="; end;">
 			delete from coffee_cart where cart_num = ${item.cart_num}
 		</foreach>
 	</delete>
 
-	<select id="nowOrderList" parameterType="String" resultType="coffeeOrderDTO">
-	      select co.*
-		      , be.beans_img
-		   from coffee_order co 
-		   join coffee_beans be
-		     on co.beans_num = be.beans_num 
-		  where order_num = #{order_num}
+	<select id="getOrderCont" parameterType="String" resultType="coffeeOrderDTO">
+      select co.*
+	      , be.beans_img
+	   from coffee_order co 
+	   join coffee_beans be
+	     on co.beans_num = be.beans_num 
+	  where order_num = #{order_num}
 	</select>
 	
+	<!-- 타입별 주문건수 확인 -->
+	<select id="getDeliveryTypeCnt" parameterType="int" resultType="map">
+		select type_num
+		      , count(distinct order_num) as rowCnt
+		   from coffee_order
+		  where member_num = #{member_num}
+		  group by type_num
+	</select>
+	
+	<!-- 주문건 수 확인(페이징에 필요_total_record) -->
+	<select id="getRowCount" parameterType="hashmap" resultType="int">
+	   select count(distinct order_num) as rowCnt
+	     from coffee_order
+	    where member_num = #{member_num}
+	    <if test="type_num !=null">
+	    	and type_num = #{type_num} 
+	    </if>
+	    <if test="start !=null">
+	    	and order_date between to_date(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date(#{end},'yyyy-mm-dd hh24:mi:ss')
+	    </if>
+	</select>
+	
+	<!-- 주문건 가져오는 sql (with 절 첫번째) -->
 	<sql id="order_product">
-		select order_num
+		select row_number() over(order by order_num desc) as row_num
+		     , order_num
              , min(order_row) as order_row
              , count(order_num) as order_product_cnt
              , sum(order_price) as order_price
              , min(order_date) as order_date
              , min(to_char(order_date,'yyyy.mm')) as order_month 
          from coffee_order
-         where member_num = #{member_num}
+        where member_num = #{member_num}
+        <if test="type_num !=null">
+          and type_num = #{type_num} 
+		</if>
+		<if test="start !=null">
+		  and order_date between to_date(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date(#{end},'yyyy-mm-dd hh24:mi:ss')
+		</if>
         group by order_num
         order by order_num desc
 	</sql>
 	
-	<select id="getOrderList" parameterType="int" resultType="coffeeOrderDTO">
+	<select id="getOrderList" parameterType="hashmap" resultType="coffeeOrderDTO">
 		with order_product as ( <include refid="order_product"/>
-				)select op.order_month
+				)select op.row_num
+				      , op.order_month
 				      , op.order_date
 				      , op.order_num
 				      , op.order_price
 				      , co.beans_num
 				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
 				      , be.beans_img
+				      , co.type_num
 				  from coffee_order co
 				  join order_product op
 				    on co.order_num = op.order_num
 				   and co.order_row = op.order_row
+				   and op.row_num between ${startNo} and ${endNo}
 				  join coffee_beans be
 				    on co.beans_num = be.beans_num 
 				 order by order_num desc
 	</select>
 	
-	<select id="getOrderListDate" parameterType="hashmap" resultType="coffeeOrderDTO">
-		with order_product as ( <include refid="order_product"/>
-				)select op.order_month
-				      , op.order_date
-				      , op.order_num
-				      , op.order_price
-				      , co.beans_num
-				      , case when op.order_product_cnt>1 then co.beans_name || ' 외 ' || (op.order_product_cnt-1) else co.beans_name end beans_name
-				      , be.beans_img
-				  from coffee_order co
-				  join order_product op
-				    on co.order_num = op.order_num
-				   and co.order_row = op.order_row
-				  join coffee_beans be
-				    on co.beans_num = be.beans_num 
-				   and co.order_date between to_date(#{start},'yyyy-mm-dd hh24:mi:ss') and to_date(#{end},'yyyy-mm-dd hh24:mi:ss')
-				 order by order_num desc
-	</select>
+	<!-- 전체 주문 취소 -->
+	<update id="updateOrderType" parameterType="hashmap">
+		update coffee_order
+		   set type_num = #{type_num}
+		 where order_num = #{order_num}
+	</update>
 	
-	
+	<!-- 포인트 취소 -->
+	<update id="updateUsePointCancel" parameterType="hashmap">
+		update final_member
+		   set member_point = member_point + #{use_point}
+		 where member_num = #{member_num}
+	</update>
 </mapper>

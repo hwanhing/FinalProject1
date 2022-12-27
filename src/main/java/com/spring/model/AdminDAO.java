@@ -5,6 +5,7 @@ import java.util.Map;
 
 public interface AdminDAO {
 
+	
 	FinalAdminDTO admin_check(FinalAdminDTO dto);
 
 	List<FinalMemberDTO> memberList(PageDTO dto);
@@ -35,6 +36,14 @@ public interface AdminDAO {
 	
 	int adminBeanDelete(int beans_num);
 
+	
+	List<CoffeeBeanDTO> searchBeanList(String keyword);
+	
+	int searchCount(String keyword);
+	
+	int adminBeanInsert(Map<String, Object> map);
+
+
 	FinalMemberDTO centerwrite(int board_num);
 
 
@@ -52,14 +61,13 @@ public interface AdminDAO {
 
 	FinalMemberDTO beans_cont(int write_num);
 
-	
+	FinalMemberDTO member_cont(int write_num);
+
+	int wirtedelete(int write_num);
+
+	FinalMemberDTO admin_test(int num);
 
 	
 
-	
-
-	
-
-	
 
 }

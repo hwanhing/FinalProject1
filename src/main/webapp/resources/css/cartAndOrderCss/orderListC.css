@@ -39,8 +39,16 @@
 .p_reorder{
     text-align: center ;
 }
+
 .p_reorder .btn{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    margin-bottom: 10px;
     padding: 5px 10px 5px 10px;
+    
     border-radius: var(--radius);
     box-shadow: var(--box_shadow);
 }
@@ -106,7 +114,8 @@
 }
 
 .o_conclusion_t{
-    width: 100%;
+    width: 90%;
+    margin: auto;
 }
 
 .o_conclusion_t .middle_text{
@@ -119,10 +128,20 @@
 
 .o_conclusion table th{
     width: 40%;
+    text-align: left !important;
+    padding-left: 10px;
 }
 
 .sep_tr{
     padding-top: 20px !important;
     height: 2px !important;
     background-color: var(--color_greyish);
+}
+
+/* 배송중인 상품일 경우 */
+.delivery_ing_txt{
+	padding-top: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }

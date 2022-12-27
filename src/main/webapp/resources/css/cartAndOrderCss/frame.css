@@ -33,12 +33,12 @@
 
 .middle_text{
 	font-size: 18px !important;
-	padding-bottom: 8px;
+	padding-bottom: 10px;
 }
 
 .sub_middle_text{
 	font-size: 15px !important;
-	padding-bottom: 5px;
+	padding-bottom: 10px;
 }
 
 .small_txt{
@@ -225,10 +225,10 @@
 			
 /* 구분선 역할 div 공통 */
 .hr_div{
-    margin-top: var(--margin) !important;
-    margin-bottom: var(--margin) !important;
-    height: 2px !important;
-    background-color: var(--color_begie_op) !important;
+    margin-top: var(--margin);
+    margin-bottom: var(--margin);
+    height: 2px;
+    background-color: var(--color_begie_op);
 }
 
 /* 장바구니 목록에 있는 div */
@@ -256,4 +256,58 @@ input::-webkit-inner-spin-button {
 /* ----------------- 삭제시 display none --------------------------- */
 .display_none{
     display: none;
+}
+
+
+/* ----------------- 배달현황 요약 ----------------------------------- */
+.m_summary{
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.m_summary_in{
+    width: 100%;
+    height: 90px;
+	margin: auto;
+	display: flex;
+	justify-content: space-around;
+	border-radius: 10px;
+	box-shadow: var(--box_shadow);
+}
+
+.m_s_delivery{
+	width: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.m_s_delivery h3{
+	margin-bottom: 5px;
+}
+
+.cnt_txt{
+    width: 100px;
+    height: 30px;
+}
+
+.m_s_delivery .a{
+    font-size: 20px;
+    transition: .4s ease-in-out;
+}
+
+.m_s_delivery .a:hover{
+    font-size: 25px;
+    color: var(--color_milk_brown);
+}
+
+/* ----------------- 배달현황 요약 구분선 ------------------------------ */
+.m_summary_in .hr_div{
+	width: 2px;
+	height: 80%;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
