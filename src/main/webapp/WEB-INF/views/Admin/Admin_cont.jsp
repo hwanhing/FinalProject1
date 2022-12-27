@@ -158,8 +158,7 @@ crossorigin="anonymous"></script>
 								</c:if>
 							 				
 							 	
-							</div>
-							 			
+							</div>		 			
 							  </div>
 						<div style="width:75%; height:400px; overflow:auto; margin-left: 200px;">
 							<table class="table table-striped table-hover">

@@ -500,6 +500,7 @@ width: 100PX;
     margin-bottom: 0;
     list-style: none;
 }
+
 .loyalty-modal__close-button{
     -webkit-text-size-adjust: 100%;
     --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
