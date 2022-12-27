@@ -155,8 +155,7 @@ $( "#member_table tr" ).on( "mouseleave", function() {
 	 		
 	 			<h2><b>회원 관리</b></h2>
 	 			
-	 			<br><br>
-	 			
+	 			<br><br>	 			
 	 		<form method="post" action="<%=request.getContextPath()%>/member_search.do">
 	 		<div style="display: flex;">
 	 			<h6 style="margin-bottom: 0; margin-top: 7px;"><b>회원 검색&nbsp;&nbsp;</b></h6>
