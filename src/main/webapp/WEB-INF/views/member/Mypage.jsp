@@ -34,7 +34,14 @@ function readURL1(input) {
 
 <style>
 
-
+.header__username {
+    margin-bottom: 40px;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    margin-left: 40px;
+    margin-top: 20px;
+}
 .row {
     --bs-gutter-x: 1.5rem;
     --bs-gutter-y: 0;
