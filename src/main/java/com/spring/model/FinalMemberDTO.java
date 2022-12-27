@@ -78,6 +78,11 @@ public class FinalMemberDTO {
 	private String write_cont;
 	private String write_date;
 	private String write_img;
+	
+	
+
+	private int beans_count;
+	
 
 	
 

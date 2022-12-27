@@ -33,6 +33,7 @@ crossorigin="anonymous"></script>
 <body>
 	<jsp:include page="../layout/Admin_header2.jsp"  />
 	<c:set var="dto" value="${member_cont }" />
+	<c:set var="dto2" value="${member_test }" />
 	<c:set var="member_order" value="${member_order }" />
 		<div class="contanior">
 		<h1>회원 상세보기</h1>
@@ -91,16 +92,14 @@ crossorigin="anonymous"></script>
 							 	 	
 							   		
 							 		<div class="user_name">		
-							 	<c:if test="${dto.getMember_addr() ne '주소를 넣어주세요' }">
+							 
 								
 							   			<span class=tr-span><i class="fa-solid fa-map-location-dot"></i>주소</span>&nbsp;&nbsp;&nbsp;
 										<span class="td-span">${dto.getMember_addr() }</span>
-								</c:if>
+										
+										<span class="date14">${dto2.getTest_name() }</span>
+							   			<span class="date13"><i class="fa-sharp fa-solid fa-mug-saucer"></i>커피파</span>&nbsp;&nbsp;&nbsp;
 								
-								<c:if test="${dto.getMember_addr() == '주소를 넣어주세요' }">
-								
-								</c:if>
-							 				
 							 	</div>
 							 	<br><br><br>
 								<div class="user_name">		
@@ -162,7 +161,7 @@ crossorigin="anonymous"></script>
 							</div>
 							 			
 							  </div>
-						<div style="width:100%; height:400px; overflow:auto">
+						<div style="width:75%; height:400px; overflow:auto; margin-left: 200px;">
 							<table class="table table-striped table-hover">
 					                <thead>
 					                    <tr>

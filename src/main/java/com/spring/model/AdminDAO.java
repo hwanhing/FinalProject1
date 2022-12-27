@@ -59,6 +59,14 @@ public interface AdminDAO {
 
 	FinalMemberDTO write_cont(int write_num);
 
+	FinalMemberDTO beans_cont(int write_num);
+
+	FinalMemberDTO member_cont(int write_num);
+
+	int wirtedelete(int write_num);
+
+	FinalMemberDTO admin_test(int num);
+
 	
 
 

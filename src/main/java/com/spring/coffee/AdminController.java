@@ -111,9 +111,12 @@ private int totalRecord=0;
 	public String admin_cont(@RequestParam("num")int num,@RequestParam("page") int nowPage ,Model model) {
 		
 		FinalMemberDTO dto = this.dao.admin_cont(num);
-		
+		FinalMemberDTO dto2 = this.dao.admin_test(num);
 		List<CoffeeOrderDTO> dto1 =this.dao.admin_order(num);
 		
+		System.out.println(">>>>>>>>>>>"+dto2);
+		
+		model.addAttribute("member_test", dto2);
 		model.addAttribute("member_order", dto1);
 		model.addAttribute("member_cont",dto);
 		model.addAttribute("page", nowPage);
@@ -447,9 +450,34 @@ private int totalRecord=0;
 	  public String writecont(@RequestParam("num")int write_num,Model model) {
 		  
 		  FinalMemberDTO dto = this.dao.write_cont(write_num);
+		  FinalMemberDTO dto1= this.dao.beans_cont(write_num);
+		  FinalMemberDTO dto2 =this.dao.member_cont(write_num);
 		  
+		  model.addAttribute("goback", dto2);
+		  model.addAttribute("beans_cont", dto1);
 		  model.addAttribute("write_cont", dto);
-		  
+		 System.out.println(">>>>>>>>>>>>>>>>           "+dto1); 
 		  return "./Admin/Admin_write_cont";
 	  }
+	  @RequestMapping("Admin_write_delete.do")
+	  public void write_delete(@RequestParam("num")int write_num,FinalMemberDTO dto,HttpServletResponse response ) throws IOException {
+		  
+		  int res = this.dao.wirtedelete(write_num); 
+		  response.setContentType("text/html; enctype=UTF-8");
+			
+			PrintWriter out = response.getWriter();
+			
+			if(res > 0) {
+				out.println("<script>");
+				out.println("alert('삭제 완료')");
+				out.println("location.href='admin_after.do'");
+				out.println("</script>");
+			}else {
+				out.println("<script>");
+				out.println("alert('삭제 실패..')");
+				out.println("history.back()");
+				out.println("</script>");
+			}		
+	  }
+	  
 }

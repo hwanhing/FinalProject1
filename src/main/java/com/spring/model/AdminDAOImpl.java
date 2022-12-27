@@ -145,6 +145,30 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("write_Cont", write_num);
 	}
 
+	@Override
+	public FinalMemberDTO beans_cont(int write_num) {
+		
+		return this.sqlSession.selectOne("wadada", write_num);
+	}
+
+	@Override
+	public FinalMemberDTO member_cont(int write_num) {
+		
+		return this.sqlSession.selectOne("allofmylove",write_num);
+	}
+
+	@Override
+	public int wirtedelete(int write_num) {
+		
+		return this.sqlSession.delete("write_delete", write_num);
+	}
+
+	@Override
+	public FinalMemberDTO admin_test(int num) {
+		
+		return this.sqlSession.selectOne("admin_test",num );
+	}
+
 
 
 	

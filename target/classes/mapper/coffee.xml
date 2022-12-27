@@ -345,6 +345,22 @@
 		select cb.*,cw.* from coffee_beans cb join coffee_write cw on cb.beans_num = cw.beans_num where write_num=#{write_num}
 	</select>
 
+	<select id="wadada" parameterType="int" resultType="finalMemberDTO">
+	select cw.*,cb.* from coffee_write cw join coffee_beans cb on cw.beans_num= cb.beans_num where write_num=#{write_num}
+	</select>
+	<select id="allofmylove" parameterType="int" resultType="finalMemberDTO">
+	select fm.*,cw.* from final_member fm join coffee_write cw on fm.member_num= cw.member_num where write_num=#{write_num}
+	</select>
+	
+	<delete id="write_delete" parameterType="int" >
+		delete from coffee_write where write_num = #{write_num}
+	</delete>
+	
+	<select id="admin_test" parameterType="int" resultType="finalMemberDTO">
+		select fm.*,ct.* from final_member fm join coffee_test ct on fm.test_num= ct.test_num where member_num=#{num}
+	</select>
+
+
 	
 </mapper>  
 

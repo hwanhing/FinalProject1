@@ -27,7 +27,7 @@ import com.spring.model.BeanDAO;
 import com.spring.model.CoffeeBeanDTO;
 import com.spring.model.CoffeeStarDTO;
 import com.spring.model.CoffeeWriteDTO;
-import com.spring.model.FinalMemberDTO;
+
 
 @Controller
 public class CoffeeBeanController {
