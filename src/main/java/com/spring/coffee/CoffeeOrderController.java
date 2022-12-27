@@ -46,6 +46,8 @@ import com.spring.model.PageDTO;
 @Controller
 public class CoffeeOrderController {
 
+	
+	
 	@Inject
 	private CoffeeOrderDAO orderDao;
 
@@ -136,9 +138,9 @@ public class CoffeeOrderController {
 					+ "&quantity=" + quantity
 					+ "&total_amount=" + totalAmout
 					+ "&tax_free_amount=0" // 비과세
-					+ "&approval_url=http://localhost:8585/coffee/approvalpay.do"
-					+ "&cancel_url=http://localhost:8585/coffee/cancelpay.do"
-					+ "&fail_url=http://localhost:8585/coffee/failpay.do";
+					+ "&approval_url=http://localhost:8282/coffee/approvalpay.do"
+					+ "&cancel_url=http://localhost:8282/coffee/cancelpay.do"
+					+ "&fail_url=http://localhost:8282/coffee/failpay.do";
 
 			OutputStream put = con.getOutputStream(); // 서버에게 전달
 			DataOutputStream dataPut = new DataOutputStream(put); // 서버에게 데이터를 전달
