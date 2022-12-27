@@ -254,9 +254,7 @@ public class CoffeeBeanController {
 			System.out.println("avavavav>>"+avg); 
 			dto.setStar_avg(avg);				
 		}
-		
-
-		
+	
 		// 원두 번호에 해당하는 후기글 list
 		List<CoffeeWriteDTO> list_1 = this.dao.getWriteList(num);
 		model.addAttribute("writeList", list_1);
@@ -269,6 +267,10 @@ public class CoffeeBeanController {
 		int writeCheck = this.dao.writeCheck(map);
 		System.out.println("writeCheck>>>"+writeCheck);
 		model.addAttribute("writeCheck", writeCheck);			
+		
+		// 상품을 산 사람만 후기글을 남길 수 있게 해보자.
+		int buyCheck = this.dao.buyCheck(map);
+		model.addAttribute("buyCheck", buyCheck);
 		
 		return "./bean/bean_content";
 	}

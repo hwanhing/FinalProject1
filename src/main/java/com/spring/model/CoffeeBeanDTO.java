@@ -13,7 +13,7 @@ public class CoffeeBeanDTO {
 	private String beans_taste;
 	private String beans_intro;
 	private String beans_img;
-	private String beans_url;
+	private String beans_add_image;
 	
 	private int count_h;
 	

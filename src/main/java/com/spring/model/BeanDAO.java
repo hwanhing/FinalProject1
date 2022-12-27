@@ -50,6 +50,8 @@ public interface BeanDAO {
 	
 	int checkWrite(Map<String, Object> map);
 	
+	int buyCheck(Map<String, Integer> map);
+	
 	
 	// 후기글 삭제
 	int deleteWrite(int write_num);

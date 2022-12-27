@@ -224,11 +224,25 @@ width: 100PX;
 
         	<div class="con1">
         		<div class="con_box" align="center">
-        		<c:if test="${member_id eq null }">
-	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'">         				        			
+        		
+        		<%-- 그냥 beans_img 쓰고 --%>
+        		<c:if test="${i.getBeans_add_image() eq null }">
+	        		<c:if test="${member_id eq null }">
+		        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'">         				        			
+	        		</c:if>
+	        		<c:if test="${member_id ne null }">
+		        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'">            		
+	        		</c:if>
         		</c:if>
-        		<c:if test="${member_id ne null }">
-	        		<img alt="커피원두1" width="300px" height="300px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'">            		
+        		
+        		<%-- beans_add_image 쓰기 --%>
+        		<c:if test="${i.getBeans_add_image() ne null }">
+	        		<c:if test="${member_id eq null }">
+		        		<img alt="커피원두1" width="300px" height="300px" src="<%=request.getContextPath() %>/resources/res/img/${i.getBeans_add_image() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'">         				        			
+	        		</c:if>
+	        		<c:if test="${member_id ne null }">
+		        		<img alt="커피원두1" width="300px" height="300px" src="<%=request.getContextPath() %>/resources/res/img/${i.getBeans_add_image() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'">            		
+	        		</c:if>        		
         		</c:if>
         		</div>
         		<div class="info_out">

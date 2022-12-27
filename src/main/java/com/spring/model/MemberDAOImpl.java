@@ -125,15 +125,6 @@ public class MemberDAOImpl implements MemberDAO{
 		 return this.sqlSession.insert("w_write_ok",dto);
 	}
 
-
-
-
-
-	
-
-	
-
-
 	public int joinIdCheck(FinalMemberDTO dto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.selectOne("joinIdCheck", dto);
@@ -143,6 +134,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public int Memberupdate(FinalMemberDTO fmdto) {
 		// TODO Auto-generated method stub
 		return this.sqlSession.update("memberUpdateImg", fmdto);
+	}
+
+
+	@Override
+	public int useMember(String member_id) {
+		return this.sqlSession.selectOne("member_use_check", member_id);
 	}
 
 

@@ -767,19 +767,26 @@
 		
 			<h3 class="que1">후기글</h3>
 			<br>
-			
+			<%-- 이사람이 구입을 했을 경우에만 뜨게 --%>
+			<c:set var="buyCheck" value="${buyCheck }" />
+
 			<%-- 여기다가 그거 할거임. 세션 아이디값 받아와서 이사람이 후기글 썼으면 더이상 못쓰게!! --%>
 			<c:set var="w_Check" value="${writeCheck }" />
 			<c:if test="${w_Check eq 1 }">
 				<span style="margin-left: 3%; font-size: 17px;">이미 후기글을 작성하셨습니다.</span>
 			</c:if>
 			
-			<c:if test="${i.getWrite_count() == 0 }">
+			<c:if test="${i.getWrite_count() == 0 && buyCheck eq 0}">
 				<span style="margin-left: 3%; font-size: 17px;">아직 후기글이 없습니다.</span>			
+			</c:if>
+			<c:if test="${i.getWrite_count() == 0 && buyCheck eq 1 }">
+				<span style="margin-left: 3%; font-size: 17px;">후기글을 작성해주세요.😀</span>						
 			</c:if>
 			
 			<c:set var="w_list" value="${writeList }" />
-			
+		
+			<c:if test="${buyCheck eq 1 }">
+				
 			<c:if test="${w_Check eq 0 }">
 			
 				<c:if test="${member_id ne null }">
@@ -838,6 +845,8 @@
 			
 				
 				</c:if> <!-- 후기글을 작성했는지 안했는지 조건문 -->
+				
+			</c:if> <!--  이사람이 구입했느지.. -->	
 			<br>
 			
 				

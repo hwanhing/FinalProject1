@@ -75,6 +75,7 @@ private int totalRecord=0;
 		return "./Admin/admin_main";
 	}
 	
+	// 관리자 회원 관리 페이지
 	@RequestMapping("admin_memeber.do")
 	public String member_list(HttpServletRequest request, Model model) {
 		
@@ -99,7 +100,12 @@ private int totalRecord=0;
              
         List<FinalMemberDTO> list = this.dao.memberList(dto);
         // 페이지에 해당하는 게시물을 가져오는 메서드 호출.
-     
+  
+		// 회원 전체 수 저장
+		String count = this.dao.getMemberCount();
+		System.out.println("count>>"+count);
+		model.addAttribute("Count", count);
+        
 
         model.addAttribute("Paging", dto);
 			
@@ -107,6 +113,8 @@ private int totalRecord=0;
 		
 		return "./Admin/Admin_Member_List";
 	}
+	
+	
 	@RequestMapping("admin_cont.do")
 	public String admin_cont(@RequestParam("num")int num,@RequestParam("page") int nowPage ,Model model) {
 		
@@ -138,7 +146,6 @@ private int totalRecord=0;
             // 처음으로 게시물 전체 목록을 클릭한 경우.
             page = 1;
         }
-        
 
         // DB상의 전체 게시물의 수를 확인하는 메서드 호출.
         totalRecord = this.dao.beansList();
@@ -195,6 +202,7 @@ private int totalRecord=0;
 			return "./Admin/Admin_Member_board";
 		}
 
+	// 관리자 원두 상세정보 페이지
 	@RequestMapping("admin_beans_cont.do")
 	public String admin_bean_cont(@RequestParam("no") int beans_num, Model model) {
 		
@@ -205,8 +213,7 @@ private int totalRecord=0;
 		return "./Admin/Admin_beans_cont";
 	}
 	
-	
-	
+	//관리자 원두 수정 페이지
 	  @RequestMapping("admin_beans_modify.do")
 	  public String admin_bean_modify(@RequestParam("no") int beans_num, Model model) {
 	  
@@ -217,6 +224,7 @@ private int totalRecord=0;
 		  return "./Admin/Admin_beans_modify";
 	  }
 	  
+	  // 관리자 원두 수정 페이지
 	  @RequestMapping("admin_beans_modify_ok.do")
 	  public void admin_bean_modify_ok(CoffeeBeanDTO dto, HttpServletResponse response) throws IOException {
 		  
@@ -239,7 +247,7 @@ private int totalRecord=0;
 			}		  
 	  }
 
-	  
+	  // 관리자 원두 삭제 페이지
 	  @RequestMapping("admin_beans_delete.do")
 	  public void admin_bean_delete(@RequestParam("no") int beans_num, HttpServletResponse response) throws IOException {
 		  
@@ -262,6 +270,7 @@ private int totalRecord=0;
 			}
 	  }
 	  
+	  // 관리자 원두 관리 검색 페이지
 	  @RequestMapping("beans_search.do")
 	  public String search(@RequestParam("keyword") String keyword, Model model) {
 		  
@@ -277,11 +286,27 @@ private int totalRecord=0;
 
 	  }
 	  
-	
+	  // 관리자 회원 관리 검색 페이지
+	  @RequestMapping("member_search.do")
+	  public String memberSearch(@RequestParam("keyword") String keyword, Model model) {
+		  
+		  List<FinalMemberDTO> list = this.dao.searchMemberList(keyword);
+		  
+		  model.addAttribute("memberList", list);
+		  
+		  int searchCount = this.dao.searchCountMem(keyword);
+		  
+		  model.addAttribute("SearchCount", searchCount);
+		  
+		  return "./Admin/Admin_member_Search_list";
+		  
+	  }
+	  
+	  // 관리자 원두 추가 페이지
 	  @RequestMapping("admin_beans_insert.do")
-	  public void admin_beans_insert(@RequestParam("beans_num") int beans_num, @RequestParam("beans_count") int beans_count, MultipartHttpServletRequest mRequest,
+	  public void admin_beans_insert(CoffeeBeanDTO dto, @RequestParam("beans_num") int beans_num, @RequestParam("beans_count") int beans_count, MultipartHttpServletRequest mRequest,
 			  @RequestParam("beans_name") String beans_name, @RequestParam("beans_taste") String beans_taste, @RequestParam("beans_price") int beans_price, @RequestParam("beans_intro") String beans_intro,
-			  @RequestParam("bean_img") String img, HttpServletResponse response,HttpServletRequest request) throws IOException {
+			  @RequestParam(value="img", required = false , defaultValue = "") String img, HttpServletResponse response,HttpServletRequest request) throws IOException {
 		  
 		  Map<String, Object> map = new HashMap<String, Object>();
 		  
@@ -336,7 +361,7 @@ private int totalRecord=0;
 						if(!img.equals("")) new File(img).delete();
 						
 						mFile.transferTo(origin);
-						map.put("beans_img", saveFileName);														
+						map.put("beans_add_image", saveFileName);														
 						
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -354,6 +379,7 @@ private int totalRecord=0;
 		  out.println("<script>location.href='"+mRequest.getContextPath()+"/admin_beans.do';</script>");
 		  
 	  }
+	  
 	  @RequestMapping("adminboard_cont.do")
 	  public String board_cont(@RequestParam("num")int board_num ,Model model ) {
 		  
@@ -368,6 +394,7 @@ private int totalRecord=0;
 		  
 		  return "./Admin/Admin_centerCont";
 	  }
+	  
 	  @RequestMapping("admin_center_ok.do")
 	  public void admin_member_modify_ok(@RequestParam("board_num") int board_num,@RequestParam("reply_cont") String reply_cont,FinalMemberDTO dto, HttpServletResponse response) throws IOException {
 		
@@ -401,6 +428,8 @@ private int totalRecord=0;
 			}		 
 			
 	  }
+	  
+	  // 고객센터 답변 페이지
 	  @RequestMapping("adminboardgreen_cont.do")
 	  public String greenbutton(@RequestParam("num") int board_num,Model model) {
 		  
@@ -412,6 +441,7 @@ private int totalRecord=0;
 		  model.addAttribute("greenbtn", dto);
 		  return "./Admin/Admin_centerGreenBTNCont";
 	  }
+	  
 	  @RequestMapping("admin_after.do")
 	  public String  after_Write(Model model,HttpServletRequest request) {
 		  	
@@ -443,6 +473,7 @@ private int totalRecord=0;
 			
 			return"./Admin/Admin_after_write";
 	  }
+	  
 	  @RequestMapping("admin_Write_cont.do")
 	  public String writecont(@RequestParam("num")int write_num,Model model) {
 		  

@@ -106,7 +106,13 @@
 				
 				<div>				
 					<div class="box3">
-						<img class="img_box1" src="${i.getBeans_img() }" width="300">				
+					<c:if test="${i.getBeans_add_image() eq null }">
+						<img class="img_box1" src="${i.getBeans_img() }" width="300">									
+					</c:if>
+					
+					<c:if test="${i.getBeans_add_image() ne null }">
+						<img class="img_box1" src="<%=request.getContextPath() %>/resources/res/img/${i.getBeans_add_image() }" width="300">														
+					</c:if>
 					</div>
 					
 					<table class="table_1">
