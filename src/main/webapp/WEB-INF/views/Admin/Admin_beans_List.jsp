@@ -250,7 +250,7 @@
 	 		<br>
 	 		<form method="post" action="<%=request.getContextPath()%>/beans_search.do">
 	 		<div style="display: flex;">
-	 			<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 검색&nbsp;&nbsp;</b></h6>
+	 			<h6 style="margin-bottom: 0; margin-top: 7px;"><b>원두 검색</b></h6>
 	 			<input name="keyword" class="search_keyword" style="" placeholder="원두이름으로 검색..">
 	 			<button type="submit" class="sub_btn">검색</button>
 	 		</div>

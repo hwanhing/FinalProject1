@@ -94,6 +94,29 @@ $(document).ready(function(){
 .tqtqtqtq{
 width: 140px !important;
 }	
+
+    table.table tr th, table.table tr td {
+		padding: 12px 15px;
+		vertical-align: middle;
+    }
+    
+    table.table tr:hover{
+    	background-color: #E6DBCD;
+    }
+    
+ 	.table{
+		width: 95%;
+	}  
+	.table_box{
+		margin-top: 3%;
+	}
+	
+	.empty1{
+		margin-left: 23%;
+	}		
+	tr{
+		text-align: center;
+	}	 
 </style>
 </head>
 <body>
@@ -102,8 +125,8 @@ width: 140px !important;
 <c:set var="paging" value="${Paging }" />
 
 
-<div class="cont1">
-		<div class="cont2">
+<div class="empty1">
+		<div class="table_box">
 			<h2><b>고객센터</b></h2>
 	 			
 	 			<br><br>
@@ -113,20 +136,19 @@ width: 140px !important;
 				 <li class="tab-link" data-tab="tab2">답변 완료</li>	    
 			  </ul>	 	
 			  
-			  	<div id="tab1" class="tab-content current">		
-			  	
+			  	<div id="tab1" class="tab-content current">	
+			  	<div style="display: flex;">	
+			  	<h6 style="margin-bottom: 0; margin-top: 30px;"><b>답변 관리</b></h6>
+			  	</div>
 			  	<hr id="hr1" width="95%">		  		
-				  	<div class="title_box">
-		 		 		
-		 		 	</div>
-		 		 
+		 		 <br>
 		 		 	<table class="table">
-		 			<tr>
-		 				<th class="tqtq">글번호</th>
+		 			<tr style="pointer-events: none;" >
+		 				<th>글번호</th>
 		 				<th class="c_name">글제목</th>
 		 				<th>작성일</th>
-		 				<th class="tqtqtqtq">글작성자</th>
-		 				<th class="tqtqtqtq">답변여부</th>
+		 				<th>글작성자</th>
+		 				<th>답변여부</th>
 		 			</tr>
 		 			<c:set value="${boardList }" var="board_List" />
   		 					<c:if test="${!empty board_List}">
@@ -135,7 +157,7 @@ width: 140px !important;
 			 						<tr onclick="location.href='adminboard_cont.do?num=${dto.getBoard_num()}&page=${paging.getPage()}'">
 			 						
 					 					<td>${dto.getBoard_num() } </td>
-					 					<td>${dto.getBoard_title() } </td>
+					 					<td class="c_name">${dto.getBoard_title() } </td>
 					 					<td>${dto.getBoard_date() } </td>
 					 					<td>${dto.getMember_id() } </td>
 					 					<td>
@@ -158,15 +180,17 @@ width: 140px !important;
 			  	
 			  	
 			  		<div id="tab2" class="tab-content">
-			  		
+				  	<div style="display: flex;">	
+				  	<h6 style="margin-bottom: 0; margin-top: 30px;"><b>답변 관리</b></h6>
+				  	</div>			  		
 			  		<hr id="hr1" width="95%">
 			  			<table class="table">
-		 			<tr>
-		 				<th class="tqtq">글번호</th>
+		 			<tr style="pointer-events: none;">
+		 				<th>글번호</th>
 		 				<th class="c_name">글제목</th>
 		 				<th>작성일</th>
-		 				<th class="tqtqtqtq">글작성자</th>
-		 				<th class="tqtqtqtq">답변여부</th>
+		 				<th>글작성자</th>
+		 				<th>답변여부</th>
 		 			</tr>
 		 			<c:set value="${boardList }" var="board_List" />
   		 					<c:if test="${!empty board_List}">
@@ -174,7 +198,7 @@ width: 140px !important;
 				 					<c:if test="${dto.getBoard_reply() == 1 }">
 			 						<tr onclick="location.href='adminboardgreen_cont.do?num=${dto.getBoard_num()}&page=${paging.getPage()}'">
 					 					<td>${dto.getBoard_num() } </td>
-					 					<td>${dto.getBoard_title() } </td>
+					 					<td class="c_name">${dto.getBoard_title() } </td>
 					 					<td>${dto.getBoard_date() } </td>
 					 					<td>${dto.getMember_id() } </td>
 					 					<td>

@@ -52,4 +52,6 @@ public interface MemberDAO {
 
 	int Memberupdate(FinalMemberDTO fmdto);
 
+	int useMember(String member_id);
+	
 }

@@ -56,6 +56,11 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("beansCount");
 	}
 
+	@Override
+	public String getMemberCount() {
+		return this.sqlSession.selectOne("memberCount");
+	}
+	
 	public List<CoffeeOrderDTO> admin_order(int num) {
 		
 		return this.sqlSession.selectList("admin_order",num);
@@ -98,6 +103,16 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("searchCount", keyword);
 	}
 
+	@Override
+	public List<FinalMemberDTO> searchMemberList(String keyword) {
+		return this.sqlSession.selectList("memberSearch", keyword);
+	}	
+	
+	@Override
+	public int searchCountMem(String keyword) {
+		return this.sqlSession.selectOne("searchCountMem", keyword);
+	}	
+	
 	@Override
 	public int adminBeanInsert(Map<String, Object> map) {
 		return this.sqlSession.insert("bean_insert", map);
@@ -168,6 +183,10 @@ public class AdminDAOImpl implements AdminDAO{
 		
 		return this.sqlSession.selectOne("admin_test",num );
 	}
+
+
+
+
 
 
 

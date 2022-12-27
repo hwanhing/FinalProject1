@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,12 +45,19 @@ public class MemberController {
    @Inject
    private MemberDAO dao;
    
+   @RequestMapping("main.do")
+   public String logindd() {
+	   
+	   return "";
+   }
    
    @RequestMapping("member_login_check.do")
-   public String check(FinalMemberDTO dto, HttpSession session, HttpServletResponse response) throws IOException {
+   public void check(FinalMemberDTO dto, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
       PrintWriter out = response.getWriter();
-
+      
+      response.setContentType("text/html; charset=UTF-8");
+      
       // input창에 아이디값이 admin일 경우에 관리자 페이지로 넘어간다.
       if (dto.getMember_id().equals("admin")) {
          dto.setAdmin_id(dto.getMember_id());
@@ -57,44 +65,73 @@ public class MemberController {
 
          FinalAdminDTO a_dto = this.dao.checkAdmin(dto);
          
-			/* session.setAttribute("admin_num", a_dto.getAdmin_num()); */
+		/* session.setAttribute("admin_num", a_dto.getAdmin_num()); */
          session.setAttribute("admin_id", a_dto.getAdmin_id());
          session.setAttribute("admin_name", a_dto.getAdmin_name());
          
-         return "./Admin/admin_main";
+		 out.println("<script>"); 
+		 out.println("location.href='admin_main.do'");
+		 out.println("</script>");      
+
       }
 
       
       if(!dto.getMember_id().equals("admin")) {
+    	  System.out.println(dto.getMember_id());
+    	 // 해당하는 값이 member_use가 0일때만 로그인 성공  
+         int useMember = this.dao.useMember(dto.getMember_id());
+         System.out.println(useMember);
          
-      
-         FinalMemberDTO f_dto = this.dao.checkMember(dto);
-
-         if (f_dto != null) { // 세션 변수 저장
-            
-            session.setAttribute("member_num", f_dto.getMember_num());
-            
-            session.setAttribute("member_id", f_dto.getMember_id());
-            
-            session.setAttribute("member_name", f_dto.getMember_name());
-            session.setAttribute("member_img", f_dto.getMember_img());
-            
-            session.setAttribute("member_name", f_dto.getMember_name());
-            session.setAttribute("member_point", f_dto.getMember_point());
-            session.setAttribute("test_num", f_dto.getTest_num());
-            session.setAttribute("test_img", f_dto.getTest_img());
-            session.setAttribute("test_name", f_dto.getTest_name());
-            
-         }else if(f_dto == null) {
-            
-            out.println("<script>");
-            out.println("alert('로그인안됨;;')"); 
-            out.println("history.back()");
-            out.println("</script>");
-         }
+	     FinalMemberDTO f_dto = this.dao.checkMember(dto);
+	         
+	         
+	         if (f_dto != null) { // 세션 변수 저장
+	         
+	        	 if(f_dto.getMember_use() == 0) {
+	        		 session.setAttribute("member_num", f_dto.getMember_num());
+	        		 
+	        		 session.setAttribute("member_id", f_dto.getMember_id());
+	        		 
+	        		 session.setAttribute("member_name", f_dto.getMember_name());
+	        		 session.setAttribute("member_img", f_dto.getMember_img());
+	        		 
+	        		 session.setAttribute("member_name", f_dto.getMember_name());
+	        		 session.setAttribute("member_point", f_dto.getMember_point());
+	        		 session.setAttribute("test_num", f_dto.getTest_num());
+	        		 session.setAttribute("test_img", f_dto.getTest_img());
+	        		 session.setAttribute("test_name", f_dto.getTest_name());
+	        		 
+	        		 out.println("<script>"); 
+	        		 out.println("location.href='" + request.getContextPath() + "/'");
+	        		 out.println("</script>");   	        		 
+	        		 
+	        	 }else if(f_dto.getMember_use() == 1){
+	        		 
+	        		 
+	        		 System.out.println("탈퇴회원이다.");
+	        	      this.dao.logout(session); 
+	        	      
+					  out.println("<script>"); 
+					  out.println("alert('탈퇴 회원입니다.')");
+					  out.println("history.back()");
+					  out.println("</script>");
+						        		 
+	        		 
+	        	 }
+	        	 
+	            
+	         }else if(f_dto == null) {
+	            
+	        	 System.out.println("로그잉ㄴ주줄회원이다.");
+					
+					  out.println("<script>");
+					  out.println("alert('로그인 불가 합니다.')");
+					  out.println("history.back()");
+					  out.println("</script>");
+					 
+	         }
 
       }
-      return "main";
 
    }
 
@@ -301,7 +338,7 @@ public class MemberController {
 
 
      @RequestMapping("memberDelete.do")
-     public void deleteok(@RequestParam("num")int num,FinalMemberDTO dto ,HttpServletRequest request ,HttpServletResponse response) throws IOException {
+     public void deleteok(@RequestParam("num")int num,FinalMemberDTO dto ,HttpServletRequest request,HttpSession session ,HttpServletResponse response) throws IOException {
         System.out.println("num>>>>>>>>>>>>>>>>>>>>" + num);
         
       response.setContentType("text/html; charset=UTF-8");
@@ -311,6 +348,7 @@ public class MemberController {
       PrintWriter out = response.getWriter();
       System.out.println("check>>>>>>>>>>>>>>>" + check);
       if (check > 0) {
+    	 this.dao.logout(session);
          out.println("<script>");
          out.println("alert('그동안 이용해주셔서 감사합니다')");
          out.println("location.href='" + request.getContextPath() + "/'");

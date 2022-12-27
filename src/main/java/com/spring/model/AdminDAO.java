@@ -23,7 +23,7 @@ public interface AdminDAO {
 	List<FinalMemberDTO> boardList(PageDTO dto);
 
 	String getBeansCount();
-
+	String getMemberCount();
 
 	int boardList();
 
@@ -38,8 +38,10 @@ public interface AdminDAO {
 
 	
 	List<CoffeeBeanDTO> searchBeanList(String keyword);
+	List<FinalMemberDTO> searchMemberList(String keyword);
 	
 	int searchCount(String keyword);
+	int searchCountMem(String keyword);
 	
 	int adminBeanInsert(Map<String, Object> map);
 

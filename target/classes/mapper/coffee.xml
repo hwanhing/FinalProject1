@@ -22,6 +22,9 @@
 		select count(*) from coffee_beans
 	</select>
 	
+	<select id="memberCount" resultType="String">
+		select count(*) from final_member
+	</select>
 	
 	<!-- 찜많은 목록 뽑는 문 -->	
 	<select id="heartlist" resultType="coffeeBeanDTO">
@@ -158,6 +161,13 @@
 		select count(*) from coffee_write where beans_num = #{beans_num} and member_num = #{member_num}
 	</select>
 
+	<select id="buyCheck" parameterType="map" resultType="int">
+		select count(*) from coffee_order where beans_num = #{beans_num} and member_num = #{member_num}
+	</select>
+
+	<select id="member_use_check" parameterType="String" resultType="int">
+		select member_use from final_member where member_id = #{member_id}
+	</select>
 
 
 	<!-- 홍기 -->
@@ -244,7 +254,7 @@
 <!--관리자   -->
 	
 	<select id="count" resultType="int">
-        select  count(*) from final_member
+        select count(*) from final_member
     </select>
 	
 <!-- 	<select id="admin_check" resultType="finalAdminDTO" parameterType="finalAdminDTO">
@@ -308,8 +318,17 @@
 		select count(*) from coffee_beans where beans_name like '%' || #{keyword} || '%' order by beans_num 
 	</select>
 	
+	<select id="memberSearch" resultType="finalMemberDTO">
+		select * from final_member where member_id like '%' || #{keyword} || '%' order by member_num 
+	</select>	
+	
+	<select id="searchCountMem" resultType="int">
+		select count(*) from final_member where member_id like '%' || #{keyword} || '%' order by member_num 
+	</select>
+	
+	
 	<insert id="bean_insert" parameterType="map">
-		insert into coffee_beans values(#{beans_num}, #{beans_name}, #{beans_price}, #{beans_count}, 100, #{beans_taste}, #{beans_intro}, #{beans_img})
+		insert into coffee_beans values(#{beans_num}, #{beans_name}, #{beans_price}, #{beans_count}, 100, #{beans_taste}, #{beans_intro}, default, #{beans_add_image})
 	</insert>
 	
 	

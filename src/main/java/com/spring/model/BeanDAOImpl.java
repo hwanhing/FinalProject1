@@ -185,6 +185,11 @@ public class BeanDAOImpl implements BeanDAO{
 		return this.sqlSession.selectOne("writeCheck", map);
 	}
 
+	@Override
+	public int buyCheck(Map<String, Integer> map) {
+		return this.sqlSession.selectOne("buyCheck", map);
+	}
+
 
 
 
