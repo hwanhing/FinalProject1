@@ -45,10 +45,9 @@ public class MemberController {
    @Inject
    private MemberDAO dao;
    
-   @RequestMapping("main.do")
-   public String logindd() {
-	   
-	   return "";
+   @RequestMapping("test_result.do")
+   public String testResult() {
+	   return "./test/testResult";
    }
    
    @RequestMapping("member_login_check.do")

@@ -33,6 +33,7 @@
                     <nav class="h-nav">
                         <ul class="h-menu">
                             <li><a href="">원두취향테스트</a></li>
+                            <li><a href="<%=request.getContextPath()%>/test_result.do">결과페이지test</a></li>
                             <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 원두</a></li>
 
 
@@ -229,7 +230,7 @@
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="header__content">
 		     <c:if test="${member_img eq null}">
-		  	   <img alt="이미지없음"  class="img_no" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" /><span class="header__username">${member_name }님,<br>반갑습니다 😀</span> 
+		  	   <img alt="이미지없음" style="width: 100px;" class="img_no" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" /><span class="header__username">${member_name }님,<br>반갑습니다 😀</span> 
 		     </c:if>
 		     
 		     <c:if test="${member_img ne null }">
