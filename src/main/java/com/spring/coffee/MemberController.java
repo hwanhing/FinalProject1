@@ -45,10 +45,17 @@ public class MemberController {
    @Inject
    private MemberDAO dao;
    
-   @RequestMapping("test_result.do")
-   public String testResult() {
+   @RequestMapping("testResult.do")
+   public String testResult(int no, Model model) {
+	   
+	  CoffeeTestDTO dto  = this.dao.getTestResult(no);
+	  
+	  model.addAttribute("result", dto);
+	   
+	   
 	   return "./test/testResult";
    }
+
    
    @RequestMapping("member_login_check.do")
    public void check(FinalMemberDTO dto, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -78,21 +80,22 @@
 	<jsp:include page="../layout/header.jsp" />
 		
 		<div class="empty">
-			
+		<c:set var="i" value="${result }" />	
+		
 			<div class="empty2">
 				
 				<div class="title_box" align="center">
 					<b class="sm_text">내 커피 타이틀</b><br>
-					<span class="big_text">부드러운 라떼 한 잔, 낭만파</span>
+					<span class="big_text">${i.getTest_full_name() }</span>
 				</div>
 				
 				<div class="img_box" align="center">
-					<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="300px">
+					<!-- <img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="300px"> -->
+					<img alt="" src="${i.getTest_img() }" width="300px">
 				</div>
 				
 				<div class="cont_box" align="center">
-					<span class="mid_text">고소하고 부드러운 우유를 곁들여 마시는 낭만파!<br>
-					라떼를 좋아하는 사람은 주변 사람들을 편하고 즐겁게 해요.</span>
+					<span class="mid_text">${i.getTest_info()}</span>
 				</div>
 				<br>
 				<hr width="60%" style="margin-left: 20%;">
@@ -116,15 +119,43 @@
 				</div>					
 
 				<div class="img_box" align="center">
-					<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Familiarity.png" width="200px">
+				
+					<c:if test="${i.getTest_mate() eq '못참아파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Decaf.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '개성파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '순정파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Pure.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '낭만파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '전통파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Familiarity.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '모험파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Adventure.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '대담파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Boldness.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '균형파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Balance.png" width="200px">
+					</c:if>
+					<c:if test="${i.getTest_mate() eq '깔끔파' }">
+						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Clean.png" width="200px">
+					</c:if>
+				
 				</div>
 				
 				<div class="cont_box" align="center">
-					<span class="mid_text">고소하고 맛있는 커피 다운 커피</span>
+					<span class="mid_text">${i.getTest_match_coffee() }</span>
 				</div>				
 				
 				<div align="center">
-					<span class="text2"><b>정통파</b></span>
+					<span class="text2"><b>${i.getTest_mate() }</b></span>
 				</div>
 				
 			</div>
