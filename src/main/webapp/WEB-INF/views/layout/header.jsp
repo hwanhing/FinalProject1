@@ -282,17 +282,14 @@ width: 100PX;" src="<%=request.getContextPath() %>/resources/res/img/${member_im
 		       </ul>
 	          	<div>
 	          		<div>
-	          		<c:if test="${!empty test_img }">
+	          		<c:if test="${test_img != '0'}">
 	          			 <img class="result-img" src="${test_img }" width=200>
-	          		</c:if>
-	          		 <c:if test="${empty test_img }">
-	          			<button>테스트하기</button>
+			          	<div>
+			          		<span class="result_name">${test_name}</span>
+			          	</div>
 	          		</c:if>
 	          		</div>
 	          		
-	          	<div>
-	          		<span class="result_name">${test_name}</span>
-	          	</div>
 	          	
 	          	</div>		      
 		     </div>

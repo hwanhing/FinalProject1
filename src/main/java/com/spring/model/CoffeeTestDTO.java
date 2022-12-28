@@ -14,8 +14,11 @@ public class CoffeeTestDTO {
 	private String test_mate;
 	private String test_img;
 
-	private String match_name;
-	private String match_info;
+	
+	//매칭된 이미지
+	private String test_match_img;
+	// 매칭된 커피이름
+	private String match_coffee;
 	
 }
 

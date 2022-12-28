@@ -37,7 +37,7 @@
 				</video>
 			<div class="main-title">
 				<h2 class="visual-title" >내 입맛에 맞추는<br>나만의 커피</h2>
-				<a href="<%=request.getContextPath()%>/coffeeTest.do?no=${member_num}"><button type="button" class="btn btn-outline-light">추천받기</button></a>
+				<a href="<%=request.getContextPath()%>/bean_test.do?turn=1"><button type="button" class="btn btn-outline-light">추천받기</button></a>
 			</div>
 		</div>
 	</div>
@@ -162,7 +162,7 @@
 
 		<div>
 			<div class="shop-all">
-				<button type="button" class="shop-btn" onclick="">모든 원두 보기</button>
+				<button type="button" class="shop-btn" onclick="location.href='bean_list.do'">모든 원두 보기</button>
 			</div>
 		</div>
 

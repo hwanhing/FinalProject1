@@ -90,7 +90,6 @@
 				</div>
 				
 				<div class="img_box" align="center">
-					<!-- <img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="300px"> -->
 					<img alt="" src="${i.getTest_img() }" width="300px">
 				</div>
 				
@@ -106,7 +105,7 @@
 						<span class="ti_text"><b>이런 커피가 잘맞아요!</b></span>
 					</div>
 					<div align="center" class="box2">
-						<span class="text1">우유와 함께 할 때는 <span><b>고소하고 쌉싸름한 커피</b></span></span>
+						<span class="text1">${i.getTest_match_coffee() }</span>
 					</div>
 				</div>
 			
@@ -119,39 +118,11 @@
 				</div>					
 
 				<div class="img_box" align="center">
-				
-					<c:if test="${i.getTest_mate() eq '못참아파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Decaf.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '개성파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '순정파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Pure.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '낭만파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Romantic.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '전통파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Familiarity.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '모험파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Adventure.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '대담파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Boldness.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '균형파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Balance.png" width="200px">
-					</c:if>
-					<c:if test="${i.getTest_mate() eq '깔끔파' }">
-						<img alt="" src="https://d227tph7fpseou.cloudfront.net/static/quizzes/result/Clean.png" width="200px">
-					</c:if>
-				
+					<img alt="" src="${i.getTest_match_img() }" width="200px">
 				</div>
 				
 				<div class="cont_box" align="center">
-					<span class="mid_text">${i.getTest_match_coffee() }</span>
+					<span class="mid_text">${i.getMatch_coffee() }</span>
 				</div>				
 				
 				<div align="center">
@@ -161,7 +132,7 @@
 			</div>
 		
 			<div class="btn_box">
-				<button class="rly_btn"><b>다시 테스트하기</b></button>	
+				<button class="rly_btn" onclick="location.href='bean_test.do?turn=1'"><b>다시 테스트하기</b></button>	
 			</div>
 		
 		</div> <%-- empty 끝 --%>
