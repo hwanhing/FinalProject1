@@ -43,10 +43,10 @@ public class CoffeeTestDAOImpl implements CoffeeTestDAO{
 	public List<Map<String, Object>> getGrindTest() {
 		return this.sqlSession.selectList("getGrindTest");
 	}
-
+	
 	@Override
-	public int getTestResultTypeNum(Map<String, Integer> testChooseMap) {
-		return this.sqlSession.selectOne("getTestResultTypeNum", testChooseMap);
+	public List<Map<String, Object>> getTestResultTypeNum(Map<String, Integer> testChooseMap) {
+		return this.sqlSession.selectList("getTestResultTypeNum", testChooseMap);
 	}
 
 	@Override
