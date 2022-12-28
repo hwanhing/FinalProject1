@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>CuppACoffee</title>
+	<title>배송관리</title>
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/frame.css">
 	<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/adminDelivery.css">
 	 <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/cartAndOrderCss/page.css">
@@ -23,7 +23,7 @@
 			<section class="main">
 				<section class="main_in">
 					<div class="m_header">
-						<h2>배달 현황</h2>
+						<h2>배송 관리</h2>
 					</div>
 					
 					 <!-- 배달 현황 요약 -->
@@ -72,42 +72,50 @@
 	                    </div>
 	                </div>
 	                
-					<div class="m_select">
-						
-					</div>
+	                <div class="m_sub_header">
+	                	<p><b>배송 관리</b></p>
+	                	<div class="m_h_btn_area">
+								
+							<c:if test="${! empty paging.type_num }">
+								<div>
+									<button class="btn c_delivery_btn btn_hover" onclick="location.href='admin_orderlist.do'">전체 주문건 보기</button>
+								</div>
+							</c:if>
+							
+							<c:if test="${paging.type_num ==0 || empty paging.type_num }">
+								<div>
+									<button class="btn c_delivery_btn c_all_btn btn_hover" onclick="allDeliveryIng()">전체 배송처리 하기</button>
+								</div>
+							</c:if>
+							
+						</div>
+	                	
+	                </div>
+	                <hr id="hr1" width="95%">
+					
 					
 					<div class="m_content">
 						
 						<!-- 전체주문건보기, 전체 배송처리하기 버튼 구역 + 어떤 페이지인지 -->
 						<div class="m_head">
-							<div class="m_h_btn_area">
-								
-								<c:if test="${! empty paging.type_num }">
-									<div>
-										<button class="btn c_delivery_btn btn_hover" onclick="location.href='admin_orderlist.do'">전체 주문건 보기</button>
-									</div>
-								</c:if>
-								
-								<c:if test="${paging.type_num ==0 || empty paging.type_num }">
-									<div>
-										<button class="btn c_delivery_btn c_all_btn btn_hover" onclick="allDeliveryIng()">전체 배송처리 하기</button>
-									</div>
-								</c:if>
-								
-							</div>
-							
 							<div class="m_h_content">
-								<c:if test="${! empty paging.type_num }">
-									<p>  
-										<c:choose>
-											<c:when test="${paging.type_num==2 }"><b>배송완료 </b></c:when>
-											<c:when test="${paging.type_num==1 }"><b>배송중 </b></c:when>
-											<c:when test="${paging.type_num==0 }"><b>배송대기 </b></c:when>
-											<c:otherwise><b>주문취소</b></c:otherwise>
-										</c:choose>
-										주문건 입니다.
-									</p>
-								</c:if>
+								<c:choose>
+									<c:when test="${! empty paging.type_num }">
+										<p>  
+											<c:choose>
+												<c:when test="${paging.type_num==2 }"><b>배송완료 </b> 주문 : <b>${delivery.deliveryOk }</b> 건</c:when>
+												<c:when test="${paging.type_num==1 }"><b>배송중 </b> 주문 : <b>${delivery.deliveryIng }</b> 건</c:when>
+												<c:when test="${paging.type_num==0 }"><b>배송대기 </b> 주문 : <b class="delivery_before_txt">${delivery.deliveryBefore }</b> 건</c:when>
+												<c:otherwise><b>주문취소</b> 주문건 : <b>${delivery.cancelOrder }</b> 건</c:otherwise>
+											</c:choose>
+										</p>
+									</c:when>
+									<c:otherwise>
+										<p>  
+											총 주문 : <b> ${paging.totalRecord } </b> 건
+										</p>
+									</c:otherwise>
+								</c:choose>
 							</div>
 						</div>
 						
@@ -134,7 +142,7 @@
 								</c:if>
 	                            <c:forEach items="${orderListAdmin }" var="list" >
 		                            
-		                            <tr>
+		                            <tr class="order_row_tr">
 		                                <td>${list.getOrder_num() }</td>
 		                                <td>${list.getBeans_name() }</td>
 		                                <td>

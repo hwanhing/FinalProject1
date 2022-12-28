@@ -14,7 +14,7 @@ body{
 
 .main{
 	width: 100%;
-	padding-top: 24px;
+	margin-top: 34.453px;
 	overflow: scroll;
 }	
 
@@ -22,6 +22,12 @@ body{
 	width: 95%;
 	padding-right: 20px;
     margin: auto;
+}
+
+/* 최상단 현재 페이지 */
+.m_header h2{
+	margin: 0px 0px 20px 0px;
+	font-size: 2rem;
 }
 
 /* 배달 현황 요약 adminDelivery 배달현황만 적용 (나머지 적용사항은 frame.css에 있음)*/
@@ -76,9 +82,9 @@ body{
 /* 버튼 + 현재 무슨페이지인지 구역 */
 .m_head{
 	display: flex;
-	justify-content: space-between;
+	justify-content: flex-start;
 	align-items: center;
-	margin-bottom: var(--margin);
+	margin: var(--margin) 0px var(--margin) 0px;
 }
 
 /* 전체 주문건 보기, 전체 배송처리하기 버튼 구역 */
@@ -89,7 +95,7 @@ body{
 /* 현재 무슨 페이지인지 */
 .m_h_content{
 	width: 50%;
-	text-align: right;
+	text-align: left;
 }
 
 .m_h_content p{
@@ -123,4 +129,23 @@ body{
 /* 관리자 페이지 */
 .m_page div{
 	margin-bottom: var(--margin);
+}
+
+/* sub header */
+.m_sub_header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.m_sub_header p{
+	font-size: 1rem;
+}
+
+/* hr1 */
+#hr1{
+	width: 100%;
+	margin : 0px;
+    border: 1px solid #000;
+    opacity: 100;
 }

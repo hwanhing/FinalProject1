@@ -18,8 +18,8 @@
 	
 	// 쿼리스트링 가져오기
     function searchParam(key) {
-	  return new URLSearchParams(location.search).get(key);
-	};
+	  return new URLSearchParams(location.search).get(key)
+	}
 	
 	window.onload = function(){
 		console.log('window.onload')

@@ -169,6 +169,11 @@
 		select member_use from final_member where member_id = #{member_id}
 	</select>
 
+	<select id="test_result" parameterType="int" resultType="coffeeTestDTO">
+		select ct.* , cm.* from coffee_test ct join coffee_match cm on ct.match_num = cm.match_num where test_num = #{test_num}
+	</select>
+
+
 
 	<!-- 홍기 -->
 	<select id="MyPage" parameterType="int" resultType="finalMemberDTO">
