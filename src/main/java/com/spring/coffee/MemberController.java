@@ -492,11 +492,13 @@ public class MemberController {
    }
 
    @RequestMapping("myheart_delete.do")
-   public void myheart_delete(@RequestParam("num") int num, FinalMemberDTO dto, HttpServletResponse response)
+   public void myheart_delete(@RequestParam("num") int num,@RequestParam("member_num") int mn, FinalMemberDTO dto, HttpServletResponse response)
          throws IOException {
 
       int check = this.dao.myheartdelete(num);
-
+      
+      
+      
       response.setContentType("text/html; charset=UTF-8");
 
       PrintWriter out = response.getWriter();
@@ -505,7 +507,7 @@ public class MemberController {
 
          out.println("<script>");
          out.println("alert('찜목록삭제')");
-         out.println("location.href='member_heart.do?num=" + dto.getMember_num() + "'");
+         out.println("location.href='member_heart.do?num=" +mn+ "'");
          out.println("</script>");
       } else {
          out.println("<script>");

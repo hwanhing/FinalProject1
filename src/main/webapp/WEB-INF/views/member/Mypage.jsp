@@ -316,13 +316,13 @@ margin-left: 130px;}
 							             <c:if test="${dto.getMember_img() eq null}">
                                           <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">  <img alt="이미지없음" id="img-preview1" class="img_no2" src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" />
                                            </a>
-                                            ${dto.getMember_img() }							             	
+                                           						             	
 							             </c:if>
 							             <c:if test="${dto.getMember_img() ne null}">
 							    			 <a href="<%=request.getContextPath()%>/imgchang.do?num=${dto.getMember_num()}&img=${dto.getMember_img()}">
                                             <img alt="이미지없음" id="img-preview1" class="img_no2" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />
                                             </a>
-                                            ${dto.getMember_img() }	
+                                         
                                          </c:if>
 										<br><br>	
 										<div>
@@ -357,7 +357,7 @@ margin-left: 130px;}
 								</div>
 								<div style="margin-top: 10px;">
 									<span style="margin-left: 5px;">${dto.getMember_phone() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}" style="margin-left:69%;">수정</a>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}" style="margin-left:960px;">수정</a>
 								</div>
 								</div>
 								
@@ -371,8 +371,8 @@ margin-left: 130px;}
 									<span class="first-span">이메일</span>
 								</div>
 								<div style="margin-top: 10px;">
-									<span style="margin-left: 5px;">${dto.getMember_email() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}" style="margin-left:68%;">수정</a>
+									<span  style="max-width:150px; margin-left: 5px;">${dto.getMember_email() }</span>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}" style="margin-left:67%;">수정</a>
 								</div>
 								</div>
 								
