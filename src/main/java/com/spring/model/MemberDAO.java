@@ -11,6 +11,7 @@ public interface MemberDAO {
 	FinalMemberDTO checkMember(FinalMemberDTO dto);
 	FinalAdminDTO checkAdmin(FinalMemberDTO a_dto);
 	
+	CoffeeTestDTO getTestResult(int no);
 	
 	public void logout(HttpSession session);
 	
