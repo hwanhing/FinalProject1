@@ -339,6 +339,7 @@ public class CoffeeBeanController {
 				}
 			}
 		}
+		
 		// 후기글 작성
 		int res = this.dao.seWrite(map);
 		
