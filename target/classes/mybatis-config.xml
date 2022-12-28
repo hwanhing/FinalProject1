@@ -39,6 +39,7 @@
 		<typeAlias type="com.spring.model.AdminDAO" alias="adminDAO" />
 
 		<typeAlias type="com.spring.model.CoffeeOrderDAO" alias="orderDAO" />
+		<typeAlias type="com.spring.model.CoffeeTestDAO" alias="coffeeTestDAO" />
 
 		
 		
