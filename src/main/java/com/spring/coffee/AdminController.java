@@ -164,13 +164,7 @@ private int totalRecord=0;
 		
 		model.addAttribute("beans_list", list);
 		model.addAttribute("Paging", dto);
-		
-		/*
-		 * int totalCoffeeCount = this.dao.totalCoffeeCount();
-		 * 
-		 * select count(*) from coffee_beans;
-		 */
-		
+
 		return "./Admin/Admin_beans_List";
 	}
 
@@ -213,6 +207,14 @@ private int totalRecord=0;
 
 		model.addAttribute("cont", dto);
 		
+		String avg = this.dao.starAvg1(beans_num);
+		System.out.println("avgavg"+avg);
+		model.addAttribute("avg", avg);
+		
+		int number = this.dao.getbuyNumber(beans_num);
+		
+		model.addAttribute("num", number);
+		
 		return "./Admin/Admin_beans_cont";
 	}
 	
@@ -222,8 +224,15 @@ private int totalRecord=0;
 	  
 		  CoffeeBeanDTO dto = this.dao.getBeanContent(beans_num);
 		  model.addAttribute("cont", dto);
-		  
+
+		String avg = this.dao.starAvg1(beans_num);
+		System.out.println("avgavg"+avg);
+		model.addAttribute("avg", avg);
 	  
+		int number = this.dao.getbuyNumber(beans_num);
+		
+		model.addAttribute("num", number);
+		
 		  return "./Admin/Admin_beans_modify";
 	  }
 	  
@@ -490,6 +499,7 @@ private int totalRecord=0;
 		 System.out.println(">>>>>>>>>>>>>>>>           "+dto1); 
 		  return "./Admin/Admin_write_cont";
 	  }
+	  
 	  @RequestMapping("Admin_write_delete.do")
 	  public void write_delete(@RequestParam("num")int write_num,FinalMemberDTO dto,HttpServletResponse response ) throws IOException {
 		  
@@ -510,5 +520,9 @@ private int totalRecord=0;
 				out.println("</script>");
 			}		
 	  }
+	  
+	  
+	  
+	  
 	  
 }

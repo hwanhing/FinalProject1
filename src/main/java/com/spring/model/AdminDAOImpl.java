@@ -184,6 +184,16 @@ public class AdminDAOImpl implements AdminDAO{
 		return this.sqlSession.selectOne("admin_test",num );
 	}
 
+	@Override
+	public int getbuyNumber(int beans_num) {
+		return this.sqlSession.selectOne("buyNumber", beans_num);
+	}
+
+	@Override
+	public String starAvg1(int beans_num) {
+		return this.sqlSession.selectOne("starAvg1", beans_num);
+	}
+
 
 
 

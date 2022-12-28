@@ -8,155 +8,154 @@
 <meta charset="UTF-8">
 <title>커피 목록</title>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
-
-
 <style type="text/css">
 
-.img_no{		
-margin-left:50px;
-border: 1px solid #FFF;
-border-radius: 100%;
-height: 100px;
-width: 100PX;
- }
-.header__content {
-    background-color: #D9CEC1;
-    -webkit-text-size-adjust: 100%;
-    font: 100% sans-serif;
-    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
-    font-family: var(--ikea-font);
-    font-size: .875rem;
-    line-height: 1.571;
-    visibility: visible;
-    text-align: left;
-    pointer-events: all;
-    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
-    box-sizing: inherit;
-    outline: none;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 100px 100px 50px 0.1px;
-} 
+	.img_no{		
+	margin-left:50px;
+	border: 1px solid #FFF;
+	border-radius: 100%;
+	height: 100px;
+	width: 100PX;
+	 }
+	 
+	.header__content {
+	    background-color: #D9CEC1;
+	    -webkit-text-size-adjust: 100%;
+	    font: 100% sans-serif;
+	    --ikea-font: 'Noto IKEA', 'Noto Sans KR', 'Noto Sans', 'Roboto', 'Open Sans', system-ui, sans-serif !important;
+	    font-family: var(--ikea-font);
+	    font-size: .875rem;
+	    line-height: 1.571;
+	    visibility: visible;
+	    text-align: left;
+	    pointer-events: all;
+	    color: rgb(var(--colour-text-and-icon-5, 255, 255, 255));
+	    box-sizing: inherit;
+	    outline: none;
+	    margin: 0;
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-around;
+	    padding: 100px 100px 50px 0.1px;
+	} 
 
-        .top{
-            width: 100%;
-            height: 4em;
-            background-color: blue;
-        }
+       .top{
+           width: 100%;
+           height: 4em;
+           background-color: blue;
+       }
 
-        .top_text{
-            color: white;
-            font-size: 3em;
-        }
+       .top_text{
+           color: white;
+           font-size: 3em;
+       }
 
-        .botton{
-            width: 100%;
-            height: 5em;
-            background-color: blue;
-        }
+       .botton{
+           width: 100%;
+           height: 5em;
+           background-color: blue;
+       }
 
-        .botton_text{
-            color: white;
-            font-size: 3em;
-        }
+       .botton_text{
+           color: white;
+           font-size: 3em;
+       }
 
-        .empty{
-            width: 80%;
-            margin-left: 10%;
-            margin-right: 10%;
-        }
+       .empty{
+           width: 80%;
+           margin-left: 10%;
+           margin-right: 10%;
+       }
 
-        .select_box1,
-        .select_box2{
-            display: inline;
-        }
+       .select_box1,
+       .select_box2{
+           display: inline;
+       }
 
-        .box1,
-        .box2{
-            width: 9em;
-            height: 2em;
-            border: 1px solid black;
-        }
+       .box1,
+       .box2{
+           width: 9em;
+           height: 2em;
+           border: 1px solid black;
+       }
 
-		.con1{
-	      <%-- border: 1px solid lightgray; --%>
-	      border-radius: 20px;
-	      width: 100%;
-	      position: relative;
-	      height: 570px;	
-		}
-		
-		.con1:after{
-	      display: block;
-	      content: "";
-	      padding-bottom: 100%;				
-		}
+	.con1{
+      <%-- border: 1px solid lightgray; --%>
+      border-radius: 20px;
+      width: 100%;
+      position: relative;
+      height: 570px;	
+	}
+	
+	.con1:after{
+      display: block;
+      content: "";
+      padding-bottom: 100%;				
+	}
 
-		.list_box{
-		   /*  border: 1px solid green; */
-	      	width: 100%;
-	      	display: grid;
-	      grid-template-columns: repeat(4, 1fr);
-	      gap: 28px;
-	      @media screen and (max-width: 718px) {
-	        gap: 3px;
-	      }	      	
-		}
-		
-		.cart_btn{
-			width: 37px;
-			height: 37px;
-			border-radius: 25px;
-			background-color: #734338;		
-			border: none;
-		}
-		
-		.heart_btn{
-			width: 37px;
-			height: 37px;
-			border-radius: 25px;
-			background-color: #000;
-			margin-left: 2%;
-			padding: 0;
-			border: none;	
-		}
-		
-		.con_info{
-			margin-bottom: 10%;	
-		}
+	.list_box{
+	   /*  border: 1px solid green; */
+      	width: 100%;
+      	display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 28px;
+      @media screen and (max-width: 718px) {
+        gap: 3px;
+      }	      	
+	}
+	
+	.cart_btn{
+		width: 37px;
+		height: 37px;
+		border-radius: 25px;
+		background-color: #734338;		
+		border: none;
+	}
+	
+	.heart_btn{
+		width: 37px;
+		height: 37px;
+		border-radius: 25px;
+		background-color: #000;
+		margin-left: 2%;
+		padding: 0;
+		border: none;	
+	}
+	
+	.con_info{
+		margin-bottom: 10%;	
+	}
 
-		.info_out{
-			text-align: left;
-			height: 225px;
-			padding-left: 30%;
-		}	
-		
-		.con_new{
-			color: #A66B56;
-			font-weight: bold;
-			margin-bottom: 5px;
-			text-shadow: 1px 1px 2px black;
-		}
-		
-		.con_name{
-			font-weight: bold;
-			font-size: 1.2em;
-		}
-		
-		.con_taste{
-			margin-bottom: 10px;
-		}
-		
-		.con_price{
-			font-size: 20px;
-		}
-		
-		.formaa{
-			float: left;
-		}
-		
+	.info_out{
+		text-align: left;
+		height: 225px;
+		padding-left: 30%;
+	}	
+	
+	.con_new{
+		color: #A66B56;
+		font-weight: bold;
+		margin-bottom: 5px;
+		text-shadow: 1px 1px 2px black;
+	}
+	
+	.con_name{
+		font-weight: bold;
+		font-size: 1.2em;
+	}
+	
+	.con_taste{
+		margin-bottom: 10px;
+	}
+	
+	.con_price{
+		font-size: 20px;
+	}
+	
+	.formaa{
+		float: left;
+	}
+	
 
 </style>
 </head>

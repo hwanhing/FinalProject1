@@ -18,10 +18,12 @@
 		select * from coffee_beans order by beans_num
 	</select>
 	
+	<!-- 원두 전체 개수 뽑는 문 -->
 	<select id="beansCount" resultType="String">
 		select count(*) from coffee_beans
 	</select>
 	
+	<!-- 회원 전체 인원 뽑는 문 -->
 	<select id="memberCount" resultType="String">
 		select count(*) from final_member
 	</select>
@@ -71,23 +73,23 @@
 		select DISTINCT ms.coffee_star, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where ms.coffee_star = 1
 	</select>
 
+	<!-- 후기글 리스트 -->
 	<select id="writeList" resultType="coffeeWriteDTO" parameterType="int">
-		<!-- select cw.write_num, cw.write_cont, cw.write_date, cw.write_img, cw.member_id,cw.beans_num,
-		ms.coffee_star from coffee_write cw join member_star ms on cw.member_num = ms.member_num where cw.beans_num = #{beans_num} -->
-		select distinct cw.write_num, cw.write_cont,cw.write_date, cw.write_img, cw.member_id, ms.coffee_star from member_star ms join coffee_write cw on cw.beans_num = ms.beans_num and cw.member_num = ms.member_num where ms.beans_num = #{beans_num}
-		
+		select distinct cw.write_num, cw.write_cont,cw.write_date, cw.write_img, cw.member_id, ms.coffee_star from member_star ms join coffee_write cw on cw.beans_num = ms.beans_num and cw.member_num = ms.member_num where ms.beans_num = #{beans_num}	
 	</select>
 
+	<!-- 로그인 체크 -->
 	<select id="check" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select fm.*, ct.*from final_member fm join coffee_test ct on fm.test_num = ct.test_num where member_id=#{member_id} and member_pwd=#{member_pwd}
 	</select>
 	
+	<!-- 관리자일 경우 -->
 	<select id="a_check" resultType="finalAdminDTO" parameterType="finalMemberDTO">
 		select * from final_admin where admin_id = #{admin_id} and admin_pwd = #{admin_pwd}
 	</select>
 	
+	<!-- 원두 상세정보 -->
 	<select id="Cont" parameterType="int" resultType="coffeeBeanDTO">
-<!-- 	select * from coffee_beans where beans_num = #{beans_num} -->	
 		with test as ( select beans_num
 		                    , count(member_num) as count_heart
 		              from member_star 
@@ -100,28 +102,32 @@
 		     on cb.beans_num = t.beans_num where cb.beans_num = #{beans_num}
 	</select>
 	
+	<!-- 별점 있는지 없는지 확인 -->
 	<select id="Bean_select" parameterType="map" resultType="coffeeStarDTO">
 		select * from member_star where beans_num = #{beans_num} and member_num = #{member_num} 
 	</select>
 
-
+	<!-- 하트 찜 -->
 	<select id="heartmap1" parameterType="map" resultType="coffeeStarDTO">
 		select nvl(max(beans_num),0) as beans_num , nvl(max(coffee_heart),0) as coffee_heart from member_star where member_num = #{member_num} and beans_num = #{beans_num}
 	</select>
 
+	<!-- 하트 찜 추가 -->
 	<insert id="insertHeart1" parameterType="map">
 		insert into member_star values(0, #{coffee_heart}, #{member_num}, #{beans_num})
 	</insert>
 
+	<!-- 하트 찜 업데이트 -->
 	<update id="updateHeart1" parameterType="map">
 		update member_star set coffee_heart = #{coffee_heart} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 
+	<!-- 후기글 개수 -->
 	<select id="writeCount" parameterType="int" resultType="int">
 		select count(beans_num) from coffee_write where beans_num = #{beans_num}
 	</select>
 	
-	
+	<!-- 후기글 추가 -->
 	<insert id="insertWrite" parameterType="map">
 		<selectKey resultType="int" keyProperty="write_num" order="BEFORE">
 			select max(write_num) from coffee_write
@@ -129,48 +135,59 @@
 		insert into coffee_write values(#{write_num} + 1, #{write_cont}, sysdate, #{write_img}, #{member_num}, #{beans_num},#{member_id})
 	</insert>
 
+	<!-- 후기글 별점 추가 -->
 	<insert id="writeStar" parameterType="map">
 		insert into member_star values(#{coffee_star}, 0, #{member_num}, #{beans_num})
 	</insert>
 	
+	<!-- 후기글 별점 업데이트 -->
 	<update id="writeUpdateStar" parameterType="map">
 		update member_star set coffee_star = #{coffee_star} where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 	
+	<!-- 후기글 별점 있는지 없는지 확인 -->
 	<select id="checkWrite" parameterType="map" resultType="int">
 		select count(*) from member_star where member_num = #{member_num} and beans_num = #{beans_num}
 	</select>
 
+	<!-- 후기글 삭제 -->
 	<delete id="deleteWrite" parameterType="int">
 		delete from coffee_write where write_num = #{write_num}
 	</delete>
 
+	<!-- 후기글 삭제하면서 별점도 삭제 -->
 	<update id="deleteStar" parameterType="map">
 		update member_star set coffee_star = 0 where member_num = #{member_num} and beans_num = #{beans_num}
 	</update>
 
+	<!-- 후기글 별점 평균 -->
 	<select id="starAvg" parameterType="int" resultType="int">
 		select avg(coffee_star) from member_star where beans_num = #{beans_num}
 	</select>
 
+	<!-- 후기글 몇 명 남겼는지 별점 개수로 확인 -->
 	<select id="starCheck" parameterType="int" resultType="int">
 		select count(coffee_star) from member_star where beans_num = #{beans_num}
 	</select>
 	
+	<!-- 후기글 체크 -->
 	<select id="writeCheck" parameterType="map" resultType="int">
 		select count(*) from coffee_write where beans_num = #{beans_num} and member_num = #{member_num}
 	</select>
 
+	<!-- 이 상품을 샀는지 안샀는지 체크 -->
 	<select id="buyCheck" parameterType="map" resultType="int">
 		select count(*) from coffee_order where beans_num = #{beans_num} and member_num = #{member_num}
 	</select>
 
+	<!-- 이 회원이 탈퇴회원인지 이용회원인지 체크 -->
 	<select id="member_use_check" parameterType="String" resultType="int">
 		select member_use from final_member where member_id = #{member_id}
 	</select>
 
+	<!-- 회원의 테스트 결과 -->
 	<select id="test_result" parameterType="int" resultType="coffeeTestDTO">
-		select ct.* , cm.* from coffee_test ct join coffee_match cm on ct.match_num = cm.match_num where test_num = #{test_num}
+		select ct.* , ct2.test_img as test_match_img, ct2.test_match_coffee as match_coffee from coffee_test ct join coffee_test ct2 on ct.test_mate = ct2.test_name where ct.test_num = #{test_num}
 	</select>
 
 
@@ -368,10 +385,10 @@
 	</select>
 
 	<select id="wadada" parameterType="int" resultType="finalMemberDTO">
-	select cw.*,cb.* from coffee_write cw join coffee_beans cb on cw.beans_num= cb.beans_num where write_num=#{write_num}
+		select cw.*,cb.* from coffee_write cw join coffee_beans cb on cw.beans_num= cb.beans_num where write_num=#{write_num}
 	</select>
 	<select id="allofmylove" parameterType="int" resultType="finalMemberDTO">
-	select fm.*,cw.* from final_member fm join coffee_write cw on fm.member_num= cw.member_num where write_num=#{write_num}
+		select fm.*,cw.* from final_member fm join coffee_write cw on fm.member_num= cw.member_num where write_num=#{write_num}
 	</select>
 	
 	<delete id="write_delete" parameterType="int" >
@@ -382,7 +399,14 @@
 		select fm.*,ct.* from final_member fm join coffee_test ct on fm.test_num= ct.test_num where member_num=#{num}
 	</select>
 
-
+	<select id="buyNumber" parameterType="int" resultType="int">
+		select count(*) from coffee_order where beans_num = #{beans_num}
+	</select>
+	
+	<!-- 후기글 별점 평균 -->
+	<select id="starAvg1" parameterType="int" resultType="String">
+		select avg(coffee_star) from member_star where beans_num = #{beans_num}
+	</select>	
 	
 </mapper>  
 
