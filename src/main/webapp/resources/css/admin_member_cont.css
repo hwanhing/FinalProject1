@@ -29,9 +29,9 @@ input[type="text"]{
 	width: 1600px;
 }
 .line{
-	width: 1600px;
+	width: 1400px;
 	color:#734338;
-
+	margin-left: 50px;
 	
 }
 .navi{
@@ -51,7 +51,7 @@ h1{
 	width: 200PX;
 }
 .user_id{
-	margin-top: 50px;
+	
 	font-family: 'YESMyoungjo-Regular';
 }
 .tr-span{
@@ -106,9 +106,7 @@ h1{
 	font-family: 'YESMyoungjo-Regular';
 	font-size: 30px;
 }
-.user_name{
-	
-}
+
 .date{
 	float:right;
 	font-family: 'YESMyoungjo-Regular';
@@ -119,29 +117,45 @@ h1{
 	float:right;
 	font-family: 'YESMyoungjo-Regular';
     font-size: 20px;
-     margin-right: 450px;
+     margin-right: 450px !important;
      margin-top: 10px;
-    margin-left: 50px;
+    margin-left: 20px;
 }
 .date12{
-	float:right;
-	font-family: 'YESMyoungjo-Regular';
+	    float: right;
+    font-family: 'YESMyoungjo-Regular';
     font-size: 20px;
-     margin-right: 395px;
-     margin-top: 10px;
-    margin-left: 50px;
+    margin-right: 335px;
+    margin-top: 10px;
+    margin-left: 20px
+}
+.h11{
+	margin-left: 50px;
+	margin-bottom: 70px;
 }
 .date13{
-	float:right;
+	
 	font-family: 'YESMyoungjo-Regular';
     font-size: 30px;
    
 }
+.top{
+	margin-left: 30px;
+}
+.point{
+	border: none;
+	width: 60px;
+	text-align: right;
+}
+.email{
+	width: 220px;
+	text-align: left;
+	border: none;
+}
 .date14{
-	float:right;
+	
 	font-family: 'YESMyoungjo-Regular';
     font-size: 20px;
      margin-right: 495px;
      margin-top: 10px;
-    margin-left: 50px;
 }

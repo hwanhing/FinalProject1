@@ -318,8 +318,8 @@ $(document).ready(function(){
                 <tbody>
                 	<c:if test="${!empty myheart }">
 					<c:forEach items="${myheart}" var="dto">
-                    <tr>
-						<td>
+                    <tr onclick="location.href='bean_content.do?num=${dto.getBeans_num()}&no=${dto.getMember_num() }'">  
+						<td >
 							<span class="custom-checkbox">
 								<input type="checkbox" id="checkbox1" name="options[]" value="1">
 								<label for="checkbox1"></label>
@@ -332,7 +332,7 @@ $(document).ready(function(){
                         <td>${dto.getBeans_price() }</td>
                         <td align="center">
                      
-                           <a  href="<%=request.getContextPath() %>/myheart_delete.do?num=${dto.getMember_num()}" class="delete" ><i class="fa-solid fa-trash"></i></a>
+                           <a  href="<%=request.getContextPath() %>/myheart_delete.do?num=${dto.getBeans_num()}&member_num=${dto.getMember_num()}" class="delete" ><i class="fa-solid fa-trash"></i></a>
                            
                        	 </td>
 				    </tr>  	

@@ -160,7 +160,7 @@
 					<br>
 					<p align="center">
 						<!-- <input type="submit" class="defaultBtn loginBtn" id="deleteMemBtn" value="회원 탈퇴"> -->
-						 <button class="defaultBtn loginBtn" id="deleteMemBtn" onclick="member_delete('${dto.getMember_num()}')"></button> 
+						 <button class="defaultBtn loginBtn" id="deleteMemBtn"  onclick="member_delete('${dto.getMember_num()}')">회원탈퇴</button> 
 					</p>
 				<!-- </form> -->
 			</div>

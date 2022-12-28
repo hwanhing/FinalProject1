@@ -244,6 +244,11 @@
 		select ms.*, cb.* from member_star ms join coffee_beans cb on ms.beans_num = cb.beans_num where member_num=#{member_num}
 	</select>
 	
+	<delete id="myheartdelete"  parameterType="int" > 
+		delete from member_star where beans_num=#{num}
+	</delete>
+	
+	
 	<select id="board_list" resultType="finalMemberDTO" parameterType="finalMemberDTO">
 		select fm.*, mb.* from final_member fm join member_board mb on fm.member_num = mb.member_num where fm.member_num=#{member_num}
 	</select>
@@ -256,7 +261,7 @@
 		select * from admin_reply where board_num=#{board_num}
 	</select>
 	<delete id="myboard_delete"  parameterType="int" > 
-		delete from member_board where board_num=#{board_num}
+		delete from member_board where board_num=#{num}
 	</delete>
 	
 	

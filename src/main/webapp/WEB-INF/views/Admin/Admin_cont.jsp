@@ -36,8 +36,10 @@ crossorigin="anonymous"></script>
 	<c:set var="dto2" value="${member_test }" />
 	<c:set var="member_order" value="${member_order }" />
 		<div class="contanior">
-		<h1>회원 상세보기</h1>
+		<div class="top">
+		<h1 class="h11">회원 상세보기</h1>
 		<hr class="line" style="height: 10px;">
+		</div>
 			<div class="warp">
 				<div class="content">
 					<div>
@@ -47,8 +49,9 @@ crossorigin="anonymous"></script>
 				     </c:if>
 				     
 				     <c:if test="${dto.getMember_img() ne null }">
-					     <img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" />	     
+					     <img alt="이미지없음" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${dto.getMember_img()}" />	     
 				     </c:if>
+				     
 						<div class="you">
 							  <span class=tr-span>ID</span>&nbsp;&nbsp;&nbsp;
 									 <span class="td-span">${dto.getMember_id() }</span>
@@ -56,17 +59,28 @@ crossorigin="anonymous"></script>
 									 <span class=tr12-span>이름</span>&nbsp;&nbsp;&nbsp;
 									 <span class="td1-span">${dto.getMember_name() }</span>
 							</div>
+						<br><br><br>
+							<c:if test="${dto.getTest_num() !=0 }">
+								<div>
+							 <span class="date13"><i class="fa-sharp fa-solid fa-mug-saucer"></i>커피파</span>&nbsp;&nbsp;&nbsp;
+							<span class="date14">${dto2.getTest_name() }</span>
+								</div>
+							</c:if>	
+							<c:if test="${dto.getTest_num() ==0 }">
+								<div>
+							 <span class="date13"><i class="fa-sharp fa-solid fa-mug-saucer"></i>커피파</span>&nbsp;&nbsp;&nbsp;
+							<span class="date14">테스트 미진행</span>
+								</div>
+							</c:if>	
+							<br><br>
 						<div>	
 						
 						 <!--  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery"  name="file1"/> -->
 						  </div>
-								<div class="user_id">
-									
-									 	
-									 	<br><br><br>
+						  
 								<div class="user_name">
 							   			<span class=tr-span><i class="fa-sharp fa-solid fa-coins"></i>포인트</span>&nbsp;&nbsp;&nbsp;
-										<span class="td-span">${dto.getMember_point() }P</span>
+										<span class="td-span"><input type="text" class="point" value="${dto.getMember_point() }" readonly>P</span>
 								
 										 <span class="date1">${dto.getMember_date().substring(0,10) }</span>
 									 <span class="date"><i class="fa-regular fa-calendar-days"></i>가입일</span>&nbsp;&nbsp;&nbsp;
@@ -80,12 +94,8 @@ crossorigin="anonymous"></script>
 							 		<span class="phone-span"><i class="fa-solid fa-phone"></i>휴대폰</span>&nbsp;&nbsp;&nbsp;
 									 <span class="td1-span">${dto.getMember_phone() }</span>
 							 		
-							 			<span class="date12">${dto.getMember_email() }</span>
-							   			<span class="date"><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;
-										
-										
-									 
-									 	
+							 			<span class="date12"><input type="text" class="email" value="${dto.getMember_email() }" readonly></span>
+							   			<span class="date"><i class="fa-solid fa-envelope"></i>이메일</span>&nbsp;&nbsp;&nbsp;				 	
 									 	<br><br><br>
 							 	</div>
 							 	
@@ -97,11 +107,10 @@ crossorigin="anonymous"></script>
 							   			<span class=tr-span><i class="fa-solid fa-map-location-dot"></i>주소</span>&nbsp;&nbsp;&nbsp;
 										<span class="td-span">${dto.getMember_addr() }</span>
 										
-										<span class="date14">${dto2.getTest_name() }</span>
-							   			<span class="date13"><i class="fa-sharp fa-solid fa-mug-saucer"></i>커피파</span>&nbsp;&nbsp;&nbsp;
+										
 								
 							 	</div>
-							 	<br><br><br>
+							 	<br>
 								<div class="user_name">		
 						
 							 	<c:if test="${dto.getMember_addr2() ne '주소를 넣어주세요' }">
@@ -117,8 +126,8 @@ crossorigin="anonymous"></script>
 							 	
 							</div>
 							
-							</div>
-							<br><br><br>
+							
+							<br>
 								 		<div class="user_name">		
 							 	<c:if test="${dto.getMember_addr3() ne '주소를 넣어주세요' }">
 								
@@ -130,7 +139,7 @@ crossorigin="anonymous"></script>
 								
 								</c:if>
 							 	</div>
-							 	<br><br><br>
+							 	<br>
 								<div class="user_name">		
 							 	<c:if test="${dto.getMember_addr4() ne '주소를 넣어주세요' }">
 								
@@ -145,7 +154,7 @@ crossorigin="anonymous"></script>
 							 	
 							</div>
 						
-							<br><br><br>
+							<br>
 								 		<div class="user_name">		
 							 	<c:if test="${dto.getMember_addr5() ne '주소를 넣어주세요' }">
 								
@@ -160,7 +169,7 @@ crossorigin="anonymous"></script>
 							 	
 							</div>		 			
 							  </div>
-						<div style="width:75%; height:400px; overflow:auto; margin-left: 200px;">
+						<div style="margin-top:150px; width:75%; height:400px; overflow:auto; margin-left: 200px;">
 							<table class="table table-striped table-hover">
 					                <thead>
 					                    <tr>
