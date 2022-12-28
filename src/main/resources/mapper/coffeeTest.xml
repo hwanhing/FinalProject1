@@ -63,14 +63,19 @@
 		  from coffee_taste_acid
 	</select>
 	
-	<select id="getTestResultTypeNum" parameterType="hashmap" resultType="int">
-		select case when #{testRsDecaff} = 0 then 1 else test_num end as test_result_num
-		  from coffee_test_result
-		 where test_rs_brew = #{testRsBrew} 
-		   and test_rs_add = #{testRsAdd} 
-		   and test_rs_taste_acid = #{testRsAcid} 
-		   and test_rs_taste = #{testRsTaste}
-	</select>
+	<select id="getTestResultTypeNum" parameterType="hashmap" resultType="map">
+		select ctr.test_result_num
+			 , ct.test_name
+	      	 , ct.test_img
+		  from coffee_test ct
+		  join (select case when #{testRsDecaff} = 0 then 1 else test_num end as test_result_num
+				  from coffee_test_result
+				 where test_rs_brew = #{testRsBrew} 
+				   and test_rs_add = #{testRsAdd} 
+				   and test_rs_taste_acid = #{testRsAcid} 
+				   and test_rs_taste = #{testRsTaste} ) ctr
+		    on ct.test_num = ctr.test_result_num
+	</select> 
 	
 	<update id="updateTestResultTypeNum" parameterType="hashmap">
 		update final_member

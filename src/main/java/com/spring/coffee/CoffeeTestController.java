@@ -125,7 +125,13 @@ public class CoffeeTestController {
 		}
 		
 		// 테스트 결과값 확인
-		int test_result_num = testDao.getTestResultTypeNum(testChooseMap);
+		List<Map<String, Object>> testMapList = testDao.getTestResultTypeNum(testChooseMap);
+		
+		// 테스트 결과값 넘겨주기 (결과값 : test_result_num)
+		int test_result_num = Integer.parseInt(String.valueOf(testMapList.get(0).get("TEST_RESULT_NUM")));
+		String test_name = (String) testMapList.get(0).get("TEST_NAME"); 
+		String test_img = (String) testMapList.get(0).get("TEST_IMG"); 
+		
 		System.out.println("test_result_num : " + test_result_num);
 		
 		// 로그인 한 회원이라면 결과값 저장 하기
@@ -135,19 +141,27 @@ public class CoffeeTestController {
 			
 			Map<String, Integer> updateMap = new HashMap<String, Integer>();
 			updateMap.put("member_num", member_num);
-			updateMap.put("test_result_num", test_result_num);
+			updateMap.put("test_result_num", test_result_num );
 			
 			int result = testDao.updateTestResultTypeNum(updateMap);
 			System.out.println("로그인한 회원의 테스트값 수정 결과 : " + result);
+			
+			// 세션 수정
+			if( (Integer) session.getAttribute("test_num") != test_result_num) {
+				session.setAttribute("test_num", test_result_num );
+				session.setAttribute("test_img", test_name);
+				session.setAttribute("test_name", test_img);
+			}
 		}
 		
 		System.out.println("---------------------------------------------------------------------------------------");
 		
-		// 테스트 결과값 넘겨주기 (결과값 : test_result_num)
+       
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("location.href='testResult.do?no="+test_result_num+"'");
 		out.println("</script>");
+		
 		
 	}
 	

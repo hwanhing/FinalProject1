@@ -24,7 +24,7 @@ public interface CoffeeTestDAO {
 	List<Map<String, Object>> getGrindTest();
 	
 	// 결과 testNum 가져오기 
-	int getTestResultTypeNum(Map<String, Integer> testChooseMap);
+	List<Map<String, Object>> getTestResultTypeNum(Map<String, Integer> testChooseMap);
 	
 	// 결과값 final_member 테이블에 저장하기
 	int updateTestResultTypeNum(Map<String, Integer> testResultTypeMap);
