@@ -146,7 +146,7 @@ public class CoffeeTestController {
 		// 테스트 결과값 넘겨주기 (결과값 : test_result_num)
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
-		out.println("location.href='temporary.do?testNo="+test_result_num+"'");
+		out.println("location.href='testResult.do?no="+test_result_num+"'");
 		out.println("</script>");
 		
 	}
