@@ -27,7 +27,7 @@ public interface AdminDAO {
 
 	int boardList();
 
-
+	String starAvg1(int beans_num);
 	
 	CoffeeBeanDTO getBeanContent(int no);
 	
@@ -69,7 +69,7 @@ public interface AdminDAO {
 
 	FinalMemberDTO admin_test(int num);
 
-	
+	int getbuyNumber(int beans_num);
 
 
 }

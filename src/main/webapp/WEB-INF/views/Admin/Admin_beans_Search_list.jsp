@@ -266,7 +266,6 @@
 		 				<th class="c_check">선택</th>
 		 				<th class="c_num">원두번호</th>
 		 				<th class="c_name">원두이름</th>
-		 				<th>주문량</th>
 		 				<th>원두가격</th>
 		 				<th>원두재고</th>
 		 				<th>관리</th>
@@ -282,9 +281,6 @@
 		 		 		</td>
 		 		 		<td class="c_name" onclick="location.href='admin_beans_cont.do?no=${e.getBeans_num()}'">
 		 					${e.getBeans_name() }
-		 				</td>
-		 				<td>
-		 					0
 		 				</td>
 		 				<td>
 		 					<fmt:formatNumber value="${e.getBeans_price() }" />원

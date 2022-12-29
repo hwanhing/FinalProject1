@@ -115,7 +115,9 @@ $(function(){
 	<div class="empty1">
 	
 		<c:set var="i" value="${cont }" />
-	
+		<c:set var="num" value="${num }" />
+		<c:set var="avg" value="${avg }" />
+			
 		<div class="table_box">
 		<form method="post" action="<%=request.getContextPath()%>/admin_beans_modify_ok.do">
 			<input type="hidden" name="beans_num" value="${i.getBeans_num() }">
@@ -133,7 +135,7 @@ $(function(){
 					<tr>				
 						<td>${i.getBeans_num() }</td>
 						<td>${i.getBeans_name() }</td>
-						<td>0</td>
+						<td>${num }</td>
 						<td><fmt:formatNumber value="${i.getBeans_price() }" />원</td>
 						<td>${i.getBeans_count() }</td>
 					</tr>
@@ -162,7 +164,14 @@ $(function(){
 						</tr>		
 						<tr class="tr_1">
 							<th>원두 평점</th>
-							<td class="td_1">0 점</td>
+							<td class="td_1">
+							<c:if test="${avg eq null }">
+								0점
+							</c:if>
+							<c:if test="${avg ne null }">
+								${avg } 점							
+							</c:if>							
+							</td>
 							<th>원두 재고</th>
 							<td class="td_1"><input class="b_count_box" name="beans_count" value="${i.getBeans_count() }"></td>
 						</tr>									

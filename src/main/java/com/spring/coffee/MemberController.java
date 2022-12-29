@@ -45,12 +45,17 @@ public class MemberController {
    @Inject
    private MemberDAO dao;
    
-   @RequestMapping("main.do")
-   public String logindd() {
+   @RequestMapping("testResult.do")
+   public String testResult(int no, Model model) {
 	   
-	   return "";
+	  CoffeeTestDTO dto  = this.dao.getTestResult(no);
+	  
+	  model.addAttribute("result", dto);
+	   
+	  return "./test/testResult";
    }
-   
+
+   // 로그인 체크
    @RequestMapping("member_login_check.do")
    public void check(FinalMemberDTO dto, HttpSession session, HttpServletResponse response, HttpServletRequest request) throws IOException {
 
@@ -70,12 +75,12 @@ public class MemberController {
          session.setAttribute("admin_name", a_dto.getAdmin_name());
          
 		 out.println("<script>"); 
-		 out.println("location.href='admin_main.do'");
+		 out.println("location.href='admin_memeber.do'");
 		 out.println("</script>");      
 
       }
 
-      
+      // admin이 아닐 경우
       if(!dto.getMember_id().equals("admin")) {
     	  System.out.println(dto.getMember_id());
     	 // 해당하는 값이 member_use가 0일때만 로그인 성공  
@@ -88,13 +93,11 @@ public class MemberController {
 	         if (f_dto != null) { // 세션 변수 저장
 	         
 	        	 if(f_dto.getMember_use() == 0) {
-	        		 session.setAttribute("member_num", f_dto.getMember_num());
 	        		 
+	        		 session.setAttribute("member_num", f_dto.getMember_num());	        		 
 	        		 session.setAttribute("member_id", f_dto.getMember_id());
-	        		 
 	        		 session.setAttribute("member_name", f_dto.getMember_name());
-	        		 session.setAttribute("member_img", f_dto.getMember_img());
-	        		 
+	        		 session.setAttribute("member_img", f_dto.getMember_img());	        		 
 	        		 session.setAttribute("member_name", f_dto.getMember_name());
 	        		 session.setAttribute("member_point", f_dto.getMember_point());
 	        		 session.setAttribute("test_num", f_dto.getTest_num());
@@ -107,16 +110,14 @@ public class MemberController {
 	        		 
 	        	 }else if(f_dto.getMember_use() == 1){
 	        		 
-	        		 
 	        		 System.out.println("탈퇴회원이다.");
 	        	      this.dao.logout(session); 
 	        	      
 					  out.println("<script>"); 
 					  out.println("alert('탈퇴 회원입니다.')");
-					  out.println("history.back()");
+					  out.println("location.href='go_login.do'");
 					  out.println("</script>");
-						        		 
-	        		 
+ 
 	        	 }
 	        	 
 	            
@@ -136,15 +137,18 @@ public class MemberController {
    }
 
 
-   
+   // 로그아웃
    @RequestMapping("member_logout.do")
    public ModelAndView logout(HttpSession session, ModelAndView mav) {
-      this.dao.logout(session); 
+	   
+       this.dao.logout(session); 
        mav.setViewName("main"); 
-       mav.addObject("message", "logout"); 
-        return mav;
-        }
+       mav.addObject("message", "logout");
+       
+       return mav;
+   }
    
+   // 마이페이지 이동
    @RequestMapping("member_mypage.do")
    public String Mypage(@RequestParam("num") int num, Model model, HttpSession session) {
 
@@ -326,6 +330,7 @@ public class MemberController {
      
     }
     
+    // 탈퇴
      @RequestMapping("user_delete.do")
      public String delete(@RequestParam("num")int num,Model model) {
         
@@ -336,7 +341,7 @@ public class MemberController {
         return "./member/user_delete";
      }   
 
-
+     // 탈퇴
      @RequestMapping("memberDelete.do")
      public void deleteok(@RequestParam("num")int num,FinalMemberDTO dto ,HttpServletRequest request,HttpSession session ,HttpServletResponse response) throws IOException {
         System.out.println("num>>>>>>>>>>>>>>>>>>>>" + num);
@@ -362,6 +367,7 @@ public class MemberController {
       }
    }
 
+   // 전화번호 수정
    @RequestMapping("member_Phone_Modify.do")
    public String phoneModify(@RequestParam("num") int num, @RequestParam("phone") String phone, Model model) {
 
@@ -371,7 +377,8 @@ public class MemberController {
 
       return "./member/PhoneModify";
    }
-
+   
+   // 전화번호 수정
    @RequestMapping("phone_modify_ok.do")
    public void PhoneModifyok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
       System.out.println(" dto.getMember_phone()>>" + dto.getMember_phone());
@@ -398,6 +405,7 @@ public class MemberController {
 
    }
 
+   // 이메일 수정
    @RequestMapping("member_Email_Modify.do")
    public String Email_Modify(@RequestParam("num") int num, Model model) {
 
@@ -408,6 +416,7 @@ public class MemberController {
       return "./member/Email_Modify";
    }
 
+   // 이메일 수정
    @RequestMapping("Email_Modify_ok.do")
    public void Email_Modify_ok(FinalMemberDTO dto, HttpServletResponse response) throws IOException {
 
@@ -611,7 +620,7 @@ public class MemberController {
    @RequestMapping("addr_imgmodify_ok.do")
    public void addr_imgmodfiy_ok(MultipartHttpServletRequest mRequest, @RequestParam("member_num") int member_num,
          @RequestParam(value = "img", required = false, defaultValue = "") String img, HttpServletResponse response,
-         HttpServletRequest request) throws IOException {
+         HttpServletRequest request, HttpSession session) throws IOException {
 
       System.out.println("dddd222dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
       FinalMemberDTO fmdto = this.dao.MemberMyPage(member_num);
@@ -669,6 +678,9 @@ public class MemberController {
             }
          }
          int i = dao.Memberupdate(fmdto);
+         
+		 session.setAttribute("member_img", saveFileName);
+         
          response.setContentType("text/html; charset=utf-8");
          PrintWriter out = response.getWriter();
 
