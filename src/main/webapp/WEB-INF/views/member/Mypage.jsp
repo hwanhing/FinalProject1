@@ -188,6 +188,7 @@ text-align: center;
   padding-bottom: 0;
 }
 
+
 .first-span{
 	/* font-style: italic; */
 	font-family:bold;
