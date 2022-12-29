@@ -1,372 +1,372 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-	    pageEncoding="UTF-8"%>
-	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	    
-	<!DOCTYPE html>
-	<html>
-	<head>
-	<meta charset="UTF-8">
-	<title>커피 상세내역</title>
-	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 		
-	<style type="text/css">
-		
-		/* 전체 크기 div 박스 */
-	    .empty{
-	        display: flex;
-	        width: 70%;
-	        margin-left: 23%;
-	        margin-right: 17%;
-	     
-	    }
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>커피 상세내역</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.5.5/css/simple-line-icons.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.easing/1.3/jquery.easing.1.3.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>	
+<style type="text/css">
+
+	/* 전체 크기 div 박스 */
+    .empty{
+        display: flex;
+        width: 70%;
+        margin-left: 23%;
+        margin-right: 17%;
+     
+    }
+
+	/* 원두 이미지 뒷 배경 색상 */
+	.img_box1{
+		background-color: lightgray;
+
+	}
 	
-		/* 원두 이미지 뒷 배경 색상 */
-		.img_box1{
-			background-color: lightgray;
+	.left_box1{
+		width: 40%;
+		height: 50%;
+	}
 	
-		}
-		
-		.left_box1{
-			width: 40%;
-			height: 50%;
-		}
-		
-		.bean_info{ 
-			height: 10%;
-			margin-left: 10%;
-			width: 50%;
-		}
-		.bean_taste{
-			font-size: 3em;
-			margin-bottom: 3%;
-		}
-		.bean_title{
-			font-size: 2.0em;
-			margin-bottom: 1%;
-		}
-		.bean_price{
-			font-size: 1.6em;
-			margin-bottom: 5%;
-		}
-		
-		/* 장바구니 버튼 */
-		.cart_btn1{
-			width: 45%;
-			height: 3em;	
-			border-radius: 5em;
-			text-align: center;		 
-			background-color: #d9cec1;
-			color: #000;
-			font-size: 1em;
-			font-weight: bold;
-			margin-top: 2%		
-		}
-		
-		/* 장바구니 버튼 : hover */
-		.cart_btn1:hover{
-			background-color: #C4BAAF;
-		}
-		/*------------------------------*/
-		
-		/* 구매하기 버튼 */
-		.cart_btn2{
-			width: 45%;
-			height: 3em;
-			background-color: #734338;
-			border-radius: 5em;
+	.bean_info{ 
+		height: 10%;
+		margin-left: 10%;
+		width: 50%;
+	}
+	.bean_taste{
+		font-size: 3em;
+		margin-bottom: 3%;
+	}
+	.bean_title{
+		font-size: 2.0em;
+		margin-bottom: 1%;
+	}
+	.bean_price{
+		font-size: 1.6em;
+		margin-bottom: 5%;
+	}
+	
+	/* 장바구니 버튼 */
+	.cart_btn1{
+		width: 45%;
+		height: 3em;	
+		border-radius: 5em;
+		text-align: center;		 
+		background-color: #d9cec1;
+		color: #000;
+		font-size: 1em;
+		font-weight: bold;
+		margin-top: 2%		
+	}
+	
+	/* 장바구니 버튼 : hover */
+	.cart_btn1:hover{
+		background-color: #C4BAAF;
+	}
+	/*------------------------------*/
+	
+	/* 구매하기 버튼 */
+	.cart_btn2{
+		width: 45%;
+		height: 3em;
+		background-color: #734338;
+		border-radius: 5em;
+		text-align: center;
+		color: #fff;
+		font-size: 1em;
+		font-weight: bold;
+		margin-top: 1%;
+	}
+	
+	/* 구매하기 버튼 : hover */
+	.cart_btn2:hover{
+		background-color: #54342D;
+	}
+	
+	.bean_star{
+		margin-top: 1%;
+	}
+	
+	.grind_q{
+		margin-bottom: 3%;
+	}
+	/*------------------------------*/
+	
+	/* 갈기 여부 버튼 */
+	.grind_0,
+	.grind_1{
+		/* border: 1px solid #000; */
+		border-radius: 0.5em;
+		width: 21%;
+		background-color: #f2f2f2;
+		height: 6em;
+		font-weight: bold;
+		font-size: 1em;
+		margin-bottom: 5%;
+	}
+	
+	/* 갈기 여부 버튼 : hover */
+	.grind_0:hover{
+		background-color: #d9cec1; 
+	}
+	
+	/* 갈기 여부 버튼 : hover */
+	.grind_1:hover{
+		background-color: #d9cec1; 
+	}
+	.grind_1{
+		margin-left: 2%;
+	}
+	/*------------------------------*/
+	
+	/* 그램 수 버튼 ex) 100g, 200g */
+	.gram_1,
+	.gram_2,
+	.gram_3,
+	.gram_4{
+		/* border: 1px solid #000; */
+		border-radius: 0.5em;
+		background-color: #f2f2f2;
+		width: 10%;
+		height: 8em;
+		margin-bottom: 5%;
+	}
+
+	/* 그램 수 버튼 : hover */
+	.gram_1:hover{
+		background-color: #d9cec1; 
+	}		
+	.gram_2:hover{
+		background-color: #d9cec1; 
+	}		
+	.gram_3:hover{
+		background-color: #d9cec1; 
+	}		
+	.gram_4:hover{
+		background-color: #d9cec1; 
+	}
+	.gram_2,
+	.gram_3,
+	.gram_4{
+		margin-left: 1%;
+	}	
+	/*-----------------------------*/
+	
+	.count_box{
+		display: flex;
+		border: 1px solid gray;
+		width: 15%;
+		height: 2.1em;
+	}
+	
+	#result{
+		width: 130%;
+		margin-top: 6%;
+		margin-bottom: 8%;
+	}
+	
+	#p_m_box{
+		display: block;
+	}
+
+	#plus_box,
+	#mi_box{
+		display: block;
+		width: 1em;
+		height: 22.5px;
+		border: 1px solid lightgray;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.bean_intro{
+		font-size: 1em;
+		margin-top: 2em;
+	}
+	
+	#accordionFlushExample{
+		margin-top: 3em;
+	}
+	
+	#acd_1,
+	#acd_2{
+		 outline: none !important;
+ 		 box-shadow: none !important;
+ 		 background-color: #fff;
+ 		 color: #000;
+	}
+	
+	
+/* 이런 원두는 어때요? 추천 박스 부분 ----------------*/	
+
+    .empty2{
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 17%;
+    }		
+    
+	.list_box{
+
+      width: 70%;
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 30px;
+      	
+	}    
+    
+	.con1{
+	  /* border: 1px solid lightgray; */
+	  border-radius: 1em;
+      width: 100%;
+      position: relative;
+      height: 32em;		
+
+	}
+	
+
+	
+/* 	.con1:after{
+      display: block;
+      content: "";
+      padding-bottom: 100%;			
+	}     */
+	
+/* ------------------------------------------- */		
+
+		.con_info{
+			margin-top: 5%;
+			margin-bottom: 10%;
 			text-align: center;
-			color: #fff;
-			font-size: 1em;
+		}
+		
+		.info_out{
+
+			height: 5em;
+		}		
+		
+		.con_new{
+			color: #A66B56;
 			font-weight: bold;
-			margin-top: 1%;
+			margin-bottom: 5px;
+			text-shadow: 1px 1px 2px black;
 		}
 		
-		/* 구매하기 버튼 : hover */
-		.cart_btn2:hover{
-			background-color: #54342D;
-		}
-		
-		.bean_star{
-			margin-top: 1%;
-		}
-		
-		.grind_q{
-			margin-bottom: 3%;
-		}
-		/*------------------------------*/
-		
-		/* 갈기 여부 버튼 */
-		.grind_0,
-		.grind_1{
-			/* border: 1px solid #000; */
-			border-radius: 0.5em;
-			width: 21%;
-			background-color: #f2f2f2;
-			height: 6em;
+		.con_name{
 			font-weight: bold;
-			font-size: 1em;
-			margin-bottom: 5%;
+			font-size: 1.2em;
 		}
 		
-		/* 갈기 여부 버튼 : hover */
-		.grind_0:hover{
-			background-color: #d9cec1; 
+		.con_taste{
+			margin-bottom: 1em;
 		}
 		
-		/* 갈기 여부 버튼 : hover */
-		.grind_1:hover{
-			background-color: #d9cec1; 
+		.con_price{
+			font-size: 1.3em;
 		}
-		.grind_1{
-			margin-left: 2%;
-		}
-		/*------------------------------*/
 		
-		/* 그램 수 버튼 ex) 100g, 200g */
-		.gram_1,
-		.gram_2,
-		.gram_3,
-		.gram_4{
-			/* border: 1px solid #000; */
-			border-radius: 0.5em;
-			background-color: #f2f2f2;
+		.aa-prev{
 			width: 10%;
-			height: 8em;
-			margin-bottom: 5%;
+			
+		}
+		
+		.aa-next{
+			width: 5%;
+		}
+		
+		.carousel-control-prev-icon,
+		.carousel-control-next-icon{
+			background-color: #000;
 		}
 
-		/* 그램 수 버튼 : hover */
-		.gram_1:hover{
-			background-color: #d9cec1; 
-		}		
-		.gram_2:hover{
-			background-color: #d9cec1; 
-		}		
-		.gram_3:hover{
-			background-color: #d9cec1; 
-		}		
-		.gram_4:hover{
-			background-color: #d9cec1; 
+		.que{
+			margin-left: 10%;
 		}
-		.gram_2,
-		.gram_3,
-		.gram_4{
-			margin-left: 1%;
-		}	
-		/*-----------------------------*/
-		
-		.count_box{
-			display: flex;
-			border: 1px solid gray;
-			width: 15%;
-			height: 2.1em;
-		}
-		
-		#result{
-			width: 130%;
-			margin-top: 6%;
-			margin-bottom: 8%;
-		}
-		
-		#p_m_box{
-			display: block;
-		}
-	
-		#plus_box,
-		#mi_box{
-			display: block;
-			width: 1em;
-			height: 22.5px;
-			border: 1px solid lightgray;
-			padding: 0;
-			margin: 0;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		
-		.bean_intro{
-			font-size: 1em;
-			margin-top: 2em;
-		}
-		
-		#accordionFlushExample{
-			margin-top: 3em;
-		}
-		
-		#acd_1,
-		#acd_2{
-			 outline: none !important;
-	 		 box-shadow: none !important;
-	 		 background-color: #fff;
-	 		 color: #000;
+		.que1{
+			margin-left: 3%;
 		}
 		
 		
-	/* 이런 원두는 어때요? 추천 박스 부분 ----------------*/	
-	
-	    .empty2{
-	        width: 80%;
-	        margin-left: 10%;
-	        margin-right: 17%;
-	    }		
-	    
-		.list_box{
-	
-	      width: 70%;
-	      display: grid;
-	      grid-template-columns: repeat(8, 1fr);
-	      gap: 30px;
-	      	
-		}    
-	    
-		.con1{
-		  /* border: 1px solid lightgray; */
-		  border-radius: 1em;
-	      width: 100%;
-	      position: relative;
-	      height: 32em;		
+/* empty3 부분 ------------------------------------*/
 
-		}
-		
-	
-		
-	/* 	.con1:after{
-	      display: block;
-	      content: "";
-	      padding-bottom: 100%;			
-		}     */
-		
-	/* ------------------------------------------- */		
-	
-			.con_info{
-				margin-top: 5%;
-				margin-bottom: 10%;
-				text-align: center;
-			}
-			
-			.info_out{
-
-				height: 5em;
-			}		
-			
-			.con_new{
-				color: #A66B56;
-				font-weight: bold;
-				margin-bottom: 5px;
-				text-shadow: 1px 1px 2px black;
-			}
-			
-			.con_name{
-				font-weight: bold;
-				font-size: 1.2em;
-			}
-			
-			.con_taste{
-				margin-bottom: 1em;
-			}
-			
-			.con_price{
-				font-size: 1.3em;
-			}
-			
-			.aa-prev{
-				width: 10%;
-				
-			}
-			
-			.aa-next{
-				width: 5%;
-			}
-			
-			.carousel-control-prev-icon,
-			.carousel-control-next-icon{
-				background-color: #000;
-			}
-	
-			.que{
-				margin-left: 10%;
-			}
-			.que1{
-				margin-left: 3%;
-			}
-			
-			
-	/* empty3 부분 ------------------------------------*/
-	
-	    .empty3{
-	        width: 70%;
-	        margin-left: 17%;
-	        margin-right: 17%;
-	    }		
+    .empty3{
+        width: 70%;
+        margin-left: 17%;
+        margin-right: 17%;
+    }		
+    
+	.write_box1{
+		margin-left: 3%;	
+		/*border: 2px solid #c6c6c6;*/
+		padding: 1%;
+		border-radius: 5px; 
+		width:90%; 
+		background-color: #fff;				
+	}
 	    
-		.write_box1{
-			margin-left: 3%;	
-			/*border: 2px solid #c6c6c6;*/
-			padding: 1%;
-			border-radius: 5px; 
-			width:90%; 
-			background-color: #fff;				
-		}
-		    
-	    .write_box2{
-	    	width: 100%;
-	    }
-	    
-		#re_writer{
-			border: none;
-			pointer-events: none;
-			font-size: 1.5em;
-			font-weight: bold;
-			width: 50%;
-		}	
-		
-		#re_content{    
-			width: 70%;
-		    border: none;
-		    resize: none;
-		    outline: none;
-			overflow: hidden;	
-			font-size: 1em;  
-			min-height: 6em;
-			padding: 5px;
-			margin-left: 5px;
-			margin-top: 5px;
-		}
-		
-		#replyBtn{
-			border: none;
-		    font-size: 1.2em;
-		    font-weight: bold;
-		    text-align: center;
-		    background-color: #D9CEC1;
-		    border-radius:5px;
-		    float: right;
-		    padding:30px;
-		    margin-top: 5px;
-		    margin-right: 20%;
-		}
-		
-		#replyBtn:hover{
-			background-color: #AFA69C;
-		}
-		
-		.writer_img{
-			margin-left: 1%;
-			width: 2.8em;
-			height:2.8em; 
-		}
-		
-		.writer_td_box{
-		 	height: 4em;
-		}
+    .write_box2{
+    	width: 100%;
+    }
+    
+	#re_writer{
+		border: none;
+		pointer-events: none;
+		font-size: 1.5em;
+		font-weight: bold;
+		width: 50%;
+	}	
+	
+	#re_content{    
+		width: 70%;
+	    border: none;
+	    resize: none;
+	    outline: none;
+		overflow: hidden;	
+		font-size: 1em;  
+		min-height: 6em;
+		padding: 5px;
+		margin-left: 5px;
+		margin-top: 5px;
+	}
+	
+	#replyBtn{
+		border: none;
+	    font-size: 1.2em;
+	    font-weight: bold;
+	    text-align: center;
+	    background-color: #D9CEC1;
+	    border-radius:5px;
+	    float: right;
+	    padding:30px;
+	    margin-top: 5px;
+	    margin-right: 20%;
+	}
+	
+	#replyBtn:hover{
+		background-color: #AFA69C;
+	}
+	
+	.writer_img{
+		margin-left: 1%;
+		width: 2.8em;
+		height:2.8em; 
+	}
+	
+	.writer_td_box{
+	 	height: 4em;
+	}
 	
 	.autosize{
 		border-radius: 2px; 
@@ -512,16 +512,6 @@
 		border: none;
 	}
 
-/* 마우스오버
-#starWrap {}
-#starWrap ul:after {content:''; display:block; clear:both;}
-#starWrap ul li {width:26px; height:15px; float:left; background:url('resources/images/bgStarSolo.png') no-repeat; cursor:pointer;}
-#starWrap.star1 .s1 {background-position:0 -15px;}
-#starWrap.star2 .s1,#starWrap.star2 .s2 {background-position:0 -15px;}
-#starWrap.star3 .s1,#starWrap.star3 .s2,#starWrap.star3 .s3 {background-position:0 -15px;}
-#starWrap.star4 .s1,#starWrap.star4 .s2,#starWrap.star4 .s3,#starWrap.star4 .s4 {background-position:0 -15px;}
-#starWrap.star5 .s1,#starWrap.star5 .s2,#starWrap.star5 .s3,#starWrap.star5 .s4,#starWrap.star5 .s5 {background-position:0 -15px;}    */  
-
 /* 마우스클릭 */
 #starWrapClick ul:after {content:''; display:block; clear:both;}
 #starWrapClick ul li {width:20px; height:15px; float:left; background:url('resources/images/bgStarSolo.png') no-repeat; cursor:pointer;}
@@ -536,11 +526,10 @@
 
 
 #star_ul_title ul li{width:20px; height:15px; float:left; background:url('resources/images/bgStarSolo.png') no-repeat; cursor:pointer;}
-</style>
-	
-	
-	</head>
-	<body>
+
+</style>	
+</head>
+<body>
 	
 		<jsp:include page="../layout/header.jsp" />
 	
@@ -606,14 +595,9 @@
 		    </div>	<%--left_box1 끝 --%>
 	    	
 	    	<div class="bean_info">
-	<%-- 	    <div class="bean_taste">
-		    		<span><b>${i.getBeans_taste() }</b></span>
-		    	</div>	 --%>
-		    	<input type="hidden" id="hidden_beans_num" value="${i.getBeans_num() }">
-		    	<div>
 
-		    		
-		    	</div>
+		    	<input type="hidden" id="hidden_beans_num" value="${i.getBeans_num() }">
+
 		    	<div class="bean_title">
 
 		    		<span>${i.getBeans_name() } 
@@ -626,18 +610,6 @@
 		    			아직 평가가 없습니다.
 		    		</c:if>
 		    		<c:if test="${i.getWrite_count() != 0 }">
-					<%-- 	<div id="star_ul_title" style="width: 50%;">
-							<ul>
-								<li class="c1"></li>
-								<li class="c2"></li>
-								<li class="c3"></li>
-								<li class="c4"></li>
-								<li class="c5"></li>
-						<span>${i.getStar_avg() }</span>
-			    		<span>${i.getWrite_count() }개 상품평</span>
-							</ul>
-						</div>		    		
-		    	 	여기다가 후기글의 평점 평균을 뽑아온다. 이런식으로 뽑을 거임.--%>
 		    
 		    		<c:if test="${i.getStar_avg() == 1 }">
 						<div id="star_ul_title" style="width: 50%;">
@@ -825,9 +797,6 @@
 							<td>
 				 			<div class="img_box2">		
 								  <input class="form-control form-control-sm" id="formFileSm" onchange="readURL1(this)" accept="image/*" type="file" name="writeimg">
-							<!-- 	<input class="upload-name" value="첨부파일" placeholder="첨부파일" readonly="readonly">
-	    						<label for="files" class="file_label">파일추가</label>
-						  		<input type="file" id="files" accept="image/*" width="200" onchange="readURL1(this)" name="writeimg"> --> 
 							</div>							
 								<textarea class="autosize" name="write_cont" id="re_content" cols="200" placeholder="후기글을 작성해주세요."></textarea>
 								<input type="submit" id="replyBtn" value="등록">
@@ -990,9 +959,12 @@
 	
 	        	<div class="con1">
 	        	
-	        		<div class="con_box" align="center" >
-	        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
-	        		</div>
+	        			<c:if test="${member_id eq null }">
+		        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'"> 	        			
+	        			</c:if>
+	        			<c:if test="${member_id ne null }">
+		        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'"> 	        				        			
+	        			</c:if>
 	        		<div class="info_out">
 	        		
 		        		<div class="con_info">
@@ -1019,16 +991,22 @@
 	        	<div class="con1">
 	        	
 	        		<div class="con_box" align="center" >
-	        			<img alt="커피원두1" width="250px" height="280px" <%--여기--%> src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}'"> 
+
+	        			<c:if test="${member_id eq null }">
+		        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=0'"> 	        			
+	        			</c:if>
+	        			<c:if test="${member_id ne null }">
+		        			<img alt="커피원두1" width="250px" height="280px" src="${i.getBeans_img() }" onclick="location.href='bean_content.do?num=${i.getBeans_num()}&no=${member_num }'"> 	        				        			
+	        			</c:if>
 	        		</div>
 	        		<div class="info_out">
 	        		
 		        		<div class="con_info">
 		        			<div class="con_name">
-		        				<span><%--여기--%>${i.getBeans_name() }</span>
+		        				<span>${i.getBeans_name() }</span>
 		        			</div>
 		        			<div class="con_taste">
-		        				<span><%--여기--%>${i.getBeans_taste() }</span>
+		        				<span>${i.getBeans_taste() }</span>
 		        			</div>
 		        			<div class="con_price">
 		        				<span><b>￦ <fmt:formatNumber value="${i.getBeans_price() }" /></b></span>
@@ -1326,14 +1304,6 @@
 	$("textarea.autosize").on('keydown keyup', function () {
 		  $(this).height(1).height( $(this).prop('scrollHeight')+12 );	
 		});	
-		
-	
-	
-/*	$("#file").on('change',function(){
-		  var fileName = $("#file").val();
-		  $(".form-control-sm").val(fileName);
-		});
-*/
 	
 	
 	$(function(){
@@ -1363,22 +1333,6 @@
 	
 	$(function(){
 		
-		//마우스 오버
-/*		$('#starWrap ul li').mouseenter(function(){
-			
-			let star_count = parseInt(document.getElementById("star_count").value);
-			
-			var idx = $(this).index() + 1;
-			$('#starWrap').removeClass();
-			$('#starWrap').addClass('star'+idx);
-			
-			console.log("별점!!>> "+ idx);
-			star_count = idx;
-			
-			$("#star_count").val(star_count);
-			
-		});*/
-		
 
 		//클릭
 		$('#starWrapClick ul li').click(function(){
@@ -1397,26 +1351,7 @@
 	
 
 	});
-
 	
-	
-	
-</script>
-<script type="text/javascript">
-	
-	function readURL1(input) {
-		  console.log(input.files);
-		  if (input.files && input.files[0]) {
-		    var reader = new FileReader();
-		    reader.onload = function (e) {
-		      $("#img-preview1").attr("src", e.target.result);
-		    };
-		
-		    reader.readAsDataURL(input.files[0]);
-		  } else {
-		    $("#img-preview1").attr("src", noimage);
-		  }
-		}	
 
 </script>	
 	

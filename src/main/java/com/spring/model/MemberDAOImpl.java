@@ -143,6 +143,12 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 
+	@Override
+	public CoffeeTestDTO getTestResult(int no) {
+		return this.sqlSession.selectOne("test_result", no);
+	}
+
+
 
 
 

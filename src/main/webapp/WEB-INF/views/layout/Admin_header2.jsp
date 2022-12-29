@@ -16,7 +16,6 @@
 		
      <div class="sidebar-brand"> <a href="<%=request.getContextPath()%>/"><img class="img" src="<%=request.getContextPath()%>/resources/images/cuppa_logo.png" alt="cupofcoffee"></a></div>
        <ul class="sidebar_ul">
-	      <li><a href="<%=request.getContextPath()%>/admin_main.do">메인</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_memeber.do">회원관리</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_beans.do">원두관리</a></li>
 	      <li><a href="<%=request.getContextPath()%>/admin_orderlist.do">배송관리</a></li>

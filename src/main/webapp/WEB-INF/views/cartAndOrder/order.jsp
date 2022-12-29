@@ -236,7 +236,7 @@
                                             			
                                             			<div class="row_img_area">
 			                                                <div class="row_img">
-			                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}" class="img_a">
+			                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}&no=${memberDto.getMember_num() }" class="img_a">
 			                                                        <img src="${cartList.getBeans_img() }" alt="${cartList.getBeans_name() }" class="product_img_file">
 			                                                    </a>
 			                                                </div>
@@ -250,7 +250,7 @@
                                             		
 		                                            		 <div class="row_img_area">
 				                                                <div class="row_img">
-				                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+				                                                    <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}&no=${memberDto.getMember_num() }" class="img_a">
 				                                                        <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
 				                                                    </a>
 				                                                </div>
@@ -348,7 +348,7 @@
 		                       <!-- 상품 이미지 -->
 		                       <div class="row_img_area">
 		                              <div class="row_img">
-		                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}" class="img_a">
+		                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${cartList.getBeans_num()}&no=${memberDto.getMember_num() }" class="img_a">
 		                                      <img src="${cartList.getBeans_img() }" alt="${cartList.getBeans_name() }" class="product_img_file">
 		                                  </a>
 		                              </div>
@@ -398,7 +398,7 @@
 			                       <!-- 상품 이미지 -->
 			                       <div class="row_img_area">
 			                              <div class="row_img">
-			                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}" class="img_a">
+			                                  <a href="<%=request.getContextPath() %>/bean_content.do?num=${list.getBeans_num()}&no=${memberDto.getMember_num() }" class="img_a">
 			                                      <img src="${list.getBeans_img() }" alt="${list.getBeans_name() }" class="product_img_file">
 			                                  </a>
 			                              </div>

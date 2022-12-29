@@ -79,7 +79,8 @@
 	<div class="empty1">
 	
 		<c:set var="i" value="${cont }" />
-	
+		<c:set var="num" value="${num }" />
+		<c:set var="avg" value="${avg }" />
 		<div class="table_box">
 			<h2><b>원두 상세 정보</b></h2>
 			
@@ -95,7 +96,7 @@
 					<tr>				
 						<td>${i.getBeans_num() }</td>
 						<td>${i.getBeans_name() }</td>
-						<td>0</td>
+						<td>${num }</td>
 						<td><fmt:formatNumber value="${i.getBeans_price() }" />원</td>
 						<td>${i.getBeans_count() }</td>
 					</tr>
@@ -126,17 +127,24 @@
 							<th>원두 맛</th>
 							<td class="td_1">${i.getBeans_taste() }</td>
 							<th>원두 가격</th>
-							<td class="td_1">${i.getBeans_price() }</td>
+							<td class="td_1"><fmt:formatNumber value="${i.getBeans_price() }" /></td>
 						</tr>		
 						<tr class="tr_1">
-							<th>원두 평점</th>
-							<td class="td_1">0 점</td>
+							<th>원두 평점 평균</th>
+							<td class="td_1">
+							<c:if test="${avg eq null }">
+								0점
+							</c:if>
+							<c:if test="${avg ne null }">
+								${avg } 점							
+							</c:if>
+							</td>
 							<th>원두 재고</th>
 							<td class="td_1">${i.getBeans_count() } 개</td>
 						</tr>									
 						<tr class="tr_1">
 							<th>원두소개</th>
-							<td class="td_1" colspan="4" style="padding: 30px 0px 30px 50px;">${i.getBeans_intro() }</td>
+							<td class="td_1" colspan="4" style="padding: 30px 30px 30px 50px;">${i.getBeans_intro() }</td>
 						</tr>
 					</table>		
 				</div>	

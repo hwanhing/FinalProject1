@@ -243,7 +243,9 @@ input {
 				<input type="hidden" value="${member_num }" name="member_num">
 						<div>
 							<div>
+
 							<img alt="" id="img-preview1" class="img_no" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" />
+
 						<div>	
 						
 						  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery"  name="file1"/>

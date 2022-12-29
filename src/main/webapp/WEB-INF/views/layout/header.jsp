@@ -32,7 +32,10 @@
                 <div class="h-gnb">
                     <nav class="h-nav">
                         <ul class="h-menu">
-                            <li><a href="">원두취향테스트</a></li>
+
+
+                            <li><a href="<%=request.getContextPath()%>/bean_test.do?turn=1">원두취향테스트</a></li>
+
                             <li><a href="<%=request.getContextPath()%>/bean_list.do">모든 원두</a></li>
 
 
@@ -81,7 +84,7 @@
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
-                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세요" required autofocus></p>
 
                                                     <p><input type="password" name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
 
@@ -229,8 +232,10 @@
 	     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 		     <div class="header_contenttt">
 		     <c:if test="${member_img eq null}">
+
 		  	   <img alt="이미지없음" style="margin-left:15px; border: 1px solid #FFF; border-radius: 100%; height: 100px;
 width: 100PX;"  src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tuktukdesign170500037/77461543-%EB%82%A8%EC%9E%90-%EC%82%AC%EC%9A%A9%EC%9E%90-%EC%95%84%EC%9D%B4%EC%BD%98-%EC%82%AC%EB%9E%8C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%95%84%EB%B0%94%ED%83%80-%EA%B8%80%EB%A6%AC%ED%94%84-%EB%B2%A1%ED%84%B0-%EC%9D%BC%EB%9F%AC%EC%8A%A4%ED%8A%B8.jpg" /><span class="header__username">${member_name }님,<br>반갑습니다 😀</span> 
+
 		     </c:if>
 		     
 		     <c:if test="${member_img ne null }">
@@ -277,17 +282,14 @@ width: 100PX;" src="<%=request.getContextPath() %>/resources/res/img/${member_im
 		       </ul>
 	          	<div>
 	          		<div>
-	          		<c:if test="${!empty test_img }">
+	          		<c:if test="${test_img != '0'}">
 	          			 <img class="result-img" src="${test_img }" width=200>
-	          		</c:if>
-	          		 <c:if test="${empty test_img }">
-	          			<button>테스트하기</button>
+			          	<div>
+			          		<span class="result_name">${test_name}</span>
+			          	</div>
 	          		</c:if>
 	          		</div>
 	          		
-	          	<div>
-	          		<span class="result_name">${test_name}</span>
-	          	</div>
 	          	
 	          	</div>		      
 		     </div>

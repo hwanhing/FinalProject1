@@ -243,11 +243,15 @@ margin-left: 130px;}
 		margin-top: 5%;
 	}
 	
+
 	.h_row{
 		width: 80%;
 		display: flex;
 		justify-content: space-between;
 	}
+
+
+
 </style>
 </head>
 <body>
