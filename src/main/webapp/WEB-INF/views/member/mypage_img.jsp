@@ -242,6 +242,7 @@ input {
 				<input type="hidden" value="${member_num }" name="member_num">
 						<div>
 							<div>
+
 						<c:if test="${dto.getMember_img() eq null}">
 						
 							  <img alt="이미지없음" style="margin-left:15px; border: 1px solid #FFF; border-radius: 100%; height: 100px;
@@ -252,6 +253,7 @@ width: 100PX;"  src="https://us.123rf.com/450wm/tuktukdesign/tuktukdesign1705/tu
 						 <img alt="이미지없음" style="margin-left:15px; border: 1px solid #FFF; border-radius: 100%; height: 100px;
 width: 100PX;" src="<%=request.getContextPath() %>/resources/res/img/${member_img}" />
 						</c:if>
+
 						<div>	
 						
 						  <input type="file" accept="image/*" onchange="readURL(this)" class="image_gallery"  name="file1"/>

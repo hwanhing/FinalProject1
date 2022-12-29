@@ -8,6 +8,11 @@
  // 배송 버튼
  let deliveryBeforeBtn = document.querySelectorAll('.js_delivery_btn_b'); 
 
+ // 쿼리스트링 가져오기
+ function searchParam(key) {
+   return new URLSearchParams(location.search).get(key)
+ }
+
  // 1. 배송 대기 버튼 클릭시 배송중으로 변함, 버튼 색상 변경
  deliveryBeforeBtn.forEach(function(e,index){
  
@@ -15,8 +20,21 @@
  	
  		console.log(`${deliveryBeforeBtn[index]} 번 버튼 누름`)
  		
- 		deliveryBeforeBtn[index].textContent = '배송중'
- 		deliveryBeforeBtn[index].classList.add('c_delivery_ing')
+ 		// 만약 쿼리스트링에 type 값이 있으면 row 삭제, 아닐경우 버튼 구역 텍스트 변경
+		let type = searchParam('type')
+		console.log(`type : ${type}`)
+		
+		if(type==null){
+			deliveryBeforeBtn[index].setAttribute('disabled',true)
+			deliveryBeforeBtn[index].textContent = '배송중'
+ 			deliveryBeforeBtn[index].classList.add('c_delivery_ing')
+
+		}else{
+			let orderRowTr = document.querySelector('.order_row_tr')
+			let deliveryBefore = document.querySelector('.delivery_before_txt')
+			orderRowTr.remove()
+			deliveryBefore.textContent = deliveryBefore.textContent-1
+		}
  		
  		let orderNum = deliveryBeforeBtn[index].value
  		console.log(orderNum)
