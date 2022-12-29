@@ -774,15 +774,20 @@ public class CoffeeOrderController {
 
 	// 카카오 결제 완료 후 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_ok.do")
-	public String beanOrderOkList(@RequestParam("order") String order_num, Model model) throws IOException {
+	public String beanOrderOkList(@RequestParam("order") String order_num,HttpSession session, Model model) throws IOException {
 
 		System.out.println("-- 결제 순서 5 : 결제 완료! --------------------------------------------------------");
 		System.out.println("--bean_order_ok.do--------------------------------------------------------------");
 
+		int member_num = (Integer) session.getAttribute("member_num");
+		
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
 
+		int member_point = orderDao.getMemberPoint(member_num);
+		
+		session.setAttribute("member_point", member_point);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
 
@@ -938,23 +943,32 @@ public class CoffeeOrderController {
 
 		// 주문 테이블 가져오기
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
-
-		// 포인트를 사용했으면 사용 포인트 취소하기
-		if (orderList.get(0).getUse_point() > 0) {
-
-			int use_point = orderList.get(0).getUse_point();
-			System.out.println("사용한 포인트 : " + use_point);
-
-			typeMap.put("member_num", member_num);
-			typeMap.put("use_point", use_point);
-
-			result = orderDao.updateUsePointCancel(typeMap);
+		int save_point = 0;
+		// 적립 금액 
+		for(int i=0; i<orderList.size(); i++) {
+			save_point += orderList.get(i).getOrder_price();
 		}
+		save_point = (int) (save_point * 0.05); 
+		System.out.println("적립된 포인트는 ? " + save_point);
+
+		// 포인트를 사용했으면 사용 포인트 취소하기 + 적립 포인트 같이 취소
+		int use_point = orderList.get(0).getUse_point();
+		System.out.println("사용한 포인트 : " + use_point);
+
+		typeMap.put("member_num", member_num);
+		typeMap.put("use_point", use_point);
+		typeMap.put("save_point", save_point);
+
+		result = orderDao.updateUsePointCancel(typeMap);
 
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
 
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
+		
+		// 멤버 포인트 세션 값 다시 주기
+		int member_point = orderDao.getMemberPoint(member_num);
+		session.setAttribute("member_point", member_point);
 
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderOk";

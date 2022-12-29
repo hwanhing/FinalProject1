@@ -167,7 +167,14 @@
 	<!-- 포인트 취소 -->
 	<update id="updateUsePointCancel" parameterType="hashmap">
 		update final_member
-		   set member_point = member_point + #{use_point}
+		   set member_point = member_point + #{use_point} - #{save_point}
 		 where member_num = #{member_num}
 	</update>
+	
+	
+	<select id="getMemberPoint" parameterType="int" resultType="int">
+		select member_point
+		  from final_member
+		 where member_num = #{member_num}
+	</select>
 </mapper>

@@ -69,4 +69,8 @@ public interface CoffeeOrderDAO {
 	// 배송대기중인 전체 배송 타입번호(type_num) 1:배송중으로 변경
 	int updateAllTypeNum();
 	
+	
+	// 멤버 포인트 가져오기
+	int getMemberPoint(int member_num);
+	
 }

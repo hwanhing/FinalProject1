@@ -141,39 +141,12 @@ public class CoffeeOrderDAOImpl implements CoffeeOrderDAO {
 		return this.sqlSession.update("updateAllTypeNum");
 	}
 
-	
-
-	
-
-	
-
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-	
-	
-	
+	@Override
+	public int getMemberPoint(int member_num) {
+		return this.sqlSession.selectOne("getMemberPoint", member_num);
+	}
 
 
-	
-
-	
-	
-	
-
-	
-
-	
-	
 
 	
 }
