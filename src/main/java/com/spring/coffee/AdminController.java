@@ -484,10 +484,12 @@ private int totalRecord=0;
 		  FinalMemberDTO dto1= this.dao.beans_cont(write_num);
 		  FinalMemberDTO dto2 =this.dao.member_cont(write_num);
 		  
+		  
+		  
 		  model.addAttribute("goback", dto2);
 		  model.addAttribute("beans_cont", dto1);
 		  model.addAttribute("write_cont", dto);
-		 System.out.println(">>>>>>>>>>>>>>>>           "+dto1); 
+		 System.out.println(">>>>>>>>>>>>>>>>           "+dto); 
 		  return "./Admin/Admin_write_cont";
 	  }
 	  @RequestMapping("Admin_write_delete.do")

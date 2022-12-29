@@ -109,7 +109,7 @@
 			<c:set var="dto1" value="${admin_reply}"/>		
 				<div>
 				<h2>${dto.getBoard_title() }
-					${dto1.getReply_cont() }
+				
 				</h2>
 							
 				<br>
