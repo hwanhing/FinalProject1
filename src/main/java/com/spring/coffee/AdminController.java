@@ -486,6 +486,7 @@ private int totalRecord=0;
 		  
 		  
 		  
+		  
 		  model.addAttribute("goback", dto2);
 		  model.addAttribute("beans_cont", dto1);
 		  model.addAttribute("write_cont", dto);

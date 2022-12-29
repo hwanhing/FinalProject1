@@ -110,6 +110,7 @@
 				<div>
 				<h2>${dto.getBoard_title() }
 				
+				
 				</h2>
 							
 				<br>
