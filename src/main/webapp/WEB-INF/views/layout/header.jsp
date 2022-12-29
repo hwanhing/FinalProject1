@@ -84,7 +84,7 @@
                                             <fieldset class="mf-wrap">
 
                                                 <div class="mf-form">
-                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세용가리가리가리" required autofocus></p>
+                                                    <p><input type="text" name="member_id" placeholder="아이디를 입력하세요" required autofocus></p>
 
                                                     <p><input type="password" name="member_pwd" placeholder="비밀번호를 입력하세요" required></p>
 
