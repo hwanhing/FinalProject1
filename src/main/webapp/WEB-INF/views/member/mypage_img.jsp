@@ -140,6 +140,7 @@ input {
 	margin-top: 200px;
 }
 
+
 .logo {
 	margin-left: 70px;
 }
