@@ -75,10 +75,8 @@ function readURL1(input) {
     padding: 100px 100px 50px 0.1px;
 }	
 .img_no2{		
-border: 1px solid #000;
-border-radius: 100%;
-height: 7%;
-width: 7%;
+margin-left:15px; border: 1px solid #FFF; border-radius: 100%; height: 100px;
+width: 100PX;
  }
 
 .img_no{		
@@ -158,6 +156,7 @@ width: 100PX;
   color: #ba6c25;
 }
 
+
 .tabbable-line > .nav-tabs > li.open .dropdown-menu, .tabbable-line > .nav-tabs > li:hover .dropdown-menu {
   margin-top: 0px;
 }
@@ -188,6 +187,7 @@ text-align: center;
 .portlet .tabbable-line > .tab-content {
   padding-bottom: 0;
 }
+
 
 .first-span{
 	/* font-style: italic; */
