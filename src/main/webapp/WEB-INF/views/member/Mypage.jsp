@@ -244,6 +244,14 @@ margin-left: 130px;}
 	}
 	
 
+	.h_row{
+		width: 80%;
+		display: flex;
+		justify-content: space-between;
+	}
+
+
+
 </style>
 </head>
 <body>
@@ -357,9 +365,9 @@ margin-left: 130px;}
 								<div>
 									<span class="first-span">연락처</span>
 								</div>
-								<div style="margin-top: 10px;">
+								<div class="h_row" style="margin-top: 10px;">
 									<span style="margin-left: 5px;">${dto.getMember_phone() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}" style="margin-left:960px;">수정</a>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Phone_Modify.do?num=${dto.getMember_num()}&phone=${dto.getMember_phone()}">수정</a>
 								</div>
 								</div>
 								
@@ -372,9 +380,9 @@ margin-left: 130px;}
 								<div>
 									<span class="first-span">이메일</span>
 								</div>
-								<div style="margin-top: 10px;">
+								<div class="h_row" style="margin-top: 10px;">
 									<span  style="max-width:150px; margin-left: 5px;">${dto.getMember_email() }</span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}" style="margin-left:67%;">수정</a>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Email_Modify.do?num=${dto.getMember_num()}">수정</a>
 								</div>
 								</div>
 								
@@ -384,14 +392,14 @@ margin-left: 130px;}
 								<div>
 									<span class="first-span">비밀번호</span>
 								</div>
-								<div style="margin-top: 10px;">
+								<div class="h_row" style="margin-top: 10px;">
 									<span style="margin-left: 5px;"><c:if test="${dto.getMember_pwd().length() != 0 }">
 								                     <c:forEach begin="1" end="${dto.getMember_pwd().length() }">
 								                        *
 								                     </c:forEach>
 								                  </c:if>
 								                  </span>
-										<a class="modify" href="<%=request.getContextPath() %>/member_Pwd_Modify.do?num=${dto.getMember_num()}" style="margin-left:73.5%;">수정</a>
+										<a class="modify" href="<%=request.getContextPath() %>/member_Pwd_Modify.do?num=${dto.getMember_num()}">수정</a>
 								</div>
 								</div>
 								
@@ -518,6 +526,7 @@ margin-left: 130px;}
 								</a>
 								</div>
 								
+							
 									</div><!-- 부트스트랩 div 끝 -->
 								  		</div>
 									</div>
