@@ -126,8 +126,8 @@ public class MemberController {
 	        	 System.out.println("로그잉ㄴ주줄회원이다.");
 					
 					  out.println("<script>");
-					  out.println("alert('로그인 불가 합니다.')");
-					  out.println("history.back()");
+					  out.println("alert('비밀번호가 일치하지 않습니다.')");
+					  out.println("location.href='go_login.do'");
 					  out.println("</script>");
 					 
 	         }

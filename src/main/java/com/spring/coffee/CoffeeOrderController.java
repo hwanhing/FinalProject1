@@ -28,6 +28,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.springframework.stereotype.Controller;
@@ -774,7 +775,7 @@ public class CoffeeOrderController {
 
 	// 카카오 결제 완료 후 주문내역(상세) 페이지로 이동
 	@RequestMapping("bean_order_ok.do")
-	public String beanOrderOkList(@RequestParam("order") String order_num, Model model) throws IOException {
+	public String beanOrderOkList(@RequestParam("order") String order_num, HttpSession session, Model model) throws IOException {
 
 		System.out.println("-- 결제 순서 5 : 결제 완료! --------------------------------------------------------");
 		System.out.println("--bean_order_ok.do--------------------------------------------------------------");
@@ -783,9 +784,12 @@ public class CoffeeOrderController {
 		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
 		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
 
+		int member_num = (Integer) session.getAttribute("member_num");
+		int member_point = orderDao.getMemberPoint(member_num);
 		model.addAttribute("orderList", orderList);
 		model.addAttribute("summaryOrder", summaryOrder);
 
+		session.setAttribute("member_point", member_point);
 		System.out.println("--------------------------------------------------------------------------------");
 		return "./cartAndOrder/orderOk";
 	}
@@ -917,48 +921,57 @@ public class CoffeeOrderController {
 	}
 
 	// 주문 전체 취소
-	@RequestMapping("order_all_cancel.do")
-	public String orderAllCancel(HttpSession session, HttpServletRequest request, HttpServletResponse response,
-			Model model) throws IOException {
+		@RequestMapping("order_all_cancel.do")
+		public String orderAllCancel(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+				Model model) throws IOException {
 
-		System.out.println("--order_all_cancel.do-----------------------------------------------------------");
-		int member_num = (Integer) session.getAttribute("member_num");
-		String order_num = request.getParameter("onum");
+			System.out.println("--order_all_cancel.do-----------------------------------------------------------");
+			int member_num = (Integer) session.getAttribute("member_num");
+			String order_num = request.getParameter("onum");
 
-		System.out.println("member_num : " + member_num);
-		System.out.println("order_num : " + order_num);
+			System.out.println("member_num : " + member_num);
+			System.out.println("order_num : " + order_num);
 
-		Map<String, Object> typeMap = new HashMap<String, Object>();
-		typeMap.put("order_num", order_num);
-		typeMap.put("type_num", 3);
+			Map<String, Object> typeMap = new HashMap<String, Object>();
+			typeMap.put("order_num", order_num);
+			typeMap.put("type_num", 3);
 
-		// 주문 타입 취소건으로 수정하기
-		int result = orderDao.updateOrderType(typeMap);
-		System.out.println("주문타입 " + typeMap.get("type_num") + " 번으로 수정 결과 : " + result);
+			// 주문 타입 취소건으로 수정하기
+			int result = orderDao.updateOrderType(typeMap);
+			System.out.println("주문타입 " + typeMap.get("type_num") + " 번으로 수정 결과 : " + result);
 
-		// 주문 테이블 가져오기
-		List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
+			// 주문 테이블 가져오기
+			List<CoffeeOrderDTO> orderList = orderDao.getOrderCont(order_num);
+			int save_point = 0;
+			// 적립 금액 
+			for(int i=0; i<orderList.size(); i++) {
+				save_point += orderList.get(i).getOrder_price();
+			}
+			save_point = (int) (save_point * 0.05); 
+			System.out.println("적립된 포인트는 ? " + save_point);
 
-		// 포인트를 사용했으면 사용 포인트 취소하기
-		if (orderList.get(0).getUse_point() > 0) {
-
+			// 포인트를 사용했으면 사용 포인트 취소하기 + 적립 포인트 같이 취소
 			int use_point = orderList.get(0).getUse_point();
 			System.out.println("사용한 포인트 : " + use_point);
 
 			typeMap.put("member_num", member_num);
 			typeMap.put("use_point", use_point);
+			typeMap.put("save_point", save_point);
 
 			result = orderDao.updateUsePointCancel(typeMap);
+
+			Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
+
+			model.addAttribute("orderList", orderList);
+			model.addAttribute("summaryOrder", summaryOrder);
+			
+			// 멤버 포인트 세션 값 다시 주기
+			int member_point = orderDao.getMemberPoint(member_num);
+			session.setAttribute("member_point", member_point);
+
+			System.out.println("--------------------------------------------------------------------------------");
+			return "./cartAndOrder/orderOk";
 		}
-
-		Map<String, Object> summaryOrder = summaryOrder(order_num, orderList);
-
-		model.addAttribute("orderList", orderList);
-		model.addAttribute("summaryOrder", summaryOrder);
-
-		System.out.println("--------------------------------------------------------------------------------");
-		return "./cartAndOrder/orderOk";
-	}
 
 	// 배송중 >>> 배송완료로 변경
 	// 구매완료 버튼 클릭시 배송완료 처리
