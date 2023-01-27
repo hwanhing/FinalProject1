@@ -234,7 +234,12 @@ public class CoffeeBeanController {
 		
 		// 후기글 작성 총 개수
 		int count = this.dao.getWriteCount(num);
-		dto.setWrite_count(count);
+		System.out.println("dddddddddd"+ count);
+		if(count == 0) {
+			dto.setWrite_count(0);
+		}else if(count != 0) {
+			dto.setWrite_count(count);						
+		}
 		
 		System.out.println("num>>>>>>>>>>>"+num);
 		

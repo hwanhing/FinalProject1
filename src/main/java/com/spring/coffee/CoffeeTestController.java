@@ -149,8 +149,8 @@ public class CoffeeTestController {
 			// 세션 수정
 			if( (Integer) session.getAttribute("test_num") != test_result_num) {
 				session.setAttribute("test_num", test_result_num );
-				session.setAttribute("test_img", test_name);
-				session.setAttribute("test_name", test_img);
+				session.setAttribute("test_img", test_img);
+				session.setAttribute("test_name", test_name);
 			}
 		}
 		
